@@ -10,17 +10,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DWZ_Scada;
+using DWZ_Scada.DAL.DBContext;
+using DWZ_Scada.DAL.Entity;
 
 namespace SJTU_UI.Pages.User
 {
     public partial class FormUserEditor : UIForm
     {
-        private tbOpUser OpUser;
+        private OpUser OpUser;
 
         private int ID;
 
-        private bool isInsert =false;
-        public FormUserEditor(tbOpUser opUser)
+        private bool isInsert = false;
+        public FormUserEditor(OpUser opUser)
         {
             InitializeComponent();
             this.OpUser = opUser;
@@ -28,7 +30,7 @@ namespace SJTU_UI.Pages.User
         public FormUserEditor()
         {
             InitializeComponent();
-            this.OpUser = new tbOpUser(); 
+            this.OpUser = new OpUser();
             isInsert = true;
         }
 
@@ -38,19 +40,19 @@ namespace SJTU_UI.Pages.User
             this.ID = id;
         }
 
-        private Dictionary<int,string> opMap = new Dictionary<int, string>()
+        private Dictionary<int, string> opMap = new Dictionary<int, string>()
         {
-            {1,"操作员" },
+            {1,"实验员" },
             {10,"系统管理员"},
         };
         private void FormUserEditor_Load(object sender, EventArgs e)
         {
-            uiComboBox1.DataSource = new BindingSource(opMap,null);
+            uiComboBox1.DataSource = new BindingSource(opMap, null);
             //实际显示的信息
             uiComboBox1.DisplayMember = "Value";
             uiComboBox1.ValueMember = "Key";
 
-            if(isInsert)
+            if (isInsert)
             {
                 InsertUser();
             }
@@ -58,7 +60,7 @@ namespace SJTU_UI.Pages.User
             {
                 LoadUser();
             }
-           
+
         }
 
         /// <summary>
@@ -66,14 +68,13 @@ namespace SJTU_UI.Pages.User
         /// </summary>
         private void LoadUser()
         {
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            using (MyDbContext db = new MyDbContext())
             {
                 try
                 {
-                    tbOpUser user = db.tbOpUser
-                        .Where(r => r.ID == ID)
-                        .FirstOrDefault();
-                    if(user != null)
+                    OpUser user = db.OpUsers
+                        .FirstOrDefault(r => r.Id == ID);
+                    if (user != null)
                     {
                         LoadUI(user);
                     }
@@ -82,14 +83,14 @@ namespace SJTU_UI.Pages.User
                         UIMessageBox.Show("查询不到当前用户信息");
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     UIMessageBox.Show(ex.Message);
                 }
             }
         }
 
-        private void LoadUI(tbOpUser user)
+        private void LoadUI(OpUser user)
         {
             OpUser = user;
             tbxPassword.Text = user.Password;
@@ -104,20 +105,20 @@ namespace SJTU_UI.Pages.User
         /// </summary>
         private void InsertUser()
         {
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            using (MyDbContext db = new MyDbContext())
             {
                 try
                 {
-                    tbOpUser user = new tbOpUser();
+                    OpUser user = new OpUser();
                     //默认插入普通操作员
                     user.OpType = 1;
-                 /*   db.tbOpUser.InsertOnSubmit(user);
-                    db.SubmitChanges();*/
+                    /*   db.tbOpUser.InsertOnSubmit(user);
+                       db.SubmitChanges();*/
                     LoadUI(user);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    UIMessageBox.Show("插入用户失败"+ex.Message);
+                    UIMessageBox.Show("插入用户失败" + ex.Message);
                 }
             }
         }
@@ -127,41 +128,40 @@ namespace SJTU_UI.Pages.User
             this.Close();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private async void btnOK_Click(object sender, EventArgs e)
         {
-            if(!CheckInput())
+            if (!CheckInput())
             {
                 return;
             }
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            using (MyDbContext db = new MyDbContext())
             {
                 try
                 {
-                    OpUser = db.tbOpUser.SingleOrDefault(u=>u.ID==ID);
-                    if(OpUser == null && !isInsert)
+                    OpUser = db.OpUsers.SingleOrDefault(u => u.Id == ID);
+                    if (OpUser == null && !isInsert)
                     {
                         UIMessageBox.Show("查选不到当前修改用户信息");
                         return;
                     }
-                    if(isInsert)
+                    if (isInsert)
                     {
-                        OpUser = new tbOpUser();
+                        OpUser = new OpUser();
                     }
-                
                     OpUser.UserName = tbxUserName.Text;
                     OpUser.Password = tbxPassword.Text;
                     OpUser.UserCode = tbxUserCode.Text;
                     object selectedValue = uiComboBox1.SelectedValue;
                     OpUser.OpType = (int)selectedValue;
-                    if(isInsert)
+                    if (isInsert)
                     {
-                        db.tbOpUser.InsertOnSubmit(OpUser);
+                        db.OpUsers.Add(OpUser);
                     }
-                    db.SubmitChanges();
+                    await db.SaveChangesAsync();
                     UIMessageBox.Show("修改成功");
                     this.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     if (ex.Message.StartsWith("违反了 UNIQUE KEY 约束“工号"))
                     {
@@ -171,31 +171,28 @@ namespace SJTU_UI.Pages.User
                     {
                         UIMessageBox.ShowError(ex.Message);
                     }
-                
                 }
             }
-   
         }
 
         private bool CheckInput()
         {
-            bool isCheck =false;
-            if(tbxUserName.Text == "")
+            bool isCheck = false;
+            if (tbxUserName.Text == "")
             {
                 UIMessageBox.Show("请输入名称");
                 return isCheck;
             }
-            if(tbxUserCode.Text == "")
+            if (tbxUserCode.Text == "")
             {
                 UIMessageBox.Show("请输入工号");
                 return isCheck;
             }
-            if(uiComboBox1.SelectedValue == null)
+            if (uiComboBox1.SelectedValue == null)
             {
                 UIMessageBox.Show("请选择权限类型");
                 return isCheck;
             }
-
             isCheck = true;
             return isCheck;
         }

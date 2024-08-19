@@ -4,7 +4,10 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using Cap;
+using Cap.Dialog;
 using DWZ_Scada;
+using DWZ_Scada.DAL.DBContext;
+using DWZ_Scada.DAL.Entity;
 
 namespace AutoTF
 {
@@ -28,11 +31,10 @@ namespace AutoTF
         {
             try
             {
-                using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+                using (MyDbContext db = new MyDbContext())
                 {
                     uiComboBox1.Items.Clear();
-                    db.CommandTimeout = 3;
-                    foreach (var item in db.tbOpUser)
+                    foreach (var item in db.OpUsers)
                     {
                         uiComboBox1.Items.Add(item);
                     }
@@ -45,28 +47,28 @@ namespace AutoTF
             }
             catch (Exception e)
             {
-                UIMessageDialog.ShowErrorDialog(this,"初始化用户失败,请检查数据库连接");
+                CustomMessageBox.ShowDialog("警告","初始化用户失败,请检查数据库连接");
                 //this.Close();
                 return;
             }
         }
         private void uiSymbolButton1_Click(object sender, EventArgs e)
         {
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            using (MyDbContext db = new MyDbContext())
             {
                 if (uiComboBox1.SelectedItem==null)
                 {
                     return;
                 }
-                var user = (tbOpUser)uiComboBox1.SelectedItem;
+                var user = (OpUser)uiComboBox1.SelectedItem;
                 //从这里去获取userCode 可以作拼接 名字-工号
                 string userCode = user.UserCode;
-                var query = from r in db.tbOpUser
+                var query = from r in db.OpUsers
                             where r.UserCode == userCode && r.Password == uiTextBox1.Text
                             select r;
                 if (query.Any())
                 {
-                    tbOpUser opUser = query.FirstOrDefault();
+                    OpUser opUser = query.FirstOrDefault();
                     if (opUser!=null)
                     {
                         Global.CurrentUserCode = opUser.UserCode;
@@ -99,10 +101,10 @@ namespace AutoTF
                 uiTextBox2.Text = "";
                 return;
             }
-            tbOpUser user = uiComboBox1.SelectedItem as tbOpUser;
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            OpUser user = uiComboBox1.SelectedItem as OpUser;
+            using (MyDbContext db = new MyDbContext())
             {
-                var quary = from r in db.tbOpUser
+                var quary = from r in db.OpUsers
                             where r.UserName == user.UserName
                             select r;
                 if (quary.Any())

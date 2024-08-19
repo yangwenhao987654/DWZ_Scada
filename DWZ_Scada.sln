@@ -1,19 +1,19 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWZ_Scada", "DWZ_Scada\DWZ_Scada.csproj", "{5C1FB92C-210F-44BB-9F61-4917C5A6A3AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWZ_Scada", "DWZ_Scada\DWZ_Scada.csproj", "{5C1FB92C-210F-44BB-9F61-4917C5A6A3AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogTool", "LogTool\LogTool.csproj", "{29912E7C-724C-4E60-98F8-E6B5CC41CBD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogTool", "LogTool\LogTool.csproj", "{29912E7C-724C-4E60-98F8-E6B5CC41CBD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilYwh", "UtilYwh\UtilYwh.csproj", "{1EE22204-4811-46D3-AA80-1A2DF50A3C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilYwh", "UtilYwh\UtilYwh.csproj", "{1EE22204-4811-46D3-AA80-1A2DF50A3C83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilUIYwh", "UtilUIYwh\UtilUIYwh.csproj", "{14F68BA3-E1FE-427B-81C4-95F075DFCF6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilUIYwh", "UtilUIYwh\UtilUIYwh.csproj", "{14F68BA3-E1FE-427B-81C4-95F075DFCF6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationUtilYwh", "CommunicationUtilYwh\CommunicationUtilYwh.csproj", "{090B0E1F-85F5-451E-B546-FBE7C2AFBAB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationUtilYwh", "CommunicationUtilYwh\CommunicationUtilYwh.csproj", "{090B0E1F-85F5-451E-B546-FBE7C2AFBAB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp1", "TestConsoleApp1\TestConsoleApp1.csproj", "{891F3DAC-8388-47E8-BA33-0B4B10FAB619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp1", "TestConsoleApp1\TestConsoleApp1.csproj", "{891F3DAC-8388-47E8-BA33-0B4B10FAB619}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{3F2D5445-D2A4-4104-994A-5D8E8D9BEB81}"
 EndProject

@@ -9,7 +9,7 @@ using HslCommunication.Profinet.Siemens;
 using LogTool;
 using HslCommunication.Profinet.Melsec;
 
-namespace Cap
+namespace CommunicationUtilYwh.Communication
 {
     /// <summary>
     /// 西门子PLC S7-1200

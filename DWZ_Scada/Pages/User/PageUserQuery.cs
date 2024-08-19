@@ -13,7 +13,8 @@ using System.Windows.Forms;
 using SJTU_UI;
 using SJTU_UI.Pages.User;
 using Sunny.UI.Win32;
-using DWZ_Scada;
+using DWZ_Scada.DAL.DBContext;
+using DWZ_Scada.DAL.Entity;
 
 namespace AutoTF.Pages.Query
 {
@@ -25,7 +26,7 @@ namespace AutoTF.Pages.Query
         }
         private Dictionary<int, string> opMap = new Dictionary<int, string>()
         {
-            {1,"操作员" },
+            {1,"实验员" },
             {10,"系统管理员"},
         };
         private void PageUserQuery_Load(object sender, EventArgs e)
@@ -40,15 +41,14 @@ namespace AutoTF.Pages.Query
         //初始化查询用户
         private void InitTable()
         {
-            ColumnBtn.Text = "修改";
-            ColumnBtn.UseColumnTextForButtonValue = true;
+            //ColumnBtn.Text = "修改";
             //uiDataGridView1.ClearAll();
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            using (MyDbContext db = new MyDbContext())
             {
                 //DataGridViewButtonColumn column = new DataGridViewButtonColumn();
                 //column.Text = "编辑";
                 uiDataGridView1.Rows.Clear();
-                List<tbOpUser> tbOpUsers = db.tbOpUser.ToList();
+                List<OpUser> tbOpUsers = db.OpUsers.ToList();
                 for (int i = 0; i < tbOpUsers.Count; i++)
                 {
                     int index = i + 1;
@@ -61,7 +61,7 @@ namespace AutoTF.Pages.Query
                     //解析OpType
                     opMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
                     row.Cells[3].Value = opValue;
-                    row.Cells[5].Value = tbOpUsers[i].ID;
+                    row.Cells[5].Value = tbOpUsers[i].Id;
                     //row.Cells[4].Value = "修改";
                     uiDataGridView1.Rows.Add(row);
 
@@ -123,10 +123,10 @@ namespace AutoTF.Pages.Query
                 InitTable();
                 return;
             }
-            using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+            using (MyDbContext db = new MyDbContext())
             {
                 uiDataGridView1.Rows.Clear();
-                List<tbOpUser> tbOpUsers = db.tbOpUser
+                List<OpUser> tbOpUsers = db.OpUsers
                     .Where(r => r.UserName.Contains(name))
                     .ToList();
                 if (tbOpUsers.Count > 0)
@@ -147,7 +147,7 @@ namespace AutoTF.Pages.Query
 
                         button.UseColumnTextForButtonValue = true;
                         row.Cells[4] = button;
-                        row.Cells[5].Value = tbOpUsers[i].ID;
+                        row.Cells[5].Value = tbOpUsers[i].Id;
                         uiDataGridView1.Rows.Add(row);
                     }
                 }
@@ -167,7 +167,7 @@ namespace AutoTF.Pages.Query
             InitTable();
         }
 
-        private  void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selectedIndex = uiDataGridView1.SelectedIndex;
             if (selectedIndex < 0)
@@ -185,14 +185,14 @@ namespace AutoTF.Pages.Query
             {
                 try
                 {
-                    using (DataClasses1DataContext db = new DataClasses1DataContext(1))
+                    using (MyDbContext db = new MyDbContext())
                     {
-                        tbOpUser tbOpUser = db.tbOpUser
-                            .SingleOrDefault(r => r.ID == userId);
+                        OpUser tbOpUser = db.OpUsers
+                            .SingleOrDefault(r => r.Id == userId);
                         if (tbOpUser != null)
                         {
-                            db.tbOpUser.DeleteOnSubmit(tbOpUser); 
-                            db.SubmitChanges();
+                            db.OpUsers.Remove(tbOpUser);
+                            await db.SaveChangesAsync();
                         }
                     }
                 }
