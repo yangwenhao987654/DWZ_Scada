@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoTF;
 
 namespace DWZ_Scada.DAL.DBContext
 {
@@ -16,9 +17,9 @@ namespace DWZ_Scada.DAL.DBContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            string connStr = $"Data Source=127.0.0.1;Initial Catalog=ScadaBase;User Id=sa;Password=123123;Trusted_Connection=True;Encrypt=false;";
-            //string connectionStr = DbConfigManager.ConnectionStr;
-            optionsBuilder.UseSqlServer(connStr);
+            //string connStr = $"Data Source=127.0.0.1;Initial Catalog=ScadaBase;User Id=sa;Password=123123;Trusted_Connection=True;Encrypt=false;";
+            string connectionStr = DbConfigManager.ConnectionStr;
+            optionsBuilder.UseSqlServer(connectionStr);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

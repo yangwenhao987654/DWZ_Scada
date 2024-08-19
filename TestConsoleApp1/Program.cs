@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
+using CommunicationUtilYwh.Communication.ModbusTCP;
 using Newtonsoft.Json;
 using RestSharp;
 using TestConsoleApp1.MyHttpPlug;
@@ -19,12 +17,19 @@ namespace TestConsoleApp1
     {
         static void  Main(string[] args)
         {
+            ModbusTcpServer server = new ModbusTcpServer(502);
+            server.Start();
+            Console.ReadLine();
+        }
+
+        public static void TestHttp()
+        {
             Console.WriteLine("启动服务端...");
             StartServer();
 
             //HTTP客户端请求
             Console.WriteLine("启动模拟客户端发送请求...");
-            string url =  @"http://localhost:8090/test";
+            string url = @"http://localhost:8090/test";
             TestGetRequest<ResultDTO>(url);
             Console.ReadLine();
         }

@@ -33,6 +33,7 @@ namespace CommonUtilYwh.Communication.ModbusTCP
 
         public bool IsConnect = false;
 
+
         public (bool,string) Open(string IP, string port_str, string ID_str)
         {
             // 连接

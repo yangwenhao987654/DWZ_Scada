@@ -47,7 +47,7 @@ namespace AutoTF
             }
             catch (Exception e)
             {
-                CustomMessageBox.ShowDialog("警告","初始化用户失败,请检查数据库连接");
+                CustomMessageBox.ShowDialog("警告", "初始化用户失败,请检查数据库连接");
                 //this.Close();
                 return;
             }
@@ -56,7 +56,7 @@ namespace AutoTF
         {
             using (MyDbContext db = new MyDbContext())
             {
-                if (uiComboBox1.SelectedItem==null)
+                if (uiComboBox1.SelectedItem == null)
                 {
                     return;
                 }
@@ -69,7 +69,7 @@ namespace AutoTF
                 if (query.Any())
                 {
                     OpUser opUser = query.FirstOrDefault();
-                    if (opUser!=null)
+                    if (opUser != null)
                     {
                         Global.CurrentUserCode = opUser.UserCode;
                     }
@@ -78,10 +78,10 @@ namespace AutoTF
                         UIMessageBox.ShowError("查询用户信息失败!");
                         return;
                     }
-                    SystemParams.Instance.Login(user.UserName, query.First().OpType, query.First().UserName+query.First().UserCode);
+                    SystemParams.Instance.Login(user.UserName, query.First().OpType, query.First().UserName + query.First().UserCode);
                     Global.LoginUser = user.UserName;
                     Close();
-                    Global.IsLogin =true;
+                    Global.IsLogin = true;
                     return;
                 }
                 UIMessageBox.ShowError("密码错误,请重新输入!");
@@ -104,12 +104,12 @@ namespace AutoTF
             OpUser user = uiComboBox1.SelectedItem as OpUser;
             using (MyDbContext db = new MyDbContext())
             {
-                var quary = from r in db.OpUsers
+                var query = from r in db.OpUsers
                             where r.UserName == user.UserName
                             select r;
-                if (quary.Any())
+                if (query.Any())
                 {
-                    uiTextBox2.Text =$@"[{quary.First().UserName}]-[{quary.First().UserCode}]" ;
+                    uiTextBox2.Text = $@"[{query.First().UserName}]-[{query.First().OpType}]";
                     //Close();
                     return;
                 }
@@ -130,13 +130,18 @@ namespace AutoTF
 
         private void uiTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 uiSymbolButton1.PerformClick();
             }
         }
 
         private void uiAvatar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiTextBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

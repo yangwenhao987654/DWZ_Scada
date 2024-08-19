@@ -3,14 +3,11 @@ using LogTool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SJTU_UI;
 using SJTU_UI.Pages.User;
 using Sunny.UI.Win32;
 using DWZ_Scada.DAL.DBContext;
@@ -41,7 +38,7 @@ namespace AutoTF.Pages.Query
         //初始化查询用户
         private void InitTable()
         {
-            //ColumnBtn.Text = "修改";
+            ColumnBtn.Text = "修改";
             //uiDataGridView1.ClearAll();
             using (MyDbContext db = new MyDbContext())
             {

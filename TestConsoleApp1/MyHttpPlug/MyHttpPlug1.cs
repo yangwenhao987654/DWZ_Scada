@@ -43,9 +43,6 @@ namespace TestConsoleApp1.MyHttpPlug
                     Console.WriteLine("处理完毕");
 
                     //默认状态码是200
-                    e.Context.Response.SetStatus()
-                        .SetContentTypeByExtension(".html")
-                        .SetContent("").Answer();
                     return;
                 }
                 else

@@ -232,7 +232,7 @@ namespace AutoStation
         {
             toolStripStatusLabel1.Text = $"账号:{SystemParams.Instance.Op}";
             toolStripStatusLabel2.Text = $"角色:{SystemParams.Instance.OpLvl}.{SystemParams.Instance.OPRule}";
-            bool flag = SystemParams.Instance.OpLvl == 0;
+            bool flag = SystemParams.Instance.OpLvl == 10;
             var station = SystemParams.Instance.Station.ToString();
             foreach (var item in PageList)
             {

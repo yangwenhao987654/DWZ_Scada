@@ -65,7 +65,8 @@ namespace AutoTF
                 string jsonContent = File.ReadAllText(fullPath);
                 DatabaseConfig config = JsonConvert.DeserializeObject<DatabaseConfig>(jsonContent);
                 // 构建连接字符串
-                string connectionString = $"Data Source={config.ServerIp};Initial Catalog={config.DatabaseName};User ID={config.Username};Password={config.Password};Connect Timeout={config.ConnectTimeout}";
+               // string connectionString = $"Data Source={config.ServerIp};Initial Catalog={config.DatabaseName};User ID={config.Username};Password={config.Password};Connect Timeout={config.ConnectTimeout}";
+                string connectionString = $"Data Source={config.ServerIp};Initial Catalog={config.DatabaseName};User ID={config.Username};Password={config.Password};Trusted_Connection=True;Encrypt=false;";
                 ServerIp = config.ServerIp;
                 return connectionString;
             }
