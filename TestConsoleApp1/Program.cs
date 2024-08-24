@@ -1,24 +1,41 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CommunicationUtilYwh.Communication;
 using CommunicationUtilYwh.Communication.ModbusTCP;
 using Newtonsoft.Json;
 using RestSharp;
 using TestConsoleApp1.MyHttpPlug;
+using TestConsoleApp1.OOP;
 using TouchSocket.Core;
 using TouchSocket.Http;
 using TouchSocket.Sockets;
-using HttpClient = CommunicationUtilYwh.Communication.HttpClient;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace TestConsoleApp1
 {
     internal class Program
     {
+        delegate void VoidMethod();
+
         static void  Main(string[] args)
         {
-            ModbusTcpServer server = new ModbusTcpServer(502);
-            server.Start();
+
+            //测试ModbusServer
+
+          /*  ModbusTcpServer server = new ModbusTcpServer(502);
+            server.Start();*/
+
+          //
+          Animal animal = new Dog();
+         
+            //animal.Eat();
+            VoidMethod m;
+            m =  animal.Eat;
+            int a=1;
+            
+            m.Invoke();
+
             Console.ReadLine();
         }
 
@@ -55,7 +72,7 @@ namespace TestConsoleApp1
         public static void TestGetRequest<T>(string url)
         {
             string baseUrl = url;
-            HttpClient client = new HttpClient(baseUrl);
+            MyHttpClient client = new MyHttpClient(baseUrl);
             Task<RestResponse> task = client.GetAsync("");
             RestResponse response = task.Result;
             string res = response.Content;

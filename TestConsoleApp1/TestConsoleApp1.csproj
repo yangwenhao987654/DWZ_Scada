@@ -22,4 +22,8 @@
     <PackageReference Include="TouchSocket" Version="2.0.15" />
     <PackageReference Include="TouchSocket.Http" Version="2.0.15" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OOP\新文件夹1\" />
+    <Folder Include="OOP\新文件夹\" />
+  </ItemGroup>
 </Project>

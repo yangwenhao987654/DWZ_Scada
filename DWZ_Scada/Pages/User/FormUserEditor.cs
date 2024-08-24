@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DWZ.DAL.Entity;
 using DWZ_Scada;
 using DWZ_Scada.DAL.DBContext;
-using DWZ_Scada.DAL.Entity;
 
 namespace SJTU_UI.Pages.User
 {
@@ -40,14 +40,9 @@ namespace SJTU_UI.Pages.User
             this.ID = id;
         }
 
-        private Dictionary<int, string> opMap = new Dictionary<int, string>()
-        {
-            {1,"实验员" },
-            {10,"系统管理员"},
-        };
         private void FormUserEditor_Load(object sender, EventArgs e)
         {
-            uiComboBox1.DataSource = new BindingSource(opMap, null);
+            uiComboBox1.DataSource = new BindingSource(UserPermissionControl.OpMap, null);
             //实际显示的信息
             uiComboBox1.DisplayMember = "Value";
             uiComboBox1.ValueMember = "Key";
@@ -97,7 +92,7 @@ namespace SJTU_UI.Pages.User
             tbxUserCode.Text = user.UserCode;
             tbxUserName.Text = user.UserName;
             int opType = user.OpType;
-            uiComboBox1.Text = opMap[opType];
+            uiComboBox1.Text = UserPermissionControl.OpMap[opType];
         }
 
         /// <summary>

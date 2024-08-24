@@ -8,10 +8,10 @@ using RestSharp;
 
 namespace CommunicationUtilYwh.Communication
 {
-    public class HttpClient
+    public class MyHttpClient
     {
         public RestClient RestClient { get; set; }
-        public HttpClient(string baseUrl)
+        public MyHttpClient(string baseUrl)
         {
             RestClient = new RestClient(baseUrl);
         }

@@ -8,7 +8,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DWZ.DAL\DWZ.DAL.csproj" />
     <ProjectReference Include="..\LogTool\LogTool.csproj" />
+    <ProjectReference Include="..\TestConsoleApp1\TestConsoleApp1.csproj" />
     <ProjectReference Include="..\UtilUIYwh\UtilUIYwh.csproj" />
     <ProjectReference Include="..\UtilYwh\UtilYwh.csproj" />
   </ItemGroup>
@@ -17,6 +19,7 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />

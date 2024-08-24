@@ -10,10 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Cap;
 using DWZ_Scada;
 using LogTool;
-using Sunny.UI;
+using Microsoft.Data.SqlClient;
 
 namespace AutoTF
 {
@@ -51,8 +50,13 @@ namespace AutoTF
                 }
             }
         }
+        public static bool IsConnect
+        {
+            get => _isConnect;
+            set => _isConnect = value;
+        }
 
-        private static  bool  _isConnect= false;
+        private static bool _isConnect;
         private static string ReadConnectionStr()
         {
             try
@@ -72,7 +76,7 @@ namespace AutoTF
             }
             catch(Exception e)
             {
-                Global.IsDBConnected =false;
+                _isConnect =false;
                 return "";
             }
         }
@@ -87,7 +91,7 @@ namespace AutoTF
             if (ConnectionStr=="")
             {
                 GetConnectionStr();
-                return Global.IsDBConnected;
+                return _isConnect;
             }
             bool result = TestConnect();
             return  result; ;
@@ -99,7 +103,7 @@ namespace AutoTF
             {
                 _connectionStr = ReadConnectionStr();
                 _isConnect = TestConnect();
-                Global.IsDBConnected =_isConnect;
+                //Global.IsDBConnected =_isConnect;
             }
             return _connectionStr;
         }
@@ -143,15 +147,15 @@ namespace AutoTF
                 if (!DbConfigManager.CheckConnectOK())
                 {
                     LogMgr.Instance.Error($"数据库连接错误:\n请检查服务器连接是否正常[{DbConfigManager.ServerIp}]");
-                    UIMessageBox.ShowError($"数据库连接失败\n请检查服务器IP[{DbConfigManager.ServerIp}]是否能连上");
+                    //UIMessageBox.ShowError($"数据库连接失败\n请检查服务器IP[{DbConfigManager.ServerIp}]是否能连上");
                 }
             }
             catch (Exception e)
             {
                 LogMgr.Instance.Error($"数据库连接错误:【{e.Message}】");
-                UIMessageBox.ShowError("数据库连接失败:" + e.Message);
+                //UIMessageBox.ShowError("数据库连接失败:" + e.Message);
             }
-            return Global.IsDBConnected;
+            return _isConnect;
         }
     }
 }

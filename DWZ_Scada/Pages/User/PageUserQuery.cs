@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DWZ.DAL.Entity;
 using SJTU_UI.Pages.User;
 using Sunny.UI.Win32;
 using DWZ_Scada.DAL.DBContext;
-using DWZ_Scada.DAL.Entity;
 
 namespace AutoTF.Pages.Query
 {
@@ -21,11 +21,6 @@ namespace AutoTF.Pages.Query
         {
             InitializeComponent();
         }
-        private Dictionary<int, string> opMap = new Dictionary<int, string>()
-        {
-            {1,"实验员" },
-            {10,"系统管理员"},
-        };
         private void PageUserQuery_Load(object sender, EventArgs e)
         {
             //初始化显示
@@ -56,7 +51,7 @@ namespace AutoTF.Pages.Query
                     row.Cells[1].Value = tbOpUsers[i].UserName;
                     row.Cells[2].Value = tbOpUsers[i].UserCode;
                     //解析OpType
-                    opMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
+                    UserPermissionControl.OpMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
                     row.Cells[3].Value = opValue;
                     row.Cells[5].Value = tbOpUsers[i].Id;
                     //row.Cells[4].Value = "修改";
@@ -138,7 +133,7 @@ namespace AutoTF.Pages.Query
                         row.Cells[1].Value = tbOpUsers[i].UserName;
                         row.Cells[2].Value = tbOpUsers[i].UserCode;
                         //解析OpType
-                        opMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
+                        UserPermissionControl.OpMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
                         row.Cells[3].Value = opValue;
                         DataGridViewButtonCell button = new DataGridViewButtonCell();
 

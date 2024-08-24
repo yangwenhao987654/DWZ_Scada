@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DWZ_Scada;
+using DWZ_Scada.ProcessControl;
+using DWZ_Scada.ProcessControl.EntryHandle;
 
 namespace DWZ_Scada
 {
@@ -38,6 +40,18 @@ namespace DWZ_Scada
 
         private void uiLabel1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void uiButton1_Click(object sender, EventArgs e)
+        {
+            string sn = uiTextBox1.Text;
+            if (sn.IsNullOrEmpty())
+            {
+                sn = "24TT0001";
+            }
+            EntryCommand op10Entry = new OP10EntryCommand(sn);
+            op10Entry.Execute();
 
         }
     }
