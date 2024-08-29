@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using DWZ_Scada;
 using LogTool;
 using Microsoft.Data.SqlClient;
+using SqlConnection = System.Data.SqlClient.SqlConnection;
 
 namespace AutoTF
 {

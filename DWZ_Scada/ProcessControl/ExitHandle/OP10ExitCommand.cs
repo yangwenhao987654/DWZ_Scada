@@ -17,10 +17,11 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
 
         protected override void ExecuteEntry()
         {
+            //处理数据上报 出站 
+            //封装数据 上报 
             // OP10出站的具体实现
             LogMgr.Instance.Debug($"Executing specific Exit logic for OP10 with product {TempSN}");
         }
 
-     
     }
 }

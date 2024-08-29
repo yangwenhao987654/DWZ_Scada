@@ -8,7 +8,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DWZ.DAL\DWZ.DAL.csproj" />
     <ProjectReference Include="..\LogTool\LogTool.csproj" />
     <ProjectReference Include="..\TestConsoleApp1\TestConsoleApp1.csproj" />
     <ProjectReference Include="..\UtilUIYwh\UtilUIYwh.csproj" />
@@ -31,5 +30,27 @@
     <PackageReference Include="SunnyUI" Version="3.6.9" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="E:\DotNetCoreCode\repos\DWZ_Scada-NetCore8.0\DWZ_Scada\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\DotNetCoreCode\repos\DWZ_Scada-NetCore8.0\DWZ_Scada\.editorconfig" />
   </ItemGroup>
 </Project>

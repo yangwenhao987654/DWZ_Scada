@@ -23,6 +23,7 @@ using Cap.Dialog;
 using DIPTest;
 using DWZ_Scada;
 using SJTU_UI;
+using SJTU_UI.Pages.User;
 using UtilYwh;
 
 namespace AutoStation
@@ -48,7 +49,7 @@ namespace AutoStation
             }
         }
         public MyPage SelectedPage { get; set; }
-        
+
         /// <summary>
         /// 分割器最小距离
         /// </summary>
@@ -56,11 +57,11 @@ namespace AutoStation
         /// <summary>
         /// 分割器最大距离
         /// </summary>
-        private readonly int max = 300;
+        private readonly int max = 260;
         /// <summary>
         /// 启动时间
         /// </summary>
-        private DateTime st=DateTime.Now;
+        private DateTime st = DateTime.Now;
         /// <summary>
         /// ？？？
         /// </summary>
@@ -86,17 +87,17 @@ namespace AutoStation
         {
             InitializeComponent();
         }
-        private  void Form2_Load(object sender, EventArgs e)
+        private void Form2_Load(object sender, EventArgs e)
         {
-            string err=SystemParams.Load ();
-            if (err!="")
+            string err = SystemParams.Load();
+            if (err != "")
             {
                 LogMgr.Instance.Error($"加载系统配置失败![{err}]");
             }
             InitMenu();
             SystemParams.OPChangeEvent += SystemParams_OPChangeEvent;
-            
-            SystemParams.Instance.Login("无", 10, "OP");
+
+            //SystemParams.Instance.Login("无", UserPermissionControl.SuperLvl, "OP");
             CheckMyHost();
             LogMgr.Instance.Debug("开始初始化");
 
@@ -107,7 +108,8 @@ namespace AutoStation
             toolStripStatusLabel8.Alignment = ToolStripItemAlignment.Right;
             toolStripStatusLabel9.Alignment = ToolStripItemAlignment.Right;
             toolStripStatusLabel10.Alignment = ToolStripItemAlignment.Right;
-            Task.Run(() =>{
+            Task.Run(() =>
+            {
                 var d1 = PublicFunc.GetCpuRate();
                 var d2 = PublicFunc.GetMemorySize();
                 CPUInit = true;
@@ -121,7 +123,7 @@ namespace AutoStation
             string version = $"程序集版本[{Application.ProductVersion}]  最后修改时间[{fi.LastWriteTime}]";
             toolStripStatusLabel11.Text = version;
             LogMgr.Instance.Debug(version);
-      
+
             timer.Start();
             timer.Elapsed += Timer_Elapsed;
             SetAutoSize();
@@ -147,15 +149,15 @@ namespace AutoStation
         {
             string myHostName = "ywh";
             string currentHostName = Dns.GetHostName();
-            if(myHostName == currentHostName)
+            if (myHostName == currentHostName)
             {
                 Global.isYWH = true;
-                SystemParams.Instance.Login("等你许久了", 0, "超级管理员");
+                SystemParams.Instance.Login("等你许久了", UserPermissionControl.SuperLvl, "超级管理员");
                 return true;
             }
             else
             {
-                CheckAdmin();
+                //CheckAdmin();
                 return false;
             }
         }
@@ -171,7 +173,7 @@ namespace AutoStation
             CustomMessageBox.ShowDialog("请以管理员权限重新打开程序！");
             this.Close();
         }
-      
+
         public void SetAutoSize()
         {
             var size1 = Screen.PrimaryScreen.Bounds;
@@ -189,7 +191,7 @@ namespace AutoStation
                     break;
                 case SystemParams.StationEnum.所有:
                     break;
-                case SystemParams.StationEnum.上料打码工站:
+                case SystemParams.StationEnum.OP10上料打码工站:
                     ps = PageList.First(r => r.PageName == "OP10工站");
                     page = ps.ShowPage(uiTabControl1, 5000);
                     if (page != null)
@@ -197,27 +199,42 @@ namespace AutoStation
                         uiTabControl1.SelectPage(page.PageIndex);
                     }
                     break;
-                case SystemParams.StationEnum.机械手绕线工站:
-                    break;
-                case SystemParams.StationEnum.TIG电焊工站:
-                     ps = PageList.First(r => r.PageName == "TIG电焊工站");
-                     page=ps.ShowPage(uiTabControl1, 5000);
+                case SystemParams.StationEnum.OP20机械手绕线工站:
+                    ps = PageList.First(r => r.PageName == "绑定SSN站");
+                    page = ps.ShowPage(uiTabControl1, 5002);
                     if (page != null)
                     {
                         uiTabControl1.SelectPage(page.PageIndex);
                     }
                     break;
-                case SystemParams.StationEnum.电测工站:
-                     ps = PageList.First(r => r.PageName == "PPID打印站");
-                     page = ps.ShowPage(uiTabControl1, 5001);
+                    break;
+                case SystemParams.StationEnum.OP30绕线检查工站:
+                    ps = PageList.First(r => r.PageName == "TIG电焊工站");
+                    page = ps.ShowPage(uiTabControl1, 5000);
                     if (page != null)
-                    {                    
+                    {
                         uiTabControl1.SelectPage(page.PageIndex);
                     }
                     break;
-                case SystemParams.StationEnum.出料打码工站:
-                     ps = PageList.First(r => r.PageName == "绑定SSN站");
-                     page = ps.ShowPage(uiTabControl1, 5002);
+                case SystemParams.StationEnum.OP40TIG电焊工站:
+                    ps = PageList.First(r => r.PageName == "PPID打印站");
+                    page = ps.ShowPage(uiTabControl1, 5001);
+                    if (page != null)
+                    {
+                        uiTabControl1.SelectPage(page.PageIndex);
+                    }
+                    break;
+                case SystemParams.StationEnum.OP50电测工站:
+                    ps = PageList.First(r => r.PageName == "绑定SSN站");
+                    page = ps.ShowPage(uiTabControl1, 5002);
+                    if (page != null)
+                    {
+                        uiTabControl1.SelectPage(page.PageIndex);
+                    }
+                    break;
+                case SystemParams.StationEnum.OP60出料打码工站:
+                    ps = PageList.First(r => r.PageName == "绑定SSN站");
+                    page = ps.ShowPage(uiTabControl1, 5002);
                     if (page != null)
                     {
                         uiTabControl1.SelectPage(page.PageIndex);
@@ -232,16 +249,16 @@ namespace AutoStation
         {
             toolStripStatusLabel1.Text = $"账号:{SystemParams.Instance.Op}";
             toolStripStatusLabel2.Text = $"角色:{SystemParams.Instance.OpLvl}.{SystemParams.Instance.OPRule}";
-            bool flag = SystemParams.Instance.OpLvl == 10;
+            bool flag = SystemParams.Instance.OpLvl == UserPermissionControl.SuperLvl;
             var station = SystemParams.Instance.Station.ToString();
             foreach (var item in PageList)
             {
                 item.IsEnable = flag;
-                if (item.PageName==station)
+                if (item.PageName == station)
                 {
                     item.IsEnable = true;
                 }
-                if (item.PageName=="账号登录")
+                if (item.PageName == "账号登录")
                 {
                     item.IsEnable = true;
                 }
@@ -269,7 +286,7 @@ namespace AutoStation
             PageList.Add(new MyPage("用户查询", typeof(PageUserQuery), null));
 
             //维护界面
-            pageIndex = 100; 
+            pageIndex = 100;
             parent = uiNavMenu1.CreateNode("上料打码工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);
             uiNavMenu1.CreateChildNode(parent, "OP10工站", SymbolFontUtil.ChildNodeIcon, point, 24, pageIndex++);
 
@@ -323,7 +340,7 @@ namespace AutoStation
         //自动更新程序
         private void uiButton1_Click(object sender, EventArgs e)
         {
-          
+
         }
         //点击某个页面之前
         private void uiNavMenu1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -336,16 +353,16 @@ namespace AutoStation
 
         private void uiNavMenu1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var pageIndex =uiNavMenu1.GetPageIndex(e.Node);
+            var pageIndex = uiNavMenu1.GetPageIndex(e.Node);
             var quary = from r in PageList where r.PageName == e.Node.Text select r;
             if (!quary.Any())
             {
                 return;
             }
             var ps = quary.First();
-            CurrentPage= ps.ShowPage(uiTabControl1, pageIndex);
+            CurrentPage = ps.ShowPage(uiTabControl1, pageIndex);
             uiTabControl1.AddPage(CurrentPage);
-            if (CurrentPage!=null)
+            if (CurrentPage != null)
             {
                 uiTabControl1.SelectPage(CurrentPage.PageIndex);
             }
@@ -366,7 +383,7 @@ namespace AutoStation
         }
         private void timerTick(object sender, EventArgs e)
         {
-          
+
         }
 
 
@@ -392,28 +409,28 @@ namespace AutoStation
         {
             var pageIndex = uiNavMenu1.GetPageIndex(e.Node);
             var query = from r in PageList where r.PageName == e.Node.Text select r;
-            if(!query.Any())
+            if (!query.Any())
             {
                 return;
             }
             var ps = query.First();
 
-            if(e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 CurrentPage = ps.ShowPage(uiTabControl1, pageIndex);
-                if(CurrentPage != null)
+                if (CurrentPage != null)
                 {
                     uiTabControl1.SelectPage(pageIndex);
                 }
             }
-            else if(e.Button == MouseButtons.Right)
+            else if (e.Button == MouseButtons.Right)
             {
                 SelectedPage = ps;
             }
         }
         private void 单独打开_Click(object sender, EventArgs e)
         {
-            if(SelectedPage != null)
+            if (SelectedPage != null)
             {
                 var o = Activator.CreateInstance(SelectedPage.PageType, null) as UIPage;
                 PopupForm popupForm = new PopupForm(o, SelectedPage.PageName);
@@ -422,13 +439,21 @@ namespace AutoStation
 
         private void uiNavMenu1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-          /*  MessageBoxEx.ShowDialog("执行单独弹出窗口");*/
+            /*  MessageBoxEx.ShowDialog("执行单独弹出窗口");*/
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer.Stop();
             timer?.Dispose();
+        }
+
+        private void splitContainer1_MouseEnter(object sender, EventArgs e)
+        {
+          /*  if (splitContainer1)
+            {
+                
+            }*/
         }
     }
 }

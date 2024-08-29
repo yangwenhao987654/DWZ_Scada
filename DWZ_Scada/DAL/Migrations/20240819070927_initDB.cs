@@ -10,7 +10,7 @@ namespace DWZ_Scada.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+           /* migrationBuilder.CreateTable(
                 name: "tbOpUser",
                 columns: table => new
                 {
@@ -24,7 +24,7 @@ namespace DWZ_Scada.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tbOpUser", x => x.Id);
-                });
+                });*/
         }
 
         /// <inheritdoc />

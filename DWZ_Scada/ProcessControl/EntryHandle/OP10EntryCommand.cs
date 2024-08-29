@@ -21,6 +21,5 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
             // OP10进站的具体实现
             LogMgr.Instance.Debug($"Executing specific entry logic for OP10 with product {TempSN}");
         }
-
     }
 }

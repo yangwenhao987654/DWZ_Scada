@@ -2,6 +2,9 @@
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using SqlCommand = System.Data.SqlClient.SqlCommand;
+using SqlConnection = System.Data.SqlClient.SqlConnection;
+using SqlParameter = System.Data.SqlClient.SqlParameter;
 
 namespace AutoTF
 {

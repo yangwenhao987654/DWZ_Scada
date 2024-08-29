@@ -9,7 +9,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoStation;
+using DWZ_Scada.DAL.DBContext;
 using LogTool;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DWZ_Scada
 {
@@ -22,6 +26,10 @@ namespace DWZ_Scada
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImport("user32.dll")]
         public static extern void SwitchToThisWindow(IntPtr hWnd, bool fAltTab);
+
+        // 导入Windows API函数
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool RegisterWaitForSingleObject(IntPtr hEvent, IntPtr hObject, WaitOrTimerCallback callback, IntPtr context, uint milliseconds, bool executeImmediately);
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
@@ -61,6 +69,8 @@ namespace DWZ_Scada
                     }
                     else
                     {
+                        //GC.RegisterForFullGCNotification(GarbageCollectionNotificationCallback,null));
+
                         #region 处理全局异常,Task类中出现的异常无法在此捕获.
                         Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                         //处理UI异常
@@ -71,7 +81,33 @@ namespace DWZ_Scada
                         Application.SetCompatibleTextRenderingDefault(false);
                         #endregion
                         Application.EnableVisualStyles();
-                        LogTool.LogMgr.Instance.Init();
+
+                        //获取配置
+                        //注册服务
+                    /*    var config = new ConfigurationBuilder()
+                            .AddJsonFile("appSettings.json")
+                            .Build();*/
+
+                        var serviceCollection = new ServiceCollection();
+                        //serviceCollection
+                            //作用域
+                      /*      .AddDbContext<MyDbContext>(
+                            (builder )=>
+                            {
+                                builder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                            })
+
+                            //上下文实例池==很多上下文实例
+                            //状态重置，放回池中，少了初始化阶段，提高一丢丢性能
+                            .AddDbContextPool<MyDbContext>(
+                                builder =>
+                                {
+                                    builder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                                },1024)
+                            ;*/
+                        ConfigureServices(serviceCollection);
+                        var serviceProvider = serviceCollection.BuildServiceProvider();
+                        LogMgr.Instance.Init();
                         SystemParams.Load();
                         MainForm mainForm = MainForm.Instance;
                         mainForm.WindowState = FormWindowState.Maximized;
@@ -88,6 +124,24 @@ namespace DWZ_Scada
                 LogMgr.Instance.Info("关闭应用程序！");
             }
         }
+
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            //1.注册数据访问层
+           /* services.AddScoped<IMatlabPaarmsDAL, MatlabParams_DAL>();
+            services.AddScoped<IFormulaParamsDAL, FormulaParamsDAL>();*/
+
+            //2.注册业务逻辑层
+      /*      services.AddScoped<IMatlabParamsBLL, MatlabParamsBLL>();
+            services.AddScoped<IFormulaParamsBLL, FormulaParamsBLL>();*/
+
+            //注册主窗体
+            //services.AddScoped<MainForm>();
+
+        }
+
+
         #region 具体的异常处理函数
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {

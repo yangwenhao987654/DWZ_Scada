@@ -68,12 +68,12 @@ namespace DWZ_Scada
         {
             无,
             所有,
-            上料打码工站,
-            机械手绕线工站,
-            绕线检查工站,
-            TIG电焊工站,
-            电测工站,
-            出料打码工站,
+            OP10上料打码工站,
+            OP20机械手绕线工站,
+            OP30绕线检查工站,
+            OP40TIG电焊工站,
+            OP50电测工站,
+            OP60出料打码工站,
         }
 
         public static SystemParams Instance = new SystemParams();
