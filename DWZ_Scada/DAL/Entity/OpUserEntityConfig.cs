@@ -14,7 +14,7 @@ namespace DWZ.DAL.Entity
         {
             builder.ToTable("tbOpUser");
             builder.Property(r => r.UserName).HasMaxLength(50);
-            builder.Property(r => r.UserCode).HasMaxLength(50);
+            builder.Property(r => r.UserCode).HasMaxLength(50).IsRequired(true);
             builder.Property(r => r.Password).HasMaxLength(50);
         }
     }

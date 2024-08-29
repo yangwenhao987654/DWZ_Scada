@@ -6,19 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoTF;
 using DWZ.DAL.Entity;
+using DWZ_Scada.DAL.Entity;
 using Microsoft.Extensions.Configuration;
 
 namespace DWZ_Scada.DAL.DBContext
 {
     public class MyDbContext : DbContext
     {
- /*       public MyDbContext(DbContextOptions<MyDbContext> options)
-        : base(options)
-        {
-            
-        }*/
+        /*       public MyDbContext(DbContextOptions<MyDbContext> options)
+               : base(options)
+               {
+
+               }*/
 
         public DbSet<OpUser> OpUsers { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
