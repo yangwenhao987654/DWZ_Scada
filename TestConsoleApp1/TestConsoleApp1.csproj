@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>TestConsoleApp1</AssemblyTitle>
+    <Product>TestConsoleApp1</Product>
+    <Copyright>Copyright ©  2024</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommunicationUtilYwh\CommunicationUtilYwh.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="TouchSocket" Version="2.0.15" />
+    <PackageReference Include="TouchSocket.Http" Version="2.0.15" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OOP\新文件夹1\" />
+    <Folder Include="OOP\新文件夹\" />
+  </ItemGroup>
+</Project>
