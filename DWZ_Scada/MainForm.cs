@@ -25,6 +25,7 @@ using DWZ_Scada;
 using SJTU_UI;
 using SJTU_UI.Pages.User;
 using UtilYwh;
+using DWZ_Scada.Pages;
 
 namespace AutoStation
 {
@@ -297,6 +298,8 @@ namespace AutoStation
             uiNavMenu1.CreateChildNode(parent, "OP20-30工站", SymbolFontUtil.ChildNodeIcon, point, 24, pageIndex++);
             //PageList.Add(new MyPage("PPID查询", typeof(PageQuaryTb_PPID), null));
             //PageList.Add(new MyPage("良率查询", typeof(PageQuaryStationAll), null));
+            PageList.Add(new MyPage("OP20-30工站", typeof(ZCForm), null));    ///////////
+
 
             pageIndex = 300;
             parent = uiNavMenu1.CreateNode("TIG电焊工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);
@@ -309,6 +312,7 @@ namespace AutoStation
             pageIndex = 500;
             parent = uiNavMenu1.CreateNode("出料打码工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);
             uiNavMenu1.CreateChildNode(parent, "OP60工站", SymbolFontUtil.ChildNodeIcon, point, 24, pageIndex++);
+
             return "";
         }
         private void uiNavMenu1_MenuItemClick(TreeNode node, NavMenuItem item, int pageIndex)
@@ -321,7 +325,7 @@ namespace AutoStation
             uiNavMenu1.CollapseAll();
             splitContainer1.SplitterDistance = IsExpand ? min : max;
             uiNavMenu1.ShowItemsArrow = IsExpand;
-            uiNavMenu1.Enabled = IsExpand;
+            uiNavMenu1.Enabled = IsExpand; 
             uiAvatar1.Visible = IsExpand;
             uiAvatar2.Visible = IsExpand;
         }

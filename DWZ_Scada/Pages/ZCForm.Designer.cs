@@ -157,6 +157,7 @@ namespace DWZ_Scada.Pages
             uiButton7.TabIndex = 7;
             uiButton7.Text = "地址配置(F5)";
             uiButton7.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton7.Click += uiButton7_Click;
             // 
             // uiButton6
             // 
@@ -173,6 +174,7 @@ namespace DWZ_Scada.Pages
             uiButton6.TabIndex = 6;
             uiButton6.Text = "系统配置(F11)";
             uiButton6.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton6.Click += uiButton6_Click;
             // 
             // uiButton4
             // 
@@ -189,6 +191,7 @@ namespace DWZ_Scada.Pages
             uiButton4.TabIndex = 4;
             uiButton4.Text = "调试功能(F4)";
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton4.Click += uiButton4_Click;
             // 
             // uiButton5
             // 
@@ -205,6 +208,7 @@ namespace DWZ_Scada.Pages
             uiButton5.TabIndex = 5;
             uiButton5.Text = "日志报警(F10)";
             uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton5.Click += uiButton5_Click;
             // 
             // uiButton1
             // 
@@ -254,6 +258,7 @@ namespace DWZ_Scada.Pages
             uiButton3.TabIndex = 2;
             uiButton3.Text = "配方设定(F3)";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
             // 
             // uiTableLayoutPanel3
             // 
@@ -596,7 +601,6 @@ namespace DWZ_Scada.Pages
         }
 
         #endregion
-
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel2;
         private Sunny.UI.UIButton uiButton2;
@@ -634,5 +638,6 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel uiLabel17;
         private Sunny.UI.UILabel uiLabel18;
         private Sunny.UI.UIPanel uiPanel1;
+        public LogTool.ListViewEx_Log listViewEx_Log1;
     }
 }
