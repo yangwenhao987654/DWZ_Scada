@@ -28,6 +28,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using RestSharp;
 using Method = RestSharp.Method;
+using DWZ_Scada.Pages;
 
 namespace DWZ_Scada
 {
