@@ -444,8 +444,26 @@ namespace AutoStation
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            timer.Stop();
-            timer?.Dispose();
+            e.Cancel = true;
+            bool flag = UIMessageBox.ShowAsk("确定要退出吗?");
+            if (flag)
+            {
+                try
+                {
+                    LogMgr.Instance.Info("退出程序");
+
+                    //释放资源
+                    timer.Stop();
+                    timer?.Dispose();
+                    e.Cancel = false;
+                    Environment.Exit(0);
+                }
+                catch (Exception exception)
+                {
+
+                }
+            }
+
         }
 
         private void splitContainer1_MouseEnter(object sender, EventArgs e)

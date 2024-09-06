@@ -1,5 +1,4 @@
-﻿
-using LogTool;
+﻿using LogTool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,7 @@ using TouchSocket.Sockets;
 using CommunicationUtilYwh.Communication;
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.MyHttpPlug;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.ProcessControl.RequestModel;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
 using Microsoft.IdentityModel.Tokens;
@@ -56,6 +56,13 @@ namespace DWZ_Scada
             TestHttp();
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
+       
+            OP10MainFunc.Instance.Start();
+        }
+
+        private void PLCWorkMonitor()
+        {
+            
         }
 
         private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
@@ -133,9 +140,11 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogMgr.Instance.Info("关闭HttpServer");
+            LogMgr.Instance.Info("关闭OP10-HttpServer");
             MyHttpService?.Stop();
             MyHttpService?.Dispose();
+            OP10MainFunc.Instance?.Dispose();
+            LogMgr.Instance.Info("关闭OP10程序");
         }
 
         private async void uiButton2_Click(object sender, EventArgs e)

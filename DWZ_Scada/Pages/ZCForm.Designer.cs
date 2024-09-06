@@ -237,6 +237,7 @@ namespace DWZ_Scada.Pages
             uiButton2.TabIndex = 1;
             uiButton2.Text = "通用功能(F1)";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.Click += uiButton2_Click;
             // 
             // uiButton3
             // 

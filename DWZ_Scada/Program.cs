@@ -39,7 +39,7 @@ namespace DWZ_Scada
             #region 只允许打开一个程序
             bool isAppRunning = false;
             //设置一个互斥体
-            Mutex mutex = new Mutex(true, "YANZHAOKUN", out isAppRunning);
+   /*         Mutex mutex = new Mutex(true, "dwz_scada", out isAppRunning);
             if (!isAppRunning)
             {
                 IntPtr handle = IntPtr.Zero;
@@ -54,7 +54,7 @@ namespace DWZ_Scada
                 SendMessage(handle, WM_SYSCOMMAND2, SC_MAXIMIZE2, 0);   // 最大化
                 SwitchToThisWindow(handle, true);//显示
                 Process.GetCurrentProcess().Kill();//关闭当前线程
-            }
+            }*/
             #endregion
             try
             {
@@ -80,7 +80,6 @@ namespace DWZ_Scada
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
                         #endregion
-                        Application.EnableVisualStyles();
 
                         //获取配置
                         //注册服务

@@ -88,21 +88,11 @@ namespace DWZ_Scada
         /// </summary>
         [field: NonSerialized]
         public static event Action StationChanged;
-
-        #region PLC参数
-        [Permission(3), ReadOnly(true)]
-        [DisplayName("1.PLC IP地址"), Category("1.PLC配置信息"), Description("PLC的IP地址")]
-        public string PlcIP { get; set; }
-        [Permission(3), ReadOnly(true)]
-        [DisplayName("1.PLC 端口号"), Category("1.PLC配置信息"), Description("PLC的端口号")]
-        public int PlcPort { get; set; }
-        #endregion
-
         [field: NonSerialized]
         private StationEnum _station;
 
         [Permission(3), ReadOnly(false)]
-        [DisplayName("8.所属站别"), Category("5.设备参数"), Description("只允许启用选用的站别")]
+        [DisplayName("0.所属站别"), Category("0.设备配置参数"), Description("只允许启用选用的站别")]
         public StationEnum Station
         {
             get { return _station; }
@@ -115,28 +105,32 @@ namespace DWZ_Scada
                 }
             }
         }
-
         private void OnStationChanged()
         {
             StationChanged?.Invoke();
         }
 
+        #region OP10工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("1.OP10工站"), Description("PLC的IP地址")]
+        public string OP10_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("1.OP10工站"), Description("PLC的端口号")]
+        public int OP10_PlcPort { get; set; }
+        #endregion
+        
+
         #region 软件配置参数
         [Permission(3), ReadOnly(false)]
-        [DisplayName("1.是否启用语音播报"), Category("2.语音配置"), Description("配置选择是否使用语音提示功能")]
+        [DisplayName("1.是否启用语音播报"), Category("A.软件配置"), Description("配置选择是否使用语音提示功能")]
         //[Browsable(false)]
         public bool IsUseVoicePrompt { get; set; }
 
         [Permission(3), ReadOnly(false)]
-        [DisplayName("1.语速选择"), Category("2.语音配置"), Description("选择分拣机语音提示的播报速度")]
+        [DisplayName("1.语速选择"), Category("A.软件配置"), Description("选择分拣机语音提示的播报速度")]
         //[Browsable(false)]
         public VoiceSpeedLvl VoiceSpeed { get; set; }
 
-
-        [Permission(3), ReadOnly(false)]
-        [DisplayName("1.消毒时间 单位(分钟m)"), Category("2.消毒配置"), Description("设置消毒时间")]
-        //[Browsable(false)]
-        public int DisinfectTime { get; set; }
         #endregion
 
         #region 登陆参数

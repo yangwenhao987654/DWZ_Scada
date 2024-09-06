@@ -43,9 +43,14 @@ namespace DWZ_Scada.Pages
                     TimerElapsed(id);
                 }));
                 return;
-            } 
+            }
             lblTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff");
-            lblLoginName.Text ="调用线程ID:"+ state.ToString();
+            lblLoginName.Text = "调用线程ID:" + state.ToString();
+        }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

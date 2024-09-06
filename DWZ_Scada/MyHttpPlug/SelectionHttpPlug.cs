@@ -115,7 +115,6 @@ namespace DWZ_Scada.MyHttpPlug
                     LogMgr.Instance.Debug("处理完毕");
                     return;
                 }
-             
             }
             else
             {
@@ -129,8 +128,6 @@ namespace DWZ_Scada.MyHttpPlug
                 };
                 await e.Context.Response.FromJson(resultDto.ToJsonString()).AnswerAsync();*/
             }
-
-           
         }
     }
 }
