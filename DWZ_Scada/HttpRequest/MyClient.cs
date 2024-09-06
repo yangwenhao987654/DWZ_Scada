@@ -22,8 +22,7 @@ namespace DWZ_Scada.HttpRequest
         /// </summary>
         public static string EntryUrl = URLConstants.Base + URLConstants.EntryUrl;
 
-
-        public static async   Task CheckInTest(EntryRequestDTO requestDto)
+        public static async  Task CheckIn(EntryRequestDTO requestDto)
         {
             try
             {
@@ -95,7 +94,7 @@ namespace DWZ_Scada.HttpRequest
             request.MakePost(url,dto);
             RestResponse response = await client.ExecuteAsync(request);
             LogMgr.Instance.Info("获取响应");
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
         /// <summary>
@@ -114,7 +113,7 @@ namespace DWZ_Scada.HttpRequest
             request.MakePost(url, dto);
             RestResponse response = await client.ExecuteAsync(request);
             LogMgr.Instance.Info("获取响应");
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
         /// <summary>
@@ -135,7 +134,7 @@ namespace DWZ_Scada.HttpRequest
             request.MakePost(url, dto);
             RestResponse response = await client.ExecuteAsync(request);
             LogMgr.Instance.Info("获取响应");
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
         /// <summary>
@@ -156,7 +155,7 @@ namespace DWZ_Scada.HttpRequest
             request.MakePost(url, dto);
             RestResponse response = await client.ExecuteAsync(request);
             LogMgr.Instance.Info("请求发送完成");
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace DWZ_Scada.HttpRequest
             request.MakePost(url, dto);
             RestResponse response = await client.ExecuteAsync(request);
             LogMgr.Instance.Info("请求发送完成");
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
         /// <summary>
@@ -194,7 +193,7 @@ namespace DWZ_Scada.HttpRequest
             request.AddParameter("code", tempSN);
             Task<RestResponse> task = client.ExecuteAsync(request);
             RestResponse response = task.Result;
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
         /// <summary>
@@ -209,10 +208,10 @@ namespace DWZ_Scada.HttpRequest
             request.Method = Method.Get;
             Task<RestResponse> task = client.ExecuteAsync(request);
             RestResponse response = task.Result;
-            AnalysisResponce(response);
+            AnalysisResponse(response);
         }
 
-        private static void AnalysisResponce(RestResponse  response)
+        private static void AnalysisResponse(RestResponse  response)
         {
             bool isSuccessful = response.IsSuccessful;
             if (isSuccessful)

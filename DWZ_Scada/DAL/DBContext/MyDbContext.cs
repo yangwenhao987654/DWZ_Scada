@@ -35,7 +35,7 @@ namespace DWZ_Scada.DAL.DBContext
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        { 
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
         }

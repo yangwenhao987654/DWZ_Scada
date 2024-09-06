@@ -37,17 +37,21 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
 
         public async void Execute()
         {
+            PostExecute();
             await PreExecute();
             ExecuteEntry();
-            PostExecute();
         }
 
+        /// <summary>
+        /// 统一进站请求
+        /// </summary>
+        /// <returns></returns>
         protected virtual async Task PreExecute()
         {
             EntryRequestDTO requestDto = new EntryRequestDTO();
             requestDto.SnTemp = TempSN;
             requestDto.StationbCode = StationName;
-            await MyClient.CheckInTest(requestDto);
+            await MyClient.CheckIn(requestDto);
           /*  try
             {
                 // 统一的执行前处理逻辑
