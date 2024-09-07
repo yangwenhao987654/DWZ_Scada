@@ -27,6 +27,25 @@ namespace DWZ_Scada.Pages
         private ListViewEx_Log listViewLog;
         private Timer timer;
 
+        private static ZCForm _instance;
+        public static ZCForm Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(ZCForm))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new ZCForm();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
         private ListViewEx_Log listViewExLog;
         public ZCForm()
         {
@@ -34,8 +53,24 @@ namespace DWZ_Scada.Pages
         }
         private void ZCForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //ESC 键  会触发退出
-            timer?.Dispose();
+            e.Cancel = true;
+            bool flag = UIMessageBox.ShowAsk("确定要退出吗?");
+            if (flag)
+            {
+                try
+                {
+                    LogMgr.Instance.Info("退出程序");
+
+                    //释放资源
+                    timer?.Dispose();
+                    e.Cancel = false;
+                    Environment.Exit(0);
+                }
+                catch (Exception exception)
+                {
+
+                }
+            }
         }
         private void ZCForm_Load(object sender, EventArgs e)
         {
@@ -45,6 +80,9 @@ namespace DWZ_Scada.Pages
             this.KeyPreview = true;
             // 添加事件处理程序
             this.KeyDown += new KeyEventHandler(Form_KeyDown);
+
+            SetAutoStart();
+
         }
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
@@ -73,6 +111,66 @@ namespace DWZ_Scada.Pages
                     break;
                 case Keys.F12:
 
+
+                    break;
+}
+}
+
+        private void ZCForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F11)
+            {
+                uiButton6_Click(sender, e);
+            }
+
+            if (e.KeyCode==Keys.F5)
+            {
+                
+            }
+        }
+        public void SetAutoSize()
+        {
+            var size1 = Screen.PrimaryScreen.Bounds;
+            var size2 = Screen.PrimaryScreen.WorkingArea;
+            this.MaximumSize = new Size(size2.Width, size2.Height);
+            WindowState = FormWindowState.Maximized;
+        }
+
+        private void SetMainPage(Control c)
+        {
+            uiPanel1.Controls.Clear();
+            c.Dock = DockStyle.Fill;
+            c.Show();
+            uiPanel1.Controls.Add(c);
+        }
+        public void SetAutoStart()
+        {
+            MyPage ps = null;
+            UIPage page = null;
+            switch (SystemParams.Instance.Station)
+            {
+                case SystemParams.StationEnum.无:
+                    break;
+                case SystemParams.StationEnum.所有:
+                    break;
+                case SystemParams.StationEnum.OP10上料打码工站:
+                    SetMainPage(PageOP10.Instance);
+                    break;
+                case SystemParams.StationEnum.OP20机械手绕线工站:
+                    break;
+                case SystemParams.StationEnum.OP30绕线检查工站:
+            
+                    break;
+                case SystemParams.StationEnum.OP40TIG电焊工站:
+            
+                    break;
+                case SystemParams.StationEnum.OP50电测工站:
+              
+                    break;
+                case SystemParams.StationEnum.OP60出料打码工站:
+                   
+                    break;
+                default:
                     break;
 
             }

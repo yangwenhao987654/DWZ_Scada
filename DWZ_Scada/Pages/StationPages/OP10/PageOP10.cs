@@ -88,7 +88,6 @@ namespace DWZ_Scada
             /*  lbl_EntrySN.DataBindings.Add("Text", op10Model, "TempSN");
               op10Model.TempSN = "6666";*/
             UpdateTempSN("6654");
-
         }
         public void UpdateTempSN(string newValue)
         {
