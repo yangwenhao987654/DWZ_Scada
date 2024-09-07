@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using AutoStation;
 using DWZ_Scada.DAL.DBContext;
 using DWZ_Scada.HttpRequest;
+using DWZ_Scada.Pages;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.EntityFrameworkCore;
@@ -110,7 +111,7 @@ namespace DWZ_Scada
                         Global.ServiceProvider  = serviceCollection.BuildServiceProvider();
                         LogMgr.Instance.Init();
                         SystemParams.Load();
-                        MainForm mainForm = MainForm.Instance;
+                        ZCForm mainForm = ZCForm.Instance;
                         mainForm.WindowState = FormWindowState.Maximized;
                         Application.Run(mainForm);
                     }

@@ -90,11 +90,6 @@ namespace AutoStation
         }
         private void Form2_Load(object sender, EventArgs e)
         {
-            string err = SystemParams.Load();
-            if (err != "")
-            {
-                LogMgr.Instance.Error($"加载系统配置失败![{err}]");
-            }
             InitMenu();
             SystemParams.OPChangeEvent += SystemParams_OPChangeEvent;
 
@@ -300,7 +295,6 @@ namespace AutoStation
             //PageList.Add(new MyPage("良率查询", typeof(PageQuaryStationAll), null));
             PageList.Add(new MyPage("OP20-30工站", typeof(ZCForm), null));    ///////////
 
-
             pageIndex = 300;
             parent = uiNavMenu1.CreateNode("TIG电焊工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);
             uiNavMenu1.CreateChildNode(parent, "OP40工站", SymbolFontUtil.ChildNodeIcon, point, 24, pageIndex++);
@@ -472,10 +466,7 @@ namespace AutoStation
 
         private void splitContainer1_MouseEnter(object sender, EventArgs e)
         {
-          /*  if (splitContainer1)
-            {
-                
-            }*/
+
         }
     }
 }
