@@ -21,6 +21,8 @@ namespace DWZ_Scada.Pages
     public partial class ZCForm : UIForm
     {
         private Timer timer;
+
+        private ListViewEx_Log listViewExLog;
         public ZCForm()
         {
             InitializeComponent();
@@ -94,7 +96,9 @@ namespace DWZ_Scada.Pages
         }
         private void uiButton5_Click(object sender, EventArgs e)
         {
-            FormCustom formCustom = new FormCustom();
+             listViewExLog = new ListViewEx_Log();
+             LogMgr.Instance.SetCtrl(listViewExLog);
+            FormCustom formCustom = new FormCustom(listViewExLog,"日志报警");
             formCustom.Show();
         }
         private void FormCustom_KeyDown(object sender, KeyEventArgs e)
@@ -130,6 +134,11 @@ namespace DWZ_Scada.Pages
             {
                 uiButton4_Click(sender, e);
             }
+        }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

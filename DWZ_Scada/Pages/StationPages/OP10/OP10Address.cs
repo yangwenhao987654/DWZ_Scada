@@ -15,8 +15,29 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
 
         /// <summary>
+        /// 报警信息地址 起始地址
+        /// </summary>
+        public static readonly string AlarmAddress="";
+
+
+        /// <summary>
         /// 进站SN码
         /// </summary>
         public static readonly string EntrySn = "";
+
+        /// <summary>
+        /// 读取PLC状态地址
+        /// </summary>
+        public static string State = "";
+
+        /// <summary>
+        /// 点检模式地址
+        /// </summary>
+        public static string SpotCheck = "";
+
+        /// <summary>
+        /// 采集信号
+        /// </summary>
+        public static readonly string Collect = "";
     }
 }

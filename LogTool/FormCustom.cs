@@ -1,5 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+
 namespace LogTool
 {
     public partial class FormCustom : Form
@@ -13,33 +21,6 @@ namespace LogTool
             this.Closed += FormCustom_Closed;
         }
 
-        public FormCustom()
-        {
-            InitializeComponent();
-        }
-        private static FormCustom _instance;
-        public static FormCustom Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (typeof(FormCustom))
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new FormCustom();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-        public ListViewEx_Log LogCtrl
-        {
-            get { return listViewEx_Log1; }
-        }
-
         private void FormCustom_Closed(object sender, EventArgs e)
         {
             OnCustomFormClosed();
@@ -49,6 +30,7 @@ namespace LogTool
         {
             CustomFormClosed?.Invoke(this, null);
         }
+
         public FormCustom(Control c, string title)
         {
             InitializeComponent();
@@ -57,6 +39,5 @@ namespace LogTool
             this.Controls.Add(c);
             this.Closed += FormCustom_Closed;
         }
-
     }
 }

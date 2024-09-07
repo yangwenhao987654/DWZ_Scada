@@ -638,6 +638,5 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel uiLabel17;
         private Sunny.UI.UILabel uiLabel18;
         private Sunny.UI.UIPanel uiPanel1;
-        public LogTool.ListViewEx_Log listViewEx_Log1;
     }
 }
