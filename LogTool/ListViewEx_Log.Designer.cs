@@ -56,7 +56,8 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.清除});
+            this.清除,
+            this.弹出日志});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
             // 
@@ -66,6 +67,13 @@
             this.清除.Size = new System.Drawing.Size(124, 22);
             this.清除.Text = "清除";
             this.清除.Click += new System.EventHandler(this.清除_Click);
+            // 
+            // 弹出日志
+            // 
+            this.弹出日志.Name = "弹出日志";
+            this.弹出日志.Size = new System.Drawing.Size(124, 22);
+            this.弹出日志.Text = "弹出日志";
+            this.弹出日志.Click += new System.EventHandler(this.弹出日志_Click);
             // 
             // ListViewEx_Log
             // 

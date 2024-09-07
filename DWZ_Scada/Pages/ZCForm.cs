@@ -15,23 +15,25 @@ using DWZ_Scada;
 using DWZ_Scada.Pages;
 using Timer = System.Threading.Timer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Cap.Dialog;
+using DIPTest;
+using DWZ_Scada.Page.PLCControl;
 
 namespace DWZ_Scada.Pages
 {
     public partial class ZCForm : UIForm
     {
+        private ListViewEx_Log listViewLog;
         private Timer timer;
         public ZCForm()
         {
             InitializeComponent();
         }
-
         private void ZCForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             //ESC 键  会触发退出
             timer?.Dispose();
         }
-
         private void ZCForm_Load(object sender, EventArgs e)
         {
             timer = new Timer(TimerElapsed, null, 0, 100);
@@ -42,7 +44,7 @@ namespace DWZ_Scada.Pages
             this.KeyDown += new KeyEventHandler(Manual_Debug_KeyDown);
             this.KeyDown += new KeyEventHandler(Form_set_PLC_KeyDown);
             this.KeyDown += new KeyEventHandler(FormCustom_KeyDown);
-            this.KeyDown += new KeyEventHandler(SystemParams_KeyDown); 
+            this.KeyDown += new KeyEventHandler(SystemParams_KeyDown);
             this.KeyDown -= new KeyEventHandler(SystemParams_KeyDown);
         }
 
@@ -62,6 +64,16 @@ namespace DWZ_Scada.Pages
             lblLoginName.Text = "调用线程ID:" + state.ToString();
         }
 
+        public void AddFormTopanel(Form form)
+        {
+            this.uiPanel1.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.uiPanel1.Controls.Add(form);
+            form.Show();
+        }
+
         private void uiButton6_Click(object sender, EventArgs e)
         {
             bool flag = SystemParams.Instance.OpLvl == 0;
@@ -70,7 +82,8 @@ namespace DWZ_Scada.Pages
                 UIMessageBox.ShowError("當前登錄賬號權限不足！");
                 return;
             }
-            new PageProperty(SystemParams.Instance).ShowDialog();
+            //new PageProperty(SystemParams.Instance).ShowDialog();
+            AddFormTopanel(new PageProperty(SystemParams.Instance));
         }
         private void SystemParams_KeyDown(object sender, KeyEventArgs e)
         {
@@ -82,8 +95,9 @@ namespace DWZ_Scada.Pages
 
         private void uiButton7_Click(object sender, EventArgs e)
         {
+
             Form_set_PLC form_set_plc = new Form_set_PLC();
-            form_set_plc.Show();
+            AddFormTopanel(form_set_plc);
         }
         private void Form_set_PLC_KeyDown(object sender, KeyEventArgs e)
         {
@@ -94,8 +108,10 @@ namespace DWZ_Scada.Pages
         }
         private void uiButton5_Click(object sender, EventArgs e)
         {
-            FormCustom formCustom = new FormCustom();
-            formCustom.Show();
+            listViewLog = new ListViewEx_Log();
+            LogMgr.Instance.SetCtrl(listViewLog);
+            FormCustom formCustom = new FormCustom(listViewLog, "日志报警");
+            AddFormTopanel(formCustom);
         }
         private void FormCustom_KeyDown(object sender, KeyEventArgs e)
         {
@@ -108,7 +124,7 @@ namespace DWZ_Scada.Pages
         private void uiButton3_Click(object sender, EventArgs e)
         {
             Formula_set formula_set = new Formula_set();
-            formula_set.Show();
+            AddFormTopanel(formula_set);
         }
         private void Formula_set_KeyDown(object sender, KeyEventArgs e)
         {
@@ -122,7 +138,7 @@ namespace DWZ_Scada.Pages
         private void uiButton4_Click(object sender, EventArgs e)
         {
             Manual_Debug manual_Debug = new Manual_Debug();
-            manual_Debug.Show();
+            AddFormTopanel(manual_Debug);
         }
         private void Manual_Debug_KeyDown(object sender, KeyEventArgs e)
         {
@@ -130,6 +146,18 @@ namespace DWZ_Scada.Pages
             {
                 uiButton4_Click(sender, e);
             }
+        }
+
+        private void uiButton1_Click(object sender, EventArgs e)
+        {
+            PageOP10 pageOp10 = new PageOP10();
+            AddFormTopanel(pageOp10);
+        }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+            Page_PLCAlarmConfigcs page_PLCAlarmConfigcs = new Page_PLCAlarmConfigcs();
+            AddFormTopanel(page_PLCAlarmConfigcs);
         }
     }
 }

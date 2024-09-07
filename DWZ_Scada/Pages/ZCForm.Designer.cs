@@ -129,7 +129,7 @@ namespace DWZ_Scada.Pages
             // uiButton8
             // 
             uiButton8.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton8.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton8.FillColor = System.Drawing.Color.LightGray;
             uiButton8.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton8.ForeColor = System.Drawing.Color.Black;
             uiButton8.Location = new System.Drawing.Point(1673, 0);
@@ -145,7 +145,7 @@ namespace DWZ_Scada.Pages
             // uiButton7
             // 
             uiButton7.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton7.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton7.FillColor = System.Drawing.Color.LightGray;
             uiButton7.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton7.ForeColor = System.Drawing.Color.Black;
             uiButton7.Location = new System.Drawing.Point(956, 0);
@@ -162,7 +162,7 @@ namespace DWZ_Scada.Pages
             // uiButton6
             // 
             uiButton6.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton6.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton6.FillColor = System.Drawing.Color.LightGray;
             uiButton6.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton6.ForeColor = System.Drawing.Color.Black;
             uiButton6.Location = new System.Drawing.Point(1434, 0);
@@ -179,7 +179,7 @@ namespace DWZ_Scada.Pages
             // uiButton4
             // 
             uiButton4.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton4.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton4.FillColor = System.Drawing.Color.LightGray;
             uiButton4.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton4.ForeColor = System.Drawing.Color.Black;
             uiButton4.Location = new System.Drawing.Point(717, 0);
@@ -196,7 +196,7 @@ namespace DWZ_Scada.Pages
             // uiButton5
             // 
             uiButton5.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton5.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton5.FillColor = System.Drawing.Color.LightGray;
             uiButton5.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton5.ForeColor = System.Drawing.Color.Black;
             uiButton5.Location = new System.Drawing.Point(1195, 0);
@@ -213,7 +213,7 @@ namespace DWZ_Scada.Pages
             // uiButton1
             // 
             uiButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton1.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton1.FillColor = System.Drawing.Color.LightGray;
             uiButton1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton1.ForeColor = System.Drawing.Color.Black;
             uiButton1.Location = new System.Drawing.Point(239, 0);
@@ -225,11 +225,12 @@ namespace DWZ_Scada.Pages
             uiButton1.TabIndex = 3;
             uiButton1.Text = "生产监控(F2)";
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Click += uiButton1_Click;
             // 
             // uiButton2
             // 
             uiButton2.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton2.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton2.FillColor = System.Drawing.Color.LightGray;
             uiButton2.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton2.ForeColor = System.Drawing.Color.Black;
             uiButton2.Location = new System.Drawing.Point(0, 0);
@@ -246,7 +247,7 @@ namespace DWZ_Scada.Pages
             // uiButton3
             // 
             uiButton3.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiButton3.FillColor = System.Drawing.Color.WhiteSmoke;
+            uiButton3.FillColor = System.Drawing.Color.LightGray;
             uiButton3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiButton3.ForeColor = System.Drawing.Color.Black;
             uiButton3.Location = new System.Drawing.Point(478, 0);
@@ -262,6 +263,7 @@ namespace DWZ_Scada.Pages
             // 
             // uiTableLayoutPanel3
             // 
+            uiTableLayoutPanel3.BackColor = System.Drawing.Color.Transparent;
             uiTableLayoutPanel3.ColumnCount = 4;
             uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -450,6 +452,7 @@ namespace DWZ_Scada.Pages
             // 
             // panel2
             // 
+            panel2.BackColor = System.Drawing.Color.White;
             panel2.Controls.Add(uiLabel2);
             panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             panel2.Location = new System.Drawing.Point(122, 3);
@@ -574,6 +577,7 @@ namespace DWZ_Scada.Pages
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.Color.Transparent;
             ClientSize = new System.Drawing.Size(1920, 1050);
             ControlBoxForeColor = System.Drawing.Color.Black;
             Controls.Add(uiTableLayoutPanel1);
@@ -583,7 +587,7 @@ namespace DWZ_Scada.Pages
             MinimumSize = new System.Drawing.Size(1080, 680);
             Name = "ZCForm";
             Text = "ZCForm";
-            TitleColor = System.Drawing.Color.Gainsboro;
+            TitleColor = System.Drawing.Color.White;
             TitleForeColor = System.Drawing.Color.Black;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 1920, 1040);
             FormClosing += ZCForm_FormClosing;

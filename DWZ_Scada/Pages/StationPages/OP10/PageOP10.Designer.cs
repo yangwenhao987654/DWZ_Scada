@@ -47,9 +47,9 @@
             uiLabel1.Dock = System.Windows.Forms.DockStyle.Top;
             uiLabel1.Font = new System.Drawing.Font("微软雅黑", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new System.Drawing.Point(0, 0);
+            uiLabel1.Location = new System.Drawing.Point(0, 35);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(1223, 59);
+            uiLabel1.Size = new System.Drawing.Size(1912, 59);
             uiLabel1.TabIndex = 1;
             uiLabel1.Text = "OP10-上料打码工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -62,11 +62,11 @@
             listViewEx_Log1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             listViewEx_Log1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listViewEx_Log1.LabelWrap = false;
-            listViewEx_Log1.Location = new System.Drawing.Point(0, 792);
+            listViewEx_Log1.Location = new System.Drawing.Point(0, 546);
             listViewEx_Log1.MultiSelect = false;
             listViewEx_Log1.Name = "listViewEx_Log1";
             listViewEx_Log1.ShowGroups = false;
-            listViewEx_Log1.Size = new System.Drawing.Size(1223, 232);
+            listViewEx_Log1.Size = new System.Drawing.Size(1912, 232);
             listViewEx_Log1.TabIndex = 2;
             listViewEx_Log1.TabStop = false;
             listViewEx_Log1.UseCompatibleStateImageBehavior = false;
@@ -184,8 +184,9 @@
             // 
             // PageOP10
             // 
+            AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            ClientSize = new System.Drawing.Size(1223, 1024);
+            ClientSize = new System.Drawing.Size(1912, 778);
             Controls.Add(uiButton8);
             Controls.Add(uiButton7);
             Controls.Add(uiButton6);
@@ -199,6 +200,8 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP10";
+            Padding = new System.Windows.Forms.Padding(0, 35, 0, 0);
+            ShowTitle = true;
             Text = "PageOP10";
             FormClosing += PageOP10_FormClosing;
             Load += Page_Load;
