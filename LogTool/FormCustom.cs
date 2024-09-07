@@ -1,5 +1,6 @@
-﻿
+
 using System;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +33,8 @@ namespace LogTool
             CustomFormClosed?.Invoke(this,null);
         }
 
-        public FormCustom(Control c ,string title)
+
+        public FormCustom(Control c, string title)
         {
             InitializeComponent();
             this.Text = title;

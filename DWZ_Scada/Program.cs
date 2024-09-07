@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoStation;
 using DWZ_Scada.DAL.DBContext;
+using DWZ_Scada.HttpRequest;
+using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestSharp;
 
 namespace DWZ_Scada
 {
@@ -70,7 +73,6 @@ namespace DWZ_Scada
                     else
                     {
                         //GC.RegisterForFullGCNotification(GarbageCollectionNotificationCallback,null));
-
                         #region 处理全局异常,Task类中出现的异常无法在此捕获.
                         Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                         //处理UI异常
@@ -105,7 +107,7 @@ namespace DWZ_Scada
                                 },1024)
                             ;*/
                         ConfigureServices(serviceCollection);
-                        var serviceProvider = serviceCollection.BuildServiceProvider();
+                        Global.ServiceProvider  = serviceCollection.BuildServiceProvider();
                         LogMgr.Instance.Init();
                         SystemParams.Load();
                         MainForm mainForm = MainForm.Instance;
@@ -137,6 +139,11 @@ namespace DWZ_Scada
 
             //注册主窗体
             //services.AddScoped<MainForm>();
+
+            services.AddSingleton<RestClient>(new RestClient());
+            //创建设备状态上报服务
+            services.AddTransient<DeviceStateReporter>();
+            services.AddTransient<DeviceStateService>();
 
         }
 

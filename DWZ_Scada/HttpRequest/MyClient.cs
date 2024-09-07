@@ -70,26 +70,11 @@ namespace DWZ_Scada.HttpRequest
         /// <summary>
         /// 上传Mes过站数据
         /// </summary>
-        public static async Task PassStationUploadTest()
+        public static async Task PassStationUploadTest(PassStationDTO dto)
         {
             string url = URLConstants.Base + URLConstants.PassStationUpload;
             LogMgr.Instance.Debug("请求路径:" + url);
             var request = new RestRequest();
-         
-            PassStationDTO dto = new PassStationDTO()
-            {
-                StationCode = "OP10",
-                SnTemp = "AQW12dswSAW",
-                // PassStationData = n
-                PassStationData = new OP10Data()
-                {
-                    Material = "物料信息AAA",
-                    VisionData1 = "4dwadwa",
-                    VisionData2 = "sw23435",
-                    VisionPicPath = "D:\\test",
-                    VisionResult = "OK"
-                }
-            };
             //组装过站数据给Mes
             request.MakePost(url,dto);
             RestResponse response = await client.ExecuteAsync(request);
@@ -137,26 +122,7 @@ namespace DWZ_Scada.HttpRequest
             AnalysisResponse(response);
         }
 
-        /// <summary>
-        /// 设备状态上报
-        /// </summary>
-        public static async Task AddDeviceState()
-        {
-            string url = URLConstants.Base + URLConstants.DeviceStateUrl;
-            LogMgr.Instance.Debug("请求路径:" + url);
-            var request = new RestRequest();
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = "0001",
-                DeviceName = "工站01",
-                Status = "停机",
-            };
-            //组装过站数据给Mes
-            request.MakePost(url, dto);
-            RestResponse response = await client.ExecuteAsync(request);
-            LogMgr.Instance.Info("请求发送完成");
-            AnalysisResponse(response);
-        }
+     
 
         /// <summary>
         /// 易损易耗件上报

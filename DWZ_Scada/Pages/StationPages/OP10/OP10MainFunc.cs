@@ -3,7 +3,9 @@ using CommunicationUtilYwh.Communication.PLC;
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
+using DWZ_Scada.Services;
 using LogTool;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Sunny.UI;
 using System;
@@ -19,6 +21,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
     public class OP10MainFunc:IDisposable
     {
         private static OP10MainFunc _instance;
+
+        private static OP10Model myOp10Model;
 
         public static OP10MainFunc Instance
         {
@@ -46,14 +50,63 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
-        public void Start()
+        private static int DeviceState = -1;
+
+        private static readonly object stateLock = new object();
+
+        private Timer reportTimer ;
+
+
+        public void Start(OP10Model op10Model)
         {
+            myOp10Model = op10Model;
             //启动PLC监控线程
             Thread t = new Thread(()=>ConnStatusMonitor(_cts.Token));
             t.Start();
             Thread.Sleep(300);
             Thread t2 = new Thread(() => PLCMainWork(_cts.Token));
             t2.Start();
+            reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
+        }
+
+        /// <summary>
+        /// 上报设备状态 1S 上报一次
+        /// </summary>
+        /// <param name="state"></param>
+        private async void ReportDeviceState(object state)
+        {
+            int currentState;
+            lock (stateLock)
+            {
+                currentState = DeviceState;
+            }
+            DeviceStateDTO dto = new DeviceStateDTO()
+            {
+                DeviceCode = "0001",
+                DeviceName = "工站01",
+            };
+            switch (currentState)
+            {
+                case -1:
+                    dto.Status = "停机";
+                    break;
+                case 1:
+                    dto.Status = "运行中";
+                    break;
+                case 2:
+                    dto.Status = "待机中";
+                    break;
+                default:
+                    dto.Status = "错误";
+                    break;
+            }
+
+            //如果有报警的话 需要带着报警信息
+
+            //记录报警信息
+
+            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
+            await stateService.ReportState(dto);
         }
 
         private OP10MainFunc()
@@ -70,21 +123,49 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             //进站信号
             bool isEntry;
+            int state = -1;
             while (!token.IsCancellationRequested)
             {
                 try
                 {
+                    //TODO 这样更新是OK的
+                    PageOP10.Instance.UpdateTempSN(myOp10Model.TempSN);
+                    myOp10Model.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
                     if (!IsPlc_Connected)
                     {
                         Thread.Sleep(500);
                         continue;
                     }
-
                     #region 读取PLC状态
+                    //判断是否点检模式
+               
                     // 进站请求信号
-                    bool flag = PLC.ReadBool(OP10Address.EntrySignal,out isEntry);
-                    if (flag)
+                    bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
+                    if (readFlag)
                     {
+                        //获取到PLC的实时状态 上报Mes 
+                        //读取报警信号
+                        //判断设备当前有无报警
+                        //报警信息存数据库 报警内容 时间 
+                        PLC.ReadAlarm(OP10Address.AlarmAddress, out bool[] alarms, 20);
+                        for (int i = 0; i < alarms.Length; i++)
+                        {
+                            if (alarms[i]==true)
+                            {
+                                //有报警 记录报警信息
+                                //报警内容 从Map里取
+                                //获取到对应的报警类型
+
+                            }
+                        }
+                        //存报警到本地数据库
+
+                        lock (stateLock)
+                        {
+                            DeviceState = state;
+                        }
+
+                        PLC.ReadBool(OP10Address.EntrySignal, out isEntry);
                         if (isEntry)
                         {
                             //接受到产品进站请求
@@ -94,16 +175,47 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                             //请求Mes产品进站
                             OP10EntryCommand entryCommand = new OP10EntryCommand(sn);
                             entryCommand.Execute();
+                            //TODO 告诉PLC 能不能进站
+
+                            //读取采集信号
+                            PLC.ReadInt16(OP10Address.Collect,out int collectSignal);
+                            if (collectSignal==1)
+                            {
+                                //读取到有采集信号 
+                                //开始采集数据
+                                //采集出站SN
+                                //视觉检测结果
+
+                                // 上传Mes过站数据
+                                //采集完成
+                                //出站数据
+                                PassStationDTO dto = new PassStationDTO()
+                                {
+                                    StationCode = "OP10",
+                                    SnTemp = "AQW12dswSAW",
+                                    // PassStationData = n
+                                    PassStationData = new OP10Data()
+                                    {
+                                        Material = "物料信息AAA",
+                                        VisionData1 = "4dwadwa",
+                                        VisionData2 = "sw23435",
+                                        VisionPicPath = "D:\\test",
+                                        VisionResult = "OK"
+                                    }
+                                };
+                                MyClient.PassStationUploadTest(dto);
+                            }
                         }
                     }
                     else
                     {
                         //读取PLC失败
                         //异常
+                        //PLC连接断开 
                         LogMgr.Instance.Error("读取PLC 信号异常");
                     }
                     #endregion
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
                 catch (Exception ex)
                 {
@@ -157,6 +269,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             _cts.Cancel();
             //释放PLC连接
             PLC?.Dispose();
+            reportTimer.Dispose();
         }
     }
 }

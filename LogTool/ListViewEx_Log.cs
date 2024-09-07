@@ -22,7 +22,8 @@ namespace LogTool
             InitializeComponent();
             this.Columns[0].Text = "时间";
             this.Columns[1].Text = "信息";
-           // this.Font =new System.Drawing.Font("宋体", 15F);
+
+            // this.Font =new System.Drawing.Font("宋体", 15F);
         }
 
         public ListViewEx_Log(IContainer container) : this()
@@ -74,7 +75,8 @@ namespace LogTool
                                 break;
                             case LogLvl.info:
                                 listViewItem.BackColor = Color.Yellow;
-                                listViewItem.ForeColor =Color.Black;
+
+                                listViewItem.ForeColor = Color.Black;
                                 break;
                             case LogLvl.error:
                                 listViewItem.BackColor = Color.Red;
@@ -117,7 +119,9 @@ namespace LogTool
             try
             {
                 LogMgr.Instance.Init();
+
                 if (BindingControl==null)
+
                 {
                     BindingControl = this.Parent;
                 }
@@ -127,7 +131,6 @@ namespace LogTool
             {
                 throw new Exception("未设置日志绑定控件！");
             }
-        
         }
     }
 }

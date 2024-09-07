@@ -29,11 +29,12 @@ using Newtonsoft.Json;
 using RestSharp;
 using Method = RestSharp.Method;
 using DWZ_Scada.Pages;
-using AutoStation;
+using DWZ_Scada.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DWZ_Scada
 {
-    public partial class PageOP10 : UIPage
+    public partial class PageOPTest : UIPage
     {
         public HttpService MyHttpService;
 
@@ -43,34 +44,10 @@ namespace DWZ_Scada
         /// </summary>
         private const string CURRENT_STATION_NAME = "OP10";
 
-        /// <summary>
-        /// 数据模型
-        /// </summary>
-        public OP10Model op10Model;
-
-        private static PageOP10 _instance;
-        public static PageOP10 Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (typeof(PageOP10))
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new PageOP10();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-
-        public PageOP10()
+        public PageOPTest()
         {
             InitializeComponent();
-            _instance =this;
+            //this.Dock = DockStyle.Fill;
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -82,26 +59,14 @@ namespace DWZ_Scada
             TestHttp();
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
-            op10Model = new OP10Model();
-            OP10MainFunc.Instance.Start(op10Model);
-            /*  lbl_EntrySN.DataBindings.Add("Text", op10Model, "TempSN");
-              op10Model.TempSN = "6666";*/
-            UpdateTempSN("6654");
-
+       
+           // OP10MainFunc.Instance.Start();
         }
-        public void UpdateTempSN(string newValue)
+
+        private void PLCWorkMonitor()
         {
-            if (lbl_EntrySN.InvokeRequired)
-            {
-                lbl_EntrySN.Invoke(new Action<string>(UpdateTempSN), newValue);
-                return;
-            }
-            else
-            {
-                lbl_EntrySN.Text = newValue;
-            }
+            
         }
-
 
         private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
@@ -120,11 +85,9 @@ namespace DWZ_Scada
             StartServer();
             LogMgr.Instance.Debug("OP10工站服务端启动完成...");
             //HTTP客户端请求
-            /*     
-                 Console.WriteLine("启动模拟客户端发送请求...");
+            /*     Console.WriteLine("启动模拟客户端发送请求...");
                  string url = @"http://localhost:8090/test";
-                 TestGetRequest<SelectionResultDTO>(url);
-            */
+                 TestGetRequest<SelectionResultDTO>(url);*/
         }
 
         public void StartServer()
@@ -187,6 +150,13 @@ namespace DWZ_Scada
             LogMgr.Instance.Info("关闭OP10程序");
         }
 
+        private async void uiButton2_Click(object sender, EventArgs e)
+        {
+            LogMgr.Instance.Info("测试发送过站数据");
+            await TestPassStationUpload();
+            LogMgr.Instance.Info("测试过站数据上传完成");
+        }
+
         private async Task TestPassStationUpload()
         {
             PassStationDTO dto = new PassStationDTO()
@@ -206,25 +176,49 @@ namespace DWZ_Scada
             await MyClient.PassStationUploadTest(dto);
         }
 
-        private void uiLabel2_Click(object sender, EventArgs e)
+        private async void uiButton3_Click(object sender, EventArgs e)
         {
-
+            string itemCode = "A0001WED";
+            await MyClient.GetBomList(itemCode);
+            LogMgr.Instance.Info("测试请求BOM完成");
         }
 
-        private void uiButton1_Click_1(object sender, EventArgs e)
+        private async void uiButton4_Click(object sender, EventArgs e)
         {
-            //从Mes获取最新生产型号 
-            //list
-            //当前型号的物料Bom
-
+            await MyClient.AddInspectDada();
+            LogMgr.Instance.Info("点检上报测试完成");
         }
 
-        private void uiButton4_Click(object sender, EventArgs e)
+        private async void uiButton5_Click(object sender, EventArgs e)
         {
-            //进入点检模式 生产数据跟正常数据分开
-            OP10MainFunc.PLC.Write(OP10Address.SpotCheck, "bool", true);
+            DeviceStateDTO dto = new DeviceStateDTO()
+            {
+                DeviceCode = "0001",
+                DeviceName = "工站01",
+                Status = "停机",
+            };
+            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
+            await stateService.ReportState(dto);
+            LogMgr.Instance.Info("状态上报测试完成");
+        }
 
-            
+        private async void uiButton6_Click(object sender, EventArgs e)
+        {
+            string tempCode = "00011001";
+            await MyClient.GetFinalCode(tempCode);
+            LogMgr.Instance.Info("测试请求最终码完成");
+        }
+
+        private async void uiButton7_Click(object sender, EventArgs e)
+        {
+            await MyClient.GetWorkOrder();
+            LogMgr.Instance.Info("测试获取最新工单完成");
+        }
+
+        private async void uiButton8_Click(object sender, EventArgs e)
+        {
+            await MyClient.ReportDamageable();
+            LogMgr.Instance.Info("测试上报易损易耗件完成");
         }
     }
 }
