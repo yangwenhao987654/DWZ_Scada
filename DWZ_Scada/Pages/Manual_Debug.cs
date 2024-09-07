@@ -17,6 +17,24 @@ namespace DWZ_Scada.Pages
 {
     public partial class Manual_Debug : UIForm
     {
+        private static Manual_Debug _instance;
+        public static Manual_Debug Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(Manual_Debug))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new Manual_Debug();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
         Label percentageLabel = new Label();
         public Manual_Debug()
         {
@@ -295,6 +313,11 @@ namespace DWZ_Scada.Pages
                     MessageBox.Show("初始化失败，" + ex.Message);
                 }
             }
+        }
+
+        private void Manual_Debug_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Manual_Debug.Instance?.Dispose();
         }
     }
 }

@@ -11,11 +11,31 @@ using System.Windows.Forms;
 using System.Xml;
 using CommonUtilYwh.Communication.ModbusTCP;
 using DWZ_Scada.dao;
+using DWZ_Scada.Pages;
+using DWZ_Scada.Pages.StationPages.OP10;
 
 namespace DWZ_Scada
 {
     public partial class Form_set_PLC : UIForm
     {
+        private static Form_set_PLC _instance;
+        public static Form_set_PLC Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(Form_set_PLC))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new Form_set_PLC();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
         ComboBox ComboBox_2 = new ComboBox();
 
         public ModbusTCP ModbusTCP = new ModbusTCP();
@@ -70,6 +90,7 @@ namespace DWZ_Scada
 
             ComboBox_2.TextChanged += ComboBox_2_TextChanged;
             ComboBox_2.SizeChanged += ComboBox_2_SizeChanged;
+            LogMgr.Instance.Info("11111");
             this.Show();
         }
 
@@ -341,7 +362,7 @@ namespace DWZ_Scada
         {
             try
             {
-                
+
             }
             catch (Exception)
             {
@@ -399,6 +420,12 @@ namespace DWZ_Scada
         private void Form_set_PLC_Load(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+        }
+
+        private void Form_set_PLC_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form_set_PLC.Instance?.Dispose();
+            LogMgr.Instance.Info("关闭配方设定程序");
         }
     }
 }

@@ -443,6 +443,7 @@ namespace DWZ_Scada
             TitleFont = new System.Drawing.Font("宋体", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 1352, 729);
+            FormClosing += Form_set_PLC_FormClosing;
             Load += Form_set_PLC_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

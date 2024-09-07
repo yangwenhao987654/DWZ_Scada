@@ -276,6 +276,7 @@
             TitleColor = System.Drawing.Color.White;
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
+            FormClosing += Formula_set_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }

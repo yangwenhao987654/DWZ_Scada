@@ -35,6 +35,7 @@ namespace DWZ_Scada
 {
     public partial class PageOP10 : UIPage
     {
+        
         public HttpService MyHttpService;
 
         /// <summary>
