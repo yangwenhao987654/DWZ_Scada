@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace DWZ_Scada
 {
     public class Global
     {
+        // 定义一个静态的 ServiceProvider 变量
+        public static ServiceProvider ServiceProvider { get;  set; }
+
+
         public static bool IsPlc_Connected { get; set; }
 
         public static bool IsCheckSignal { get; set; }

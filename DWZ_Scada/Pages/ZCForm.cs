@@ -26,6 +26,8 @@ namespace DWZ_Scada.Pages
     {
         private ListViewEx_Log listViewLog;
         private Timer timer;
+
+        private ListViewEx_Log listViewExLog;
         public ZCForm()
         {
             InitializeComponent();
@@ -118,6 +120,7 @@ namespace DWZ_Scada.Pages
 
         private void uiButton5_Click(object sender, EventArgs e)
         {
+
             listViewLog = new ListViewEx_Log();
             LogMgr.Instance.SetCtrl(listViewLog);
             AddFormTopanel(FormCustom.GetInstance(listViewLog, "日志报警"));
