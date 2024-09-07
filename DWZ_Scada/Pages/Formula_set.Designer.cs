@@ -34,24 +34,28 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             uiTextBox1 = new Sunny.UI.UITextBox();
-            button2 = new Sunny.UI.UIButton();
+            uiButton1 = new Sunny.UI.UIButton();
+            uiButton2 = new Sunny.UI.UIButton();
+            uiButton3 = new Sunny.UI.UIButton();
             uiButton4 = new Sunny.UI.UIButton();
-            uiButton5 = new Sunny.UI.UIButton();
-            uiButton6 = new Sunny.UI.UIButton();
-            uiDataGridView1 = new Sunny.UI.UIDataGridView();
-            Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)uiDataGridView1).BeginInit();
+            dataGridView1 = new Sunny.UI.UIDataGridView();
+            dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // uiTextBox1
             // 
+            uiTextBox1.FillColor = System.Drawing.Color.WhiteSmoke;
             uiTextBox1.Font = new System.Drawing.Font("黑体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiTextBox1.Location = new System.Drawing.Point(67, 67);
+            uiTextBox1.Location = new System.Drawing.Point(200, 63);
             uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
             uiTextBox1.Name = "uiTextBox1";
             uiTextBox1.Padding = new System.Windows.Forms.Padding(5);
+            uiTextBox1.RectColor = System.Drawing.Color.Silver;
             uiTextBox1.ShowText = false;
             uiTextBox1.Size = new System.Drawing.Size(495, 68);
             uiTextBox1.TabIndex = 45;
@@ -59,141 +63,233 @@
             uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             uiTextBox1.Watermark = "";
             // 
-            // button2
+            // uiButton1
             // 
-            button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            button2.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            button2.Location = new System.Drawing.Point(729, 81);
-            button2.Margin = new System.Windows.Forms.Padding(2);
-            button2.MinimumSize = new System.Drawing.Size(1, 1);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(145, 50);
-            button2.TabIndex = 49;
-            button2.Text = "添加";
-            button2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            uiButton1.FillColor = System.Drawing.Color.Gainsboro;
+            uiButton1.FillColor2 = System.Drawing.Color.Gray;
+            uiButton1.FillColorGradient = true;
+            uiButton1.FillHoverColor = System.Drawing.Color.Silver;
+            uiButton1.FillPressColor = System.Drawing.Color.Gray;
+            uiButton1.FillSelectedColor = System.Drawing.Color.Silver;
+            uiButton1.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.ForeColor = System.Drawing.Color.Black;
+            uiButton1.ForeHoverColor = System.Drawing.Color.Black;
+            uiButton1.ForePressColor = System.Drawing.Color.Black;
+            uiButton1.ForeSelectedColor = System.Drawing.Color.Black;
+            uiButton1.Location = new System.Drawing.Point(801, 81);
+            uiButton1.Margin = new System.Windows.Forms.Padding(2);
+            uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton1.Name = "uiButton1";
+            uiButton1.RectColor = System.Drawing.Color.Silver;
+            uiButton1.RectHoverColor = System.Drawing.Color.Silver;
+            uiButton1.RectPressColor = System.Drawing.Color.Gray;
+            uiButton1.RectSelectedColor = System.Drawing.Color.Silver;
+            uiButton1.Size = new System.Drawing.Size(145, 50);
+            uiButton1.TabIndex = 54;
+            uiButton1.Text = "添加";
+            uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            // 
+            // uiButton2
+            // 
+            uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            uiButton2.FillColor = System.Drawing.Color.Gainsboro;
+            uiButton2.FillColor2 = System.Drawing.Color.Gray;
+            uiButton2.FillColorGradient = true;
+            uiButton2.FillHoverColor = System.Drawing.Color.Silver;
+            uiButton2.FillPressColor = System.Drawing.Color.Gray;
+            uiButton2.FillSelectedColor = System.Drawing.Color.Silver;
+            uiButton2.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.ForeColor = System.Drawing.Color.Black;
+            uiButton2.ForeHoverColor = System.Drawing.Color.Black;
+            uiButton2.ForePressColor = System.Drawing.Color.Black;
+            uiButton2.ForeSelectedColor = System.Drawing.Color.Black;
+            uiButton2.Location = new System.Drawing.Point(1062, 81);
+            uiButton2.Margin = new System.Windows.Forms.Padding(2);
+            uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton2.Name = "uiButton2";
+            uiButton2.RectColor = System.Drawing.Color.Silver;
+            uiButton2.RectHoverColor = System.Drawing.Color.Silver;
+            uiButton2.RectPressColor = System.Drawing.Color.Gray;
+            uiButton2.RectSelectedColor = System.Drawing.Color.Silver;
+            uiButton2.Size = new System.Drawing.Size(145, 50);
+            uiButton2.TabIndex = 55;
+            uiButton2.Text = "删除";
+            uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            // 
+            // uiButton3
+            // 
+            uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            uiButton3.FillColor = System.Drawing.Color.Gainsboro;
+            uiButton3.FillColor2 = System.Drawing.Color.Gray;
+            uiButton3.FillColorGradient = true;
+            uiButton3.FillHoverColor = System.Drawing.Color.Silver;
+            uiButton3.FillPressColor = System.Drawing.Color.Gray;
+            uiButton3.FillSelectedColor = System.Drawing.Color.Silver;
+            uiButton3.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.ForeColor = System.Drawing.Color.Black;
+            uiButton3.ForeHoverColor = System.Drawing.Color.Black;
+            uiButton3.ForePressColor = System.Drawing.Color.Black;
+            uiButton3.ForeSelectedColor = System.Drawing.Color.Black;
+            uiButton3.Location = new System.Drawing.Point(1325, 81);
+            uiButton3.Margin = new System.Windows.Forms.Padding(2);
+            uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton3.Name = "uiButton3";
+            uiButton3.RectColor = System.Drawing.Color.Silver;
+            uiButton3.RectHoverColor = System.Drawing.Color.Silver;
+            uiButton3.RectPressColor = System.Drawing.Color.Gray;
+            uiButton3.RectSelectedColor = System.Drawing.Color.Silver;
+            uiButton3.Size = new System.Drawing.Size(145, 50);
+            uiButton3.TabIndex = 56;
+            uiButton3.Text = "修改";
+            uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             // 
             // uiButton4
             // 
             uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            uiButton4.FillColor = System.Drawing.Color.Gainsboro;
+            uiButton4.FillColor2 = System.Drawing.Color.Gray;
+            uiButton4.FillColorGradient = true;
+            uiButton4.FillHoverColor = System.Drawing.Color.Silver;
+            uiButton4.FillPressColor = System.Drawing.Color.Gray;
+            uiButton4.FillSelectedColor = System.Drawing.Color.Silver;
             uiButton4.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton4.Location = new System.Drawing.Point(994, 81);
+            uiButton4.ForeColor = System.Drawing.Color.Black;
+            uiButton4.ForeHoverColor = System.Drawing.Color.Black;
+            uiButton4.ForePressColor = System.Drawing.Color.Black;
+            uiButton4.ForeSelectedColor = System.Drawing.Color.Black;
+            uiButton4.Location = new System.Drawing.Point(1607, 81);
             uiButton4.Margin = new System.Windows.Forms.Padding(2);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
+            uiButton4.RectColor = System.Drawing.Color.Silver;
+            uiButton4.RectHoverColor = System.Drawing.Color.Silver;
+            uiButton4.RectPressColor = System.Drawing.Color.Gray;
+            uiButton4.RectSelectedColor = System.Drawing.Color.Silver;
             uiButton4.Size = new System.Drawing.Size(145, 50);
-            uiButton4.TabIndex = 50;
-            uiButton4.Text = "删除";
+            uiButton4.TabIndex = 57;
+            uiButton4.Text = "查询";
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             // 
-            // uiButton5
+            // dataGridView1
             // 
-            uiButton5.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton5.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton5.Location = new System.Drawing.Point(1253, 81);
-            uiButton5.Margin = new System.Windows.Forms.Padding(2);
-            uiButton5.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton5.Name = "uiButton5";
-            uiButton5.Size = new System.Drawing.Size(145, 50);
-            uiButton5.TabIndex = 51;
-            uiButton5.Text = "修改";
-            uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            // 
-            // uiButton6
-            // 
-            uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton6.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton6.Location = new System.Drawing.Point(1518, 81);
-            uiButton6.Margin = new System.Windows.Forms.Padding(2);
-            uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton6.Name = "uiButton6";
-            uiButton6.Size = new System.Drawing.Size(145, 50);
-            uiButton6.TabIndex = 52;
-            uiButton6.Text = "查询";
-            uiButton6.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            // 
-            // uiDataGridView1
-            // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            uiDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            uiDataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            uiDataGridView1.BackgroundColor = System.Drawing.Color.White;
-            uiDataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            uiDataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            uiDataGridView1.ColumnHeadersHeight = 50;
-            uiDataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column1, Column2 });
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.ColumnHeadersHeight = 50;
+            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, Column3, Column4 });
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            uiDataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            uiDataGridView1.EnableHeadersVisualStyles = false;
-            uiDataGridView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiDataGridView1.GridColor = System.Drawing.Color.FromArgb(80, 160, 255);
-            uiDataGridView1.Location = new System.Drawing.Point(67, 168);
-            uiDataGridView1.Name = "uiDataGridView1";
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridView1.GridColor = System.Drawing.Color.Gray;
+            dataGridView1.Location = new System.Drawing.Point(0, 182);
+            dataGridView1.Margin = new System.Windows.Forms.Padding(2);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RectColor = System.Drawing.Color.Gray;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            uiDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            uiDataGridView1.SelectedIndex = -1;
-            uiDataGridView1.Size = new System.Drawing.Size(1596, 445);
-            uiDataGridView1.StripeOddColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            uiDataGridView1.TabIndex = 53;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridView1.RowTemplate.Height = 35;
+            dataGridView1.ScrollBarColor = System.Drawing.Color.Silver;
+            dataGridView1.ScrollBarRectColor = System.Drawing.Color.Silver;
+            dataGridView1.ScrollBarStyleInherited = false;
+            dataGridView1.SelectedIndex = -1;
+            dataGridView1.Size = new System.Drawing.Size(1912, 596);
+            dataGridView1.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            dataGridView1.TabIndex = 58;
             // 
-            // Column1
+            // dataGridViewTextBoxColumn1
             // 
-            Column1.HeaderText = "序号";
-            Column1.Name = "Column1";
-            Column1.Width = 200;
+            dataGridViewTextBoxColumn1.HeaderText = "序号";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
-            // Column2
+            // dataGridViewTextBoxColumn2
             // 
-            Column2.HeaderText = "名称";
-            Column2.Name = "Column2";
-            Column2.Width = 200;
+            dataGridViewTextBoxColumn2.HeaderText = "名称";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // Column3
+            // 
+            Column3.HeaderText = "规格";
+            Column3.MinimumWidth = 6;
+            Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            Column4.HeaderText = "数量";
+            Column4.MinimumWidth = 6;
+            Column4.Name = "Column4";
             // 
             // Formula_set
             // 
+            AllowShowTitle = false;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            ClientSize = new System.Drawing.Size(1750, 624);
-            Controls.Add(uiDataGridView1);
-            Controls.Add(uiButton6);
-            Controls.Add(uiButton5);
+            BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            ClientSize = new System.Drawing.Size(1912, 778);
+            Controls.Add(dataGridView1);
             Controls.Add(uiButton4);
-            Controls.Add(button2);
+            Controls.Add(uiButton3);
+            Controls.Add(uiButton2);
+            Controls.Add(uiButton1);
             Controls.Add(uiTextBox1);
             Name = "Formula_set";
-            Text = "配方设定";
+            Padding = new System.Windows.Forms.Padding(0);
+            RectColor = System.Drawing.Color.Black;
+            ShowTitle = false;
+            Text = "";
+            TitleColor = System.Drawing.Color.White;
+            TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
-            ((System.ComponentModel.ISupportInitialize)uiDataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private Sunny.UI.UITextBox uiTextBox1;
-        private Sunny.UI.UIButton button2;
+        private Sunny.UI.UIButton uiButton1;
+        private Sunny.UI.UIButton uiButton2;
+        private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UIButton uiButton4;
-        private Sunny.UI.UIButton uiButton5;
-        private Sunny.UI.UIButton uiButton6;
-        private Sunny.UI.UIDataGridView uiDataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private Sunny.UI.UIDataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

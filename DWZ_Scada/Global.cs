@@ -36,6 +36,23 @@ namespace DWZ_Scada
         };
 
         public static bool isYWH { get; set; }
+
+        public static List<PLCAlarmData> PlcAlarmList = new List<PLCAlarmData>();
+    }
+    public class PLCAlarmData
+    {
+        public string ID;
+        public string Address;
+        public string Name;
+
+        public PLCAlarmData(string ID)
+        {
+            this.ID = ID;
+        }
+        public PLCAlarmData()
+        {
+
+        }
     }
 
 }

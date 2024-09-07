@@ -1,4 +1,6 @@
-﻿using System;
+
+using System;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,13 +25,14 @@ namespace LogTool
 
         private void FormCustom_Closed(object sender, EventArgs e)
         {
-            OnCustomFormClosed();
+           OnCustomFormClosed();
         }
 
         protected virtual void OnCustomFormClosed()
         {
-            CustomFormClosed?.Invoke(this, null);
+            CustomFormClosed?.Invoke(this,null);
         }
+
 
         public FormCustom(Control c, string title)
         {
