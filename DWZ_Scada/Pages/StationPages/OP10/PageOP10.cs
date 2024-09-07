@@ -34,6 +34,25 @@ namespace DWZ_Scada
 {
     public partial class PageOP10 : UIPage
     {
+        private static PageOP10 _instance;
+        public static PageOP10 Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(PageOP10))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new PageOP10();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
         public HttpService MyHttpService;
 
         /// <summary>

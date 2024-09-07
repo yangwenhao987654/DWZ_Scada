@@ -13,6 +13,23 @@ namespace LogTool
 {
     public partial class FormCustom : Form
     {
+        private static FormCustom _instance;
+        public static FormCustom GetInstance(Control c, string title)
+        {
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(FormCustom))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new FormCustom(c, title);
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
         public event EventHandler CustomFormClosed;
         public FormCustom(Control c)
         {

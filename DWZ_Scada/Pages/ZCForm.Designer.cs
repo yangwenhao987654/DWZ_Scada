@@ -141,6 +141,7 @@ namespace DWZ_Scada.Pages
             uiButton8.TabIndex = 8;
             uiButton8.Text = "退出登录(F12)";
             uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton8.Click += uiButton8_Click;
             // 
             // uiButton7
             // 
@@ -223,7 +224,7 @@ namespace DWZ_Scada.Pages
             uiButton1.RectColor = System.Drawing.Color.SlateGray;
             uiButton1.Size = new System.Drawing.Size(239, 77);
             uiButton1.TabIndex = 3;
-            uiButton1.Text = "生产监控(F2)";
+            uiButton1.Text = "通用功能(F2)";
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton1.Click += uiButton1_Click;
             // 
@@ -240,7 +241,7 @@ namespace DWZ_Scada.Pages
             uiButton2.RectColor = System.Drawing.Color.SlateGray;
             uiButton2.Size = new System.Drawing.Size(239, 77);
             uiButton2.TabIndex = 1;
-            uiButton2.Text = "通用功能(F1)";
+            uiButton2.Text = "生产监控(F1)";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton2.Click += uiButton2_Click;
             // 

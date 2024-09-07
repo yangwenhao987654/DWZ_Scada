@@ -229,6 +229,7 @@
             TitleForeColor = System.Drawing.Color.Transparent;
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
+            FormClosing += Manual_Debug_FormClosing;
             ResumeLayout(false);
         }
 
