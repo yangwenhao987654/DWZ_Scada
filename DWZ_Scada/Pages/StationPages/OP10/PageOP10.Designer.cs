@@ -65,11 +65,11 @@
             listViewEx_Log1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             listViewEx_Log1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listViewEx_Log1.LabelWrap = false;
-            listViewEx_Log1.Location = new System.Drawing.Point(0, 792);
+            listViewEx_Log1.Location = new System.Drawing.Point(0, 1010);
             listViewEx_Log1.MultiSelect = false;
             listViewEx_Log1.Name = "listViewEx_Log1";
             listViewEx_Log1.ShowGroups = false;
-            listViewEx_Log1.Size = new System.Drawing.Size(1223, 232);
+            listViewEx_Log1.Size = new System.Drawing.Size(1223, 14);
             listViewEx_Log1.TabIndex = 2;
             listViewEx_Log1.TabStop = false;
             listViewEx_Log1.UseCompatibleStateImageBehavior = false;

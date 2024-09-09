@@ -205,7 +205,7 @@ namespace DWZ_Scada.Pages
             bool flag = SystemParams.Instance.OpLvl == 0;
             if (!flag)
             {
-                UIMessageBox.ShowError("當前登錄賬號權限不足！");
+                UIMessageBox.ShowError("当前登录账号权限不足！");
                 return;
             }
             AddFormTopanel(new PageProperty(SystemParams.Instance));

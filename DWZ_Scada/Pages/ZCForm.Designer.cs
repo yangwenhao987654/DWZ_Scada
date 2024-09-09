@@ -82,7 +82,7 @@ namespace DWZ_Scada.Pages
             // uiTableLayoutPanel1
             // 
             uiTableLayoutPanel1.ColumnCount = 1;
-            uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             uiTableLayoutPanel1.Controls.Add(uiTableLayoutPanel2, 0, 2);
             uiTableLayoutPanel1.Controls.Add(uiTableLayoutPanel3, 0, 0);
             uiTableLayoutPanel1.Controls.Add(uiPanel1, 0, 1);
@@ -90,9 +90,9 @@ namespace DWZ_Scada.Pages
             uiTableLayoutPanel1.Location = new System.Drawing.Point(0, 35);
             uiTableLayoutPanel1.Name = "uiTableLayoutPanel1";
             uiTableLayoutPanel1.RowCount = 3;
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.46573F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84.53427F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.636364F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 77.27273F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
             uiTableLayoutPanel1.Size = new System.Drawing.Size(1920, 1015);
             uiTableLayoutPanel1.TabIndex = 0;
             uiTableLayoutPanel1.TagString = null;
@@ -117,12 +117,12 @@ namespace DWZ_Scada.Pages
             uiTableLayoutPanel2.Controls.Add(uiButton2, 0, 0);
             uiTableLayoutPanel2.Controls.Add(uiButton3, 2, 0);
             uiTableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiTableLayoutPanel2.Location = new System.Drawing.Point(3, 935);
+            uiTableLayoutPanel2.Location = new System.Drawing.Point(3, 925);
             uiTableLayoutPanel2.Name = "uiTableLayoutPanel2";
             uiTableLayoutPanel2.RowCount = 1;
             uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            uiTableLayoutPanel2.Size = new System.Drawing.Size(1914, 77);
+            uiTableLayoutPanel2.Size = new System.Drawing.Size(1914, 87);
             uiTableLayoutPanel2.TabIndex = 0;
             uiTableLayoutPanel2.TagString = null;
             // 
@@ -137,7 +137,7 @@ namespace DWZ_Scada.Pages
             uiButton8.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton8.Name = "uiButton8";
             uiButton8.RectColor = System.Drawing.Color.SlateGray;
-            uiButton8.Size = new System.Drawing.Size(241, 77);
+            uiButton8.Size = new System.Drawing.Size(241, 87);
             uiButton8.TabIndex = 8;
             uiButton8.Text = "退出登录(F12)";
             uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -154,7 +154,7 @@ namespace DWZ_Scada.Pages
             uiButton7.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton7.Name = "uiButton7";
             uiButton7.RectColor = System.Drawing.Color.SlateGray;
-            uiButton7.Size = new System.Drawing.Size(239, 77);
+            uiButton7.Size = new System.Drawing.Size(239, 87);
             uiButton7.TabIndex = 7;
             uiButton7.Text = "地址配置(F5)";
             uiButton7.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -171,7 +171,7 @@ namespace DWZ_Scada.Pages
             uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton6.Name = "uiButton6";
             uiButton6.RectColor = System.Drawing.Color.SlateGray;
-            uiButton6.Size = new System.Drawing.Size(239, 77);
+            uiButton6.Size = new System.Drawing.Size(239, 87);
             uiButton6.TabIndex = 6;
             uiButton6.Text = "系统配置(F11)";
             uiButton6.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -188,7 +188,7 @@ namespace DWZ_Scada.Pages
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
             uiButton4.RectColor = System.Drawing.Color.SlateGray;
-            uiButton4.Size = new System.Drawing.Size(239, 77);
+            uiButton4.Size = new System.Drawing.Size(239, 87);
             uiButton4.TabIndex = 4;
             uiButton4.Text = "调试功能(F4)";
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -205,7 +205,7 @@ namespace DWZ_Scada.Pages
             uiButton5.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton5.Name = "uiButton5";
             uiButton5.RectColor = System.Drawing.Color.SlateGray;
-            uiButton5.Size = new System.Drawing.Size(239, 77);
+            uiButton5.Size = new System.Drawing.Size(239, 87);
             uiButton5.TabIndex = 5;
             uiButton5.Text = "日志报警(F10)";
             uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -222,7 +222,7 @@ namespace DWZ_Scada.Pages
             uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton1.Name = "uiButton1";
             uiButton1.RectColor = System.Drawing.Color.SlateGray;
-            uiButton1.Size = new System.Drawing.Size(239, 77);
+            uiButton1.Size = new System.Drawing.Size(239, 87);
             uiButton1.TabIndex = 3;
             uiButton1.Text = "通用功能(F2)";
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -239,7 +239,7 @@ namespace DWZ_Scada.Pages
             uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton2.Name = "uiButton2";
             uiButton2.RectColor = System.Drawing.Color.SlateGray;
-            uiButton2.Size = new System.Drawing.Size(239, 77);
+            uiButton2.Size = new System.Drawing.Size(239, 87);
             uiButton2.TabIndex = 1;
             uiButton2.Text = "生产监控(F1)";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -256,7 +256,7 @@ namespace DWZ_Scada.Pages
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
             uiButton3.RectColor = System.Drawing.Color.SlateGray;
-            uiButton3.Size = new System.Drawing.Size(239, 77);
+            uiButton3.Size = new System.Drawing.Size(239, 87);
             uiButton3.TabIndex = 2;
             uiButton3.Text = "配方设定(F3)";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -564,12 +564,12 @@ namespace DWZ_Scada.Pages
             uiPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             uiPanel1.FillColor = System.Drawing.Color.White;
             uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel1.Location = new System.Drawing.Point(4, 149);
+            uiPanel1.Location = new System.Drawing.Point(4, 143);
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel1.Name = "uiPanel1";
             uiPanel1.RectColor = System.Drawing.Color.Black;
-            uiPanel1.Size = new System.Drawing.Size(1912, 778);
+            uiPanel1.Size = new System.Drawing.Size(1912, 774);
             uiPanel1.TabIndex = 2;
             uiPanel1.Text = null;
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -584,9 +584,10 @@ namespace DWZ_Scada.Pages
             Controls.Add(uiTableLayoutPanel1);
             EscClose = true;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            MaximumSize = new System.Drawing.Size(1920, 1050);
+            MaximumSize = new System.Drawing.Size(1920, 1080);
             MinimumSize = new System.Drawing.Size(1080, 680);
             Name = "ZCForm";
+            ShowFullScreen = true;
             Text = "ZCForm";
             TitleColor = System.Drawing.Color.White;
             TitleForeColor = System.Drawing.Color.Black;
