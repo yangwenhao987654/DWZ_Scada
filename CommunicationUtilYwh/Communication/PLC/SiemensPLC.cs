@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunicationUtilYwh.Communication.PLC;
 using HslCommunication.Profinet.Siemens;
 using LogTool;
 using HslCommunication.Profinet.Melsec;
@@ -14,20 +15,9 @@ namespace CommunicationUtilYwh.Communication
     /// <summary>
     /// 西门子PLC S7-1200
     /// </summary>
-    public class SiemensPLC
+    public class SiemensPLC : MyPlc
     {
-        public enum DataType
-        {
-            String,
-            Int16,
-            Float,
-            Boolean,
-            Int32,
-            Double,
-            // 添加其他类型...
-        }
-
-        private SiemensS7Net client ;
+        private SiemensS7Net client;
 
         /// <summary>
         /// 定义PLC型号 S1200
@@ -35,14 +25,15 @@ namespace CommunicationUtilYwh.Communication
         private SiemensPLCS PLCType = SiemensPLCS.S1200;
 
         private readonly object _lock = new object();
-        public bool Connect(string ip)
+
+        public override bool Connect(string ip, int port)
         {
             bool flag = false;
             try
             {
                 client = new SiemensS7Net(PLCType, ip);
                 OperateResult operateResult = client.ConnectServer();
-                if(operateResult.IsSuccess)
+                if (operateResult.IsSuccess)
                 {
                     flag = true;
                     LogMgr.Instance.Info("PLC连接成功");
@@ -52,11 +43,10 @@ namespace CommunicationUtilYwh.Communication
                     LogMgr.Instance.Error("PLC连接失败" + operateResult.Message);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 flag = false;
             }
-            //Global.IsPlc_Connected = flag;
             return flag;
         }
 
@@ -64,11 +54,11 @@ namespace CommunicationUtilYwh.Communication
         {
             bool flag = false;
             value = 0;
-          
-                OperateResult<UInt16> operate = client.ReadUInt16(adr);
-                value = operate.Content;
-                flag = operate.IsSuccess;
-            
+
+            OperateResult<UInt16> operate = client.ReadUInt16(adr);
+            value = operate.Content;
+            flag = operate.IsSuccess;
+
             return flag;
         }
 
@@ -113,24 +103,30 @@ namespace CommunicationUtilYwh.Communication
             return flag;
         }
 
-        public bool ReadBool(string adr, out bool value)
+
+        public override bool ReadBool(string adr, out bool value)
         {
             bool flag = false;
             value = false;
-            
-                OperateResult<bool> operate = client.ReadBool(adr);
-                value = operate.Content;
-                flag = operate.IsSuccess;
-            
+
+            OperateResult<bool> operate = client.ReadBool(adr);
+            value = operate.Content;
+            flag = operate.IsSuccess;
+
             return flag;
         }
 
-        public bool ReadBool(string adr,int length , out bool[] value)
+        public override bool ReadInt16(string address, out int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ReadBool(string adr, int length, out bool[] value)
         {
             bool flag = false;
             lock (_lock)
             {
-                OperateResult<bool[]> operate = client.ReadBool(adr,(ushort)length);
+                OperateResult<bool[]> operate = client.ReadBool(adr, (ushort)length);
                 value = operate.Content;
                 flag = operate.IsSuccess;
             }
@@ -222,292 +218,290 @@ namespace CommunicationUtilYwh.Communication
 
         public bool WriteInt32(string adr, int value)
         {
-            lock (_lock)
-            {
-                bool flag = false;
-                OperateResult operate = client.Write(adr, Convert.ToInt32(value));
-                flag = operate.IsSuccess;
-                return flag;
-            }
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, Convert.ToInt32(value));
+            flag = operate.IsSuccess;
+            return flag;
+
         }
 
         public bool WriteUInt32(string adr, uint value)
         {
-            lock (_lock)
-            {
-                bool flag = false;
-                OperateResult operate = client.Write(adr, Convert.ToUInt32(value));
-                flag = operate.IsSuccess;
-                return flag;
-            }
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, Convert.ToUInt32(value));
+            flag = operate.IsSuccess;
+            return flag;
+
         }
 
-        public bool WriteFloat(string adr, float value)
+        public override bool WriteFloat(string adr, float value)
         {
-            lock (_lock)
-            {
-                bool flag = false;
-                OperateResult operate = client.Write(adr, value);
-                flag = operate.IsSuccess;
-                return flag;
-            }
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, value);
+            flag = operate.IsSuccess;
+            return flag;
+
+        }
+
+        public override bool ReadAlarm(string adr, out bool[] value, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Dispose()
+        {
+            throw new NotImplementedException();
         }
 
         public bool WriteString(string adr, string value)
         {
-            lock (_lock)
-            {
-                bool flag = false;
-                OperateResult operate = client.Write(adr, value);
-                flag = operate.IsSuccess;
-                return flag;
-            }
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, value);
+            flag = operate.IsSuccess;
+            return flag;
         }
 
         public bool WriteDouble(string adr, double value)
         {
-            lock (_lock)
-            {
-                bool flag = false;
-                OperateResult operate = client.Write(adr, value);
-                flag = operate.IsSuccess;
-                return flag;
-           
-            }
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, value);
+            flag = operate.IsSuccess;
+            return flag;
+
+
         }
 
 
-        public bool Read(string adr, string type, out string value)
+        public override bool Read(string adr, string type, out string value)
         {
-            
-            lock(_lock)
-            {
-                value = "0";
-                bool flag = false;
-                //获取类型和长度 string-10
-                string[] str_Type = type.Split('-');
-                try
-                {
-                    switch(str_Type[0])
-                    {
-                        case "Int":
-                            {
-                                OperateResult<Int16> operate = client.ReadInt16(adr);
-                                value = operate.Content.ToString();
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case "Double":
-                            {
-                                OperateResult<double> operate = client.ReadDouble(adr);
-                                value = operate.Content.ToString("f2");
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case "Float":
-                            {
-                                OperateResult<float> operate = client.ReadFloat(adr);
-                                value = operate.Content.ToString();
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case "String":
-                            {
-                                OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
-                                value = operate.Content.Trim().Replace("\0", "").Replace("\r", "");
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        default:
-                            break;
-                    }
 
-                }
-                catch(Exception)
+
+            value = "0";
+            bool flag = false;
+            //获取类型和长度 string-10
+            string[] str_Type = type.Split('-');
+            try
+            {
+                switch (str_Type[0])
                 {
-                    flag = false;
+                    case "Int":
+                        {
+                            OperateResult<Int16> operate = client.ReadInt16(adr);
+                            value = operate.Content.ToString();
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case "Double":
+                        {
+                            OperateResult<double> operate = client.ReadDouble(adr);
+                            value = operate.Content.ToString("f2");
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case "Float":
+                        {
+                            OperateResult<float> operate = client.ReadFloat(adr);
+                            value = operate.Content.ToString();
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case "String":
+                        {
+                            OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
+                            value = operate.Content.Trim().Replace("\0", "").Replace("\r", "");
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    default:
+                        break;
                 }
-                //Global.IsPlc_Connected = flag;
-                return flag;
+
             }
+            catch (Exception)
+            {
+                flag = false;
+            }
+            //Global.IsPlc_Connected = flag;
+            return flag;
+
         }
 
         public bool Read(string adr, DataType type, out string value)
         {
-            lock(_lock)
+
+            value = "-1";
+            bool flag = false;
+            //获取类型和长度 
+            try
             {
-                value = "-1";
-                bool flag = false;
-                //获取类型和长度 
-                try
+                switch (type)
                 {
-                    switch(type)
-                    {
-                        case DataType.Int16:
-                            {
-                                OperateResult<Int16> operate = client.ReadInt16(adr);
-                                value = operate.Content.ToString();
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case DataType.Int32:
-                            {
-                                OperateResult<Int32> operate = client.ReadInt32(adr);
-                                value = operate.Content.ToString();
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case DataType.Double:
-                            {
-                                OperateResult<double> operate = client.ReadDouble(adr);
-                                value = operate.Content.ToString("f2");
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case DataType.Float:
-                            {
-                                OperateResult<float> operate = client.ReadFloat(adr);
-                                value = operate.Content.ToString();
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        default:
+                    case DataType.Int16:
+                        {
+                            OperateResult<Int16> operate = client.ReadInt16(adr);
+                            value = operate.Content.ToString();
+                            flag = operate.IsSuccess;
                             break;
-                    }
+                        }
+                    case DataType.Int32:
+                        {
+                            OperateResult<Int32> operate = client.ReadInt32(adr);
+                            value = operate.Content.ToString();
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case DataType.Double:
+                        {
+                            OperateResult<double> operate = client.ReadDouble(adr);
+                            value = operate.Content.ToString("f2");
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case DataType.Float:
+                        {
+                            OperateResult<float> operate = client.ReadFloat(adr);
+                            value = operate.Content.ToString();
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    default:
+                        break;
                 }
-                catch(Exception)
-                {
-                    flag = false;
-                }
-                //Global.IsPlc_Connected = flag;
-                return flag;
             }
+            catch (Exception)
+            {
+                flag = false;
+            }
+            //Global.IsPlc_Connected = flag;
+            return flag;
+
         }
         public bool WriteInt16(string adr, int value)
         {
-           
-                bool flag = false;
-                OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-                flag = operate.IsSuccess;
-                return flag;
-            
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, Convert.ToInt16(value));
+            flag = operate.IsSuccess;
+            return flag;
+
         }
 
         public bool WriteBool(string adr, bool value)
         {
-            
-                bool flag = false;
-                OperateResult operate = client.Write(adr,value);
-                flag = operate.IsSuccess;
-                return flag;
-            
+
+            bool flag = false;
+            OperateResult operate = client.Write(adr, value);
+            flag = operate.IsSuccess;
+            return flag;
+
         }
 
-        private bool Write(string adr, string type, object value)
+        public override bool Write(string adr, string type, object value)
         {
-            lock(_lock)
+            bool flag = false;
+            try
             {
-                bool flag = false;
-                try
+                switch (type)
                 {
-                    switch(type)
-                    {
-                        case "Int":
-                            {
-                                OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case "Double":
-                            {
-                                OperateResult operate = client.Write(adr, Convert.ToDouble(value));
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case "String":
-                            {
-                                OperateResult operate = client.Write(adr, value.ToString());
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        default:
+                    case "Int":
+                        {
+                            OperateResult operate = client.Write(adr, Convert.ToInt16(value));
+                            flag = operate.IsSuccess;
                             break;
-                    }
+                        }
+                    case "Double":
+                        {
+                            OperateResult operate = client.Write(adr, Convert.ToDouble(value));
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case "String":
+                        {
+                            OperateResult operate = client.Write(adr, value.ToString());
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    default:
+                        break;
                 }
-                catch(Exception)
-                {
-                    flag = false;
-                }
-                //Global.IsPlc_Connected = flag;
-                return flag;
             }
+            catch (Exception)
+            {
+                flag = false;
+            }
+            //Global.IsPlc_Connected = flag;
+            return flag;
+
         }
 
         public bool Write(string adr, DataType type, object value)
         {
-            lock(_lock)
-            {
-                bool flag = false;
-                try
-                {
-                    switch(type)
-                    {
-                        case DataType.Int16:
-                            {
-                                OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case DataType.Int32:
-                            {
-                                OperateResult operate = client.Write(adr, Convert.ToInt32(value));
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case DataType.Double:
-                            {
-                                OperateResult operate = client.Write(adr, Convert.ToDouble(value));
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        case DataType.String:
-                            {
-                                OperateResult operate = client.Write(adr, value.ToString());
-                                flag = operate.IsSuccess;
-                                break;
-                            }
-                        default:
-                            break;
-                    }
-                }
-                catch(Exception)
-                {
-                    flag = false;
-                }
-                //Global.IsPlc_Connected = flag;
-                return flag;
-            }
-        }
-        public bool ReadAlarm(string adr, int length ,out bool[] value)
-        {
-            lock(_lock)
-            {
-                value = new bool[length];
-                bool flag = true;
-                try
-                {
 
-                    OperateResult<bool[]> operate = client.ReadBool(adr, (ushort)length);
-                    value = operate.Content;
-                    flag = operate.IsSuccess;
-                }
-                catch(Exception)
+            bool flag = false;
+            try
+            {
+                switch (type)
                 {
-                    flag = false;
+                    case DataType.Int16:
+                        {
+                            OperateResult operate = client.Write(adr, Convert.ToInt16(value));
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case DataType.Int32:
+                        {
+                            OperateResult operate = client.Write(adr, Convert.ToInt32(value));
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case DataType.Double:
+                        {
+                            OperateResult operate = client.Write(adr, Convert.ToDouble(value));
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    case DataType.String:
+                        {
+                            OperateResult operate = client.Write(adr, value.ToString());
+                            flag = operate.IsSuccess;
+                            break;
+                        }
+                    default:
+                        break;
                 }
-                //Global.IsPlc_Connected = flag;
-                return flag;
             }
+            catch (Exception)
+            {
+                flag = false;
+            }
+            //Global.IsPlc_Connected = flag;
+            return flag;
+
+        }
+        public bool ReadAlarm(string adr, int length, out bool[] value)
+        {
+
+            value = new bool[length];
+            bool flag = true;
+            try
+            {
+
+                OperateResult<bool[]> operate = client.ReadBool(adr, (ushort)length);
+                value = operate.Content;
+                flag = operate.IsSuccess;
+            }
+            catch (Exception)
+            {
+                flag = false;
+            }
+            //Global.IsPlc_Connected = flag;
+            return flag;
+
         }
     }
 }

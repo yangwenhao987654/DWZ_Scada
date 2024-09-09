@@ -51,7 +51,6 @@ namespace DWZ_Scada.Pages
                 {
                     Invoke(
                         new Action(ClearAlarm));
-
                 }
                 else
                 {
@@ -63,8 +62,6 @@ namespace DWZ_Scada.Pages
                 }
             }
             catch { }
-
-
         }
 
         private void HandleAlarmEvent(string msg, AlarmManager.AlarmEnum alarmType)

@@ -207,7 +207,7 @@ namespace DWZ_Scada.Pages
             uiButton5.RectColor = System.Drawing.Color.SlateGray;
             uiButton5.Size = new System.Drawing.Size(239, 87);
             uiButton5.TabIndex = 5;
-            uiButton5.Text = "日志报警(F10)";
+            uiButton5.Text = "实时日志(F10)";
             uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton5.Click += uiButton5_Click;
             // 
@@ -224,7 +224,7 @@ namespace DWZ_Scada.Pages
             uiButton1.RectColor = System.Drawing.Color.SlateGray;
             uiButton1.Size = new System.Drawing.Size(239, 87);
             uiButton1.TabIndex = 3;
-            uiButton1.Text = "通用功能(F2)";
+            uiButton1.Text = "报警管理(F2)";
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton1.Click += uiButton1_Click;
             // 

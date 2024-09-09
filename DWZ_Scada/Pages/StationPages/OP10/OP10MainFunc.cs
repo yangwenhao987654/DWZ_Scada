@@ -1,4 +1,5 @@
 ﻿using AutoStation;
+using CommunicationUtilYwh.Communication;
 using CommunicationUtilYwh.Communication.PLC;
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.ProcessControl.DTO;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ZC_DataAcquisition;
 
 namespace DWZ_Scada.Pages.StationPages.OP10
 {
@@ -46,7 +48,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         public LogMgr Logger = LogMgr.Instance;
 
-        public static KeyencePLC PLC = new KeyencePLC();
+        public static MyPlc PLC = new KeyencePLC();
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
@@ -67,6 +69,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             Thread t2 = new Thread(() => PLCMainWork(_cts.Token));
             t2.Start();
             reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
+
         }
 
         /// <summary>
