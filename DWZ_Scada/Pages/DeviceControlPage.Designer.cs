@@ -1,6 +1,6 @@
 ﻿namespace DWZ_Scada.Pages
 {
-    partial class Manual_Debug
+    partial class DeviceControlPage
     {
         /// <summary>
         /// Required designer variable.
@@ -202,7 +202,7 @@
             uiButton3.Text = "初始化";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             // 
-            // Manual_Debug
+            // DeviceControlPage
             // 
             AllowShowTitle = false;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -219,7 +219,7 @@
             Controls.Add(uiButton1);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Manual_Debug";
+            Name = "DeviceControlPage";
             Padding = new System.Windows.Forms.Padding(0);
             RectColor = System.Drawing.Color.Black;
             ShowRect = false;
@@ -230,6 +230,7 @@
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             FormClosing += Manual_Debug_FormClosing;
+            Load += DeviceControlPage_Load;
             ResumeLayout(false);
         }
 

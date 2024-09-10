@@ -23,7 +23,7 @@ namespace DWZ_Scada.DAL.DBContext
 
         public DbSet<Role> Roles { get; set; }
 
-        //public DbSet<DeviceAlarmEntity> tbDeviceAlarms { get; set; }
+        public DbSet<DeviceAlarmEntity> tbDeviceAlarms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

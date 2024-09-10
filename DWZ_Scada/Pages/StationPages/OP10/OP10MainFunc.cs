@@ -2,10 +2,12 @@
 using CommunicationUtilYwh.Communication;
 using CommunicationUtilYwh.Communication.PLC;
 using DWZ_Scada.HttpRequest;
+using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.Services;
 using LogTool;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Sunny.UI;
@@ -20,35 +22,13 @@ using ZC_DataAcquisition;
 
 namespace DWZ_Scada.Pages.StationPages.OP10
 {
-    public class OP10MainFunc:IDisposable
+    public class OP10MainFunc: MainFuncBase,IDisposable
     {
-        private static OP10MainFunc _instance;
-
         private static OP10Model myOp10Model;
-
-        public static OP10MainFunc Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (typeof(OP10MainFunc))
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new OP10MainFunc();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-
-        public static bool IsPlc_Connected;
 
         public LogMgr Logger = LogMgr.Instance;
 
-        public static MyPlc PLC = new KeyencePLC();
+        //public static MyPlc PLC = new KeyencePLC();
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
@@ -112,17 +92,13 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             await stateService.ReportState(dto);
         }
 
-        private OP10MainFunc()
-        {
-
-        }
 
         //手持扫码枪 切换物料
         //输入物料
         //1.扫码枪
         //2.人工输入
 
-        public static void PLCMainWork(CancellationToken token)
+        public override void PLCMainWork(CancellationToken token)
         {
             //进站信号
             bool isEntry;
@@ -158,6 +134,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                                 //有报警 记录报警信息
                                 //报警内容 从Map里取
                                 //获取到对应的报警类型
+                                //报警类型  
+                                //报警类型 3种 Error  Warn  
 
                             }
                         }
@@ -241,28 +219,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// <summary>
         /// 后台线程，PLC重连策略
         /// </summary>
-        private void ConnStatusMonitor(CancellationToken token)
+        protected override void ConnStatusMonitor(CancellationToken token)
         {
-            while (!token.IsCancellationRequested)
-            {
-                if (!IsPlc_Connected)
-                {
-                    //全局PLC连接配置
-                    Logger.Info("PLC连接中");
-                    bool flag = PLC.Connect(SystemParams.Instance.OP10_PlcIP, SystemParams.Instance.OP10_PlcPort);
-                    if (flag)
-                    {
-                        IsPlc_Connected = true;
-                        Logger.Debug("PLC连接成功");
-                    }
-                    else
-                    {
-                        IsPlc_Connected = false;
-                        Logger.Error("PLC连接失败:");
-                    }
-                }
-                Thread.Sleep(1000);
-            }
+            //直接调用父类的处理逻辑
+           base.ConnStatusMonitor(token);
+           
         }
         #endregion
 
@@ -273,6 +234,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             //释放PLC连接
             PLC?.Dispose();
             reportTimer.Dispose();
+        }
+
+        public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
+        {
+            
         }
     }
 }

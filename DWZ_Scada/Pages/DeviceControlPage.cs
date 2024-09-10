@@ -9,34 +9,38 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoTF;
+using DWZ_Scada.Pages.StationPages;
+using DWZ_Scada.Pages.StationPages.OP10;
 using LogTool;
 using Sunny.UI;
 using UtilYwh.AlarmNotify;
 
 namespace DWZ_Scada.Pages
 {
-    public partial class Manual_Debug : UIForm
+    public partial class DeviceControlPage : UIForm
     {
-        private static Manual_Debug _instance;
-        public static Manual_Debug Instance
+        private static DeviceControlPage _instance;
+        public static DeviceControlPage Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    lock (typeof(Manual_Debug))
+                    lock (typeof(DeviceControlPage))
                     {
                         if (_instance == null)
                         {
-                            _instance = new Manual_Debug();
+                            _instance = new DeviceControlPage();
                         }
                     }
                 }
                 return _instance;
             }
         }
-        Label percentageLabel = new Label();
-        public Manual_Debug()
+        private CancellationTokenSource _cts = new CancellationTokenSource();
+
+
+        public DeviceControlPage()
         {
             InitializeComponent();
             // 订阅AlarmEvent事件  
@@ -223,12 +227,22 @@ namespace DWZ_Scada.Pages
         /// </summary>
         private void ReflashStatus()
         {
-            while (true)
+            while (_cts.IsCancellationRequested)
             {
                 ClearAlarm();
-                if (Global.IsPlc_Connected)
+                string alarmAddressPre = "DB533.";
+                if (!MainFuncBase.IsInstanceNull && MainFuncBase.Instance.IsPlc_Connected)
                 {
-
+                    foreach (PLCAlarmData data in Global.PlcAlarmList)
+                    {
+                        string address = alarmAddressPre + data.Address;
+                        MainFuncBase.Instance.PLC.ReadBool(address, out bool res);
+                        if (res)
+                        {
+                            Global.IsDeviceAlarm = true;
+                            AddAlarm(data.Name);
+                        }
+                    }
                 }
                 else
                 {
@@ -314,7 +328,13 @@ namespace DWZ_Scada.Pages
 
         private void Manual_Debug_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Manual_Debug.Instance?.Dispose();
+            DeviceControlPage.Instance?.Dispose();
+        }
+
+        private void DeviceControlPage_Load(object sender, EventArgs e)
+        {
+            Thread t = new Thread(ReflashStatus);
+            t.Start();
         }
     }
 }

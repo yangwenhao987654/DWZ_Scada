@@ -30,6 +30,8 @@ using RestSharp;
 using Method = RestSharp.Method;
 using DWZ_Scada.Pages;
 using AutoStation;
+using DWZ_Scada.Pages.StationPages;
+using DWZ_Scada.PLC;
 
 namespace DWZ_Scada
 {
@@ -83,8 +85,13 @@ namespace DWZ_Scada
             TestHttp();
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
-            op10Model = new OP10Model();
-            OP10MainFunc.Instance.Start(op10Model);
+
+            //OP10工站 PLC配置
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
+                SystemParams.Instance.OP10_PlcPort);
+
+            MainFuncBase.RegisterFactory(()=>new OP10MainFunc(plcConfig));
+            MainFuncBase.Instance.StartAsync();
             /*  lbl_EntrySN.DataBindings.Add("Text", op10Model, "TempSN");
               op10Model.TempSN = "6666";*/
             UpdateTempSN("6654");
@@ -222,7 +229,7 @@ namespace DWZ_Scada
         private void uiButton4_Click(object sender, EventArgs e)
         {
             //进入点检模式 生产数据跟正常数据分开
-            OP10MainFunc.PLC.Write(OP10Address.SpotCheck, "bool", true);
+            OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", true);
 
             
         }

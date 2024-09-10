@@ -60,7 +60,7 @@ namespace DWZ_Scada
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
        
-           // OP10MainFunc.Instance.Start();
+           // OP10MainFunc.Instance.StartAsync();
         }
 
         private void PLCWorkMonitor()

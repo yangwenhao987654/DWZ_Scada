@@ -11,6 +11,10 @@ namespace CommunicationUtilYwh.Communication.PLC
 {
     public abstract class MyPlc
     {
+        public string IP { get; set; }
+
+        public int Port { get; set; }
+
         public abstract bool Connect(string ip, int port);
 
         public abstract bool ReadBool(string address, out bool value);

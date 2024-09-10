@@ -107,7 +107,7 @@ namespace DWZ_Scada.Pages
                     AddFormTopanel(Formula_set.Instance);
                     break;
                 case Keys.F4:
-                    AddFormTopanel(Manual_Debug.Instance);
+                    AddFormTopanel(DeviceControlPage.Instance);
                     break;
                 case Keys.F5:
                     AddFormTopanel(Form_set_PLC.Instance);
@@ -238,7 +238,7 @@ namespace DWZ_Scada.Pages
         }
         private void uiButton4_Click(object sender, EventArgs e)
         {
-            AddFormTopanel(Manual_Debug.Instance);
+            AddFormTopanel(DeviceControlPage.Instance);
         }
         private void uiButton1_Click(object sender, EventArgs e)
         {
