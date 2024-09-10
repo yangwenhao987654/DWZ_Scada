@@ -19,9 +19,5 @@ namespace UtilUIYwh
             }
             box.SelectedIndex = 0;
         }
-
-      
-
-
     }
 }

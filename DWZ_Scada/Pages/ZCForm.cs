@@ -57,9 +57,6 @@ namespace DWZ_Scada.Pages
           
         }
 
-
-      
-
         private void ZCForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -83,8 +80,7 @@ namespace DWZ_Scada.Pages
         }
         private void ZCForm_Load(object sender, EventArgs e)
         {
-            timer = new Timer(TimerElapsed, null, 0, 100);
-            AddFormTopanel(PageOP10.Instance);
+            timer = new Timer(TimerElapsed, null, 0, 1000);
             // 设置KeyPreview为true以捕获键盘事件
             this.KeyPreview = true;
             // 添加事件处理程序

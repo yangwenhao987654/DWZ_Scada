@@ -87,7 +87,7 @@ namespace DWZ_Scada
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
 
             //OP10工站 PLC配置
-            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP, 
                 SystemParams.Instance.OP10_PlcPort);
 
             MainFuncBase.RegisterFactory(()=>new OP10MainFunc(plcConfig));

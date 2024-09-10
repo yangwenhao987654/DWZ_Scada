@@ -26,8 +26,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
     {
         private static OP10Model myOp10Model;
 
-        public LogMgr Logger = LogMgr.Instance;
-
         //public static MyPlc PLC = new KeyencePLC();
 
         private CancellationTokenSource _cts = new CancellationTokenSource();
@@ -36,61 +34,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private static readonly object stateLock = new object();
 
-        private Timer reportTimer ;
-
-
-        public void Start(OP10Model op10Model)
-        {
-            myOp10Model = op10Model;
-            //启动PLC监控线程
-            Thread t = new Thread(()=>ConnStatusMonitor(_cts.Token));
-            t.Start();
-            Thread.Sleep(300);
-            Thread t2 = new Thread(() => PLCMainWork(_cts.Token));
-            t2.Start();
-            reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
-
-        }
-
-        /// <summary>
-        /// 上报设备状态 1S 上报一次
-        /// </summary>
-        /// <param name="state"></param>
-        private async void ReportDeviceState(object state)
-        {
-            int currentState;
-            lock (stateLock)
-            {
-                currentState = DeviceState;
-            }
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = "0001",
-                DeviceName = "工站01",
-            };
-            switch (currentState)
-            {
-                case -1:
-                    dto.Status = "停机";
-                    break;
-                case 1:
-                    dto.Status = "运行中";
-                    break;
-                case 2:
-                    dto.Status = "待机中";
-                    break;
-                default:
-                    dto.Status = "错误";
-                    break;
-            }
-
-            //如果有报警的话 需要带着报警信息
-
-            //记录报警信息
-
-            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            await stateService.ReportState(dto);
-        }
 
 
         //手持扫码枪 切换物料
@@ -108,7 +51,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 try
                 {
                     //TODO 这样更新是OK的
-                    PageOP10.Instance.UpdateTempSN(myOp10Model.TempSN);
+                    //PageOP10.Instance.UpdateTempSN(myOp10Model.TempSN);
                     myOp10Model.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
                     if (!IsPlc_Connected)
                     {
@@ -216,15 +159,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
 
         #region 后台监控线程
-        /// <summary>
-        /// 后台线程，PLC重连策略
-        /// </summary>
-        protected override void ConnStatusMonitor(CancellationToken token)
-        {
-            //直接调用父类的处理逻辑
-           base.ConnStatusMonitor(token);
-           
-        }
+
         #endregion
 
         public void Dispose()
@@ -233,7 +168,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             _cts.Cancel();
             //释放PLC连接
             PLC?.Dispose();
-            reportTimer.Dispose();
         }
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)

@@ -90,7 +90,7 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         public async void StartAsync()
         {
-            Task task = Task.Run(() =>
+            Task.Run(() =>
             {
                 //myOp10Model = op10Model;
                 //启动PLC监控线程
