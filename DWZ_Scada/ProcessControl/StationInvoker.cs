@@ -10,7 +10,6 @@ using DWZ_Scada.ProcessControl.ExitHandle;
 using LogTool;
 using Newtonsoft.Json;
 using RestSharp;
-using TestConsoleApp1;
 
 namespace DWZ_Scada.ProcessControl
 {
@@ -36,7 +35,7 @@ namespace DWZ_Scada.ProcessControl
             //请求Mes的逻辑
             //发送Http请求 
             string url = @"http://localhost:8090/test";
-            TestEntryRequest<ResultDTO>(url);
+            //TestEntryRequest<ResultDTO>(url);
             _getInCommand.Execute();
 
             LogMgr.Instance.Debug("Default post-processing logic for entry...");
@@ -49,7 +48,7 @@ namespace DWZ_Scada.ProcessControl
             LogMgr.Instance.Debug("Default post-processing logic for exit...");
         }
 
-        /// <summary>
+    /*    /// <summary>
         /// 进站请求
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -67,6 +66,6 @@ namespace DWZ_Scada.ProcessControl
             ResultDTO result = JsonConvert.DeserializeObject<ResultDTO>(res);
             Console.WriteLine(jsonStr);
 
-        }
+        }*/
     }
 }

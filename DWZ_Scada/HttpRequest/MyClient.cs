@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using TestConsoleApp1;
 using Azure;
 
 namespace DWZ_Scada.HttpRequest

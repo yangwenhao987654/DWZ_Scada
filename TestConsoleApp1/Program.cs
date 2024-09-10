@@ -27,7 +27,7 @@ namespace TestConsoleApp1
             server.Start();*/
 
           //
-          Animal animal = new Dog();
+/*          Animal animal = new Dog();
          
             //animal.Eat();
             VoidMethod m;
@@ -36,7 +36,7 @@ namespace TestConsoleApp1
             
             m.Invoke();
 
-            Console.ReadLine();
+            Console.ReadLine();*/
         }
 
         public static void TestHttp()

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoStation;
+using AutoTF;
 using DWZ_Scada.DAL.DBContext;
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.Pages;
@@ -40,6 +41,8 @@ namespace DWZ_Scada
         [STAThread]
         static void Main()
         {
+           /* Application.Run(new Form1());
+            return;*/
             #region 只允许打开一个程序
             bool isAppRunning = false;
             //设置一个互斥体
@@ -62,6 +65,7 @@ namespace DWZ_Scada
             #endregion
             try
             {
+
                 bool canCreateNew;
                 string mutexName = System.Reflection.Assembly.GetEntryAssembly().FullName;
                 using (Mutex m = new Mutex(false, mutexName, out canCreateNew))
@@ -86,15 +90,14 @@ namespace DWZ_Scada
 
                         //获取配置
                         //注册服务
-                    /*    var config = new ConfigurationBuilder()
-                            .AddJsonFile("appSettings.json")
-                            .Build();*/
-
+                        /*    var config = new ConfigurationBuilder()
+                                .AddJsonFile("appSettings.json")
+                                .Build();*/
                         var serviceCollection = new ServiceCollection();
                         //serviceCollection
-                            //作用域
-                      /*      .AddDbContext<MyDbContext>(
-                            (builder )=>
+                        //作用域
+                        /*    .AddDbContext<MyDbContext>(
+                            (builder) =>
                             {
                                 builder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
                             })
@@ -105,12 +108,15 @@ namespace DWZ_Scada
                                 builder =>
                                 {
                                     builder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-                                },1024)
+                                }, 1024)
                             ;*/
                         ConfigureServices(serviceCollection);
-                        Global.ServiceProvider  = serviceCollection.BuildServiceProvider();
+                        Global.ServiceProvider = serviceCollection.BuildServiceProvider();
                         LogMgr.Instance.Init();
                         SystemParams.Load();
+                     /*   PageLogin pageLogin = new PageLogin();
+                        pageLogin.ShowDialog();*/
+
                         ZCForm mainForm = ZCForm.Instance;
                         mainForm.WindowState = FormWindowState.Maximized;
                         Application.Run(mainForm);
@@ -127,16 +133,15 @@ namespace DWZ_Scada
             }
         }
 
-
         private static void ConfigureServices(ServiceCollection services)
         {
             //1.注册数据访问层
-           /* services.AddScoped<IMatlabPaarmsDAL, MatlabParams_DAL>();
-            services.AddScoped<IFormulaParamsDAL, FormulaParamsDAL>();*/
+            /* services.AddScoped<IMatlabPaarmsDAL, MatlabParams_DAL>();
+             services.AddScoped<IFormulaParamsDAL, FormulaParamsDAL>();*/
 
             //2.注册业务逻辑层
-      /*      services.AddScoped<IMatlabParamsBLL, MatlabParamsBLL>();
-            services.AddScoped<IFormulaParamsBLL, FormulaParamsBLL>();*/
+            /*      services.AddScoped<IMatlabParamsBLL, MatlabParamsBLL>();
+                  services.AddScoped<IFormulaParamsBLL, FormulaParamsBLL>();*/
 
             //注册主窗体
             //services.AddScoped<MainForm>();

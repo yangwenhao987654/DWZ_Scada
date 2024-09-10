@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsoleApp1", "TestCons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{3F2D5445-D2A4-4104-994A-5D8E8D9BEB81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp2", "WinFormsApp2\WinFormsApp2.csproj", "{D5805B11-B926-4024-BB29-6C46B3303A61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScadaBase.DAL", "ScadaBase.DAL\ScadaBase.DAL.csproj", "{BA60097F-FC17-449F-97CF-0CD410686B51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,14 +82,14 @@ Global
 		{3F2D5445-D2A4-4104-994A-5D8E8D9BEB81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F2D5445-D2A4-4104-994A-5D8E8D9BEB81}.Release|x64.ActiveCfg = Release|Any CPU
 		{3F2D5445-D2A4-4104-994A-5D8E8D9BEB81}.Release|x64.Build.0 = Release|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Debug|x64.Build.0 = Debug|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Release|x64.ActiveCfg = Release|Any CPU
-		{D5805B11-B926-4024-BB29-6C46B3303A61}.Release|x64.Build.0 = Release|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Debug|x64.Build.0 = Debug|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Release|x64.ActiveCfg = Release|Any CPU
+		{BA60097F-FC17-449F-97CF-0CD410686B51}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -23,6 +23,8 @@ namespace DWZ_Scada.DAL.DBContext
 
         public DbSet<Role> Roles { get; set; }
 
+        //public DbSet<DeviceAlarmEntity> tbDeviceAlarms { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder()
@@ -31,6 +33,7 @@ namespace DWZ_Scada.DAL.DBContext
             base.OnConfiguring(optionsBuilder);
             //string connStr = $"Data Source=127.0.0.1;Initial Catalog=ScadaBase;User Id=sa;Password=123123;Trusted_Connection=True;Encrypt=false;";
             //string connectionStr = DbConfigManager.ConnectionStr;
+            //optionsBuilder.UseSqlServer(connStr);
             optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         }
 

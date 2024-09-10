@@ -32,6 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="112.0.0" />
+    <PackageReference Include="TouchSocket" Version="2.0.17" />
+    <PackageReference Include="TouchSocket.Http" Version="2.0.17" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogTool\LogTool.csproj" />

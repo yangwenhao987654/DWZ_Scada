@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DWZ_Scada.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240830013851_init")]
-    partial class init
+    [Migration("20240910064214_testNew")]
+    partial class testNew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,7 @@ namespace DWZ_Scada.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -45,6 +46,7 @@ namespace DWZ_Scada.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -62,6 +64,7 @@ namespace DWZ_Scada.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("RoleName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -71,6 +74,20 @@ namespace DWZ_Scada.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tbRole", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "操作员",
+                            RoleType = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "管理员",
+                            RoleType = 10
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -19,6 +19,10 @@ using Cap.Dialog;
 using DIPTest;
 using DWZ_Scada.Page.PLCControl;
 using AutoStation;
+using Microsoft.Extensions.DependencyInjection;
+using DWZ_Scada.HttpRequest;
+using DWZ_Scada.Services;
+using RestSharp;
 
 namespace DWZ_Scada.Pages
 {
@@ -47,10 +51,15 @@ namespace DWZ_Scada.Pages
         }
 
         private ListViewEx_Log listViewExLog;
-        public ZCForm()
+        private ZCForm()
         {
             InitializeComponent();
+          
         }
+
+
+      
+
         private void ZCForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
