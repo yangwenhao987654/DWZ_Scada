@@ -18,7 +18,7 @@ namespace DWZ_Scada.Pages.PLCAlarm
         public static void Load()
         {
             #region    读取参数
-            string path = $"DATA\\{SystemParams.Instance.Station}-PLC参数设置.XML";
+            string path = $"Config\\{SystemParams.Instance.Station}-PLC参数设置.XML";
             try
             {
                 XmlDocument doc = new XmlDocument();
@@ -33,7 +33,12 @@ namespace DWZ_Scada.Pages.PLCAlarm
                         XmlElement xe = (XmlElement)xnl[i];
                         PLCAlarmData pLC_DATA_ = new PLCAlarmData();
                         //节点名称 
-                        pLC_DATA_.ID = Convert.ToInt32(xe.Name);
+                        string name = xe.Name;
+                        string[] strings = name.Split("-");
+                        if (strings.Length>1)
+                        {
+                            pLC_DATA_.ID = Convert.ToInt32(strings[1]);
+                        }
                         pLC_DATA_.Name = Convert.ToString(xe.GetAttribute("报警名称"));
                         pLC_DATA_.Address = Convert.ToString(xe.GetAttribute("地址"));
                         bool isArray = Convert.ToBoolean(xe.GetAttribute("是否数组"));
@@ -76,12 +81,13 @@ namespace DWZ_Scada.Pages.PLCAlarm
 
         public static void Save()
         {
-            string path = $"DATA\\{SystemParams.Instance.Station}-PLC参数设置.XML";
+            string path = $"Config\\{SystemParams.Instance.Station}-PLC参数设置.XML";
+
             try
             {
-                if (Directory.Exists(path) == false)//如果不存在就创建LOGS文件夹
+                if (Directory.Exists("Config") == false)//如果不存在就创建LOGS文件夹
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory("Config");
                 }
                 #region  保存XML
                 //使用XmlDocument创建xml
@@ -98,7 +104,7 @@ namespace DWZ_Scada.Pages.PLCAlarm
                 List<PLCAlarmData> list = Global.PlcAlarmList;
                 for (var i = 0; i < list.Count; i++)
                 {
-                    XmlElement classElement = xmldoc.CreateElement(list[i].ID.ToString());
+                    XmlElement classElement = xmldoc.CreateElement($"ID-{list[i].ID.ToString()}");
                     classElement.SetAttribute("地址", list[i].Address);
                     classElement.SetAttribute("报警名称", list[i].Name);
                     classElement.SetAttribute("是否数组", list[i].IsArray.ToString());
@@ -109,7 +115,7 @@ namespace DWZ_Scada.Pages.PLCAlarm
                         //在classElement上增加子节点List
                         foreach (var data in list[i].AlarmList)
                         {
-                            XmlElement subElement = xmldoc.CreateElement($"{list[i].ID}-{data.Index}");
+                            XmlElement subElement = xmldoc.CreateElement($"Name{list[i].ID}_{data.Index}");
                             subElement.SetAttribute("索引", data.Index.ToString());
                             subElement.SetAttribute("全地址", data.SubAddress);
                             subElement.SetAttribute("报警名称", data.Name);

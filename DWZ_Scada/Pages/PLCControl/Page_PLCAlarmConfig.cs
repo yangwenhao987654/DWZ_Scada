@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Xml;
+using static log4net.Appender.ColoredConsoleAppender;
 
 namespace DWZ_Scada.Page.PLCControl
 {
@@ -16,6 +18,12 @@ namespace DWZ_Scada.Page.PLCControl
         public Page_PLCAlarmConfig()
         {
             InitializeComponent();
+        }
+
+        public enum PlcAlarmEnum
+        {
+            Alarm,
+            Error
         }
 
         private static Page_PLCAlarmConfig _instance;
@@ -45,6 +53,12 @@ namespace DWZ_Scada.Page.PLCControl
         private void InitTable()
         {
             dgv.Rows.Clear();
+            var dataSource = new List<string>
+            {
+                "Alarm",
+                "Error"
+            };
+            column_AlarmType.DataSource =dataSource;
             for (int i = 0; i < Global.PlcAlarmList.Count; i++)
             {
                 dgv.Rows.Add();
@@ -135,11 +149,12 @@ namespace DWZ_Scada.Page.PLCControl
         {
             int Index = e.ColumnIndex;
             bool isArray = (bool)dgv.Rows[e.RowIndex].Cells[4].Value;
-            if (Index==5 && isArray)
+            if (Index == 5 && isArray)
             {
                 //点击了按钮列
-                CustomMessageBox.ShowDialog($"这是第{e.RowIndex}行");
-                //CustomMessageBox messageBox = new CustomMessageBox();
+                PageAlarmArrayConfig page = new PageAlarmArrayConfig(e.RowIndex,Global.PlcAlarmList[e.RowIndex].AlarmList);
+                page.ShowDialog();
+
             }
         }
 
