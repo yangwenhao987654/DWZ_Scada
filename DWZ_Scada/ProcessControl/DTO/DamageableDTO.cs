@@ -26,6 +26,7 @@ namespace DWZ_Scada.ProcessControl.DTO
         public int runNumber { get; set; }
         /// <summary>
         /// 类型 时间/次数
+        /// 区分是按次数还是时间 0 time 1 count
         /// </summary>
         public int type { get; set; }
         /// <summary>

@@ -19,7 +19,7 @@ namespace DWZ_Scada.ProcessControl
         /// <summary>
         /// 易损易耗件请求路径
         /// </summary>
-        public const string ConsumablePartsUrl = "/parts";
+        public const string ConsumablePartsUrl = "/damageable/issue";
 
 
         /// <summary>

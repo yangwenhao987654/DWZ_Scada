@@ -19,6 +19,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// </summary>
         public static readonly string AlarmAddress="";
 
+        /// <summary>
+        /// 报警地址长度 
+        /// </summary>
+        public  const  int AlarmAddressLength = 50;
 
         /// <summary>
         /// 进站SN码

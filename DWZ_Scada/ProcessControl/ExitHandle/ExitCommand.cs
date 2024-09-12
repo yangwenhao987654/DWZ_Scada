@@ -12,6 +12,8 @@ namespace DWZ_Scada.ProcessControl.ExitHandle
         public string StationName { get; }
         public string TempSN { get; }
 
+        public string workOrder { get; }
+
         protected ExitCommand(string stationName, string tempSN)
         {
             StationName = stationName;

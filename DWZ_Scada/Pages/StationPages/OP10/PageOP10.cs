@@ -30,6 +30,7 @@ using RestSharp;
 using Method = RestSharp.Method;
 using DWZ_Scada.Pages;
 using AutoStation;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
 using DWZ_Scada.PLC;
 
@@ -70,7 +71,7 @@ namespace DWZ_Scada
             }
         }
 
-        public PageOP10()
+        private PageOP10()
         {
             InitializeComponent();
             _instance =this;
@@ -85,13 +86,16 @@ namespace DWZ_Scada
             TestHttp();
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
-
+            PlcAlarmLoader.Load();
             //OP10工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP, 
                 SystemParams.Instance.OP10_PlcPort);
 
-            MainFuncBase.RegisterFactory(()=>new OP10MainFunc(plcConfig));
+            //TODO 这里导致程序卡顿
+            MainFuncBase.RegisterFactory(() => new OP10MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
+
+
             /*  lbl_EntrySN.DataBindings.Add("Text", op10Model, "TempSN");
               op10Model.TempSN = "6666";*/
             UpdateTempSN("6654");
@@ -203,11 +207,11 @@ namespace DWZ_Scada
                 // PassStationData = n
                 PassStationData = new OP10Data()
                 {
-                    Material = "物料信息AAA",
+             /*       Material = "物料信息AAA",
                     VisionData1 = "4dwadwa",
                     VisionData2 = "sw23435",
                     VisionPicPath = "D:\\test",
-                    VisionResult = "OK"
+                    VisionResult = "OK"*/
                 }
             };
             await MyClient.PassStationUploadTest(dto);

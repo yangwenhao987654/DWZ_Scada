@@ -77,18 +77,18 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         public int PLC_PORT;
 
-        private CancellationTokenSource _cts = new CancellationTokenSource();
+        public CancellationTokenSource _cts = new CancellationTokenSource();
 
-        private  int DeviceState = -1;
+        public  int DeviceState = -1;
 
-        private  readonly object stateLock = new object();
+        public  readonly object stateLock = new object();
 
-        private Timer reportTimer;
+        public Timer reportTimer;
 
         /// <summary>
         /// 启动流程
         /// </summary>
-        public async void StartAsync()
+        public  void StartAsync()
         {
             Task.Run(() =>
             {
@@ -107,9 +107,9 @@ namespace DWZ_Scada.Pages.StationPages
         /// 上报设备状态 1S 上报一次
         /// </summary>
         /// <param name="state"></param>
-        private async void ReportDeviceState(object state)
+        protected virtual async void ReportDeviceState(object state)
         {
-            int currentState;
+            int currentState =-1;
             lock (stateLock)
             {
                 currentState = DeviceState;
@@ -138,7 +138,6 @@ namespace DWZ_Scada.Pages.StationPages
             //如果有报警的话 需要带着报警信息
 
             //记录报警信息
-
             DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
             await stateService.ReportState(dto);
         }

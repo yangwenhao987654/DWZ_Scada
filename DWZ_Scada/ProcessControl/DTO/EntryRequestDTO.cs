@@ -12,8 +12,10 @@ namespace DWZ_Scada.ProcessControl.DTO
     public class EntryRequestDTO
     {
 
-        public string StationbCode { get; set; }
+        public string StationCode { get; set; }
         public string SnTemp { get; set; }
+
+        public string WorkOrder { get; set; }
         public EntryRequestDTO() { }
     }
 }

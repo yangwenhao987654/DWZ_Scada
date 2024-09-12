@@ -12,7 +12,6 @@ namespace DWZ_Scada
         // 定义一个静态的 ServiceProvider 变量
         public static ServiceProvider ServiceProvider { get;  set; }
 
-
         public static bool IsPlc_Connected { get; set; }
 
         public static bool IsCheckSignal { get; set; }
@@ -22,8 +21,6 @@ namespace DWZ_Scada
         public static bool IsLogin { get; set; }
         public static string LoginUser { get; set; }
         public static string CurrentUserCode { get; set; }
-
-
 
         /// <summary>
         /// 设备是否在报警
@@ -41,11 +38,29 @@ namespace DWZ_Scada
     }
     public class PLCAlarmData
     {
-        public string ID;
+        public int ID;
         public string Address;
+
+        /// <summary>
+        /// 地址类型 有两种
+        /// 1.连续地址 2.单个地址
+        /// </summary>
+        public bool IsArray;
         public string Name;
 
-        public PLCAlarmData(string ID)
+        public List<SingleAlarmAddress> AlarmList;
+
+        /// <summary>
+        /// 报警类型  提示 警告⚠ 错误 
+        /// </summary>
+        public string AlarmType;
+
+        /// <summary>
+        /// 连续类型的地址长度
+        /// </summary>
+        public int Length;
+
+        public PLCAlarmData(int ID)
         {
             this.ID = ID;
         }
@@ -53,6 +68,20 @@ namespace DWZ_Scada
         {
 
         }
+    }
+
+    public class SingleAlarmAddress
+    {
+        /// <summary>
+        /// 连续地址索引 索引从开始
+        /// </summary>
+        public int Index;
+
+        public string SubAddress;
+
+        public string Name;
+
+        public string AlarmType;
     }
 
 }

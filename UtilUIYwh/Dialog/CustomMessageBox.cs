@@ -29,8 +29,8 @@ namespace Cap.Dialog
             InitializeComponent();
             label.Text = message;
             this.Controls.Add(label);
-            this.StartPosition = FormStartPosition.Manual;
-            this.SetDesktopLocation(50, 50); // 设置弹出位置，例如屏幕左上角（50, 50）
+           /* this.StartPosition = FormStartPosition.Manual;
+            this.SetDesktopLocation(50, 50); // 设置弹出位置，例如屏幕左上角（50, 50）*/
         }
 
         private CustomMessageBox(string message, int x, int y)
@@ -59,7 +59,7 @@ namespace Cap.Dialog
         /// 在顶层弹窗
         /// </summary>
         /// <param name="message"></param>
-        public static void ShowDialogTopCenter(string message)
+        public static void ShowDialogTopLeft(string message)
         {
             CustomMessageBox customMessage = new CustomMessageBox(message);
             customMessage.SetDesktopLocation(50, 50);

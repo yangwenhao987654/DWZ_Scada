@@ -182,7 +182,7 @@
             uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton8.Click += uiButton8_Click;
             // 
-            // PageOP10
+            // PageOPTest
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1024);
@@ -198,7 +198,7 @@
             Controls.Add(listViewEx_Log1);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
-            Name = "PageOP10";
+            Name = "PageOPTest";
             Text = "PageOP10";
             FormClosing += PageOP10_FormClosing;
             Load += Page_Load;

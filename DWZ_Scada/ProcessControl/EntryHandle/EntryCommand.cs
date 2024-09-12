@@ -21,6 +21,8 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
 
         public string TempSN { get; }
 
+        public string workOrder { get; }
+
 
         //{"msg":"没有正在生产的工单","code":200}
 
@@ -50,7 +52,8 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
         {
             EntryRequestDTO requestDto = new EntryRequestDTO();
             requestDto.SnTemp = TempSN;
-            requestDto.StationbCode = StationName;
+            requestDto.StationCode = StationName;
+            requestDto.WorkOrder = "MO202409110002";
             await MyClient.CheckIn(requestDto);
           /*  try
             {
@@ -63,7 +66,7 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
                 request.Method = Method.Post;
                 EntryRequestDTO requestDto = new EntryRequestDTO();
                 requestDto.SnTemp = TempSN;
-                requestDto.StationbCode = StationName;
+                requestDto.StationCode = StationName;
                 request.AddJsonBody(requestDto);
                 RestResponse response = await client.ExecuteAsync(request);
                 //RestResponse response = task.Result;

@@ -18,6 +18,8 @@ namespace DWZ_Scada.ProcessControl
         /// </summary>
         public string TempSN { get; }
 
+
+        public string workOrder { get; }
         void Execute();
     }
 }

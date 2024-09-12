@@ -38,22 +38,40 @@ namespace DWZ_Scada
     {
         public HttpService MyHttpService;
 
+        private static PageOPTest _instance;
+        public static PageOPTest Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(PageOPTest))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new PageOPTest();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
         /// <summary>
         /// 当前站名
         /// OP10
         /// </summary>
         private const string CURRENT_STATION_NAME = "OP10";
 
-        public PageOPTest()
+        private PageOPTest()
         {
             InitializeComponent();
-            //this.Dock = DockStyle.Fill;
         }
 
         private void Page_Load(object sender, EventArgs e)
         {
             LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug("打开OP10工站");
+            LogMgr.Instance.Debug("打开测试工站");
 
             // Mes 选型服务  监控Mes选型消息
             TestHttp();
@@ -162,23 +180,27 @@ namespace DWZ_Scada
             PassStationDTO dto = new PassStationDTO()
             {
                 StationCode = "OP10",
-                SnTemp = "AQW12dswSAW",
+                SnTemp = "24TT0001",
                 // PassStationData = n
                 PassStationData = new OP10Data()
                 {
-                    Material = "物料信息AAA",
+                 /*   Material = "物料信息AAA",
                     VisionData1 = "4dwadwa",
                     VisionData2 = "sw23435",
                     VisionPicPath = "D:\\test",
-                    VisionResult = "OK"
-                }
+                    VisionResult = "OK",*/
+                    a="111",
+                    b="222",
+                    Good = 1,
+                },
+                WorkOrder = "MO202409110002"
             };
             await MyClient.PassStationUploadTest(dto);
         }
 
         private async void uiButton3_Click(object sender, EventArgs e)
         {
-            string itemCode = "A0001WED";
+            string itemCode = "IF20240827001";
             await MyClient.GetBomList(itemCode);
             LogMgr.Instance.Info("测试请求BOM完成");
         }

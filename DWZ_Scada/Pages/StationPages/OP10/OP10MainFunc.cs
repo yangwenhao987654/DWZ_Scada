@@ -1,4 +1,5 @@
 ﻿using AutoStation;
+using AutoTF;
 using CommunicationUtilYwh.Communication;
 using CommunicationUtilYwh.Communication.PLC;
 using DWZ_Scada.HttpRequest;
@@ -22,20 +23,9 @@ using ZC_DataAcquisition;
 
 namespace DWZ_Scada.Pages.StationPages.OP10
 {
-    public class OP10MainFunc: MainFuncBase,IDisposable
+    public class OP10MainFunc : MainFuncBase, IDisposable
     {
-        private static OP10Model myOp10Model;
-
-        //public static MyPlc PLC = new KeyencePLC();
-
-        private CancellationTokenSource _cts = new CancellationTokenSource();
-
-        private static int DeviceState = -1;
-
-        private static readonly object stateLock = new object();
-
-
-
+        private static OP10Model myOp10Model =new OP10Model();
         //手持扫码枪 切换物料
         //输入物料
         //1.扫码枪
@@ -60,28 +50,50 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     }
                     #region 读取PLC状态
                     //判断是否点检模式
-               
+
                     // 进站请求信号
                     bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
                     if (readFlag)
                     {
+
+                        #region 循环读取PLC报警信息
+
+                        //适用于少量地址 不连续
+                        foreach (PLCAlarmData data in Global.PlcAlarmList)
+                        {
+                            string address = data.Address;
+                            PLC.ReadBool(address, out bool res);
+                            if (res)
+                            {
+                                Global.IsDeviceAlarm = true;
+                                //AddAlarm(data.Name);
+                            }
+                        }
+
+                        #endregion
+
                         //获取到PLC的实时状态 上报Mes 
                         //读取报警信号
                         //判断设备当前有无报警
                         //报警信息存数据库 报警内容 时间 
-                        PLC.ReadAlarm(OP10Address.AlarmAddress, out bool[] alarms, 20);
+
+                        #region 批量读取PLC报警 连续地址块
+                        PLC.ReadAlarm(OP10Address.AlarmAddress, out bool[] alarms, OP10Address.AlarmAddressLength);
                         for (int i = 0; i < alarms.Length; i++)
                         {
-                            if (alarms[i]==true)
+                            if (alarms[i] == true)
                             {
                                 //有报警 记录报警信息
                                 //报警内容 从Map里取
                                 //获取到对应的报警类型
                                 //报警类型  
                                 //报警类型 3种 Error  Warn  
+                                //去地址表找到对应的报警信息
 
                             }
                         }
+                        #endregion
+
                         //存报警到本地数据库
 
                         lock (stateLock)
@@ -102,8 +114,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                             //TODO 告诉PLC 能不能进站
 
                             //读取采集信号
-                            PLC.ReadInt16(OP10Address.Collect,out int collectSignal);
-                            if (collectSignal==1)
+                            PLC.ReadInt16(OP10Address.Collect, out int collectSignal);
+                            if (collectSignal == 1)
                             {
                                 //读取到有采集信号 
                                 //开始采集数据
@@ -120,11 +132,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                                     // PassStationData = n
                                     PassStationData = new OP10Data()
                                     {
-                                        Material = "物料信息AAA",
-                                        VisionData1 = "4dwadwa",
-                                        VisionData2 = "sw23435",
-                                        VisionPicPath = "D:\\test",
-                                        VisionResult = "OK"
+                                        /*    Material = "物料信息AAA",
+                                            VisionData1 = "4dwadwa",
+                                            VisionData2 = "sw23435",
+                                            VisionPicPath = "D:\\test",
+                                            VisionResult = "OK"*/
                                     }
                                 };
                                 MyClient.PassStationUploadTest(dto);
@@ -139,20 +151,20 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         LogMgr.Instance.Error("读取PLC 信号异常");
                     }
                     #endregion
-                    Thread.Sleep(500);
                 }
                 catch (Exception ex)
                 {
                     IsPlc_Connected = false;
                 }
+                Thread.Sleep(500);
             }
         }
 
-        private  async Task Execute(string tempSN)
+        private async Task Execute(string tempSN)
         {
             EntryRequestDTO requestDto = new EntryRequestDTO();
             requestDto.SnTemp = tempSN;
-            requestDto.StationbCode = "OP10";
+            requestDto.StationCode = "OP10";
             await MyClient.CheckIn(requestDto);
 
         }
@@ -165,14 +177,13 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         public void Dispose()
         {
             //释放PLC监控线程 所有后台线程
-            _cts.Cancel();
             //释放PLC连接
             PLC?.Dispose();
         }
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
-            
+
         }
     }
 }

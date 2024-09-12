@@ -1,6 +1,6 @@
 ﻿namespace DWZ_Scada.Page.PLCControl
 {
-    partial class Page_PLCAlarmConfigcs
+    partial class Page_PLCAlarmConfig
     {
         /// <summary>
         /// Required designer variable.
@@ -34,13 +34,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             dgv = new Sunny.UI.UIDataGridView();
-            Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             uiButton3 = new Sunny.UI.UIButton();
             uiButton4 = new Sunny.UI.UIButton();
             uiButton2 = new Sunny.UI.UIButton();
             uiButton1 = new Sunny.UI.UIButton();
+            Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            Column5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            column_Btn = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dgv).BeginInit();
             SuspendLayout();
             // 
@@ -65,7 +68,7 @@
             dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgv.ColumnHeadersHeight = 50;
             dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column3, Column1, Column2 });
+            dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column3, Column1, Column2, Column4, Column5, column_Btn });
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -110,22 +113,8 @@
             dgv.Size = new System.Drawing.Size(1912, 610);
             dgv.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dgv.TabIndex = 102;
-            dgv.CurrentCellChanged += dgv_CurrentCellChanged;
-            // 
-            // Column3
-            // 
-            Column3.HeaderText = "序号";
-            Column3.Name = "Column3";
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "地址";
-            Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "报警信息";
-            Column2.Name = "Column2";
+            dgv.CellClick += dgv_CellClick;
+            dgv.CellContentClick += dgv_CellContentClick;
             // 
             // uiButton3
             // 
@@ -239,7 +228,40 @@
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton1.Click += uiButton1_Click_1;
             // 
-            // Page_PLCAlarmConfigcs
+            // Column3
+            // 
+            Column3.HeaderText = "序号";
+            Column3.Name = "Column3";
+            Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            Column1.HeaderText = "地址";
+            Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            Column2.HeaderText = "报警信息";
+            Column2.Name = "Column2";
+            // 
+            // Column4
+            // 
+            Column4.HeaderText = "报警类型";
+            Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            Column5.HeaderText = "是否数组";
+            Column5.Name = "Column5";
+            // 
+            // column_Btn
+            // 
+            column_Btn.HeaderText = "报警数组";
+            column_Btn.Name = "column_Btn";
+            column_Btn.Text = "报警详情配置";
+            column_Btn.UseColumnTextForButtonValue = true;
+            // 
+            // Page_PLCAlarmConfig
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.Gainsboro;
@@ -249,7 +271,7 @@
             Controls.Add(uiButton4);
             Controls.Add(uiButton3);
             Controls.Add(dgv);
-            Name = "Page_PLCAlarmConfigcs";
+            Name = "Page_PLCAlarmConfig";
             Text = "PLC报警信息配置";
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             Load += Page_PLCAlarmConfigcs_Load;
@@ -260,12 +282,15 @@
         #endregion
 
         private Sunny.UI.UIDataGridView dgv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UIButton uiButton2;
         private Sunny.UI.UIButton uiButton1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewButtonColumn column_Btn;
     }
 }

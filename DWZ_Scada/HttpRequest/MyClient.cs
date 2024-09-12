@@ -110,7 +110,7 @@ namespace DWZ_Scada.HttpRequest
             var request = new RestRequest();
             DeviceInspectDTO dto = new DeviceInspectDTO()
             {
-                DeviceCode = "0001",
+                DeviceCode = "OP10",
                 DeviceName = "工站01",
            
             };
@@ -120,8 +120,6 @@ namespace DWZ_Scada.HttpRequest
             LogMgr.Instance.Info("获取响应");
             AnalysisResponse(response);
         }
-
-     
 
         /// <summary>
         /// 易损易耗件上报
@@ -133,9 +131,9 @@ namespace DWZ_Scada.HttpRequest
             var request = new RestRequest();
             DamageableDTO dto = new DamageableDTO()
             {
-                deviceCode = "0001",
-                code = "1001",
-                runNumber = 999,
+                deviceCode = "OP10",
+                code = "002",
+                runNumber = 1,
                 type = 1,
             };
             //组装过站数据给Mes
@@ -174,6 +172,8 @@ namespace DWZ_Scada.HttpRequest
             Task<RestResponse> task = client.ExecuteAsync(request);
             RestResponse response = task.Result;
             AnalysisResponse(response);
+            //获取到工单 workorderCode MO202409110002
+            // 产品Code productCode IF20240827001
         }
 
         private static void AnalysisResponse(RestResponse  response)

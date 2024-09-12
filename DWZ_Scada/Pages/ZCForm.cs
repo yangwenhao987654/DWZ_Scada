@@ -94,10 +94,10 @@ namespace DWZ_Scada.Pages
             switch (e.KeyCode)
             {
                 case Keys.F1:
-                    AddFormTopanel(PageOP10.Instance);
+                    SetAutoStart();
                     break;
                 case Keys.F2:
-                    AddFormTopanel(Page_PLCAlarmConfigcs.Instance);
+                    AddFormTopanel(Page_PLCAlarmConfig.Instance);
                     break;
                 case Keys.F3:
                     AddFormTopanel(Formula_set.Instance);
@@ -155,6 +155,7 @@ namespace DWZ_Scada.Pages
             switch (SystemParams.Instance.Station)
             {
                 case SystemParams.StationEnum.无:
+                    SetMainPage(PageOPTest.Instance);
                     break;
                 case SystemParams.StationEnum.所有:
                     break;
@@ -238,12 +239,12 @@ namespace DWZ_Scada.Pages
         }
         private void uiButton1_Click(object sender, EventArgs e)
         {
-            AddFormTopanel(Page_PLCAlarmConfigcs.Instance);
+            AddFormTopanel(Page_PLCAlarmConfig.Instance);
         }
 
         private void uiButton2_Click(object sender, EventArgs e)
         {
-            AddFormTopanel(PageOP10.Instance);
+            SetAutoStart();
         }
 
         private void uiButton8_Click(object sender, EventArgs e)
