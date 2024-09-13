@@ -1,4 +1,6 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
+using DWZ_Scada.DAL.DBContext;
+using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
@@ -8,6 +10,7 @@ using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,6 +88,30 @@ namespace DWZ_Scada.Pages.StationPages
 
         public Timer reportTimer;
 
+        public ConcurrentQueue<DeviceAlarmEntity> AlarmQueue = new ConcurrentQueue<DeviceAlarmEntity>();
+
+        public static Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
+
+        // 异步保存报警信息的方法
+        private async Task SaveAlarmsToDatabaseAsync()
+        {
+            using (var context = new MyDbContext())
+            {
+                while (!_cts.Token.IsCancellationRequested)
+                {
+                    if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
+                    {
+                        context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
+                        await context.SaveChangesAsync(); // 异步保存更改到数据库
+                    }
+                    else
+                    {
+                        await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 启动流程
         /// </summary>
@@ -100,6 +127,9 @@ namespace DWZ_Scada.Pages.StationPages
                 Thread t2 = new Thread(() => PLCMainWork(_cts.Token));
                 t2.Start();
                 reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
+
+                // 启动后台任务来处理队列中的报警信息
+                Task.Run(() => SaveAlarmsToDatabaseAsync());
             });
         }
 
@@ -165,6 +195,7 @@ namespace DWZ_Scada.Pages.StationPages
             {
                 if (!IsPlc_Connected)
                 {
+                    ZCForm.Instance.UpdatePlcState("未连接");
                     //全局PLC连接配置
                     Logger.Info("PLC连接中");
                     bool flag = PLC.Connect(PLC_IP, PLC_PORT);
@@ -178,6 +209,10 @@ namespace DWZ_Scada.Pages.StationPages
                         IsPlc_Connected = false;
                         Logger.Error("PLC连接失败:");
                     }
+                }
+                else
+                {
+                    ZCForm.Instance.UpdatePlcState("在线");
                 }
                 Thread.Sleep(1000);
             }

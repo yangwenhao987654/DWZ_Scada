@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoTF;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
 using DWZ_Scada.Pages.StationPages.OP10;
 using LogTool;

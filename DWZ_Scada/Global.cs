@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DWZ_Scada.Pages.PLCAlarm;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,71 +37,7 @@ namespace DWZ_Scada
 
         public static List<PLCAlarmData> PlcAlarmList = new List<PLCAlarmData>();
     }
-    public class PLCAlarmData
-    {
-        public int ID;
-        public string Address;
-
-        /// <summary>
-        /// 地址类型 有两种
-        /// 1.连续地址 2.单个地址
-        /// </summary>
-        public bool IsArray;
-        public string Name;
-
-        public List<SingleAlarmAddress> AlarmList;
-
-        /// <summary>
-        /// 报警类型  提示 警告⚠ 错误 
-        /// </summary>
-        public string AlarmType;
-
-        /// <summary>
-        /// 连续类型的地址长度
-        /// </summary>
-        public int Length;
-
-        public PLCAlarmData(int ID)
-        {
-            this.ID = ID;
-        }
-        public PLCAlarmData()
-        {
-
-        }
-    }
-
-    public class SingleAlarmAddress
-    {
-        /// <summary>
-        /// 连续地址索引 索引从开始
-        /// </summary>
-        public int Index;
-
-        /// <summary>
-        /// 全地址
-        /// </summary>
-        public string SubAddress;
-
-        /// <summary>
-        /// 报警名称
-        /// </summary>
-        public string Name;
-
-        /// <summary>
-        /// 报警类型
-        /// </summary>
-        public string AlarmType;
-
-        public SingleAlarmAddress(int index)
-        {
-            Index =index;
-        }
-
-        public SingleAlarmAddress()
-        {
-         
-        }
-    }
+   
+  
 
 }

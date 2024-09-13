@@ -251,5 +251,18 @@ namespace DWZ_Scada.Pages
         {
 
         }
+
+        public void UpdatePlcState(string state)
+        {
+            if (lbl_PLCState.InvokeRequired)
+            {
+                lbl_PLCState.Invoke(new Action<string>(UpdatePlcState), state);
+                return;
+            }
+            else
+            {
+                lbl_PLCState.Text = state;
+            }
+        }
     }
 }

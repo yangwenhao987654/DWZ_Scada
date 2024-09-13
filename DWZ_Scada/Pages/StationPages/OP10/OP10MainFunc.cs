@@ -2,7 +2,10 @@
 using AutoTF;
 using CommunicationUtilYwh.Communication;
 using CommunicationUtilYwh.Communication.PLC;
+using DWZ_Scada.DAL.DBContext;
+using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.HttpRequest;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
@@ -13,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Sunny.UI;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -25,21 +29,28 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 {
     public class OP10MainFunc : MainFuncBase, IDisposable
     {
-        private static OP10Model myOp10Model =new OP10Model();
+        private static OP10Model myOp10Model = new OP10Model();
+
+        public static string StationName = "OP10";
         //手持扫码枪 切换物料
         //输入物料
         //1.扫码枪
         //2.人工输入
+        public static List<DeviceAlarmEntity> CurrentAlarmList = new List<DeviceAlarmEntity>();
+
 
         public override void PLCMainWork(CancellationToken token)
         {
             //进站信号
             bool isEntry;
             int state = -1;
+            DateTime dt;
             while (!token.IsCancellationRequested)
             {
                 try
                 {
+                    //更新界面设备状态
+
                     //TODO 这样更新是OK的
                     //PageOP10.Instance.UpdateTempSN(myOp10Model.TempSN);
                     myOp10Model.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
@@ -50,23 +61,104 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     }
                     #region 读取PLC状态
                     //判断是否点检模式
-
+                    dt = DateTime.Now;
                     // 进站请求信号
+                    //TODO 先读一个总的报警信号  如果有报警 再去读报警内容
+                    // state状态 报警中 暂停中 运行中
+                    //每次循环清一遍
+                    CurrentAlarmList.Clear();
                     bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
                     if (readFlag)
                     {
-
                         #region 循环读取PLC报警信息
-
                         //适用于少量地址 不连续
                         foreach (PLCAlarmData data in Global.PlcAlarmList)
                         {
+                            //连续地址读取
                             string address = data.Address;
-                            PLC.ReadBool(address, out bool res);
-                            if (res)
+                            if (data.IsArray && data.AlarmList.Count > 0)
                             {
-                                Global.IsDeviceAlarm = true;
-                                //AddAlarm(data.Name);
+                                bool[] alarmArr = new bool[data.Length];
+                                bool b = PLC.ReadAlarm(address, out alarmArr, data.Length);
+                                if (b)
+                                {
+                                    for (int i = 0; i < alarmArr.Length; i++)
+                                    {
+                                        string alarmKey = data.AlarmList[i].Name;
+                                        bool isAlarmActive = alarmArr[i];
+                                        //假如是True 表示有报警
+                                        if (isAlarmActive)
+                                        {
+                                            if (!ActiveAlarms.ContainsKey(alarmKey))
+                                            {
+                                                Global.IsDeviceAlarm = true;
+                                                DeviceAlarmEntity alarmEntity = new DeviceAlarmEntity();
+                                                alarmEntity.AlarmInfo = data.AlarmList[i].Name;
+                                                alarmEntity.AlarmType = data.AlarmList[i].AlarmType;
+                                                alarmEntity.DeviceName = StationName;
+                                                alarmEntity.AlarmDateStr = dt.ToString("yyyy-MM-dd");
+                                                alarmEntity.AlarmTime = dt;
+                                                CurrentAlarmList.Add(alarmEntity);
+                                                ActiveAlarms[alarmKey] = alarmEntity;
+
+                                                //TODO 上传报警信息到数据库
+                                                // 将报警信息添加到队列中
+                                                AlarmQueue.Enqueue(alarmEntity);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (ActiveAlarms.ContainsKey(alarmKey))
+                                            {
+                                                ActiveAlarms.Remove(alarmKey);
+                                                //TODO 上传报警消除状态
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                //读取单个报警地址
+                                bool b = PLC.ReadBool(address, out bool isAlarmActive);
+                                if (b)
+                                {
+                                    string alarmKey = data.Name;
+                                    if (isAlarmActive)
+                                    {
+                                        if (!ActiveAlarms.ContainsKey(alarmKey))
+                                        {
+                                            Global.IsDeviceAlarm = true;
+                                            DeviceAlarmEntity alarmEntity = new DeviceAlarmEntity();
+                                            alarmEntity.AlarmInfo = data.Name;
+                                            alarmEntity.AlarmType = data.AlarmType;
+                                            alarmEntity.DeviceName = StationName;
+                                            alarmEntity.AlarmDateStr = dt.ToString("yyyy-MM-dd");
+                                            alarmEntity.AlarmTime = dt;
+                                            CurrentAlarmList.Add(alarmEntity);
+                                            ActiveAlarms[alarmKey] = alarmEntity;
+
+                                            //TODO 上传新增报警到数据库
+                                            AlarmQueue.Enqueue(alarmEntity);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (ActiveAlarms.ContainsKey(alarmKey))
+                                        {
+                                            ActiveAlarms.Remove(alarmKey);
+
+                                            //TODO 上传报警消除记录
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (Global.IsDeviceAlarm)
+                            {
+                               //传给Mes当前所有的报警信息
                             }
                         }
 
@@ -76,23 +168,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         //读取报警信号
                         //判断设备当前有无报警
                         //报警信息存数据库 报警内容 时间 
-
-                        #region 批量读取PLC报警 连续地址块
-                        PLC.ReadAlarm(OP10Address.AlarmAddress, out bool[] alarms, OP10Address.AlarmAddressLength);
-                        for (int i = 0; i < alarms.Length; i++)
-                        {
-                            if (alarms[i] == true)
-                            {
-                                //有报警 记录报警信息
-                                //报警内容 从Map里取
-                                //获取到对应的报警类型
-                                //报警类型  
-                                //报警类型 3种 Error  Warn  
-                                //去地址表找到对应的报警信息
-
-                            }
-                        }
-                        #endregion
 
                         //存报警到本地数据库
 
@@ -154,7 +229,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 }
                 catch (Exception ex)
                 {
-                    IsPlc_Connected = false;
+                    //IsPlc_Connected = false;
                 }
                 Thread.Sleep(500);
             }

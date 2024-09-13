@@ -45,7 +45,7 @@ namespace DWZ_Scada.Pages
             panel4 = new System.Windows.Forms.Panel();
             uiLabel18 = new Sunny.UI.UILabel();
             uiLabel17 = new Sunny.UI.UILabel();
-            uiLabel16 = new Sunny.UI.UILabel();
+            lbl_PLCState = new Sunny.UI.UILabel();
             uiLabel8 = new Sunny.UI.UILabel();
             uiLabel9 = new Sunny.UI.UILabel();
             uiLabel10 = new Sunny.UI.UILabel();
@@ -289,7 +289,7 @@ namespace DWZ_Scada.Pages
             panel4.BackColor = System.Drawing.Color.White;
             panel4.Controls.Add(uiLabel18);
             panel4.Controls.Add(uiLabel17);
-            panel4.Controls.Add(uiLabel16);
+            panel4.Controls.Add(lbl_PLCState);
             panel4.Controls.Add(uiLabel8);
             panel4.Controls.Add(uiLabel9);
             panel4.Controls.Add(uiLabel10);
@@ -319,15 +319,15 @@ namespace DWZ_Scada.Pages
             uiLabel17.TabIndex = 8;
             uiLabel17.Text = "本地";
             // 
-            // uiLabel16
+            // lbl_PLCState
             // 
-            uiLabel16.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel16.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel16.Location = new System.Drawing.Point(131, 24);
-            uiLabel16.Name = "uiLabel16";
-            uiLabel16.Size = new System.Drawing.Size(91, 28);
-            uiLabel16.TabIndex = 7;
-            uiLabel16.Text = "在线";
+            lbl_PLCState.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_PLCState.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_PLCState.Location = new System.Drawing.Point(131, 24);
+            lbl_PLCState.Name = "lbl_PLCState";
+            lbl_PLCState.Size = new System.Drawing.Size(91, 28);
+            lbl_PLCState.TabIndex = 7;
+            lbl_PLCState.Text = "在线";
             // 
             // uiLabel8
             // 
@@ -640,7 +640,7 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel lblLoginName;
         private Sunny.UI.UILabel lblTime;
         private Sunny.UI.UILabel uiLabel14;
-        private Sunny.UI.UILabel uiLabel16;
+        private Sunny.UI.UILabel lbl_PLCState;
         private Sunny.UI.UILabel uiLabel17;
         private Sunny.UI.UILabel uiLabel18;
         private Sunny.UI.UIPanel uiPanel1;
