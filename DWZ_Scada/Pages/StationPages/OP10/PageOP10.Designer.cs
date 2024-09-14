@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
-            listViewEx_Log1 = new LogTool.ListViewEx_Log(components);
             uiTextBox1 = new Sunny.UI.UITextBox();
             uiLabel2 = new Sunny.UI.UILabel();
             uiLabel4 = new Sunny.UI.UILabel();
@@ -57,23 +55,6 @@
             uiLabel1.Text = "OP10-上料打码工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
-            // 
-            // listViewEx_Log1
-            // 
-            listViewEx_Log1.AutoArrange = false;
-            listViewEx_Log1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            listViewEx_Log1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            listViewEx_Log1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            listViewEx_Log1.LabelWrap = false;
-            listViewEx_Log1.Location = new System.Drawing.Point(0, 1010);
-            listViewEx_Log1.MultiSelect = false;
-            listViewEx_Log1.Name = "listViewEx_Log1";
-            listViewEx_Log1.ShowGroups = false;
-            listViewEx_Log1.Size = new System.Drawing.Size(1223, 14);
-            listViewEx_Log1.TabIndex = 2;
-            listViewEx_Log1.TabStop = false;
-            listViewEx_Log1.UseCompatibleStateImageBehavior = false;
-            listViewEx_Log1.View = System.Windows.Forms.View.Details;
             // 
             // uiTextBox1
             // 
@@ -223,7 +204,6 @@
             Controls.Add(uiLabel4);
             Controls.Add(uiLabel2);
             Controls.Add(uiTextBox1);
-            Controls.Add(listViewEx_Log1);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP10";
@@ -238,7 +218,6 @@
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private LogTool.ListViewEx_Log listViewEx_Log1;
         private Sunny.UI.UITextBox uiTextBox1;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel4;

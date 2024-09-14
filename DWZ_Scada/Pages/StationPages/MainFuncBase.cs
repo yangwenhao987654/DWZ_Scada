@@ -2,6 +2,7 @@
 using DWZ_Scada.DAL.DBContext;
 using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.HttpRequest;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -70,6 +71,8 @@ namespace DWZ_Scada.Pages.StationPages
 
         public  MyPlc PLC ;
 
+        public PlcState PlcState;
+
         /// <summary>
         /// PLC的IP地址
         /// </summary>
@@ -124,6 +127,8 @@ namespace DWZ_Scada.Pages.StationPages
                 Thread t = new Thread(() => ConnStatusMonitor(_cts.Token));
                 t.Start();
                 Thread.Sleep(300);
+
+                //Thread.Sleep(5200);
                 Thread t2 = new Thread(() => PLCMainWork(_cts.Token));
                 t2.Start();
                 reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
@@ -161,7 +166,7 @@ namespace DWZ_Scada.Pages.StationPages
                     dto.Status = "待机中";
                     break;
                 default:
-                    dto.Status = "错误";
+                    dto.Status = "故障";
                     break;
             }
 
@@ -195,7 +200,7 @@ namespace DWZ_Scada.Pages.StationPages
             {
                 if (!IsPlc_Connected)
                 {
-                    ZCForm.Instance.UpdatePlcState("未连接");
+                    PlcState = PlcState.OffLine;
                     //全局PLC连接配置
                     Logger.Info("PLC连接中");
                     bool flag = PLC.Connect(PLC_IP, PLC_PORT);
@@ -212,8 +217,9 @@ namespace DWZ_Scada.Pages.StationPages
                 }
                 else
                 {
-                    ZCForm.Instance.UpdatePlcState("在线");
+                  
                 }
+                ZCForm.Instance.UpdatePlcState(PlcState);
                 Thread.Sleep(1000);
             }
         }

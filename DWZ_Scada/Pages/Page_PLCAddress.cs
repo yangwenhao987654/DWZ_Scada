@@ -16,20 +16,20 @@ using DWZ_Scada.Pages.StationPages.OP10;
 
 namespace DWZ_Scada
 {
-    public partial class Form_set_PLC : UIForm
+    public partial class Page_PLCAddress : UIPage
     {
-        private static Form_set_PLC _instance;
-        public static Form_set_PLC Instance
+        private static Page_PLCAddress _instance;
+        public static Page_PLCAddress Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    lock (typeof(Form_set_PLC))
+                    lock (typeof(Page_PLCAddress))
                     {
                         if (_instance == null)
                         {
-                            _instance = new Form_set_PLC();
+                            _instance = new Page_PLCAddress();
                         }
                     }
                 }
@@ -64,7 +64,7 @@ namespace DWZ_Scada
         public string shunxv = "0";
 
         public static object ObjLock = new object();
-        public Form_set_PLC()
+        public Page_PLCAddress()
         {
             InitializeComponent();
             //this.Instance = instance as Form_set_PLC;
@@ -424,7 +424,7 @@ namespace DWZ_Scada
 
         private void Form_set_PLC_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Form_set_PLC.Instance?.Dispose();
+            Page_PLCAddress.Instance?.Dispose();
             LogMgr.Instance.Info("关闭配方设定程序");
         }
     }

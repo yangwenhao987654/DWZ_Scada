@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoTF;
+using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
 using DWZ_Scada.Pages.StationPages.OP10;
@@ -18,7 +19,7 @@ using UtilYwh.AlarmNotify;
 
 namespace DWZ_Scada.Pages
 {
-    public partial class DeviceControlPage : UIForm
+    public partial class DeviceControlPage : UIPage
     {
         private static DeviceControlPage _instance;
         public static DeviceControlPage Instance
@@ -38,14 +39,51 @@ namespace DWZ_Scada.Pages
                 return _instance;
             }
         }
+
+        public static bool IsLoad { get; set; } = false;
+
+        public  delegate void UpdateDeviceEvent(List<DeviceAlarmEntity> list);
+
+        public static event UpdateDeviceEvent DeviceUpdated;
+
+        private bool isLoad =false;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
 
-        public DeviceControlPage()
+        #region 缓存界面更新委托实例
+        private readonly Action<string> _addAlarmDelegate;
+
+        private readonly Action _clearAlarmDelegate;
+        #endregion
+
+        private DeviceControlPage()
         {
+          
             InitializeComponent();
             // 订阅AlarmEvent事件  
-            AlarmManager.AlarmEvent += HandleAlarmEvent;
+            AlarmManager.RunningLogEvent += HandleRunningLogEvent;
+
+            AlarmManager.DeviceAlarmEvent += AlarmManager_DeviceAlarmEvent;
+            //DeviceUpdated += DeviceControlPage_DeviceUpdated;
+            IsLoad =true;
+            _addAlarmDelegate = new Action<string>(AddAlarm);
+            _clearAlarmDelegate = new Action(ClearAlarm);
+        }
+
+        private void DeviceControlPage_DeviceUpdated(List<DeviceAlarmEntity> list)
+        {
+            LogMgr.Instance.Debug("触发更新报警事件");
+            UpdateAlarm(list);
+        }
+
+        public static void TriggerDeviceAlarmEvent(List<DeviceAlarmEntity> list)
+        {
+            DeviceUpdated?.Invoke(list); 
+        }
+
+        private void AlarmManager_DeviceAlarmEvent(string msg)
+        {
+            AddAlarm(msg);
         }
 
         private void ClearAlarm()
@@ -54,22 +92,21 @@ namespace DWZ_Scada.Pages
             {
                 if (InvokeRequired)
                 {
-                    Invoke(
-                        new Action(ClearAlarm));
+                    Invoke(_clearAlarmDelegate);
                 }
                 else
                 {
-                    if (uiListBox1.Items.Count <= 0)
+                    if (lbx_Alarm.Items.Count <= 0)
                     {
                         return;
                     }
-                    uiListBox1.Items.Clear();
+                    lbx_Alarm.Items.Clear();
                 }
             }
             catch { }
         }
 
-        private void HandleAlarmEvent(string msg, AlarmManager.AlarmEnum alarmType)
+        private void HandleRunningLogEvent(string msg, AlarmManager.AlarmEnum alarmType)
         {
             if (msg.IsNullOrEmpty())
             {
@@ -92,7 +129,6 @@ namespace DWZ_Scada.Pages
             {
                 AppendLogErr(msg);
             }
-
         }
         private void AppendLogInfo(string msg)
         {
@@ -182,21 +218,21 @@ namespace DWZ_Scada.Pages
         {
             if (InvokeRequired)
             {
-                uiListBox1.Invoke(
+                lbx_Alarm.Invoke(
                     new Action(() =>
                     {
                         AddInfo(msg);
                     }));
                 return;
             }
-            if (uiListBox1.Items.Contains(msg))
+            if (lbx_Alarm.Items.Contains(msg))
             {
 
             }
             else
             {
-                uiListBox1.ForeColor = Color.Green;
-                uiListBox1.Items.Add(msg);
+                lbx_Alarm.ForeColor = Color.Green;
+                lbx_Alarm.Items.Add(msg);
             }
         }
 
@@ -204,53 +240,32 @@ namespace DWZ_Scada.Pages
         {
             if (InvokeRequired)
             {
-                uiListBox1.Invoke(
-                    new Action(() =>
-                    {
-                        AddAlarm(msg);
-                    }));
+                lbx_Alarm.Invoke(_addAlarmDelegate,msg);
                 return;
             }
-
-            if (uiListBox1.Items.Contains(msg))
+            if (lbx_Alarm.Items.Contains(msg))
             {
 
             }
             else
             {
-                uiListBox1.ForeColor = Color.Red;
-                uiListBox1.Items.Add(msg);
+                lbx_Alarm.ForeColor = Color.Red;
+                lbx_Alarm.Items.Add(msg);
             }
         }
 
-        /// <summary>
-        /// 持续监控设备状态
-        /// </summary>
-        private void ReflashStatus()
+        public void UpdateAlarm(List<DeviceAlarmEntity> CurrentAlarmList)
         {
-            while (_cts.IsCancellationRequested)
+           /* if (!IsHandleCreated)
             {
-                ClearAlarm();
-                string alarmAddressPre = "DB533.";
-                if (!MainFuncBase.IsInstanceNull && MainFuncBase.Instance.IsPlc_Connected)
-                {
-                    foreach (PLCAlarmData data in Global.PlcAlarmList)
-                    {
-                        string address = alarmAddressPre + data.Address;
-                        MainFuncBase.Instance.PLC.ReadBool(address, out bool res);
-                        if (res)
-                        {
-                            Global.IsDeviceAlarm = true;
-                            AddAlarm(data.Name);
-                        }
-                    }
-                }
-                else
-                {
-                    //UpdateLight(false);
-                    AddAlarm("PLC连接断开");
-                }
-                Thread.Sleep(1000);
+                LogMgr.Instance.Debug("页面未加载完成");
+                return;
+            }*/
+           //LogMgr.Instance.Debug("页面已经加载完成");
+            ClearAlarm();
+            foreach (var data in CurrentAlarmList)
+            {
+                AddAlarm($"{data.AlarmTime:yyyy-MM-dd hh:mm:ss fff}:{data.AlarmInfo}");
             }
         }
 
@@ -334,8 +349,10 @@ namespace DWZ_Scada.Pages
 
         private void DeviceControlPage_Load(object sender, EventArgs e)
         {
-            Thread t = new Thread(ReflashStatus);
-            t.Start();
+            /*  Thread t = new Thread(ReflashStatus);
+              t.Start();*/
+            //this.Show();
+            //isLoad =true;
         }
     }
 }

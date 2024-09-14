@@ -46,13 +46,11 @@
             this.ClientSize = new System.Drawing.Size(833, 783);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(97)))), ((int)(((byte)(198)))));
             this.Controls.Add(this.propertyGrid1);
-            this.EscClose = true;
             this.Name = "PageProperty";
             this.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
             this.Style = Sunny.UI.UIStyle.Custom;
             this.StyleCustomMode = true;
             this.Text = "参数设置";
-            this.TitleColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
             this.ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PageProperty_FormClosing);
             this.Load += new System.EventHandler(this.PageProperty_Load);

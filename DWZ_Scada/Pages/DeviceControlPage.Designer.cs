@@ -31,7 +31,7 @@
             uiButton1 = new Sunny.UI.UIButton();
             uiListBox2 = new Sunny.UI.UIListBox();
             uiLabel1 = new Sunny.UI.UILabel();
-            uiListBox1 = new Sunny.UI.UIListBox();
+            lbx_Alarm = new Sunny.UI.UIListBox();
             uiLabel2 = new Sunny.UI.UILabel();
             uiButton4 = new Sunny.UI.UIButton();
             uiButton2 = new Sunny.UI.UIButton();
@@ -95,21 +95,21 @@
             uiLabel1.TabIndex = 55;
             uiLabel1.Text = "运行日志";
             // 
-            // uiListBox1
+            // lbx_Alarm
             // 
-            uiListBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiListBox1.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
-            uiListBox1.ItemSelectForeColor = System.Drawing.Color.White;
-            uiListBox1.Location = new System.Drawing.Point(1036, 289);
-            uiListBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiListBox1.MinimumSize = new System.Drawing.Size(1, 1);
-            uiListBox1.Name = "uiListBox1";
-            uiListBox1.Padding = new System.Windows.Forms.Padding(2);
-            uiListBox1.RectColor = System.Drawing.Color.Silver;
-            uiListBox1.ShowText = false;
-            uiListBox1.Size = new System.Drawing.Size(780, 416);
-            uiListBox1.TabIndex = 55;
-            uiListBox1.Text = "uiListBox2";
+            lbx_Alarm.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbx_Alarm.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
+            lbx_Alarm.ItemSelectForeColor = System.Drawing.Color.White;
+            lbx_Alarm.Location = new System.Drawing.Point(1036, 289);
+            lbx_Alarm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            lbx_Alarm.MinimumSize = new System.Drawing.Size(1, 1);
+            lbx_Alarm.Name = "lbx_Alarm";
+            lbx_Alarm.Padding = new System.Windows.Forms.Padding(2);
+            lbx_Alarm.RectColor = System.Drawing.Color.Silver;
+            lbx_Alarm.ShowText = false;
+            lbx_Alarm.Size = new System.Drawing.Size(780, 416);
+            lbx_Alarm.TabIndex = 55;
+            lbx_Alarm.Text = "uiListBox2";
             // 
             // uiLabel2
             // 
@@ -213,7 +213,7 @@
             Controls.Add(uiButton2);
             Controls.Add(uiButton4);
             Controls.Add(uiLabel2);
-            Controls.Add(uiListBox1);
+            Controls.Add(lbx_Alarm);
             Controls.Add(uiLabel1);
             Controls.Add(uiListBox2);
             Controls.Add(uiButton1);
@@ -222,10 +222,8 @@
             Name = "DeviceControlPage";
             Padding = new System.Windows.Forms.Padding(0);
             RectColor = System.Drawing.Color.Black;
-            ShowRect = false;
             ShowTitle = false;
             Text = "";
-            TitleColor = System.Drawing.Color.White;
             TitleForeColor = System.Drawing.Color.Transparent;
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
@@ -238,7 +236,7 @@
         private Sunny.UI.UIButton uiButton1;
         private Sunny.UI.UIListBox uiListBox2;
         private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UIListBox uiListBox1;
+        private Sunny.UI.UIListBox lbx_Alarm;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UIButton uiButton2;

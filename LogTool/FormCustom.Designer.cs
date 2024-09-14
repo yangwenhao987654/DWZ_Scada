@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // FormCustom
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "FormCustom";
-            this.Text = "自定义窗体";
-            this.ResumeLayout(false);
-
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            ClientSize = new System.Drawing.Size(713, 643);
+            Name = "FormCustom";
+            Text = "自定义窗体";
+            ResumeLayout(false);
         }
 
         #endregion

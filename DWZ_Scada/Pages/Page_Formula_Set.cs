@@ -11,34 +11,34 @@ using Sunny.UI;
 
 namespace DWZ_Scada.Pages
 {
-    public partial class Formula_set : UIForm
+    public partial class Page_Formula_Set : UIPage
     {
-        private static Formula_set _instance;
-        public static Formula_set Instance
+        private static Page_Formula_Set _instance;
+        public static Page_Formula_Set Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    lock (typeof(Formula_set))
+                    lock (typeof(Page_Formula_Set))
                     {
                         if (_instance == null)
                         {
-                            _instance = new Formula_set();
+                            _instance = new Page_Formula_Set();
                         }
                     }
                 }
                 return _instance;
             }
         }
-        public Formula_set()
+        public Page_Formula_Set()
         {
             InitializeComponent();
         }
 
         private void Formula_set_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Formula_set.Instance?.Dispose();
+            Page_Formula_Set.Instance?.Dispose();
         }
     }
 }

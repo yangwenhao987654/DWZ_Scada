@@ -32,7 +32,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// <summary>
         /// 读取PLC状态地址
         /// </summary>
-        public static string State = "B1";
+        public static string State = "M1";
 
         /// <summary>
         /// 点检模式地址

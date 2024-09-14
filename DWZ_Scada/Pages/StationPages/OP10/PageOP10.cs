@@ -79,7 +79,7 @@ namespace DWZ_Scada
 
         private void Page_Load(object sender, EventArgs e)
         {
-            LogMgr.Instance.SetCtrl(listViewEx_Log1);
+            //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug("打开OP10工站");
 
             // Mes 选型服务  监控Mes选型消息

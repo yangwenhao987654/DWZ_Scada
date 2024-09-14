@@ -43,6 +43,7 @@ namespace DWZ_Scada.Pages
             uiButton3 = new Sunny.UI.UIButton();
             uiTableLayoutPanel3 = new Sunny.UI.UITableLayoutPanel();
             panel4 = new System.Windows.Forms.Panel();
+            uiLight1 = new Sunny.UI.UILight();
             uiLabel18 = new Sunny.UI.UILabel();
             uiLabel17 = new Sunny.UI.UILabel();
             lbl_PLCState = new Sunny.UI.UILabel();
@@ -287,6 +288,7 @@ namespace DWZ_Scada.Pages
             // panel4
             // 
             panel4.BackColor = System.Drawing.Color.White;
+            panel4.Controls.Add(uiLight1);
             panel4.Controls.Add(uiLabel18);
             panel4.Controls.Add(uiLabel17);
             panel4.Controls.Add(lbl_PLCState);
@@ -298,6 +300,18 @@ namespace DWZ_Scada.Pages
             panel4.Name = "panel4";
             panel4.Size = new System.Drawing.Size(474, 144);
             panel4.TabIndex = 3;
+            // 
+            // uiLight1
+            // 
+            uiLight1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLight1.Location = new System.Drawing.Point(319, 49);
+            uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiLight1.Name = "uiLight1";
+            uiLight1.Radius = 59;
+            uiLight1.Size = new System.Drawing.Size(59, 60);
+            uiLight1.TabIndex = 10;
+            uiLight1.Text = "uiLight1";
+            uiLight1.Click += uiLight1_Click;
             // 
             // uiLabel18
             // 
@@ -644,5 +658,6 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel uiLabel17;
         private Sunny.UI.UILabel uiLabel18;
         private Sunny.UI.UIPanel uiPanel1;
+        private Sunny.UI.UILight uiLight1;
     }
 }

@@ -35,6 +35,7 @@ namespace LogTool
         public FormCustom(Control c)
         {
             InitializeComponent();
+            c.Show();
             c.Dock = DockStyle.Fill;
             this.Controls.Add(c);
             this.Closed += FormCustom_Closed;
@@ -56,6 +57,7 @@ namespace LogTool
             InitializeComponent();
             this.Text = title;
             c.Dock = DockStyle.Fill;
+            c.Show();
             this.Controls.Add(c);
             this.Closed += FormCustom_Closed;
         }

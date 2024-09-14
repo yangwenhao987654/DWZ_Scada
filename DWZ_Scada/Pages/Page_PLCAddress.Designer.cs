@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DWZ_Scada
 {
-    partial class Form_set_PLC
+    partial class Page_PLCAddress
     {
         /// <summary>
         /// Required designer variable.
@@ -439,7 +439,6 @@ namespace DWZ_Scada
             RectColor = System.Drawing.Color.Black;
             ShowTitle = false;
             Text = " ";
-            TitleColor = System.Drawing.Color.Gold;
             TitleFont = new System.Drawing.Font("宋体", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 1352, 729);

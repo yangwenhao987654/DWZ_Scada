@@ -1,6 +1,6 @@
 ﻿namespace DWZ_Scada.Pages
 {
-    partial class Formula_set
+    partial class Page_Formula_Set
     {
         /// <summary>
         /// Required designer variable.
@@ -273,7 +273,6 @@
             RectColor = System.Drawing.Color.Black;
             ShowTitle = false;
             Text = "";
-            TitleColor = System.Drawing.Color.White;
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             FormClosing += Formula_set_FormClosing;
