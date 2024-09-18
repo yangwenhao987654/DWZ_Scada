@@ -1,38 +1,24 @@
-﻿using LogTool;
-using Sunny.UI;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DWZ_Scada;
-using DWZ_Scada.ProcessControl;
+﻿using CommunicationUtilYwh.Communication;
+using DWZ_Scada.HttpServices;
+using DWZ_Scada.MyHttpPlug;
+using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages;
+using DWZ_Scada.Pages.StationPages.OP10;
+using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
+using DWZ_Scada.ProcessControl.RequestSelectModel;
+using LogTool;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using RestSharp;
+using Sunny.UI;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using TouchSocket.Core;
 using TouchSocket.Http;
 using TouchSocket.Sockets;
-using CommunicationUtilYwh.Communication;
-using DWZ_Scada.HttpRequest;
-using DWZ_Scada.MyHttpPlug;
-using DWZ_Scada.Pages.StationPages.OP10;
-using DWZ_Scada.ProcessControl.RequestModel;
-using DWZ_Scada.ProcessControl.RequestSelectModel;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using RestSharp;
-using Method = RestSharp.Method;
-using DWZ_Scada.Pages;
-using AutoStation;
-using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages;
-using DWZ_Scada.PLC;
 
 namespace DWZ_Scada
 {
@@ -214,7 +200,8 @@ namespace DWZ_Scada
                     VisionResult = "OK"*/
                 }
             };
-            await MyClient.PassStationUploadTest(dto);
+            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
+            service.SendPassStationData(dto);
         }
 
         private void uiLabel2_Click(object sender, EventArgs e)

@@ -174,7 +174,7 @@ namespace DWZ_Scada.Pages.StationPages
 
             //记录报警信息
             DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            await stateService.ReportState(dto);
+            await stateService.AddDeviceState(dto);
         }
 
         protected MainFuncBase(PLCConfig PLCConfig)

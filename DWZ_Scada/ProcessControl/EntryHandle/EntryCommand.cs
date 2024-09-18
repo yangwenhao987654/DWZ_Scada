@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Policy;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using DWZ_Scada.HttpRequest;
+﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
-using Newtonsoft.Json;
-using RestSharp;
-using TouchSocket.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 
 namespace DWZ_Scada.ProcessControl.EntryHandle
 {
@@ -54,46 +46,8 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
             requestDto.SnTemp = TempSN;
             requestDto.StationCode = StationName;
             requestDto.WorkOrder = "MO202409110002";
-            await MyClient.CheckIn(requestDto);
-          /*  try
-            {
-                // 统一的执行前处理逻辑
-                LogMgr.Instance.Debug($"Preparing to enter station {StationName} for product {TempSN}");
-                //进行统一进站请求
-                RestClient client = new RestClient();
-                var request = new RestRequest(EntryUrl);
-                //增加请求参数
-                request.Method = Method.Post;
-                EntryRequestDTO requestDto = new EntryRequestDTO();
-                requestDto.SnTemp = TempSN;
-                requestDto.StationCode = StationName;
-                request.AddJsonBody(requestDto);
-                RestResponse response = await client.ExecuteAsync(request);
-                //RestResponse response = task.Result;
-                LogMgr.Instance.Info($"获取响应结果:{response.Content}");
-                bool isSuccessful = response.IsSuccessful;
-                if (isSuccessful)
-                {
-                    string result = response.Content;
-                    EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(result);
-                    if (resultDto.Code == 200)
-                    {
-                        LogMgr.Instance.Info($"请求成功:{resultDto.Message}");
-                    }
-                    else
-                    {
-                        LogMgr.Instance.Error($"请求失败:{resultDto.Message}");
-                    }
-                }
-                else
-                {
-                    LogMgr.Instance.Error("请求错误");
-                }
-            }
-            catch (Exception e)
-            {
-                LogMgr.Instance.Error("请求错误"+e.Message);
-            }*/
+            EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
+            await entryRequestService.CheckIn(requestDto);
         }
 
         protected abstract void ExecuteEntry();

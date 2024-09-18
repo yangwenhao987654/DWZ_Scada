@@ -1,36 +1,23 @@
-﻿using LogTool;
-using Sunny.UI;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DWZ_Scada;
-using DWZ_Scada.ProcessControl;
+﻿using CommunicationUtilYwh.Communication;
+using DWZ_Scada.HttpRequest;
+using DWZ_Scada.HttpServices;
+using DWZ_Scada.MyHttpPlug;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
+using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.Services;
+using LogTool;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using RestSharp;
+using Sunny.UI;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using TouchSocket.Core;
 using TouchSocket.Http;
 using TouchSocket.Sockets;
-using CommunicationUtilYwh.Communication;
-using DWZ_Scada.HttpRequest;
-using DWZ_Scada.MyHttpPlug;
-using DWZ_Scada.Pages.StationPages.OP10;
-using DWZ_Scada.ProcessControl.RequestModel;
-using DWZ_Scada.ProcessControl.RequestSelectModel;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using RestSharp;
-using Method = RestSharp.Method;
-using DWZ_Scada.Pages;
-using DWZ_Scada.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DWZ_Scada
 {
@@ -195,19 +182,29 @@ namespace DWZ_Scada
                 },
                 WorkOrder = "MO202409110002"
             };
-            await MyClient.PassStationUploadTest(dto);
+            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
+            await service.SendPassStationData(dto);
         }
 
         private async void uiButton3_Click(object sender, EventArgs e)
         {
-            string itemCode = "IF20240827001";
-            await MyClient.GetBomList(itemCode);
+
+            string SnTemp = "AQW12dswSAW";
+            ProductBomService service = Global.ServiceProvider.GetRequiredService<ProductBomService>();
+            await service.GetBomList(SnTemp);
             LogMgr.Instance.Info("测试请求BOM完成");
         }
 
         private async void uiButton4_Click(object sender, EventArgs e)
         {
-            await MyClient.AddInspectDada();
+            InspectService service = Global.ServiceProvider.GetRequiredService<InspectService>();
+            DeviceInspectDTO dto = new DeviceInspectDTO()
+            {
+                DeviceCode = "OP10",
+                DeviceName = "工站01",
+
+            };
+            await service.AddInspectDada(dto);
             LogMgr.Instance.Info("点检上报测试完成");
         }
 
@@ -220,7 +217,7 @@ namespace DWZ_Scada
                 Status = "停机",
             };
             DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            await stateService.ReportState(dto);
+            await stateService.AddDeviceState(dto);
             LogMgr.Instance.Info("状态上报测试完成");
         }
 
@@ -233,13 +230,22 @@ namespace DWZ_Scada
 
         private async void uiButton7_Click(object sender, EventArgs e)
         {
-            await MyClient.GetWorkOrder();
+            WorkOrderService service = Global.ServiceProvider.GetRequiredService<WorkOrderService>();
+            await service.GetWorkOrder();
             LogMgr.Instance.Info("测试获取最新工单完成");
         }
 
         private async void uiButton8_Click(object sender, EventArgs e)
         {
-            await MyClient.ReportDamageable();
+            DamageableDTO dto = new DamageableDTO()
+            {
+                deviceCode = "OP10",
+                code = "002",
+                runNumber = 1,
+                type = 1,
+            };
+            DamageableService service = Global.ServiceProvider.GetRequiredService<DamageableService>();
+            await service.ReportDamageableAsync(dto);
             LogMgr.Instance.Info("测试上报易损易耗件完成");
         }
     }

@@ -76,7 +76,7 @@
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new System.Drawing.Point(30, 121);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(140, 58);
+            uiLabel2.Size = new System.Drawing.Size(140, 35);
             uiLabel2.TabIndex = 4;
             uiLabel2.Text = "当前型号";
             uiLabel2.Click += uiLabel2_Click;
@@ -120,14 +120,14 @@
             uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel3.Location = new System.Drawing.Point(30, 195);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new System.Drawing.Size(140, 42);
+            uiLabel3.Size = new System.Drawing.Size(129, 35);
             uiLabel3.TabIndex = 9;
             uiLabel3.Text = "当前工单";
             // 
             // uiButton3
             // 
             uiButton3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Location = new System.Drawing.Point(176, 184);
+            uiButton3.Location = new System.Drawing.Point(176, 195);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
             uiButton3.Size = new System.Drawing.Size(122, 42);

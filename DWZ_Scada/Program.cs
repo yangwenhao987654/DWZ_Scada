@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using DWZ_Scada.HttpRequest;
+using DWZ_Scada.HttpServices;
+using DWZ_Scada.Pages;
+using DWZ_Scada.ProcessControl;
+using DWZ_Scada.Services;
+using LogTool;
+using Microsoft.Extensions.DependencyInjection;
+using RestSharp;
+using System;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoStation;
-using AutoTF;
-using DWZ_Scada.DAL.DBContext;
-using DWZ_Scada.HttpRequest;
-using DWZ_Scada.Pages;
-using DWZ_Scada.Services;
-using LogTool;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using RestSharp;
 
 namespace DWZ_Scada
 {
@@ -146,11 +139,23 @@ namespace DWZ_Scada
             //注册主窗体
             //services.AddScoped<MainForm>();
 
-            services.AddSingleton<RestClient>(new RestClient());
+            services.AddSingleton<RestClient>(new RestClient(new RestClientOptions()
+            {
+                BaseUrl = new Uri(URLConstants.Base),//配置基础URL-
+                //ThrowOnAnyError = true, //如果有错误，抛出异常
+                Timeout = TimeSpan.FromMilliseconds(10000)  ,//设置超时 10秒
+            }));
             //创建设备状态上报服务
-            services.AddTransient<DeviceStateReporter>();
-            services.AddTransient<DeviceStateService>();
 
+            services.AddSingleton<HttpClientHelper>();
+            services.AddTransient<DeviceStateService>();
+            services.AddTransient<DamageableService>();
+            services.AddTransient<InspectService>();
+            services.AddTransient<EntryRequestService>();
+
+            services.AddTransient<ProductBomService>();
+            services.AddTransient<UploadPassStationService>();
+            services.AddTransient<WorkOrderService>();
         }
 
 

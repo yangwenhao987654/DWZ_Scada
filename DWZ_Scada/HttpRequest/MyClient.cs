@@ -1,70 +1,14 @@
-﻿using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl;
+﻿using DWZ_Scada.ProcessControl;
+using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Azure;
 
 namespace DWZ_Scada.HttpRequest
 {
     public class MyClient
     {
         private static RestClient client = new RestClient();
-
-        /// <summary>
-        /// 进站请求路径
-        /// </summary>
-        public static string EntryUrl = URLConstants.Base + URLConstants.EntryUrl;
-
-        public static async  Task CheckIn(EntryRequestDTO requestDto)
-        {
-            try
-            {
-                //1.封装请求
-
-                //2.发送请求
-
-                //3.解析结果
-
-                //进行统一进站请求
-                var request = new RestRequest();
-                //增加请求参数
-                //request.Method = Method.Post;
-                //request.AddJsonBody(requestDto);
-                request.MakePost(EntryUrl,requestDto);
-
-                RestResponse response =  await client.ExecuteAsync(request);
-                //RestResponse response = task.Result;
-                LogMgr.Instance.Info($"获取响应结果:{response.Content}");
-                bool isSuccessful = response.IsSuccessful;
-                if (isSuccessful)
-                {
-                    string result = response.Content;
-                    EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(result);
-                    if (resultDto.Code == 200)
-                    {
-                        LogMgr.Instance.Info($"请求成功:{resultDto.Message}");
-                    }
-                    else
-                    {
-                        LogMgr.Instance.Error($"请求失败:{resultDto.Message}");
-                    }
-                }
-                else
-                {
-                    LogMgr.Instance.Error("请求错误");
-                }
-            }
-            catch (Exception e)
-            {
-                LogMgr.Instance.Error("请求错误" + e.Message);
-            }
-        }
 
         /// <summary>
         /// 上传Mes过站数据
