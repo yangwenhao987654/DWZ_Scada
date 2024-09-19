@@ -2,6 +2,7 @@
 using DWZ_Scada.DAL.DBContext;
 using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.HttpRequest;
+using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
@@ -65,6 +66,11 @@ namespace DWZ_Scada.Pages.StationPages
             _createInstanceFunc = factoryMethod;
         }
 
+        /// <summary>
+        /// 设备是否点检模式
+        /// </summary>
+        public  bool IsSpotCheck { get; set; }
+
         public  bool IsPlc_Connected;
 
         public LogMgr Logger = LogMgr.Instance;
@@ -89,11 +95,16 @@ namespace DWZ_Scada.Pages.StationPages
 
         public  readonly object stateLock = new object();
 
+
+        public readonly object alarmLock = new object();
+
         public Timer reportTimer;
 
         public ConcurrentQueue<DeviceAlarmEntity> AlarmQueue = new ConcurrentQueue<DeviceAlarmEntity>();
 
         public static Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
+
+        public static List<string> AlarmInfoList = new List<string>();
 
         // 异步保存报警信息的方法
         private async Task SaveAlarmsToDatabaseAsync()
@@ -139,6 +150,22 @@ namespace DWZ_Scada.Pages.StationPages
         }
 
         /// <summary>
+        /// 上传过站数据
+        /// </summary>
+        protected async Task UploadStationData(PassStationDTO dto)
+        {
+            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
+            await service.SendPassStationData(dto);
+        }
+
+        protected async Task UploadSpotCheckData(DeviceInspectDTO dto)
+        {
+            InspectService service = Global.ServiceProvider.GetRequiredService<InspectService>();
+            await service.AddInspectDada(dto);
+        }
+
+
+        /// <summary>
         /// 上报设备状态 1S 上报一次
         /// </summary>
         /// <param name="state"></param>
@@ -170,8 +197,16 @@ namespace DWZ_Scada.Pages.StationPages
                     break;
             }
 
+      
             //如果有报警的话 需要带着报警信息
-
+            lock (alarmLock)
+            {
+                if (AlarmInfoList.Count>0)
+                {
+                   string message = string.Join(";", AlarmInfoList);
+                   dto.Message =message;
+                }
+            }
             //记录报警信息
             DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
             await stateService.AddDeviceState(dto);

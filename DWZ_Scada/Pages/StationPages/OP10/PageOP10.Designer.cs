@@ -40,7 +40,8 @@
             uiLabel6 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel8 = new Sunny.UI.UILabel();
-            uiButton4 = new Sunny.UI.UIButton();
+            uiSwitch_Spot = new Sunny.UI.UISwitch();
+            uiLabel5 = new Sunny.UI.UILabel();
             SuspendLayout();
             // 
             // uiLabel1
@@ -175,24 +176,34 @@
             uiLabel8.TabIndex = 14;
             uiLabel8.Text = "出站总结果";
             // 
-            // uiButton4
+            // uiSwitch_Spot
             // 
-            uiButton4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton4.Location = new System.Drawing.Point(442, 184);
-            uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton4.Name = "uiButton4";
-            uiButton4.Size = new System.Drawing.Size(122, 42);
-            uiButton4.TabIndex = 15;
-            uiButton4.Text = "点检模式";
-            uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton4.Click += uiButton4_Click;
+            uiSwitch_Spot.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiSwitch_Spot.Location = new System.Drawing.Point(871, 174);
+            uiSwitch_Spot.MinimumSize = new System.Drawing.Size(1, 1);
+            uiSwitch_Spot.Name = "uiSwitch_Spot";
+            uiSwitch_Spot.Size = new System.Drawing.Size(141, 73);
+            uiSwitch_Spot.TabIndex = 16;
+            uiSwitch_Spot.Text = "uiSwitch1";
+            uiSwitch_Spot.ValueChanged += uiSwitch_Spot_ValueChanged;
+            // 
+            // uiLabel5
+            // 
+            uiLabel5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel5.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel5.Location = new System.Drawing.Point(734, 195);
+            uiLabel5.Name = "uiLabel5";
+            uiLabel5.Size = new System.Drawing.Size(131, 42);
+            uiLabel5.TabIndex = 17;
+            uiLabel5.Text = "点检模式:";
             // 
             // PageOP10
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1024);
-            Controls.Add(uiButton4);
+            Controls.Add(uiLabel5);
+            Controls.Add(uiSwitch_Spot);
             Controls.Add(uiLabel8);
             Controls.Add(uiLabel7);
             Controls.Add(uiLabel6);
@@ -229,6 +240,7 @@
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UILabel uiLabel8;
-        private Sunny.UI.UIButton uiButton4;
+        private Sunny.UI.UISwitch uiSwitch_Spot;
+        private Sunny.UI.UILabel uiLabel5;
     }
 }

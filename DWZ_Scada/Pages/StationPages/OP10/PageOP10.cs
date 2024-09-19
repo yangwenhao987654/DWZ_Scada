@@ -24,7 +24,7 @@ namespace DWZ_Scada
 {
     public partial class PageOP10 : UIPage
     {
-        
+
         public HttpService MyHttpService;
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace DWZ_Scada
         private PageOP10()
         {
             InitializeComponent();
-            _instance =this;
+            _instance = this;
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace DWZ_Scada
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
-            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP, 
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
                 SystemParams.Instance.OP10_PlcPort);
 
             //TODO 这里导致程序卡顿
@@ -193,11 +193,11 @@ namespace DWZ_Scada
                 // PassStationData = n
                 PassStationData = new OP10Data()
                 {
-             /*       Material = "物料信息AAA",
-                    VisionData1 = "4dwadwa",
-                    VisionData2 = "sw23435",
-                    VisionPicPath = "D:\\test",
-                    VisionResult = "OK"*/
+                    /*       Material = "物料信息AAA",
+                           VisionData1 = "4dwadwa",
+                           VisionData2 = "sw23435",
+                           VisionPicPath = "D:\\test",
+                           VisionResult = "OK"*/
                 }
             };
             UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
@@ -221,8 +221,22 @@ namespace DWZ_Scada
         {
             //进入点检模式 生产数据跟正常数据分开
             OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", true);
+            OP10MainFunc.Instance.IsSpotCheck = true;
 
-            
+        }
+
+        private void uiSwitch_Spot_ValueChanged(object sender, bool value)
+        {
+            if (value)
+            {
+                LogMgr.Instance.Info("启动点检");
+            }
+            else
+            {
+                LogMgr.Instance.Info("关闭点检");
+            }
+            OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", value);
+            OP10MainFunc.Instance.IsSpotCheck = value;
         }
     }
 }

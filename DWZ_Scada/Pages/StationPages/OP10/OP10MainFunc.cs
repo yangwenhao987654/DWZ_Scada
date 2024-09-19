@@ -4,7 +4,9 @@ using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
+using DWZ_Scada.Services;
 using LogTool;
+using Microsoft.AspNetCore.SystemWebAdapters.SessionState;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         //2.人工输入
         public static List<DeviceAlarmEntity> CurrentAlarmList = new();
 
+
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
         }
@@ -41,7 +44,53 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             //释放PLC连接
             PLC?.Dispose();
         }
+        /// <summary>
+        /// 上报设备状态 1S 上报一次
+        /// </summary>
+        /// <param name="state"></param>
+        protected override async void ReportDeviceState(object state)
+        {
+            int currentState = -1;
+            lock (stateLock)
+            {
+                currentState = DeviceState;
+            }
+            DeviceStateDTO dto = new DeviceStateDTO()
+            {
+                DeviceCode = "0001",
+                DeviceName = "工站01",
+            };
+            switch (currentState)
+            {
+                case -1:
+                    dto.Status = "停机";
+                    break;
+                case 1:
+                    dto.Status = "运行中";
+                    break;
+                case 2:
+                    dto.Status = "待机中";
+                    break;
+                default:
+                    dto.Status = "故障";
+                    break;
+            }
 
+            //TODO 如果有报警 封装所有的报警信息给Mes
+
+            //如果有报警的话 需要带着报警信息
+            lock (alarmLock)
+            {
+                if (AlarmInfoList.Count > 0)
+                {
+                    string message = string.Join(";", AlarmInfoList);
+                    dto.Message = message;
+                }
+            }
+
+            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
+            await stateService.AddDeviceState(dto);
+        }
 
         public override void PLCMainWork(CancellationToken token)
         {
@@ -70,6 +119,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     // state状态 报警中 暂停中 运行中
                     //每次循环清一遍
                     CurrentAlarmList.Clear();
+                    
                     state = ReadPLCState();
                     if (state != -1)
                     {
@@ -79,7 +129,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         CurrentAlarmList.Clear();
                         if (state == AlarmState)
                         {
-                            ProcessAlarms(dt);
+                            lock (alarmLock)
+                            {
+                                AlarmInfoList.Clear();
+                                ProcessAlarms(dt);
+                            }
                         }
                         //如果上一次报警了 
                         if (DeviceState==AlarmState &&state!=AlarmState)
@@ -191,6 +245,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             if (isActive)
             {
                 Global.IsDeviceAlarm = true;
+
                 CurrentAlarmList.Add(alarmEntity);
                 if (ActiveAlarms.TryAdd(alarmKey, alarmEntity))
                 {
@@ -225,7 +280,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             if (state == AlarmState)
             {
                 PlcState = PlcState.Alarm;
-                DeviceState = 2;
+                //DeviceState = 2;
             }
             else if (state == RunningState) 
             {
@@ -243,7 +298,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
 
         // 处理进站信号
-        private void ProcessEntrySignal(DateTime dt)
+        private async Task ProcessEntrySignal(DateTime dt)
         {
             if (PLC.ReadBool(OP10Address.EntrySignal, out bool isEntry) && isEntry)
             {
@@ -254,13 +309,35 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 if (PLC.ReadInt16(OP10Address.Collect, out int collectSignal) && collectSignal == 1)
                 {
                     //TODO 开始数据采集
+                    if (IsSpotCheck)
+                    {
+                        //TODO 上传点检数据
+                        DeviceInspectDTO dto = new DeviceInspectDTO()
+                        {
+                            DeviceCode = "OP10",
+                            DeviceName = "工站01",
 
-                    UploadStationData();
+                        };
+                        await UploadSpotCheckData(dto);
+                    }
+                    else
+                    {
+                        //TODO 正常数据上报
+                        PassStationDTO dto = new()
+                        {
+                            StationCode = "OP10",
+                            SnTemp = "AQW12dswSAW",
+                            PassStationData = new OP10Data()
+                        };
+                        await UploadStationData(dto);
+                    }
                 }
             }
         }
 
-        // 上传站点数据
+        /*/// <summary>
+        /// 上传过站数据
+        /// </summary>
         private void UploadStationData()
         {
             PassStationDTO dto = new()
@@ -271,7 +348,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             };
             UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
             service.SendPassStationData(dto);
-        }
+        }*/
 
         /// <summary>
         /// 读取PLC状态
