@@ -6,6 +6,7 @@ using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using RestSharp;
+using ScadaBase.DAL.BLL;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -147,15 +148,24 @@ namespace DWZ_Scada
             }));
             //创建设备状态上报服务
 
+            #region Mes接口服务
+
             services.AddSingleton<HttpClientHelper>();
             services.AddTransient<DeviceStateService>();
             services.AddTransient<DamageableService>();
             services.AddTransient<InspectService>();
             services.AddTransient<EntryRequestService>();
-
             services.AddTransient<ProductBomService>();
             services.AddTransient<UploadPassStationService>();
             services.AddTransient<WorkOrderService>();
+
+            #endregion
+
+            #region 注册数据库访问接口
+            services.AddSingleton<IDeviceAlarmDAL, DeviceAlarmDAL>();
+            services.AddSingleton<IDeviceAlarmBLL, DeviceAlarmBLL>();
+            #endregion
+
         }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DWZ.DAL.Entity
+namespace ScadaBase.DAL.Entity
 {
     public class OpUserEntityConfig : IEntityTypeConfiguration<OpUser>
     {

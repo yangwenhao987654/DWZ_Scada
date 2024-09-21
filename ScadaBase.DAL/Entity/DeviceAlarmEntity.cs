@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.DAL.Entity
+namespace ScadaBase.DAL.Entity
 {
     /// <summary>
     /// 设备报警信息表
@@ -26,7 +26,7 @@ namespace DWZ_Scada.DAL.Entity
         /// <summary>
         /// 报警信息 
         /// </summary>
-        public string AlarmInfo{ get; set; }
+        public string AlarmInfo { get; set; }
 
         /// <summary>
         /// 报警日期 YYYY-MM-dd

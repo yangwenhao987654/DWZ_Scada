@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoTF;
-using DWZ.DAL.Entity;
-using DWZ_Scada.DAL.Entity;
 using Microsoft.Extensions.Configuration;
+using ScadaBase.DAL.Entity;
 
-namespace DWZ_Scada.DAL.DBContext
+namespace ScadaBase.DAL.DBContext
 {
     public class MyDbContext : DbContext
     {
@@ -38,9 +36,9 @@ namespace DWZ_Scada.DAL.DBContext
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
+        {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
 }

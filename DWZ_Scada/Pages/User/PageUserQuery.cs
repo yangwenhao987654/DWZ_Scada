@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DWZ.DAL.Entity;
 using SJTU_UI.Pages.User;
 using Sunny.UI.Win32;
-using DWZ_Scada.DAL.DBContext;
+using ScadaBase.DAL.Entity;
+using ScadaBase.DAL.DBContext;
 
 namespace AutoTF.Pages.Query
 {

@@ -1,7 +1,9 @@
-﻿using DWZ_Scada.HttpRequest;
+﻿using DWZ_Scada.dao.response;
+using DWZ_Scada.HttpRequest;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl;
 using LogTool;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -23,11 +25,13 @@ namespace DWZ_Scada.HttpServices
         /// <summary>
         /// 上传Mes过站数据
         /// </summary>
-        public async Task GetWorkOrder()
+        public async Task<RestResponse> GetWorkOrder()
         {
             RestResponse response = await _httpClientHelper.SendGetRequestAsync(Url);
             LogMgr.Instance.Info($"获取响应:\n{response.Content}");
             _httpClientHelper.AnalyzeResponse(response);
+            
+            return response;
         }
     }
 }

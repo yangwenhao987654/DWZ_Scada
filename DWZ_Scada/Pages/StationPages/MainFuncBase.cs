@@ -1,6 +1,4 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
-using DWZ_Scada.DAL.DBContext;
-using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
@@ -11,6 +9,8 @@ using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
+using ScadaBase.DAL.DBContext;
+using ScadaBase.DAL.Entity;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

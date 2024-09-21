@@ -1,5 +1,4 @@
-﻿using DWZ_Scada.DAL.Entity;
-using DWZ_Scada.HttpServices;
+﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -7,6 +6,7 @@ using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
+using ScadaBase.DAL.Entity;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -44,6 +44,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         //1.扫码枪
         //2.人工输入
         public static List<DeviceAlarmEntity> CurrentAlarmList = new();
+
+        public static List<string> CurAlarmInfoVo = new();
 
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
@@ -131,7 +133,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     // state状态 报警中 暂停中 运行中
                     //每次循环清一遍
                     CurrentAlarmList.Clear();
-                    
+                    CurAlarmInfoVo.Clear();
                     state = ReadPLCState();
                     UpdateDeviceState(state);
                     if (state != -1)
@@ -156,7 +158,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         }
                         if (DeviceControlPage.IsLoad)
                         {
-                            DeviceControlPage.Instance.UpdateAlarm(new List<DeviceAlarmEntity>(CurrentAlarmList));
+                            //DeviceControlPage.Instance.UpdateAlarm(new List<DeviceAlarmEntity>(CurrentAlarmList));
+
+                            DeviceControlPage.Instance.UpdateAlarm(new List<string>(CurAlarmInfoVo));
+                            
                         }
                         // 处理设备状态
                  
@@ -178,7 +183,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     LogMgr.Instance.Error($"Exception in PLCMainWork: {ex.Message}");
                 }
 
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
         }
 
@@ -258,7 +263,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             if (isActive)
             {
                 Global.IsDeviceAlarm = true;
-
+                CurAlarmInfoVo.Add($"{alarmEntity.AlarmTime:yyyy:MM:dd hh:mm:ss}:{alarmEntity.AlarmInfo}--{alarmEntity.AlarmType}");
                 CurrentAlarmList.Add(alarmEntity);
                 if (ActiveAlarms.TryAdd(alarmKey, alarmEntity))
                 {

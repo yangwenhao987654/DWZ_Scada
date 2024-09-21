@@ -36,21 +36,21 @@
             // 
             // tabPage2
             // 
-            tabPage2.Location = new System.Drawing.Point(151, 0);
+            tabPage2.BackColor = System.Drawing.Color.White;
+            tabPage2.Location = new System.Drawing.Point(126, 0);
             tabPage2.Name = "tabPage2";
-            tabPage2.Size = new System.Drawing.Size(649, 450);
+            tabPage2.Size = new System.Drawing.Size(674, 450);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "历史报警查询";
-            tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
-            tabPage1.Location = new System.Drawing.Point(151, 0);
+            tabPage1.BackColor = System.Drawing.Color.White;
+            tabPage1.Location = new System.Drawing.Point(126, 0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new System.Drawing.Size(649, 450);
+            tabPage1.Size = new System.Drawing.Size(674, 450);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "报警信息配置";
-            tabPage1.UseVisualStyleBackColor = true;
             // 
             // uiTabControlMenu1
             // 
@@ -59,22 +59,25 @@
             uiTabControlMenu1.Controls.Add(tabPage2);
             uiTabControlMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
             uiTabControlMenu1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            uiTabControlMenu1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiTabControlMenu1.ItemSize = new System.Drawing.Size(150, 50);
+            uiTabControlMenu1.FillColor = System.Drawing.Color.White;
+            uiTabControlMenu1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiTabControlMenu1.ItemSize = new System.Drawing.Size(125, 50);
             uiTabControlMenu1.Location = new System.Drawing.Point(0, 0);
-            uiTabControlMenu1.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            uiTabControlMenu1.Margin = new System.Windows.Forms.Padding(0);
             uiTabControlMenu1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             uiTabControlMenu1.Multiline = true;
             uiTabControlMenu1.Name = "uiTabControlMenu1";
+            uiTabControlMenu1.Padding = new System.Drawing.Point(0, 0);
             uiTabControlMenu1.SelectedIndex = 0;
             uiTabControlMenu1.Size = new System.Drawing.Size(800, 450);
             uiTabControlMenu1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            uiTabControlMenu1.TabBackColor = System.Drawing.Color.AliceBlue;
+            uiTabControlMenu1.TabBackColor = System.Drawing.Color.PowderBlue;
             uiTabControlMenu1.TabIndex = 0;
             uiTabControlMenu1.TabSelectedColor = System.Drawing.Color.LightCyan;
             uiTabControlMenu1.TabSelectedForeColor = System.Drawing.Color.Black;
             uiTabControlMenu1.TabSelectedHighColor = System.Drawing.Color.LightSkyBlue;
             uiTabControlMenu1.TabUnSelectedForeColor = System.Drawing.Color.Black;
+            uiTabControlMenu1.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // PageAlarmTabMenu
             // 

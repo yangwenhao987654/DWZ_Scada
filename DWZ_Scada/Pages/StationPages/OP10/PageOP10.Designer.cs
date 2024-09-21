@@ -42,6 +42,8 @@
             uiLabel8 = new Sunny.UI.UILabel();
             uiSwitch_Spot = new Sunny.UI.UISwitch();
             uiLabel5 = new Sunny.UI.UILabel();
+            cbx_Orders = new Sunny.UI.UIComboBox();
+            uiButton4 = new Sunny.UI.UIButton();
             SuspendLayout();
             // 
             // uiLabel1
@@ -114,6 +116,7 @@
             uiButton2.TabIndex = 8;
             uiButton2.Text = "切换物料";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.Click += uiButton2_Click;
             // 
             // uiLabel3
             // 
@@ -128,13 +131,14 @@
             // uiButton3
             // 
             uiButton3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Location = new System.Drawing.Point(176, 195);
+            uiButton3.Location = new System.Drawing.Point(176, 525);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
             uiButton3.Size = new System.Drawing.Size(122, 42);
             uiButton3.TabIndex = 10;
-            uiButton3.Text = "切换工单";
+            uiButton3.Text = "获取最新工单";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
             // 
             // lbl_EntrySN
             // 
@@ -197,11 +201,44 @@
             uiLabel5.TabIndex = 17;
             uiLabel5.Text = "点检模式:";
             // 
+            // cbx_Orders
+            // 
+            cbx_Orders.DataSource = null;
+            cbx_Orders.FillColor = System.Drawing.Color.White;
+            cbx_Orders.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            cbx_Orders.ItemHoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
+            cbx_Orders.ItemSelectForeColor = System.Drawing.Color.FromArgb(235, 243, 255);
+            cbx_Orders.Location = new System.Drawing.Point(334, 512);
+            cbx_Orders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbx_Orders.MinimumSize = new System.Drawing.Size(63, 0);
+            cbx_Orders.Name = "cbx_Orders";
+            cbx_Orders.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            cbx_Orders.Size = new System.Drawing.Size(229, 67);
+            cbx_Orders.SymbolSize = 24;
+            cbx_Orders.TabIndex = 18;
+            cbx_Orders.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            cbx_Orders.Watermark = "获取Mes生产工单";
+            cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;
+            // 
+            // uiButton4
+            // 
+            uiButton4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton4.Location = new System.Drawing.Point(603, 525);
+            uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton4.Name = "uiButton4";
+            uiButton4.Size = new System.Drawing.Size(122, 42);
+            uiButton4.TabIndex = 19;
+            uiButton4.Text = "切换工单";
+            uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton4.Click += uiButton4_Click_1;
+            // 
             // PageOP10
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1024);
+            Controls.Add(uiButton4);
+            Controls.Add(cbx_Orders);
             Controls.Add(uiLabel5);
             Controls.Add(uiSwitch_Spot);
             Controls.Add(uiLabel8);
@@ -242,5 +279,7 @@
         private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UISwitch uiSwitch_Spot;
         private Sunny.UI.UILabel uiLabel5;
+        private Sunny.UI.UIComboBox cbx_Orders;
+        private Sunny.UI.UIButton uiButton4;
     }
 }

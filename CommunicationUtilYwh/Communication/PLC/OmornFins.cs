@@ -25,7 +25,6 @@ namespace ZC_DataAcquisition
                 client = new OmronFinsNet(ip, Convert.ToInt32(port));
                 client.SA1 = Convert.ToByte(SA1);//本地ip最后一位
                 client.DA1 = Convert.ToByte(DA1);//plc ip最后一位
-
                 OperateResult connect = client.ConnectServer();
                 if (!connect.IsSuccess)
                 {

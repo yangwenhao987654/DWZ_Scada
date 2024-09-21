@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Cap;
 using Cap.Dialog;
-using DWZ.DAL.Entity;
 using DWZ_Scada;
-using DWZ_Scada.DAL.DBContext;
+using ScadaBase.DAL.Entity;
+using ScadaBase.DAL.DBContext;
 
 namespace AutoTF
 {

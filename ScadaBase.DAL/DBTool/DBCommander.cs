@@ -7,7 +7,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DWZ_Scada;
 
-namespace AutoTF.DBTool
+namespace ScadaBase.DAL.DBTool
 {
 
     public class DBCommander

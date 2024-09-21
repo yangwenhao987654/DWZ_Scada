@@ -172,6 +172,7 @@
             uiButton2.TabIndex = 58;
             uiButton2.Text = "复位";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.Click += uiButton2_Click_1;
             // 
             // uiButton3
             // 

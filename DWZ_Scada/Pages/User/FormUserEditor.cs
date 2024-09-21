@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DWZ.DAL.Entity;
 using DWZ_Scada;
-using DWZ_Scada.DAL.DBContext;
+using ScadaBase.DAL.Entity;
+using ScadaBase.DAL.DBContext;
 
 namespace SJTU_UI.Pages.User
 {

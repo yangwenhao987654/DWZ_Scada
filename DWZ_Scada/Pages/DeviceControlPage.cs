@@ -9,11 +9,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoTF;
-using DWZ_Scada.DAL.Entity;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
 using DWZ_Scada.Pages.StationPages.OP10;
 using LogTool;
+using ScadaBase.DAL.Entity;
 using Sunny.UI;
 using UtilYwh.AlarmNotify;
 
@@ -42,11 +42,11 @@ namespace DWZ_Scada.Pages
 
         public static bool IsLoad { get; set; } = false;
 
-        public  delegate void UpdateDeviceEvent(List<DeviceAlarmEntity> list);
+        public delegate void UpdateDeviceEvent(List<DeviceAlarmEntity> list);
 
         public static event UpdateDeviceEvent DeviceUpdated;
 
-        private bool isLoad =false;
+        private bool isLoad = false;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
 
@@ -54,20 +54,27 @@ namespace DWZ_Scada.Pages
         private readonly Action<string> _addAlarmDelegate;
 
         private readonly Action _clearAlarmDelegate;
+
+        private List<string> list = new List<string>();
+
+        BindingSource bs = new BindingSource();
         #endregion
 
         private DeviceControlPage()
         {
-          
+
             InitializeComponent();
             // 订阅AlarmEvent事件  
             AlarmManager.RunningLogEvent += HandleRunningLogEvent;
 
             AlarmManager.DeviceAlarmEvent += AlarmManager_DeviceAlarmEvent;
             //DeviceUpdated += DeviceControlPage_DeviceUpdated;
-            IsLoad =true;
+            IsLoad = true;
             _addAlarmDelegate = new Action<string>(AddAlarm);
             _clearAlarmDelegate = new Action(ClearAlarm);
+
+            
+
         }
 
         private void DeviceControlPage_DeviceUpdated(List<DeviceAlarmEntity> list)
@@ -78,7 +85,7 @@ namespace DWZ_Scada.Pages
 
         public static void TriggerDeviceAlarmEvent(List<DeviceAlarmEntity> list)
         {
-            DeviceUpdated?.Invoke(list); 
+            DeviceUpdated?.Invoke(list);
         }
 
         private void AlarmManager_DeviceAlarmEvent(string msg)
@@ -240,7 +247,7 @@ namespace DWZ_Scada.Pages
         {
             if (InvokeRequired)
             {
-                lbx_Alarm.Invoke(_addAlarmDelegate,msg);
+                lbx_Alarm.Invoke(_addAlarmDelegate, msg);
                 return;
             }
             if (lbx_Alarm.Items.Contains(msg))
@@ -256,17 +263,52 @@ namespace DWZ_Scada.Pages
 
         public void UpdateAlarm(List<DeviceAlarmEntity> CurrentAlarmList)
         {
-           /* if (!IsHandleCreated)
-            {
-                LogMgr.Instance.Debug("页面未加载完成");
-                return;
-            }*/
-           //LogMgr.Instance.Debug("页面已经加载完成");
+            /* if (!IsHandleCreated)
+             {
+                 LogMgr.Instance.Debug("页面未加载完成");
+                 return;
+             }*/
+            //LogMgr.Instance.Debug("页面已经加载完成");
+
+
+
             ClearAlarm();
             foreach (var data in CurrentAlarmList)
             {
                 AddAlarm($"{data.AlarmTime:yyyy-MM-dd hh:mm:ss fff}:{data.AlarmInfo}");
             }
+
+            lbx_Alarm.DataSource = CurrentAlarmList;
+
+        }
+
+        public void UpdateAlarm(List<string> alarmlist)
+        {
+            /* if (!IsHandleCreated)
+             {
+                 LogMgr.Instance.Debug("页面未加载完成");
+                 return;
+             }*/
+            //LogMgr.Instance.Debug("页面已经加载完成");
+
+
+            //list.Add("456");
+            //lbx_Alarm.DataSource =list;
+            //reflashList();
+            //lbx_Alarm.Refresh();
+            list =alarmlist;
+            reflashList();
+        }
+
+        private void reflashList()
+        {
+            if (InvokeRequired)
+            {
+                lbx_Alarm.Invoke(reflashList);
+                return;
+            }
+            lbx_Alarm.DataSource = null;
+            lbx_Alarm.DataSource = list;
         }
 
         //初始化
@@ -353,6 +395,14 @@ namespace DWZ_Scada.Pages
               t.Start();*/
             //this.Show();
             //isLoad =true;
+        }
+
+        private void uiButton2_Click_1(object sender, EventArgs e)
+        {
+            /*lbx_Alarm.DataSource = null;
+            lbx_Alarm.DataSource = list;*/
+    
+
         }
     }
 }

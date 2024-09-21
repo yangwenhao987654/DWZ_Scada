@@ -36,7 +36,6 @@ namespace DWZ_Scada.HttpRequest
             }
         }
 
-
         // 通用GET请求
         public async Task<RestResponse> SendGetRequestAsync(string url, Dictionary<string, object> parameters = null)
         {
@@ -65,15 +64,17 @@ namespace DWZ_Scada.HttpRequest
         }
 
         // 分析响应
-        public void AnalyzeResponse(RestResponse response)
+        public bool AnalyzeResponse(RestResponse response)
         {
             if (response.IsSuccessful)
             {
                 LogMgr.Instance.Info($"响应成功: {response.Content}");
+                return true;
             }
             else
             {
                 LogMgr.Instance.Error($"请求失败: {response.StatusCode},错误类型:{response.ResponseStatus} \n 错误信息: {response.ErrorMessage}");
+                return false;
             }
         }
     }

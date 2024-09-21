@@ -1,0 +1,82 @@
+{
+  "msg": "操作成功",
+  "code": 200,
+  "data": {
+    "itemId": 87,
+    "itemCode": "IF20240827001",
+    "itemName": "保险杠",
+    "specification": "BX-1",
+    "unitOfMeasure": "PCS",
+    "itemOrProduct": "PRODUCT",
+    "itemTypeId": 277,
+    "itemTypeCode": "ITEM_TYPE_0092",
+    "itemTypeName": "产成品",
+    "enableFlag": "Y",
+    "safeStockFlag": "N",
+    "productBomList": [
+      {
+        "bomId": 7,
+        "itemId": 87,
+        "bomItemId": 88,
+        "bomItemCode": "IF20240827002",
+        "bomItemName": "硬塑料",
+        "bomItemSpec": "B-1",
+        "unitOfMeasure": "KG",
+        "itemOrProduct": "ITEM",
+        "quantity": 1,
+        "enableFlag": "Y",
+        "attr1": null,
+        "attr2": null,
+        "attr3": 0,
+        "attr4": 0,
+        "processCode": null,
+        "processName": null,
+        "batchList": [
+
+        ]
+      },
+      {
+        "bomId": 8,
+        "itemId": 87,
+        "bomItemId": 73,
+        "bomItemCode": "IF2022082428",
+        "bomItemName": "螺丝刀刀柄",
+        "bomItemSpec": "10CM",
+        "unitOfMeasure": "PCS",
+        "itemOrProduct": "PRODUCT",
+        "quantity": 1,
+        "enableFlag": "Y",
+        "attr1": null,
+        "attr2": null,
+        "attr3": 0,
+        "attr4": 0,
+        "processCode": null,
+        "processName": null,
+        "batchList": [
+
+        ]
+      },
+      {
+        "bomId": 9,
+        "itemId": 87,
+        "bomItemId": 80,
+        "bomItemCode": "IF20230305006",
+        "bomItemName": "小包装",
+        "bomItemSpec": null,
+        "unitOfMeasure": "PCS",
+        "itemOrProduct": "ITEM",
+        "quantity": 1,
+        "enableFlag": "Y",
+        "attr1": null,
+        "attr2": null,
+        "attr3": 0,
+        "attr4": 0,
+        "processCode": null,
+        "processName": null,
+        "batchList": [
+
+        ]
+      }
+    ]
+  }
+}

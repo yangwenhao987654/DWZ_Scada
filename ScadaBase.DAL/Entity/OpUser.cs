@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWZ.DAL.Entity
+namespace ScadaBase.DAL.Entity
 {
     public class OpUser
     {
