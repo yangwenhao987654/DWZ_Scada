@@ -32,11 +32,11 @@ namespace DWZ_Scada
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle21 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle22 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle25 = new DataGridViewCellStyle();
             textBox_IP = new UITextBox();
             label1 = new Label();
             label2 = new Label();
@@ -64,7 +64,7 @@ namespace DWZ_Scada
             // textBox_IP
             // 
             textBox_IP.Cursor = Cursors.IBeam;
-            textBox_IP.FillColor = System.Drawing.Color.WhiteSmoke;
+            textBox_IP.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             textBox_IP.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             textBox_IP.Location = new System.Drawing.Point(86, 45);
             textBox_IP.Margin = new Padding(2);
@@ -102,7 +102,7 @@ namespace DWZ_Scada
             // textBox_DK
             // 
             textBox_DK.Cursor = Cursors.IBeam;
-            textBox_DK.FillColor = System.Drawing.Color.WhiteSmoke;
+            textBox_DK.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             textBox_DK.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             textBox_DK.Location = new System.Drawing.Point(375, 44);
             textBox_DK.Margin = new Padding(2);
@@ -130,7 +130,7 @@ namespace DWZ_Scada
             // textBox_ID
             // 
             textBox_ID.Cursor = Cursors.IBeam;
-            textBox_ID.FillColor = System.Drawing.Color.WhiteSmoke;
+            textBox_ID.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             textBox_ID.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             textBox_ID.Location = new System.Drawing.Point(640, 44);
             textBox_ID.Margin = new Padding(2);
@@ -147,32 +147,32 @@ namespace DWZ_Scada
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.Padding = new Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle22.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle22.Padding = new Padding(2);
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = DataGridViewTriState.False;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             dataGridView1.ColumnHeadersHeight = 50;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle23;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dataGridView1.GridColor = System.Drawing.Color.Gray;
@@ -180,21 +180,21 @@ namespace DWZ_Scada
             dataGridView1.Margin = new Padding(2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RectColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.WrapMode = DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle5.Padding = new Padding(2);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkGray;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle25.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle25.Padding = new Padding(2);
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle25;
             dataGridView1.RowTemplate.Height = 35;
             dataGridView1.ScrollBarColor = System.Drawing.Color.Silver;
             dataGridView1.ScrollBarRectColor = System.Drawing.Color.Silver;
@@ -239,7 +239,7 @@ namespace DWZ_Scada
             // comboBox1
             // 
             comboBox1.DataSource = null;
-            comboBox1.FillColor = System.Drawing.Color.WhiteSmoke;
+            comboBox1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             comboBox1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             comboBox1.FormattingEnabled = true;
             comboBox1.ItemHoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
@@ -260,9 +260,8 @@ namespace DWZ_Scada
             // button4
             // 
             button4.Cursor = Cursors.Hand;
-            button4.FillColor = System.Drawing.Color.Gainsboro;
+            button4.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             button4.FillColor2 = System.Drawing.Color.Gray;
-            button4.FillColorGradient = true;
             button4.FillHoverColor = System.Drawing.Color.Silver;
             button4.FillPressColor = System.Drawing.Color.Gray;
             button4.FillSelectedColor = System.Drawing.Color.Silver;
@@ -288,9 +287,8 @@ namespace DWZ_Scada
             // button3
             // 
             button3.Cursor = Cursors.Hand;
-            button3.FillColor = System.Drawing.Color.Gainsboro;
+            button3.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             button3.FillColor2 = System.Drawing.Color.Gray;
-            button3.FillColorGradient = true;
             button3.FillHoverColor = System.Drawing.Color.Silver;
             button3.FillPressColor = System.Drawing.Color.Gray;
             button3.FillSelectedColor = System.Drawing.Color.Silver;
@@ -316,7 +314,7 @@ namespace DWZ_Scada
             // textBox4
             // 
             textBox4.Cursor = Cursors.IBeam;
-            textBox4.FillColor = System.Drawing.Color.WhiteSmoke;
+            textBox4.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             textBox4.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             textBox4.ForeColor = System.Drawing.Color.Silver;
             textBox4.Location = new System.Drawing.Point(930, 118);
@@ -334,9 +332,8 @@ namespace DWZ_Scada
             // button1
             // 
             button1.Cursor = Cursors.Hand;
-            button1.FillColor = System.Drawing.Color.Gainsboro;
+            button1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             button1.FillColor2 = System.Drawing.Color.Gray;
-            button1.FillColorGradient = true;
             button1.FillHoverColor = System.Drawing.Color.Silver;
             button1.FillPressColor = System.Drawing.Color.Gray;
             button1.FillSelectedColor = System.Drawing.Color.Silver;
@@ -388,9 +385,8 @@ namespace DWZ_Scada
             // button2
             // 
             button2.Cursor = Cursors.Hand;
-            button2.FillColor = System.Drawing.Color.Gainsboro;
+            button2.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             button2.FillColor2 = System.Drawing.Color.Gray;
-            button2.FillColorGradient = true;
             button2.FillHoverColor = System.Drawing.Color.Silver;
             button2.FillPressColor = System.Drawing.Color.Gray;
             button2.FillSelectedColor = System.Drawing.Color.Silver;
@@ -412,11 +408,10 @@ namespace DWZ_Scada
             button2.Text = "读取";
             button2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             // 
-            // Form_set_PLC
+            // Page_PLCAddress
             // 
-            AllowShowTitle = false;
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            BackColor = System.Drawing.Color.AliceBlue;
             ClientSize = new System.Drawing.Size(1912, 778);
             Controls.Add(button2);
             Controls.Add(label4);
@@ -434,10 +429,8 @@ namespace DWZ_Scada
             Controls.Add(label1);
             Controls.Add(textBox_IP);
             Margin = new Padding(2);
-            Name = "Form_set_PLC";
-            Padding = new Padding(0);
+            Name = "Page_PLCAddress";
             RectColor = System.Drawing.Color.Black;
-            ShowTitle = false;
             Text = " ";
             TitleFont = new System.Drawing.Font("宋体", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             TitleHeight = 29;

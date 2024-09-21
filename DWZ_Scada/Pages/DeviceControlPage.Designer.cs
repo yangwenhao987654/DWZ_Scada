@@ -41,9 +41,8 @@
             // uiButton1
             // 
             uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton1.FillColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            uiButton1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             uiButton1.FillColor2 = System.Drawing.Color.Gray;
-            uiButton1.FillColorGradient = true;
             uiButton1.FillHoverColor = System.Drawing.Color.Silver;
             uiButton1.FillPressColor = System.Drawing.Color.Gray;
             uiButton1.FillSelectedColor = System.Drawing.Color.Gray;
@@ -124,9 +123,9 @@
             // uiButton4
             // 
             uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton4.FillColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            uiButton4.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             uiButton4.FillColor2 = System.Drawing.Color.Gray;
-            uiButton4.FillColorGradient = true;
+            uiButton4.FillColorGradientDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             uiButton4.FillHoverColor = System.Drawing.Color.Silver;
             uiButton4.FillPressColor = System.Drawing.Color.Gray;
             uiButton4.FillSelectedColor = System.Drawing.Color.Gray;
@@ -151,9 +150,8 @@
             // uiButton2
             // 
             uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton2.FillColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            uiButton2.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             uiButton2.FillColor2 = System.Drawing.Color.Gray;
-            uiButton2.FillColorGradient = true;
             uiButton2.FillHoverColor = System.Drawing.Color.Silver;
             uiButton2.FillPressColor = System.Drawing.Color.Gray;
             uiButton2.FillSelectedColor = System.Drawing.Color.Gray;
@@ -178,9 +176,8 @@
             // uiButton3
             // 
             uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton3.FillColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            uiButton3.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             uiButton3.FillColor2 = System.Drawing.Color.Gray;
-            uiButton3.FillColorGradient = true;
             uiButton3.FillHoverColor = System.Drawing.Color.Silver;
             uiButton3.FillPressColor = System.Drawing.Color.Gray;
             uiButton3.FillSelectedColor = System.Drawing.Color.Gray;
@@ -204,11 +201,9 @@
             // 
             // DeviceControlPage
             // 
-            AllowShowTitle = false;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            BackColor = System.Drawing.Color.AliceBlue;
             ClientSize = new System.Drawing.Size(1912, 778);
-            ControlBox = false;
             Controls.Add(uiButton3);
             Controls.Add(uiButton2);
             Controls.Add(uiButton4);
@@ -217,12 +212,8 @@
             Controls.Add(uiLabel1);
             Controls.Add(uiListBox2);
             Controls.Add(uiButton1);
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "DeviceControlPage";
-            Padding = new System.Windows.Forms.Padding(0);
             RectColor = System.Drawing.Color.Black;
-            ShowTitle = false;
             Text = "";
             TitleForeColor = System.Drawing.Color.Transparent;
             TitleHeight = 29;

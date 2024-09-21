@@ -37,7 +37,6 @@ namespace DWZ_Scada.Pages
                         }
                     }
                 }
-
                 return _instance;
             }
         }
@@ -84,7 +83,7 @@ namespace DWZ_Scada.Pages
                     SetAutoStart();
                     break;
                 case Keys.F2:
-                    AddFormTopanel(Page_PLCAlarmConfig.Instance);
+                    AddFormTopanel(PageAlarmTabMenu.Instance);
                     break;
                 case Keys.F3:
                     AddFormTopanel(Page_Formula_Set.Instance);
@@ -233,7 +232,7 @@ namespace DWZ_Scada.Pages
 
         private void uiButton1_Click(object sender, EventArgs e)
         {
-            AddFormTopanel(Page_PLCAlarmConfig.Instance);
+            AddFormTopanel(PageAlarmTabMenu.Instance);
         }
 
         private void uiButton2_Click(object sender, EventArgs e)
@@ -243,6 +242,7 @@ namespace DWZ_Scada.Pages
 
         private void uiButton8_Click(object sender, EventArgs e)
         {
+
         }
 
         public void UpdatePlcState(PlcState state)

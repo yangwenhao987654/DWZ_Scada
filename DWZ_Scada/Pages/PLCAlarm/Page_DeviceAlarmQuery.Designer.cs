@@ -1,6 +1,6 @@
 ﻿namespace DWZ_Scada.Pages
 {
-    partial class Page_Formula_Set
+    partial class Page_DeviceAlarmQuery
     {
         /// <summary>
         /// Required designer variable.
@@ -34,15 +34,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             uiTextBox1 = new Sunny.UI.UITextBox();
-            uiButton1 = new Sunny.UI.UIButton();
-            uiButton2 = new Sunny.UI.UIButton();
-            uiButton3 = new Sunny.UI.UIButton();
             uiButton4 = new Sunny.UI.UIButton();
             dataGridView1 = new Sunny.UI.UIDataGridView();
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            uiDatetimePicker1 = new Sunny.UI.UIDatetimePicker();
+            uiDatetimePicker2 = new Sunny.UI.UIDatetimePicker();
+            uiDatePicker1 = new Sunny.UI.UIDatePicker();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -50,98 +50,18 @@
             // 
             uiTextBox1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             uiTextBox1.Font = new System.Drawing.Font("黑体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiTextBox1.ForeReadOnlyColor = System.Drawing.Color.FromArgb(255, 224, 192);
             uiTextBox1.Location = new System.Drawing.Point(200, 63);
             uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
             uiTextBox1.Name = "uiTextBox1";
             uiTextBox1.Padding = new System.Windows.Forms.Padding(5);
-            uiTextBox1.RectColor = System.Drawing.Color.Snow;
-            uiTextBox1.RectReadOnlyColor = System.Drawing.Color.FromArgb(255, 192, 192);
+            uiTextBox1.RectColor = System.Drawing.Color.Silver;
             uiTextBox1.ShowText = false;
             uiTextBox1.Size = new System.Drawing.Size(495, 68);
             uiTextBox1.TabIndex = 45;
-            uiTextBox1.Text = "请输入配方名称";
+            uiTextBox1.Text = "请输入报警名称";
             uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             uiTextBox1.Watermark = "";
-            // 
-            // uiButton1
-            // 
-            uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
-            uiButton1.FillColor2 = System.Drawing.Color.WhiteSmoke;
-            uiButton1.FillHoverColor = System.Drawing.Color.Silver;
-            uiButton1.FillPressColor = System.Drawing.Color.Gray;
-            uiButton1.FillSelectedColor = System.Drawing.Color.Silver;
-            uiButton1.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton1.ForeColor = System.Drawing.Color.Black;
-            uiButton1.ForeHoverColor = System.Drawing.Color.Black;
-            uiButton1.ForePressColor = System.Drawing.Color.Black;
-            uiButton1.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton1.Location = new System.Drawing.Point(801, 81);
-            uiButton1.Margin = new System.Windows.Forms.Padding(2);
-            uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton1.Name = "uiButton1";
-            uiButton1.RectColor = System.Drawing.Color.Silver;
-            uiButton1.RectHoverColor = System.Drawing.Color.Silver;
-            uiButton1.RectPressColor = System.Drawing.Color.Gray;
-            uiButton1.RectSelectedColor = System.Drawing.Color.Silver;
-            uiButton1.Size = new System.Drawing.Size(145, 50);
-            uiButton1.TabIndex = 54;
-            uiButton1.Text = "添加";
-            uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            // 
-            // uiButton2
-            // 
-            uiButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton2.FillColor = System.Drawing.SystemColors.ButtonHighlight;
-            uiButton2.FillColor2 = System.Drawing.Color.Gray;
-            uiButton2.FillHoverColor = System.Drawing.Color.Silver;
-            uiButton2.FillPressColor = System.Drawing.Color.Gray;
-            uiButton2.FillSelectedColor = System.Drawing.Color.Silver;
-            uiButton2.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton2.ForeColor = System.Drawing.Color.Black;
-            uiButton2.ForeHoverColor = System.Drawing.Color.Black;
-            uiButton2.ForePressColor = System.Drawing.Color.Black;
-            uiButton2.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton2.Location = new System.Drawing.Point(1062, 81);
-            uiButton2.Margin = new System.Windows.Forms.Padding(2);
-            uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton2.Name = "uiButton2";
-            uiButton2.RectColor = System.Drawing.Color.Silver;
-            uiButton2.RectHoverColor = System.Drawing.Color.Silver;
-            uiButton2.RectPressColor = System.Drawing.Color.Gray;
-            uiButton2.RectSelectedColor = System.Drawing.Color.Silver;
-            uiButton2.Size = new System.Drawing.Size(145, 50);
-            uiButton2.TabIndex = 55;
-            uiButton2.Text = "删除";
-            uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            // 
-            // uiButton3
-            // 
-            uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            uiButton3.FillColor = System.Drawing.SystemColors.ButtonHighlight;
-            uiButton3.FillColor2 = System.Drawing.Color.Gray;
-            uiButton3.FillHoverColor = System.Drawing.Color.Silver;
-            uiButton3.FillPressColor = System.Drawing.Color.Gray;
-            uiButton3.FillSelectedColor = System.Drawing.Color.Silver;
-            uiButton3.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.ForeColor = System.Drawing.Color.Black;
-            uiButton3.ForeHoverColor = System.Drawing.Color.Black;
-            uiButton3.ForePressColor = System.Drawing.Color.Black;
-            uiButton3.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton3.Location = new System.Drawing.Point(1325, 81);
-            uiButton3.Margin = new System.Windows.Forms.Padding(2);
-            uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton3.Name = "uiButton3";
-            uiButton3.RectColor = System.Drawing.Color.Silver;
-            uiButton3.RectHoverColor = System.Drawing.Color.Silver;
-            uiButton3.RectPressColor = System.Drawing.Color.Gray;
-            uiButton3.RectSelectedColor = System.Drawing.Color.Silver;
-            uiButton3.Size = new System.Drawing.Size(145, 50);
-            uiButton3.TabIndex = 56;
-            uiButton3.Text = "修改";
-            uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             // 
             // uiButton4
             // 
@@ -156,7 +76,7 @@
             uiButton4.ForeHoverColor = System.Drawing.Color.Black;
             uiButton4.ForePressColor = System.Drawing.Color.Black;
             uiButton4.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton4.Location = new System.Drawing.Point(1607, 81);
+            uiButton4.Location = new System.Drawing.Point(833, 63);
             uiButton4.Margin = new System.Windows.Forms.Padding(2);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
@@ -179,12 +99,12 @@
             dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeight = 50;
@@ -205,7 +125,7 @@
             dataGridView1.Location = new System.Drawing.Point(0, 182);
             dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.RectColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridView1.RectColor = System.Drawing.Color.GhostWhite;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -222,6 +142,9 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkGray;
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.RowTemplate.Height = 35;
+            dataGridView1.ScrollBarColor = System.Drawing.Color.Silver;
+            dataGridView1.ScrollBarRectColor = System.Drawing.Color.Silver;
+            dataGridView1.ScrollBarStyleInherited = false;
             dataGridView1.SelectedIndex = -1;
             dataGridView1.Size = new System.Drawing.Size(1912, 596);
             dataGridView1.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
@@ -251,18 +174,78 @@
             Column4.MinimumWidth = 6;
             Column4.Name = "Column4";
             // 
-            // Page_Formula_Set
+            // uiDatetimePicker1
+            // 
+            uiDatetimePicker1.FillColor = System.Drawing.Color.White;
+            uiDatetimePicker1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiDatetimePicker1.Location = new System.Drawing.Point(1062, 63);
+            uiDatetimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiDatetimePicker1.MaxLength = 19;
+            uiDatetimePicker1.MinimumSize = new System.Drawing.Size(63, 0);
+            uiDatetimePicker1.Name = "uiDatetimePicker1";
+            uiDatetimePicker1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            uiDatetimePicker1.Size = new System.Drawing.Size(288, 66);
+            uiDatetimePicker1.SymbolDropDown = 61555;
+            uiDatetimePicker1.SymbolNormal = 61555;
+            uiDatetimePicker1.SymbolSize = 24;
+            uiDatetimePicker1.TabIndex = 59;
+            uiDatetimePicker1.Text = "2024-09-21 09:44:35";
+            uiDatetimePicker1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            uiDatetimePicker1.Value = new System.DateTime(2024, 9, 21, 9, 44, 35, 145);
+            uiDatetimePicker1.Watermark = "";
+            // 
+            // uiDatetimePicker2
+            // 
+            uiDatetimePicker2.FillColor = System.Drawing.Color.White;
+            uiDatetimePicker2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiDatetimePicker2.Location = new System.Drawing.Point(1411, 63);
+            uiDatetimePicker2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiDatetimePicker2.MaxLength = 19;
+            uiDatetimePicker2.MinimumSize = new System.Drawing.Size(63, 0);
+            uiDatetimePicker2.Name = "uiDatetimePicker2";
+            uiDatetimePicker2.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            uiDatetimePicker2.Size = new System.Drawing.Size(288, 66);
+            uiDatetimePicker2.SymbolDropDown = 61555;
+            uiDatetimePicker2.SymbolNormal = 61555;
+            uiDatetimePicker2.SymbolSize = 24;
+            uiDatetimePicker2.TabIndex = 60;
+            uiDatetimePicker2.Text = "2024-09-21 09:44:35";
+            uiDatetimePicker2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            uiDatetimePicker2.Value = new System.DateTime(2024, 9, 21, 9, 44, 35, 145);
+            uiDatetimePicker2.Watermark = "";
+            // 
+            // uiDatePicker1
+            // 
+            uiDatePicker1.FillColor = System.Drawing.Color.White;
+            uiDatePicker1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiDatePicker1.Location = new System.Drawing.Point(13, 75);
+            uiDatePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiDatePicker1.MaxLength = 10;
+            uiDatePicker1.MinimumSize = new System.Drawing.Size(63, 0);
+            uiDatePicker1.Name = "uiDatePicker1";
+            uiDatePicker1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            uiDatePicker1.Size = new System.Drawing.Size(167, 41);
+            uiDatePicker1.SymbolDropDown = 61555;
+            uiDatePicker1.SymbolNormal = 61555;
+            uiDatePicker1.SymbolSize = 24;
+            uiDatePicker1.TabIndex = 61;
+            uiDatePicker1.Text = "2024-09-21";
+            uiDatePicker1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            uiDatePicker1.Value = new System.DateTime(2024, 9, 21, 9, 45, 31, 274);
+            uiDatePicker1.Watermark = "";
+            // 
+            // Page_DeviceAlarmQuery
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.AliceBlue;
             ClientSize = new System.Drawing.Size(1912, 778);
+            Controls.Add(uiDatePicker1);
+            Controls.Add(uiDatetimePicker2);
+            Controls.Add(uiDatetimePicker1);
             Controls.Add(dataGridView1);
             Controls.Add(uiButton4);
-            Controls.Add(uiButton3);
-            Controls.Add(uiButton2);
-            Controls.Add(uiButton1);
             Controls.Add(uiTextBox1);
-            Name = "Page_Formula_Set";
+            Name = "Page_DeviceAlarmQuery";
             RectColor = System.Drawing.Color.Black;
             Text = "";
             TitleHeight = 29;
@@ -274,14 +257,14 @@
 
         #endregion
         private Sunny.UI.UITextBox uiTextBox1;
-        private Sunny.UI.UIButton uiButton1;
-        private Sunny.UI.UIButton uiButton2;
-        private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UIDataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private Sunny.UI.UIDatetimePicker uiDatetimePicker1;
+        private Sunny.UI.UIDatetimePicker uiDatetimePicker2;
+        private Sunny.UI.UIDatePicker uiDatePicker1;
     }
 }
