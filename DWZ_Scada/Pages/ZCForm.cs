@@ -247,17 +247,20 @@ namespace DWZ_Scada.Pages
 
         public void UpdatePlcState(PlcState state)
         {
+            if (state.ToString()==uiLight1.Tag.ToString())
+            {
+                return;
+            }
             if (InvokeRequired)
             {
                 Invoke(new Action<PlcState>(UpdatePlcState), state);
                 return;
             }
-
             switch (state)
             {
                 case PlcState.OffLine:
                     lbl_PLCState.Text = "离线";
-                    uiLight1.OnColor = Color.Gray;
+                    uiLight1.OnColor = Color.LightGray;
                     break;
 
                 case PlcState.Online:
@@ -267,6 +270,14 @@ namespace DWZ_Scada.Pages
                 case PlcState.Alarm:
                     lbl_PLCState.Text = "报警";
                     uiLight1.OnColor = Color.Red;
+                    break;
+                case PlcState.Stop:
+                    lbl_PLCState.Text = "停止";
+                    uiLight1.OnColor = Color.DimGray;
+                    break;
+                case PlcState.Running:
+                    lbl_PLCState.Text = "运行中";
+                    uiLight1.OnColor = Color.GreenYellow;
                     break;
             }
         }

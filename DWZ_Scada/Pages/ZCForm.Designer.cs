@@ -165,6 +165,7 @@ namespace DWZ_Scada.Pages
             uiLight1.Radius = 59;
             uiLight1.Size = new System.Drawing.Size(59, 60);
             uiLight1.TabIndex = 10;
+            uiLight1.Tag = "-1";
             uiLight1.Text = "uiLight1";
             uiLight1.Click += uiLight1_Click;
             // 

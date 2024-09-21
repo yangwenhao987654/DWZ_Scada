@@ -23,8 +23,21 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private  const int AlarmState = 2;
 
         private const int RunningState = 1;
-
+        
+        /// <summary>
+        /// 设备停止中
+        /// </summary>
         private const int StopState = 3;
+
+        /// <summary>
+        /// PLC连接断开
+        /// </summary>
+        private const int OffState = -1;
+
+        /// <summary>
+        /// 在线状态
+        /// </summary>
+        private const int OnLineState = 0;
 
         //手持扫码枪 切换物料
         //输入物料
@@ -120,6 +133,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     CurrentAlarmList.Clear();
                     
                     state = ReadPLCState();
+                    UpdateDeviceState(state);
                     if (state != -1)
                     {
                         // 处理报警信息
@@ -145,7 +159,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                             DeviceControlPage.Instance.UpdateAlarm(new List<DeviceAlarmEntity>(CurrentAlarmList));
                         }
                         // 处理设备状态
-                        UpdateDeviceState(state);
+                 
 
                         //这里判断设备是不是点检模式
 
@@ -283,11 +297,20 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             else if (state == RunningState) 
             {
-                PlcState = PlcState.Online;
+                PlcState = PlcState.Running;
+            }
+            else if (state== OffState)
+            {
+                PlcState = PlcState.OffLine;
+
+            }
+            else if (state ==StopState)
+            {
+                PlcState = PlcState.Stop;
             }
             else
             {
-                PlcState = PlcState.OffLine;
+                PlcState = PlcState.Online;
             }
             lock (stateLock)
             {
