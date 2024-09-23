@@ -12,7 +12,7 @@ using static DWZ_Scada.Page.PLCControl.Page_PLCAlarmConfig;
 namespace DWZ_Scada.Page.PLCControl
 {
 
-    public partial class PageAlarmArrayConfig : UIPage
+    public partial class PageAlarmArrayConfig : UIForm
     {
         private List<SingleAlarmAddress> AlarmList;
 
