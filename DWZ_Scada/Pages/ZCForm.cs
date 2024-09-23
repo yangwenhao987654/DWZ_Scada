@@ -148,6 +148,7 @@ namespace DWZ_Scada.Pages
                     SetMainPage(PageOP10.Instance);
                     break;
                 case SystemParams.StationEnum.OP20机械手绕线工站:
+                    SetMainPage(PageOP20.Instance);
                     break;
                 case SystemParams.StationEnum.OP30绕线检查工站:
 
@@ -198,11 +199,11 @@ namespace DWZ_Scada.Pages
                 return;
             }
 
-            PageProperty pageProperty = new(SystemParams.Instance);
-
-            FormCustom form = new(pageProperty, "系统配置参数");
-            form.StartPosition = FormStartPosition.CenterScreen;
+            PageProperty form = new(SystemParams.Instance);
             form.ShowDialog();
+            /*FormCustom form = new(pageProperty, "系统配置参数");
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.ShowDialog();*/
         }
 
         private void uiButton6_Click(object sender, EventArgs e)

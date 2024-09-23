@@ -9,10 +9,8 @@ using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
-using DWZ_Scada.ProcessControl.WorkOrder;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using RestSharp;
 using Sunny.UI;
@@ -26,36 +24,36 @@ using TouchSocket.Sockets;
 
 namespace DWZ_Scada
 {
-    public partial class PageOP10 : UIPage
+    public partial class PageOP20 : UIPage
     {
 
         public HttpService MyHttpService;
 
         /// <summary>
         /// 当前站名
-        /// OP10
+        /// OP20
         /// </summary>
-        private const string CURRENT_STATION_NAME = "OP10";
+        private const string CURRENT_STATION_NAME = "OP20";
 
         public List<OrderVo> Orders { get; set; }
 
         /// <summary>
         /// 数据模型
         /// </summary>
-        public OP10Model op10Model;
+        public OP20Model Model;
 
-        private static PageOP10 _instance;
-        public static PageOP10 Instance
+        private static PageOP20 _instance;
+        public static PageOP20 Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    lock (typeof(PageOP10))
+                    lock (typeof(PageOP20))
                     {
                         if (_instance == null)
                         {
-                            _instance = new PageOP10();
+                            _instance = new PageOP20();
                         }
                     }
                 }
@@ -74,7 +72,7 @@ namespace DWZ_Scada
             public string ProductCode { get; set; }
         }
 
-        private PageOP10()
+        private PageOP20()
         {
             InitializeComponent();
             _instance = this;
@@ -83,19 +81,19 @@ namespace DWZ_Scada
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug("打开OP10工站");
+            LogMgr.Instance.Debug("打开OP20工站");
 
             // Mes 选型服务  监控Mes选型消息
             TestHttp();
-            ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
-            op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
+            ISelectionStrategyEvent op20Strategy = new OP20SelectionStrategy();
+            op20Strategy.OnSelectionEvent += OP20SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
-            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
-                SystemParams.Instance.OP10_PlcPort);
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
+                SystemParams.Instance.OP20_PlcPort);
 
             //TODO 这里导致程序卡顿
-            MainFuncBase.RegisterFactory(() => new OP10MainFunc(plcConfig));
+            MainFuncBase.RegisterFactory(() => new OP20MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
 
@@ -117,7 +115,7 @@ namespace DWZ_Scada
         }
 
 
-        private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
+        private void OP20SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
             LogMgr.Instance.Info("触发选型");
             LogMgr.Instance.Info($"下发型号[{e.Model}]");
@@ -130,9 +128,9 @@ namespace DWZ_Scada
 
         public void TestHttp()
         {
-            LogMgr.Instance.Debug("启动OP10工站服务端...");
+            LogMgr.Instance.Debug("启动OP20工站服务端...");
             StartServer();
-            LogMgr.Instance.Debug("OP10工站服务端启动完成...");
+            LogMgr.Instance.Debug("OP20工站服务端启动完成...");
             //HTTP客户端请求
             /*     
                  Console.WriteLine("启动模拟客户端发送请求...");
@@ -194,18 +192,18 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogMgr.Instance.Info("关闭OP10-HttpServer");
+            LogMgr.Instance.Info("关闭OP20-HttpServer");
             MyHttpService?.Stop();
             MyHttpService?.Dispose();
             OP20MainFunc.Instance?.Dispose();
-            LogMgr.Instance.Info("关闭OP10程序");
+            LogMgr.Instance.Info("关闭OP20程序");
         }
 
         private async Task TestPassStationUpload()
         {
             PassStationDTO dto = new PassStationDTO()
             {
-                StationCode = "OP10",
+                StationCode = "OP20",
                 SnTemp = "AQW12dswSAW",
                 // PassStationData = n
                 PassStationData = new OP10Data()

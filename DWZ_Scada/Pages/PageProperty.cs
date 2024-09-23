@@ -15,7 +15,7 @@ using DWZ_Scada;
 
 namespace AutoTF
 {
-    public partial class PageProperty : UIPage
+    public partial class PageProperty : UIForm
     {
         public SystemParams Instance;
         public PageProperty(SystemParams instance)

@@ -286,7 +286,7 @@ namespace AutoStation
             parent = uiNavMenu1.CreateNode("上料打码工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);
             uiNavMenu1.CreateChildNode(parent, "OP10工站", SymbolFontUtil.ChildNodeIcon, point, 24, pageIndex++);
 
-            PageList.Add(new MyPage("OP10工站", typeof(PageOP10), null));
+            PageList.Add(new MyPage("OP10工站", typeof(PageOP20), null));
             //查询界面
             pageIndex = 200;
             parent = uiNavMenu1.CreateNode("机械手绕线工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);

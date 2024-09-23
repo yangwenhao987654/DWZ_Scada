@@ -118,7 +118,16 @@ namespace DWZ_Scada
         [DisplayName("2.PLC 端口号"), Category("1.OP10工站"), Description("PLC的端口号")]
         public int OP10_PlcPort { get; set; }
         #endregion
-        
+
+        #region OP20工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_PlcPort { get; set; }
+        #endregion
+
 
         #region 软件配置参数
         [Permission(3), ReadOnly(false)]

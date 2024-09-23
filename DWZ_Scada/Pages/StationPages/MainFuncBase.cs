@@ -133,7 +133,7 @@ namespace DWZ_Scada.Pages.StationPages
         {
             Task.Run(() =>
             {
-                //myOp10Model = op10Model;
+                //myOp10Model = Model;
                 //启动PLC监控线程
                 Thread t = new Thread(() => ConnStatusMonitor(_cts.Token));
                 t.Start();
