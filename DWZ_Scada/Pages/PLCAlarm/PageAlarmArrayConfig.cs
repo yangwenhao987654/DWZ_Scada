@@ -91,10 +91,11 @@ namespace DWZ_Scada.Page.PLCControl
                     Global.PlcAlarmList[Index].Length = AlarmList.Count;
                 }
                 PlcAlarmLoader.Save();
+                UIMessageBox.Show("保存成功");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                UIMessageBox.ShowError("保存失败:"+ex.Message);
             }
         }
 

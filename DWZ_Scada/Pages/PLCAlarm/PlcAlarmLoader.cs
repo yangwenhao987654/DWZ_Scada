@@ -79,7 +79,7 @@ namespace DWZ_Scada.Pages.PLCAlarm
             #endregion
         }
 
-        public static void Save()
+        public static bool Save()
         {
             string path = $"Config\\{SystemParams.Instance.Station}-PLC参数设置.XML";
 
@@ -131,11 +131,14 @@ namespace DWZ_Scada.Pages.PLCAlarm
                 }
                 //保存文件
                 xmldoc.Save(path);
+                return true;
                 #endregion
             }
             catch (Exception ex)
             {
                 LogMgr.Instance.Error($"报错PLC报警配置失败: 路径:{path} 异常信息:{ex.Message}\n调用堆栈：{ex.StackTrace}");
+                throw new Exception($"报错PLC报警配置失败: 路径:{path} 异常信息:{ex.Message}\n调用堆栈：{ex.StackTrace}");
+                return false;
             }
         }
     }

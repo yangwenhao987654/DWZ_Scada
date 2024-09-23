@@ -1,5 +1,6 @@
 ﻿using Cap.Dialog;
 using DWZ_Scada.Pages.PLCAlarm;
+using LogTool;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -95,7 +96,7 @@ namespace DWZ_Scada.Page.PLCControl
         /// <summary>
         /// 刷新数据，将界面数据写入内存
         /// </summary>
-        public void shaxing_data()
+        public bool shaxing_data()
         {
             try
             {
@@ -114,18 +115,28 @@ namespace DWZ_Scada.Page.PLCControl
                         Global.PlcAlarmList[i].AlarmType = dgv.Rows[i].Cells[3].Value.ToString();
                     }
                 }
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw new Exception($"从dgv更新PLC报警失败: \n 异常信息:{ex.Message} 异常堆栈:{ex.StackTrace}");
+                return false;
             }
         }
 
 
         private void uiButton1_Click_1(object sender, EventArgs e)
         {
-            shaxing_data();
-            PlcAlarmLoader.Save();
+            try
+            {
+                shaxing_data();
+                PlcAlarmLoader.Save();
+                UIMessageBox.Show("保存成功");
+            }
+            catch (Exception ex)
+            {
+               UIMessageBox.ShowError($"报错PLC报警配置失败: \n 异常信息:{ex.Message} 异常堆栈:{ex.StackTrace}");
+            }
         }
 
         private void uiButton3_Click(object sender, EventArgs e)
