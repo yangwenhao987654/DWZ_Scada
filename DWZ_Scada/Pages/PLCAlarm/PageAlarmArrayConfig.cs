@@ -56,14 +56,25 @@ namespace DWZ_Scada.Page.PLCControl
         /// </summary>
         private void reflashTable()
         {
+            int index = 0;
             for (int i = 0; i < AlarmList.Count; i++)
             {
                 SingleAlarmAddress data = AlarmList[i];
+                data.Index =index++;
                 dgv.Rows[i].Cells[0].Value = data.Index;
                 dgv.Rows[i].Cells[1].Value = data.SubAddress;
                 dgv.Rows[i].Cells[2].Value = data.Name;
                 dgv.Rows[i].Cells[3].Value = data.AlarmType;
+                if (data.AlarmType == null)
+                {
+                    dgv.Rows[i].Cells[3].Value = "Alarm";
+                }
+                else
+                {
+                    dgv.Rows[i].Cells[3].Value = data.AlarmType;
+                }
             }
+            dgv.ClearSelection();
         }
 
         /// <summary>
@@ -112,14 +123,38 @@ namespace DWZ_Scada.Page.PLCControl
 
         private void uiButton4_Click(object sender, EventArgs e)
         {
-
+            //删除功能 
+            //删除功能
+            int index = dgv.SelectedIndex;
+            if (index == -1)
+            {
+                return;
+            }
+            bool f = UIMessageBox.ShowAsk($"确定要删除第{index}行吗");
+            if (f == false)
+            {
+                return;
+            }
+            AlarmList.RemoveAt(index);
+            InitTable();
+            SaveData();
         }
 
         private void uiButton2_Click_1(object sender, EventArgs e)
         {
             dgv.Rows.Add();
             int index = dgv.Rows.Count-1;
-            AlarmList.Add(new SingleAlarmAddress(index));
+            int selectedIndex = dgv.SelectedIndex;
+            if (selectedIndex == -1)
+            {
+                //添加到末尾
+                AlarmList.Add(new SingleAlarmAddress());
+            }
+            else
+            {
+                //插入到选中行的下面
+                AlarmList.Insert(selectedIndex+1, new SingleAlarmAddress());
+            }
             reflashTable();
         }
 

@@ -60,7 +60,7 @@ namespace DWZ_Scada.Page.PLCControl
                 "Alarm",
                 "Error"
             };
-            column_AlarmType.DataSource =dataSource;
+            column_AlarmType.DataSource = dataSource;
             for (int i = 0; i < Global.PlcAlarmList.Count; i++)
             {
                 dgv.Rows.Add();
@@ -73,9 +73,11 @@ namespace DWZ_Scada.Page.PLCControl
         /// </summary>
         private void reflashTable()
         {
+            int index = 0;
             for (int i = 0; i < Global.PlcAlarmList.Count; i++)
             {
                 PLCAlarmData data = Global.PlcAlarmList[i];
+                data.ID = ++index;
                 dgv.Rows[i].Cells[0].Value = data.ID;
                 dgv.Rows[i].Cells[1].Value = data.Address;
                 dgv.Rows[i].Cells[2].Value = data.Name;
@@ -87,10 +89,19 @@ namespace DWZ_Scada.Page.PLCControl
                 }
                 else
                 {
-                    dgv.Rows[i].Cells[3].Value = data.AlarmType;
+                    if (data.AlarmType == null)
+                    {
+                        dgv.Rows[i].Cells[3].Value = "Alarm";
+                    }
+                    else
+                    {
+                        dgv.Rows[i].Cells[3].Value = data.AlarmType;
+                    }
                     dgv.Rows[i].Cells[4].Value = false;
                 }
             }
+            //取消选中状态
+            dgv.ClearSelection();
         }
 
         /// <summary>
@@ -135,7 +146,7 @@ namespace DWZ_Scada.Page.PLCControl
             }
             catch (Exception ex)
             {
-               UIMessageBox.ShowError($"报错PLC报警配置失败: \n 异常信息:{ex.Message} 异常堆栈:{ex.StackTrace}");
+                UIMessageBox.ShowError($"报错PLC报警配置失败: \n 异常信息:{ex.Message} 异常堆栈:{ex.StackTrace}");
             }
         }
 
@@ -146,14 +157,28 @@ namespace DWZ_Scada.Page.PLCControl
 
         private void uiButton4_Click(object sender, EventArgs e)
         {
-
+            //删除功能
+            int index = dgv.SelectedIndex;
+            if (index == -1)
+            {
+                return;
+            }
+            bool f = UIMessageBox.ShowAsk($"确定要删除第{index + 1}行吗");
+            if (f == false)
+            {
+                return;
+            }
+            Global.PlcAlarmList.RemoveAt(index);
+            InitTable();
+            PlcAlarmLoader.Save();
         }
 
         private void uiButton2_Click_1(object sender, EventArgs e)
         {
             dgv.Rows.Add();
-            int index = dgv.Rows.Count;
-            Global.PlcAlarmList.Add(new PLCAlarmData(index));
+            int selectedIndex = dgv.SelectedIndex;
+            //添加到末尾
+            Global.PlcAlarmList.Add(new PLCAlarmData());
             reflashTable();
         }
 
@@ -164,7 +189,7 @@ namespace DWZ_Scada.Page.PLCControl
             if (Index == 5 && isArray)
             {
                 //点击了按钮列
-                PageAlarmArrayConfig page = new PageAlarmArrayConfig(e.RowIndex,Global.PlcAlarmList[e.RowIndex].AlarmList);
+                PageAlarmArrayConfig page = new PageAlarmArrayConfig(e.RowIndex, Global.PlcAlarmList[e.RowIndex].AlarmList);
                 //page.StartPosition = FormStartPosition.CenterScreen;
                 page.ShowDialog();
                 //page.Activate();
@@ -175,6 +200,50 @@ namespace DWZ_Scada.Page.PLCControl
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void dgv_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int index = e.RowIndex;
+        }
+
+        private void dgv_SelectionChanged(object sender, EventArgs e)
+        {
+            int index = dgv.SelectedIndex;
+        }
+
+        private void dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // 检查点击的是否是有效行
+            /*if (e.RowIndex >= 0 && e.Button == MouseButtons.Left)
+            {
+                // 获取当前点击的行
+                DataGridViewRow clickedRow = dgv.Rows[e.RowIndex];
+
+                // 如果该行已经选中，则取消选中
+                if (clickedRow.Selected)
+                {
+                    dgv.ClearSelection(); // 取消所有选中状态
+                }
+                else
+                {
+                    // 否则正常选中
+                    dgv.ClearSelection(); // 取消其他选中项
+                    clickedRow.Selected = true;     // 选中当前行
+                }
+            }*/
+        }
+
+        private void uiButton5_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = dgv.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                //插入到选中行的下面
+                dgv.Rows.Add();
+                Global.PlcAlarmList.Insert(selectedIndex + 1, new PLCAlarmData());
+            }
+            reflashTable();
         }
     }
 }
