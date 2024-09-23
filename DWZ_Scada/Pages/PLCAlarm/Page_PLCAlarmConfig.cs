@@ -48,6 +48,7 @@ namespace DWZ_Scada.Page.PLCControl
         private void Page_PLCAlarmConfigcs_Load(object sender, EventArgs e)
         {
             InitTable();
+
         }
 
         private void InitTable()
@@ -153,8 +154,9 @@ namespace DWZ_Scada.Page.PLCControl
             {
                 //点击了按钮列
                 PageAlarmArrayConfig page = new PageAlarmArrayConfig(e.RowIndex,Global.PlcAlarmList[e.RowIndex].AlarmList);
-                page.ShowDialog();
-
+                page.Show();
+                page.Activate();
+                //page.ShowDialog(this.ParentForm);
             }
         }
 
