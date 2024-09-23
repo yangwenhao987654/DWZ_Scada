@@ -65,7 +65,7 @@ namespace DWZ_Scada.Pages
                 row.Cells[2].Value = item.AlarmInfo;
                 row.Cells[3].Value =item.AlarmType;
                 row.Cells[4].Value = item.AlarmDateStr;
-                row.Cells[5].Value = item.AlarmTime.ToString("hh:mm:ss fff");
+                row.Cells[5].Value = item.AlarmTime.ToString("HH:mm:ss fff");
                 dataGridView1.Rows.Add(row);
                 index++;
             }
