@@ -17,11 +17,11 @@ namespace DWZ_Scada.Page.PLCControl
         private List<SingleAlarmAddress> AlarmList;
 
         private int Index;
-        public PageAlarmArrayConfig(int RowIndex ,List<SingleAlarmAddress> alarmList)
+        public PageAlarmArrayConfig(int RowIndex, List<SingleAlarmAddress> alarmList)
         {
             InitializeComponent();
             Index = RowIndex;
-            if (alarmList==null)
+            if (alarmList == null)
             {
                 alarmList = new List<SingleAlarmAddress>();
             }
@@ -60,7 +60,7 @@ namespace DWZ_Scada.Page.PLCControl
             for (int i = 0; i < AlarmList.Count; i++)
             {
                 SingleAlarmAddress data = AlarmList[i];
-                data.Index =index++;
+                data.Index = index++;
                 dgv.Rows[i].Cells[0].Value = data.Index;
                 dgv.Rows[i].Cells[1].Value = data.SubAddress;
                 dgv.Rows[i].Cells[2].Value = data.Name;
@@ -92,7 +92,7 @@ namespace DWZ_Scada.Page.PLCControl
                     AlarmList[i].AlarmType = dgv.Rows[i].Cells[3].Value.ToString();
                 }
                 Global.PlcAlarmList[Index].AlarmList = AlarmList;
-                bool f = int.TryParse(tbxLength.Text,out var length);
+                bool f = int.TryParse(tbxLength.Text, out var length);
                 if (f)
                 {
                     Global.PlcAlarmList[Index].Length = length;
@@ -106,7 +106,7 @@ namespace DWZ_Scada.Page.PLCControl
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError("保存失败:"+ex.Message);
+                UIMessageBox.ShowError("保存失败:" + ex.Message);
             }
         }
 
@@ -118,7 +118,15 @@ namespace DWZ_Scada.Page.PLCControl
 
         private void uiButton3_Click(object sender, EventArgs e)
         {
-            InitTable();
+            //插入
+            int selectedIndex = dgv.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                //插入到选中行的下面
+                dgv.Rows.Add();
+                AlarmList.Insert(selectedIndex + 1, new SingleAlarmAddress());
+            }
+            reflashTable();
         }
 
         private void uiButton4_Click(object sender, EventArgs e)
@@ -143,24 +151,14 @@ namespace DWZ_Scada.Page.PLCControl
         private void uiButton2_Click_1(object sender, EventArgs e)
         {
             dgv.Rows.Add();
-            int index = dgv.Rows.Count-1;
-            int selectedIndex = dgv.SelectedIndex;
-            if (selectedIndex == -1)
-            {
-                //添加到末尾
-                AlarmList.Add(new SingleAlarmAddress());
-            }
-            else
-            {
-                //插入到选中行的下面
-                AlarmList.Insert(selectedIndex+1, new SingleAlarmAddress());
-            }
+            //添加到末尾
+            AlarmList.Add(new SingleAlarmAddress());
             reflashTable();
         }
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -181,7 +179,7 @@ namespace DWZ_Scada.Page.PLCControl
                     d1[1] = dgv[1, dgv.CurrentRow.Index].Value.ToString();
                     d1[2] = dgv[2, dgv.CurrentRow.Index].Value.ToString();
                     d1[3] = dgv[3, dgv.CurrentRow.Index].EditedFormattedValue.ToString();
-   
+
 
                     //d2[0] = dgv[0, dgv.CurrentRow.Index - 1].Value.ToString();
                     d2[1] = dgv[1, dgv.CurrentRow.Index - 1].Value.ToString();
