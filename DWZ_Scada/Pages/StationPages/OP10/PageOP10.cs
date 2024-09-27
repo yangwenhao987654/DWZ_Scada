@@ -3,16 +3,12 @@ using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages;
-using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
-using DWZ_Scada.ProcessControl.WorkOrder;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using RestSharp;
 using Sunny.UI;
@@ -24,7 +20,7 @@ using TouchSocket.Core;
 using TouchSocket.Http;
 using TouchSocket.Sockets;
 
-namespace DWZ_Scada
+namespace DWZ_Scada.Pages.StationPages.OP10
 {
     public partial class PageOP10 : UIPage
     {
@@ -42,7 +38,7 @@ namespace DWZ_Scada
         /// <summary>
         /// 数据模型
         /// </summary>
-        public OP10Model op10Model;
+        public OP40Model op10Model;
 
         private static PageOP10 _instance;
         public static PageOP10 Instance
@@ -197,7 +193,7 @@ namespace DWZ_Scada
             LogMgr.Instance.Info("关闭OP10-HttpServer");
             MyHttpService?.Stop();
             MyHttpService?.Dispose();
-            OP20MainFunc.Instance?.Dispose();
+            OP10MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info("关闭OP10程序");
         }
 
@@ -235,8 +231,8 @@ namespace DWZ_Scada
         private void uiButton4_Click(object sender, EventArgs e)
         {
             //进入点检模式 生产数据跟正常数据分开
-            OP20MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", true);
-            OP20MainFunc.Instance.IsSpotCheck = true;
+            OP10MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", true);
+            OP10MainFunc.Instance.IsSpotCheck = true;
 
         }
 
@@ -250,8 +246,8 @@ namespace DWZ_Scada
             {
                 LogMgr.Instance.Info("关闭点检");
             }
-            OP20MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", value);
-            OP20MainFunc.Instance.IsSpotCheck = value;
+            OP10MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", value);
+            OP10MainFunc.Instance.IsSpotCheck = value;
         }
 
         private async void uiButton3_Click(object sender, EventArgs e)

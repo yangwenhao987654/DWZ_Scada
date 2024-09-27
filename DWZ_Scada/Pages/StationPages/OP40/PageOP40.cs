@@ -1,13 +1,8 @@
 ﻿using CommunicationUtilYwh.Communication;
-using DIPTest;
-using DWZ_Scada.ctrls;
 using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages;
-using DWZ_Scada.Pages.StationPages.OP10;
-using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
@@ -25,38 +20,38 @@ using TouchSocket.Core;
 using TouchSocket.Http;
 using TouchSocket.Sockets;
 
-namespace DWZ_Scada
+namespace DWZ_Scada.Pages.StationPages.OP40
 {
-    public partial class PageOP20 : UIPage
+    public partial class PageOP40 : UIPage
     {
 
         public HttpService MyHttpService;
 
-        /*/// <summary>
+        /// <summary>
         /// 当前站名
-        /// OP20
+        /// OP40
         /// </summary>
-        private const string CURRENT_STATION_NAME = "OP20";*/
+        private const string CURRENT_STATION_NAME = "OP40";
 
         public List<OrderVo> Orders { get; set; }
 
         /// <summary>
         /// 数据模型
         /// </summary>
-        public OP20Model Model;
+        public OP40Model Model;
 
-        private static PageOP20 _instance;
-        public static PageOP20 Instance
+        private static PageOP40 _instance;
+        public static PageOP40 Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    lock (typeof(PageOP20))
+                    lock (typeof(PageOP40))
                     {
                         if (_instance == null)
                         {
-                            _instance = new PageOP20();
+                            _instance = new PageOP40();
                         }
                     }
                 }
@@ -75,9 +70,7 @@ namespace DWZ_Scada
             public string ProductCode { get; set; }
         }
 
-        public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
-
-        private PageOP20()
+        private PageOP40()
         {
             InitializeComponent();
             _instance = this;
@@ -86,34 +79,41 @@ namespace DWZ_Scada
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug($"打开{OP20MainFunc.StationName}工站");
+            LogMgr.Instance.Debug($"打开{CURRENT_STATION_NAME}工站");
 
             // Mes 选型服务  监控Mes选型消息
             TestHttp();
-            ISelectionStrategyEvent op20Strategy = new OP20SelectionStrategy();
-            op20Strategy.OnSelectionEvent += OP20SelectionStrategy_OnSelectionEvent;
+            ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
+            op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
-            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
-                SystemParams.Instance.OP20_PlcPort);
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP40_PlcIP,
+                SystemParams.Instance.OP40_PlcPort);
 
             //TODO 这里导致程序卡顿
-            MainFuncBase.RegisterFactory(() => new OP20MainFunc(plcConfig));
+            MainFuncBase.RegisterFactory(() => new OP40MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
-            int index = 1;
-            for (int i = 0; i < ctrlWindingS.ColumnCount; i++)
+
+            /*  lbl_EntrySN.DataBindings.Add("Text", Model, "TempSN");
+              Model.TempSN = "6666";*/
+            UpdateTempSN("6654");
+        }
+        public void UpdateTempSN(string newValue)
+        {
+            if (lbl_EntrySN.InvokeRequired)
             {
-                for (int j = 0; j < ctrlWindingS.RowCount; j++)
-                {
-                    UserCtrlAgingSingle agingSingle = new UserCtrlAgingSingle(index++);
-                    WindingCtrlList.Add(agingSingle);
-                    ctrlWindingS.Controls.Add(agingSingle);
-                }
+                lbl_EntrySN.Invoke(new Action<string>(UpdateTempSN), newValue);
+                return;
+            }
+            else
+            {
+                lbl_EntrySN.Text = newValue;
             }
         }
 
-        private void OP20SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
+
+        private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
             LogMgr.Instance.Info("触发选型");
             LogMgr.Instance.Info($"下发型号[{e.Model}]");
@@ -126,9 +126,9 @@ namespace DWZ_Scada
 
         public void TestHttp()
         {
-            LogMgr.Instance.Debug($"启动{OP20MainFunc.StationCode}工站服务端...");
+            LogMgr.Instance.Debug($"启动{CURRENT_STATION_NAME}工站服务端...");
             StartServer();
-            LogMgr.Instance.Debug($"{OP20MainFunc.StationCode}工站服务端启动完成...");
+            LogMgr.Instance.Debug($"{CURRENT_STATION_NAME}工站服务端启动完成...");
             //HTTP客户端请求
             /*     
                  Console.WriteLine("启动模拟客户端发送请求...");
@@ -154,7 +154,7 @@ namespace DWZ_Scada
                })
            );
             MyHttpService.Start();
-            LogMgr.Instance.Info("启动HttpServer");
+            LogMgr.Instance.Info($"启动{CURRENT_STATION_NAME}-HttpServer");
         }
 
         public static void TestGetRequest<T>(string url)
@@ -188,20 +188,20 @@ namespace DWZ_Scada
             op10Entry.Execute();
         }
 
-        private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
+        private void PageOP40_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
+            LogMgr.Instance.Info($"关闭{CURRENT_STATION_NAME}-HttpServer");
             MyHttpService?.Stop();
             MyHttpService?.Dispose();
-            OP20MainFunc.Instance?.Dispose();
-            LogMgr.Instance.Info($"关闭{OP20MainFunc.StationName}程序");
+            OP40MainFunc.Instance?.Dispose();
+            LogMgr.Instance.Info($"关闭{CURRENT_STATION_NAME}程序");
         }
 
         private async Task TestPassStationUpload()
         {
             PassStationDTO dto = new PassStationDTO()
             {
-                StationCode = "OP20",
+                StationCode = CURRENT_STATION_NAME,
                 SnTemp = "AQW12dswSAW",
                 // PassStationData = n
                 PassStationData = new OP10Data()
@@ -231,8 +231,8 @@ namespace DWZ_Scada
         private void uiButton4_Click(object sender, EventArgs e)
         {
             //进入点检模式 生产数据跟正常数据分开
-            OP20MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", true);
-            OP20MainFunc.Instance.IsSpotCheck = true;
+            OP40MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", true);
+            OP40MainFunc.Instance.IsSpotCheck = true;
 
         }
 
@@ -246,8 +246,8 @@ namespace DWZ_Scada
             {
                 LogMgr.Instance.Info("关闭点检");
             }
-            OP20MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", value);
-            OP20MainFunc.Instance.IsSpotCheck = value;
+            OP40MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", value);
+            OP40MainFunc.Instance.IsSpotCheck = value;
         }
 
         private async void uiButton3_Click(object sender, EventArgs e)
@@ -306,24 +306,6 @@ namespace DWZ_Scada
             //根据当前产品型号获取物料Bom,从物料Bom中查询是否有这种物料 
             //如果没有，则不允许切换物料
 
-        }
-
-        private void btn_Test_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string str = tbxTest.Text;
-                string[] strings = str.Split(",");
-                int index = int.Parse(strings[0]);
-                string sn = strings[1];
-                int pos = int.Parse(strings[2]);
-                WindingCtrlList[index - 1].StartTest(sn, pos);
-            }
-            catch (Exception exception)
-            {
-                LogMgr.Instance.Error("测试错误:"+exception.Message);
-                UIMessageBox.ShowError("测试错误:" + exception.Message);
-            }
         }
     }
 }

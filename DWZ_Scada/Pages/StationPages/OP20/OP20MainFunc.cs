@@ -1,5 +1,6 @@
 ﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
@@ -12,18 +13,16 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.Pages.StationPages.OP10
+namespace DWZ_Scada.Pages.StationPages.OP20
 {
     public class OP20MainFunc : MainFuncBase, IDisposable
     {
-        private static readonly OP20Model myOp10Model = new();
+        private static readonly OP20Model Model = new();
 
-        public static string StationName = "OP20";
-
-        private  const int AlarmState = 2;
+        private const int AlarmState = 2;
 
         private const int RunningState = 1;
-        
+
         /// <summary>
         /// 设备停止中
         /// </summary>
@@ -50,6 +49,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         public OP20MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
+            StationName = "OP20";
+            StationCode = "OP20";
         }
 
         public void Dispose()
@@ -71,8 +72,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             DeviceStateDTO dto = new DeviceStateDTO()
             {
-                DeviceCode = "0001",
-                DeviceName = "OP20工站",
+                DeviceCode = StationCode,
+                DeviceName = StationName,
             };
             switch (currentState)
             {
@@ -112,7 +113,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             bool isEntry;
             int state = -1;
             DateTime dt;
-            OP20Model model  = new OP20Model();
+            OP20Model model = new OP20Model();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -151,7 +152,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                             }
                         }
                         //如果上一次报警了 
-                        if (DeviceState==AlarmState &&state!=AlarmState)
+                        if (DeviceState == AlarmState && state != AlarmState)
                         {
                             //TODO 可以 foreach 遍历 获取所有报警消除记录
                             ActiveAlarms.Clear();
@@ -161,10 +162,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                             //DeviceControlPage.Instance.UpdateAlarm(new List<DeviceAlarmEntity>(CurrentAlarmList));
 
                             DeviceControlPage.Instance.UpdateAlarm(new List<string>(CurAlarmInfoVo));
-                            
+
                         }
                         // 处理设备状态
-                 
+
 
                         //这里判断设备是不是点检模式
 
@@ -191,8 +192,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void UpdateDeviceStateUI(OP20Model model)
         {
             model.TempSN = "123";
-            myOp10Model.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
-            // PageOP10.Instance.UpdateTempSN(myOp10Model.TempSN);
+            Model.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
+            // PageOP10.Instance.UpdateTempSN(Model.TempSN);
         }
 
         private void ProcessAlarms(DateTime dt)
@@ -211,7 +212,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 }
             }
             // 更新UI
-         
+
         }
 
         // 处理数组形式的报警
@@ -230,7 +231,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     alarmEntity.DeviceName = StationName;
                     alarmEntity.AlarmDateStr = dt.ToString("yyyy-MM-dd");
                     alarmEntity.AlarmTime = dt;
-                    UpdateAlarmStatus(alarmKey, isAlarmActive,alarmEntity, dt);
+                    UpdateAlarmStatus(alarmKey, isAlarmActive, alarmEntity, dt);
                 }
             }
         }
@@ -284,7 +285,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void ClearAlarmState()
         {
             CurrentAlarmList = new List<DeviceAlarmEntity>();
-            
+
 
 
         }
@@ -300,16 +301,16 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 PlcState = PlcState.Alarm;
                 //DeviceState = 2;
             }
-            else if (state == RunningState) 
+            else if (state == RunningState)
             {
                 PlcState = PlcState.Running;
             }
-            else if (state== OffState)
+            else if (state == OffState)
             {
                 PlcState = PlcState.OffLine;
 
             }
-            else if (state ==StopState)
+            else if (state == StopState)
             {
                 PlcState = PlcState.Stop;
             }
@@ -341,8 +342,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         //TODO 上传点检数据
                         DeviceInspectDTO dto = new DeviceInspectDTO()
                         {
-                            DeviceCode = "OP20",
-                            DeviceName = "工站01",
+                            DeviceCode = StationCode,
+                            DeviceName = StationName,
 
                         };
                         await UploadSpotCheckData(dto);
@@ -352,7 +353,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         //TODO 正常数据上报
                         PassStationDTO dto = new()
                         {
-                            StationCode = "OP20",
+                            StationCode = OP20MainFunc.StationCode,
                             SnTemp = "AQW12dswSAW",
                             PassStationData = new OP10Data()
                         };
@@ -384,18 +385,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private int ReadPLCState()
         {
             int state;
-            bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
+            bool readFlag = PLC.ReadInt16(OP40Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;
-        }
-
-        private async Task Execute(string tempSN)
-        {
-            EntryRequestDTO requestDto = new();
-            requestDto.SnTemp = tempSN;
-            requestDto.StationCode = "OP20";
-            EntryRequestService entryService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-            await entryService.CheckIn(requestDto);
         }
     }
 }

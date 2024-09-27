@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.Pages.StationPages.OP10
+namespace DWZ_Scada.Pages.StationPages.OP20
 {
     public class OP20Address
     {
@@ -12,7 +12,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// 进站请求信号
         /// </summary>
         public static readonly string EntrySignal = "";
-
 
         /// <summary>
         /// 报警信息地址 起始地址
@@ -43,5 +42,21 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// 采集信号
         /// </summary>
         public static readonly string Collect = "";
+
+        /// <summary>
+        /// 进站机台号1-2
+        /// </summary>
+        public static readonly string EntryStationNumber = "";
+
+        /// <summary>
+        /// 进站工位 A-B
+        /// </summary>
+        public static readonly string EntryStationPos = "";
+
+        /// <summary>
+        /// 进站结果信号
+        /// 上位机判断是否允许进站 返回Mes
+        /// </summary>
+        public static readonly string EntryResult = "";
     }
 }

@@ -1,11 +1,8 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
-using DWZ_Scada.HttpRequest;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +11,6 @@ using ScadaBase.DAL.Entity;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -53,7 +48,6 @@ namespace DWZ_Scada.Pages.StationPages
                                 // 使用一个工厂方法创建实例，让子类决定实例化逻辑
                                 _instance = _createInstanceFunc();
                             }
-                         
                         }
                     }
                 }
@@ -105,6 +99,10 @@ namespace DWZ_Scada.Pages.StationPages
         public static Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
 
         public static List<string> AlarmInfoList = new List<string>();
+
+        public static string StationName ;
+
+        public static string StationCode ;
 
         // 异步保存报警信息的方法
         private async Task SaveAlarmsToDatabaseAsync()

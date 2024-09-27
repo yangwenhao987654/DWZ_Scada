@@ -12,13 +12,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.Pages.StationPages.OP10
+namespace DWZ_Scada.Pages.StationPages.OP40
 {
-    public class OP10MainFunc : MainFuncBase, IDisposable
+    public class OP40MainFunc : MainFuncBase, IDisposable
     {
-        private static readonly OP40Model myOp10Model = new();
+        private static readonly OP40Model OpModel = new();
 
-        public static string StationName = "OP10";
+        public static string StationName = "OP40";
 
         private  const int AlarmState = 2;
 
@@ -48,7 +48,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         public static List<string> CurAlarmInfoVo = new();
 
 
-        public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
+        public OP40MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
         }
 
@@ -191,8 +191,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void UpdateDeviceStateUI(OP40Model model)
         {
             model.TempSN = "123";
-            myOp10Model.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
-            // PageOP10.Instance.UpdateTempSN(myOp10Model.TempSN);
+            OpModel.TempSN = DateTime.Now.ToString("HH:mm:ss fff");
+            // PageOP40.Instance.UpdateTempSN(OpModel.TempSN);
         }
 
         private void ProcessAlarms(DateTime dt)
@@ -341,7 +341,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         //TODO 上传点检数据
                         DeviceInspectDTO dto = new DeviceInspectDTO()
                         {
-                            DeviceCode = "OP10",
+                            DeviceCode = StationName,
                             DeviceName = "工站01",
 
                         };
@@ -352,7 +352,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         //TODO 正常数据上报
                         PassStationDTO dto = new()
                         {
-                            StationCode = "OP10",
+                            StationCode = StationName,
                             SnTemp = "AQW12dswSAW",
                             PassStationData = new OP10Data()
                         };
@@ -393,7 +393,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             EntryRequestDTO requestDto = new();
             requestDto.SnTemp = tempSN;
-            requestDto.StationCode = "OP10";
+            requestDto.StationCode = StationName;
             EntryRequestService entryService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
             await entryService.CheckIn(requestDto);
         }

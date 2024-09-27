@@ -129,6 +129,36 @@ namespace DWZ_Scada
         #endregion
 
 
+        #region OP40工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("4.OP40工站"), Description("PLC的IP地址")]
+        public string OP40_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("4.OP40工站"), Description("PLC的端口号")]
+        public int OP40_PlcPort { get; set; }
+        #endregion
+
+
+
+        #region OP50工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("5.OP50工站"), Description("PLC的IP地址")]
+        public string OP50_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("5.OP50工站"), Description("PLC的端口号")]
+        public int OP50_PlcPort { get; set; }
+        #endregion
+
+        #region OP60工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("6.OP60工站"), Description("PLC的IP地址")]
+        public string OP60_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("6.OP60工站"), Description("PLC的端口号")]
+        public int OP60_PlcPort { get; set; }
+        #endregion
+
+
         #region 软件配置参数
         [Permission(3), ReadOnly(false)]
         [DisplayName("1.是否启用语音播报"), Category("A.软件配置"), Description("配置选择是否使用语音提示功能")]

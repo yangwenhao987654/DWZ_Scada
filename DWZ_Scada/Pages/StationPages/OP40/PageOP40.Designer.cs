@@ -1,6 +1,6 @@
-﻿namespace DWZ_Scada.Pages.StationPages.OP10
+﻿namespace DWZ_Scada.Pages.StationPages.OP40
 {
-    partial class PageOP10
+    partial class PageOP40
     {
         /// <summary>
         /// Required designer variable.
@@ -55,7 +55,7 @@
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new System.Drawing.Size(1223, 59);
             uiLabel1.TabIndex = 1;
-            uiLabel1.Text = "OP10-上料打码工站";
+            uiLabel1.Text = "OP40-TIG电焊工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
             // 
@@ -232,7 +232,7 @@
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton4.Click += uiButton4_Click_1;
             // 
-            // PageOP10
+            // PageOP40
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -254,12 +254,12 @@
             Controls.Add(uiTextBox1);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
-            Name = "PageOP10";
+            Name = "PageOP40";
             Padding = new System.Windows.Forms.Padding(0, 35, 0, 0);
             ShowTitle = true;
-            Text = "PageOP10";
+            Text = "PageOP40";
             TitleFillColor = System.Drawing.Color.Transparent;
-            FormClosing += PageOP10_FormClosing;
+            FormClosing += PageOP40_FormClosing;
             Load += Page_Load;
             ResumeLayout(false);
         }

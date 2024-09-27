@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.Pages.StationPages.OP10
+namespace DWZ_Scada.Pages.StationPages.OP50
 {
-    public class OP40Model:INotifyPropertyChanged
+    public class OP50Model:INotifyPropertyChanged
     {
 
         private string  _deviceId;
