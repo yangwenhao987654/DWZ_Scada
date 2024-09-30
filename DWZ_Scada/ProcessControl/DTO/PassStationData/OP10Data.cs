@@ -27,7 +27,21 @@ namespace DWZ_Scada.ProcessControl.DTO
 
         /// <summary>
         /// 判断是否是良品 1:OK  2:NG
+        /// 是否不良品
         /// </summary>
         public int  Good { get; set; }
+
+        public bool IsFinal { get; set; }
+
+    }
+
+    public class Vision1Data
+    {
+        public string Vision1Result { get; set; }
+    }
+
+    public class Vision2Data
+    {
+        public string Vision2Result { get; set; }
     }
 }

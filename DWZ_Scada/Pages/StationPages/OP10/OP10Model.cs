@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.Pages.StationPages.OP10
 {
-    public class OP40Model:INotifyPropertyChanged
+    public class OP10Model:INotifyPropertyChanged
     {
 
         private string  _deviceId;
@@ -21,25 +21,52 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             get { return _deviceId; }
             set
             {
-                OnPropertyChanged();
                 _deviceId = value;
+                OnPropertyChanged();
             }
         }
 
-        private string _tempSN;
-
+        private string _exitSN;
         /// <summary>
-        /// 临时码
+        /// 出站临时码
         /// </summary>
-        public string TempSN
+        public string ExitSN
         {
-            get { return _tempSN; }
+            get { return _exitSN; }
             set
             {
-                OnPropertyChanged(); 
-                _tempSN = value;
+                _exitSN = value;
+                OnPropertyChanged();
             }
         }
+
+        private string _entrySN;
+        /// <summary>
+        ///进站临时码
+        /// </summary>
+        public string EntrySN
+        {
+            get { return _entrySN; }
+            set
+            {
+               
+                _entrySN = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _v1Result;
+
+        public string V1Result
+        {
+            get { return _v1Result; }
+            set
+            {
+                _v1Result = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

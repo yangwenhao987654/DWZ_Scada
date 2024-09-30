@@ -231,7 +231,7 @@ namespace DWZ_Scada
         private void uiButton4_Click(object sender, EventArgs e)
         {
             //进入点检模式 生产数据跟正常数据分开
-            OP20MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", true);
+            OP20MainFunc.Instance.PLC.Write(OP20Address.SpotCheck, "bool", true);
             OP20MainFunc.Instance.IsSpotCheck = true;
 
         }
@@ -246,7 +246,7 @@ namespace DWZ_Scada
             {
                 LogMgr.Instance.Info("关闭点检");
             }
-            OP20MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", value);
+            OP20MainFunc.Instance.PLC.Write(OP20Address.SpotCheck, "bool", value);
             OP20MainFunc.Instance.IsSpotCheck = value;
         }
 

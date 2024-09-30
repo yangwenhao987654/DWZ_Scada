@@ -22,17 +22,18 @@ namespace DWZ_Scada.HttpServices
             _httpClientHelper = httpClientHelper;
         }
 
-        public  async Task CheckIn(EntryRequestDTO dto)
+        public  async Task<bool> CheckIn(EntryRequestDTO dto)
         {
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);
             bool isSuccessful = response.IsSuccessful;
             if (isSuccessful)
             {
-                string result = response.Content;
-                EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(result);
+                string content = response.Content;
+                EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(content);
                 if (resultDto.Code == 200)
                 {
                     LogMgr.Instance.Info($"请求成功:{resultDto.Message}");
+                 
                 }
                 else
                 {
@@ -43,7 +44,9 @@ namespace DWZ_Scada.HttpServices
             {
                 LogMgr.Instance.Error("请求错误");
             }
-            _httpClientHelper.AnalyzeResponse(response);
+
+            bool result = _httpClientHelper.AnalyzeResponse(response);
+            return result;
         }
     }
 }

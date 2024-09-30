@@ -27,6 +27,13 @@ namespace DWZ_Scada.Pages.StationPages
 
         private static Func<MainFuncBase> _createInstanceFunc;
 
+        public DeviceStateService DeviceStateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
+
+
+        public UploadPassStationService UploadPassStationService = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
+
+        public InspectService InspectService = Global.ServiceProvider.GetRequiredService<InspectService>();
+
         //private static MainFuncBase myOp10Model;
 
         public static MainFuncBase Instance
@@ -58,6 +65,7 @@ namespace DWZ_Scada.Pages.StationPages
         public static void RegisterFactory(Func<MainFuncBase> factoryMethod)
         {
             _createInstanceFunc = factoryMethod;
+           
         }
 
         /// <summary>
@@ -152,14 +160,13 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         protected async Task UploadStationData(PassStationDTO dto)
         {
-            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
-            await service.SendPassStationData(dto);
+            await UploadPassStationService.SendPassStationData(dto);
         }
 
         protected async Task UploadSpotCheckData(DeviceInspectDTO dto)
         {
-            InspectService service = Global.ServiceProvider.GetRequiredService<InspectService>();
-            await service.AddInspectDada(dto);
+        
+            await InspectService.AddInspectDada(dto);
         }
 
 
@@ -206,8 +213,8 @@ namespace DWZ_Scada.Pages.StationPages
                 }
             }
             //记录报警信息
-            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            await stateService.AddDeviceState(dto);
+         
+            await DeviceStateService.AddDeviceState(dto);
         }
 
         protected MainFuncBase(PLCConfig PLCConfig)

@@ -38,7 +38,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// <summary>
         /// 数据模型
         /// </summary>
-        public OP40Model op10Model;
+        public OP10Model op10Model = new OP10Model();
 
         private static PageOP10 _instance;
         public static PageOP10 Instance
@@ -90,14 +90,12 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
                 SystemParams.Instance.OP10_PlcPort);
 
-            //TODO 这里导致程序卡顿
             MainFuncBase.RegisterFactory(() => new OP10MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
-
-            /*  lbl_EntrySN.DataBindings.Add("Text", Model, "TempSN");
-              Model.TempSN = "6666";*/
-            UpdateTempSN("6654");
+              lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
+              op10Model.ExitSN = "6666";
+            //UpdateTempSN("6654");
         }
         public void UpdateTempSN(string newValue)
         {
@@ -169,7 +167,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             string jsonStr = JsonConvert.SerializeObject(dto);
             SelectionResultDTO result = JsonConvert.DeserializeObject<SelectionResultDTO>(res);
             Console.WriteLine(jsonStr);
-
         }
 
         private void uiLabel1_Click(object sender, EventArgs e)
@@ -203,7 +200,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 StationCode = "OP10",
                 SnTemp = "AQW12dswSAW",
-                // PassStationData = n
+                // PassStationData = n,
                 PassStationData = new OP10Data()
                 {
                     /*       Material = "物料信息AAA",
@@ -224,6 +221,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void uiButton1_Click_1(object sender, EventArgs e)
         {
+            //切换型号
 
 
         }
@@ -231,7 +229,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void uiButton4_Click(object sender, EventArgs e)
         {
             //进入点检模式 生产数据跟正常数据分开
-            OP10MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", true);
+            OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", true);
             OP10MainFunc.Instance.IsSpotCheck = true;
 
         }
@@ -246,7 +244,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 LogMgr.Instance.Info("关闭点检");
             }
-            OP10MainFunc.Instance.PLC.Write(OP40Address.SpotCheck, "bool", value);
+            OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", value);
             OP10MainFunc.Instance.IsSpotCheck = value;
         }
 
@@ -256,6 +254,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             //list
             //当前型号的物料Bom
             Orders = new List<OrderVo>();
+            //TODO 1.这段代码可以抽取出来复用
             WorkOrderService service = Global.ServiceProvider.GetRequiredService<WorkOrderService>();
             RestResponse response = await service.GetWorkOrder();
             if (response.IsSuccessful)
@@ -305,6 +304,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             //输入物料后，需要确保当前物料 包含在当前正在生产的产品型号内 
             //根据当前产品型号获取物料Bom,从物料Bom中查询是否有这种物料 
             //如果没有，则不允许切换物料
+
+        }
+
+        private void PageOP10_Initialize(object sender, EventArgs e)
+        {
 
         }
     }

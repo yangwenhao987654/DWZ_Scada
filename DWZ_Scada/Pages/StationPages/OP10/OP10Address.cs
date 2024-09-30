@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DWZ_Scada.Pages.StationPages.OP10
+﻿namespace DWZ_Scada.Pages.StationPages.OP10
 {
-    public class OP40Address
+    public class OP10Address
     {
         /// <summary>
         /// 进站请求信号
         /// </summary>
         public static readonly string EntrySignal = "";
+
+        /// <summary>
+        /// 出战请求信号
+        /// </summary>
+        public static readonly string ExitSignal = "";
+
+        /// <summary>
+        /// 进站结果信号
+        /// </summary>
+        public static readonly string EntryResult = "";
+
+        /// <summary>
+        /// 出站结果信号
+        /// </summary>
+        public static readonly string ExitResult = "";
 
 
         /// <summary>
@@ -30,6 +39,22 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         public static readonly string EntrySn = "";
 
         /// <summary>
+        /// 出站SN码
+        /// </summary>
+        public static readonly string ExitSn = "";
+
+        /// <summary>
+        /// 视觉1 SN码
+        /// </summary>
+        public static readonly string Vision1_Sn = "";
+
+
+        /// <summary>
+        /// 视觉2 SN码
+        /// </summary>
+        public static readonly string Vision2_Sn = "";
+
+        /// <summary>
         /// 读取PLC状态地址
         /// </summary>
         public static string State = "M1";
@@ -43,5 +68,35 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// 采集信号
         /// </summary>
         public static readonly string Collect = "";
+
+        /// <summary>
+        /// 视觉1完成
+        /// </summary>
+        public static readonly string Vision1Finish = "";
+
+        /// <summary>
+        /// 视觉2完成
+        /// </summary>
+        public static readonly string Vision2Finish = "";
+
+        /// <summary>
+        /// 视觉1结果信号
+        /// </summary>
+        public static readonly string Vision1Result = "";
+
+        /// <summary>
+        /// 视觉2结果信号
+        /// </summary>
+        public static readonly string Vision2Result = "";
+
+        /// <summary>
+        /// 视觉1写PLC出站采集结果
+        /// </summary>
+        public static readonly string Vision1_Out = "";
+
+        /// <summary>
+        /// 视觉2出站采集结果
+        /// </summary>
+        public static readonly string Vision2_Out = "";
     }
 }

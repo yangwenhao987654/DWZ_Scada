@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DWZ_Scada.Pages.StationPages.OP50
+﻿namespace DWZ_Scada.Pages.StationPages.OP50
 {
     public class OP50Address
     {

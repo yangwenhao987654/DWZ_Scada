@@ -1,5 +1,4 @@
-﻿using DWZ_Scada.HttpServices;
-using DWZ_Scada.Pages.PLCAlarm;
+﻿using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -385,7 +384,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         private int ReadPLCState()
         {
             int state;
-            bool readFlag = PLC.ReadInt16(OP40Address.State, out state);
+            bool readFlag = PLC.ReadInt16(OP20Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;
         }

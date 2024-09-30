@@ -78,7 +78,7 @@
             uiButton4.ForeHoverColor = System.Drawing.Color.Black;
             uiButton4.ForePressColor = System.Drawing.Color.Black;
             uiButton4.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton4.Location = new System.Drawing.Point(833, 18);
+            uiButton4.Location = new System.Drawing.Point(718, 20);
             uiButton4.Margin = new System.Windows.Forms.Padding(2);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
@@ -191,7 +191,7 @@
             // 
             uiDatetimePicker1.FillColor = System.Drawing.Color.White;
             uiDatetimePicker1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiDatetimePicker1.Location = new System.Drawing.Point(1062, 18);
+            uiDatetimePicker1.Location = new System.Drawing.Point(947, 20);
             uiDatetimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiDatetimePicker1.MaxLength = 19;
             uiDatetimePicker1.MinimumSize = new System.Drawing.Size(63, 0);
@@ -211,7 +211,7 @@
             // 
             uiDatetimePicker2.FillColor = System.Drawing.Color.White;
             uiDatetimePicker2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiDatetimePicker2.Location = new System.Drawing.Point(1411, 18);
+            uiDatetimePicker2.Location = new System.Drawing.Point(1296, 20);
             uiDatetimePicker2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiDatetimePicker2.MaxLength = 19;
             uiDatetimePicker2.MinimumSize = new System.Drawing.Size(63, 0);
