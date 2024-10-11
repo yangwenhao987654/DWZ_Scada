@@ -1,11 +1,31 @@
-﻿namespace DWZ_Scada.Pages.StationPages.OP50
+﻿namespace DWZ_Scada.Pages.StationPages.OP20
 {
-    public class OP50Address
+    public class OP30Address
     {
         /// <summary>
         /// 进站请求信号
         /// </summary>
-        public static readonly string EntrySignal = "";
+        public static readonly string EntrySignal = "M30";
+
+        /// <summary>
+        /// 视觉完成信号
+        /// </summary>
+        public static readonly string VisionFinish = "M31";
+
+        /// <summary>
+        /// 视觉SN
+        /// </summary>
+        public static readonly string VisionSn = "D100";
+
+        /// <summary>
+        /// 绕线视觉检测结果
+        /// </summary>
+        public static readonly string VisionResult = "D200";
+
+        /// <summary>
+        /// 视觉出站复位
+        /// </summary>
+        public static readonly string VisionOut = "D300";
 
         /// <summary>
         /// 报警信息地址 起始地址
@@ -20,7 +40,8 @@
         /// <summary>
         /// 进站SN码
         /// </summary>
-        public static readonly string EntrySn = "";
+        public static readonly string EntrySn = "D310";
+
 
         /// <summary>
         /// 读取PLC状态地址
@@ -32,20 +53,6 @@
         /// </summary>
         public static string SpotCheck = "";
 
-        /// <summary>
-        /// 采集信号
-        /// </summary>
-        public static readonly string Collect = "";
-
-        /// <summary>
-        /// 进站机台号1-2
-        /// </summary>
-        public static readonly string EntryStationNumber = "";
-
-        /// <summary>
-        /// 进站工位 A-B
-        /// </summary>
-        public static readonly string EntryStationPos = "";
 
         /// <summary>
         /// 进站结果信号

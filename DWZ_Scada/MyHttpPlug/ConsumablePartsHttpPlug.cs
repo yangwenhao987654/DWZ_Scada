@@ -77,10 +77,10 @@ namespace DWZ_Scada.MyHttpPlug
                         case SystemParams.StationEnum.OP40TIG电焊工站:
                             selectHandle = new OP40SelectionStrategy();
                             break;
-                        case SystemParams.StationEnum.OP50电测工站:
+                        case SystemParams.StationEnum.OP60电测工站:
                             selectHandle = new OP50SelectionStrategy();
                             break;
-                        case SystemParams.StationEnum.OP60出料打码工站:
+                        case SystemParams.StationEnum.OP70出料打码工站:
                             selectHandle = new OP60SelectionStrategy();
                             break;
                         default:

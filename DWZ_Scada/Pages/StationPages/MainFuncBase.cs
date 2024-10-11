@@ -18,6 +18,12 @@ namespace DWZ_Scada.Pages.StationPages
 {
     public abstract class MainFuncBase : IDisposable
     {
+        /// <summary>
+        /// 用于Mes测试SN
+        /// </summary>
+        public string SnTest = "aQWER615ws8851";
+
+
         //PLC类型  
         //PLC 连接配置  IP地址 端口号
 
@@ -104,9 +110,9 @@ namespace DWZ_Scada.Pages.StationPages
 
         public ConcurrentQueue<DeviceAlarmEntity> AlarmQueue = new ConcurrentQueue<DeviceAlarmEntity>();
 
-        public static Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
+        public  Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
 
-        public static List<string> AlarmInfoList = new List<string>();
+        public  List<string> AlarmInfoList = new List<string>();
 
         public static string StationName ;
 

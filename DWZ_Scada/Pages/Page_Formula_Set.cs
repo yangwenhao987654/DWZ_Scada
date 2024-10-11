@@ -40,5 +40,10 @@ namespace DWZ_Scada.Pages
         {
             Page_Formula_Set.Instance?.Dispose();
         }
+
+        private void uiPanel1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

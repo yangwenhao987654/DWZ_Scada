@@ -5,7 +5,7 @@ using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
-using DWZ_Scada.Pages.StationPages.OP50;
+using DWZ_Scada.Pages.StationPages.OP70;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
@@ -25,36 +25,36 @@ using TouchSocket.Sockets;
 
 namespace DWZ_Scada
 {
-    public partial class PageOP50 : UIPage
+    public partial class PageOP70 : UIPage
     {
 
         public HttpService MyHttpService;
 
         /*/// <summary>
         /// 当前站名
-        /// OP50
+        /// OP60
         /// </summary>
-        private const string CURRENT_STATION_NAME = "OP50";*/
+        private const string CURRENT_STATION_NAME = "OP60";*/
 
         public List<OrderVo> Orders { get; set; }
 
         /// <summary>
         /// 数据模型
         /// </summary>
-        public OP50Model Model;
+        public OP70Model Model;
 
-        private static PageOP50 _instance;
-        public static PageOP50 Instance
+        private static PageOP70 _instance;
+        public static PageOP70 Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    lock (typeof(PageOP50))
+                    lock (typeof(PageOP70))
                     {
                         if (_instance == null)
                         {
-                            _instance = new PageOP50();
+                            _instance = new PageOP70();
                         }
                     }
                 }
@@ -75,7 +75,7 @@ namespace DWZ_Scada
 
         public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
 
-        private PageOP50()
+        private PageOP70()
         {
             InitializeComponent();
             _instance = this;
@@ -84,24 +84,23 @@ namespace DWZ_Scada
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug($"打开{OP50MainFunc.StationName}工站");
+            LogMgr.Instance.Debug($"打开{OP70MainFunc.StationName}工站");
 
             // Mes 选型服务  监控Mes选型消息
             TestHttp();
-            ISelectionStrategyEvent OP50Strategy = new OP50SelectionStrategy();
-            OP50Strategy.OnSelectionEvent += OP50SelectionStrategy_OnSelectionEvent;
+            ISelectionStrategyEvent OP60Strategy = new OP60SelectionStrategy();
+            OP60Strategy.OnSelectionEvent += OP70SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
-            //OP10工站 PLC配置
-            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP50_PlcIP,
-                SystemParams.Instance.OP50_PlcPort);
+            //OP70工站 PLC配置
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP70_PlcIP,
+                SystemParams.Instance.OP70_PlcPort);
 
             //TODO 这里导致程序卡顿
-            MainFuncBase.RegisterFactory(() => new OP50MainFunc(plcConfig));
+            MainFuncBase.RegisterFactory(() => new OP70MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
-
         }
 
-        private void OP50SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
+        private void OP70SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
             LogMgr.Instance.Info("触发选型");
             LogMgr.Instance.Info($"下发型号[{e.Model}]");
@@ -114,9 +113,9 @@ namespace DWZ_Scada
 
         public void TestHttp()
         {
-            LogMgr.Instance.Debug($"启动{OP50MainFunc.StationCode}工站服务端...");
+            LogMgr.Instance.Debug($"启动{OP70MainFunc.StationCode}工站服务端...");
             StartServer();
-            LogMgr.Instance.Debug($"{OP50MainFunc.StationCode}工站服务端启动完成...");
+            LogMgr.Instance.Debug($"{OP70MainFunc.StationCode}工站服务端启动完成...");
             //HTTP客户端请求
             /*     
                  Console.WriteLine("启动模拟客户端发送请求...");
@@ -178,21 +177,21 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogMgr.Instance.Info($"关闭{OP50MainFunc.StationCode}-HttpServer");
+            LogMgr.Instance.Info($"关闭{OP70MainFunc.StationCode}-HttpServer");
             MyHttpService?.Stop();
             MyHttpService?.Dispose();
-            OP50MainFunc.Instance?.Dispose();
-            LogMgr.Instance.Info($"关闭{OP50MainFunc.StationName}程序");
+            OP70MainFunc.Instance?.Dispose();
+            LogMgr.Instance.Info($"关闭{OP70MainFunc.StationName}程序");
         }
 
         private async Task TestPassStationUpload()
         {
             PassStationDTO dto = new PassStationDTO()
             {
-                StationCode = "OP50",
+                StationCode = "OP60",
                 SnTemp = "AQW12dswSAW",
                 // PassStationData = n
-                PassStationData = new OP10Data()
+                PassStationData = new PassStationData()
                 {
                     /*       Material = "物料信息AAA",
                            VisionData1 = "4dwadwa",
@@ -226,8 +225,8 @@ namespace DWZ_Scada
             {
                 LogMgr.Instance.Info("关闭点检");
             }
-            OP50MainFunc.Instance.PLC.Write(OP50Address.SpotCheck, "bool", value);
-            OP50MainFunc.Instance.IsSpotCheck = value;
+            OP70MainFunc.Instance.PLC.Write(OP70Address.SpotCheck, "bool", value);
+            OP70MainFunc.Instance.IsSpotCheck = value;
         }
 
         private async void uiButton3_Click(object sender, EventArgs e)

@@ -1,7 +1,7 @@
-﻿using DWZ_Scada.Pages.PLCAlarm;
+﻿using DWZ_Scada.HttpServices;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,19 +76,19 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             switch (currentState)
             {
                 case -1:
-                    dto.Status = "停机";
+                    dto.Status = "stop";
                     break;
                 case 1:
-                    dto.Status = "运行中";
+                    dto.Status = "run";
                     break;
                 case 2:
-                    dto.Status = "待机中";
+                    dto.Status = "run";
                     break;
                 default:
-                    dto.Status = "故障";
+                    dto.Status = "breakdown";
                     break;
             }
-
+            
             //TODO 如果有报警 封装所有的报警信息给Mes
 
             //如果有报警的话 需要带着报警信息
@@ -167,9 +167,14 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
                         //这里判断设备是不是点检模式
 
-
                         // 处理进站信号
-                        ProcessEntrySignal(dt);
+                        ProcessEntrySignal();
+
+                        //TODO 导通耐压测试
+
+                        //TODO 电性能测试
+
+
                     }
                     else
                     {
@@ -324,43 +329,25 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
 
         // 处理进站信号
-        private async Task ProcessEntrySignal(DateTime dt)
+        private async Task ProcessEntrySignal()
         {
             if (PLC.ReadBool(OP60Address.EntrySignal, out bool isEntry) && isEntry)
             {
-                PLC.Read(OP60Address.EntrySn, "string", out string sn);
-                OP60EntryCommand entryCommand = new(sn);
-                entryCommand.Execute();
-
-                if (PLC.ReadInt16(OP60Address.Collect, out int collectSignal) && collectSignal == 1)
+                PLC.Write(OP60Address.EntrySignal, "Bool", false);
+                PLC.Read(OP60Address.EntrySn, "string-20", out string sn);
+                EntryRequestDTO requestDto = new()
                 {
-                    //TODO 开始数据采集
-                    if (IsSpotCheck)
-                    {
-                        //TODO 上传点检数据
-                        DeviceInspectDTO dto = new DeviceInspectDTO()
-                        {
-                            DeviceCode = StationCode,
-                            DeviceName = StationName,
-
-                        };
-                        await UploadSpotCheckData(dto);
-                    }
-                    else
-                    {
-                        //TODO 正常数据上报
-                        PassStationDTO dto = new()
-                        {
-                            StationCode = OP60MainFunc.StationCode,
-                            SnTemp = "AQW12dswSAW",
-                            PassStationData = new OP10Data()
-                        };
-                        await UploadStationData(dto);
-                    }
-                }
+                    SnTemp = SnTest,
+                    StationCode = StationCode,
+                    WorkOrder = "MO202409110002"
+                };
+                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
+                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                //
+                LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
+                PLC.Write(OP60Address.EntryResult, "Bool", flag);
             }
         }
-
         /*/// <summary>
         /// 上传过站数据
         /// </summary>

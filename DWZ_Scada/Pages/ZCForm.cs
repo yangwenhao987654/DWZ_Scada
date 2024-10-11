@@ -157,11 +157,11 @@ namespace DWZ_Scada.Pages
                 case SystemParams.StationEnum.OP40TIG电焊工站:
                     SetMainPage(PageOP40.Instance);
                     break;
-                case SystemParams.StationEnum.OP50电测工站:
-                    SetMainPage(PageOP50.Instance);
-                    break;
-                case SystemParams.StationEnum.OP60出料打码工站:
+                case SystemParams.StationEnum.OP60电测工站:
                     SetMainPage(PageOP60.Instance);
+                    break;
+                case SystemParams.StationEnum.OP70出料打码工站:
+                    SetMainPage(PageOP70.Instance);
                     break;
             }
         }

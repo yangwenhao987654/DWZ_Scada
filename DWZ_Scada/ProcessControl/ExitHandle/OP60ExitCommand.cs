@@ -1,10 +1,5 @@
-﻿using LogTool;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DWZ_Scada.ProcessControl.ExitHandle;
+﻿using DWZ_Scada.ProcessControl.ExitHandle;
+using LogTool;
 
 namespace DWZ_Scada.ProcessControl.EntryHandle
 {
@@ -18,7 +13,7 @@ namespace DWZ_Scada.ProcessControl.EntryHandle
 
         protected override void ExecuteEntry()
         {
-            // OP60出站的具体实现
+            // OP50出站的具体实现
             LogMgr.Instance.Debug($"Executing specific Exit logic for OP60 with product {TempSN}");
         }
     }

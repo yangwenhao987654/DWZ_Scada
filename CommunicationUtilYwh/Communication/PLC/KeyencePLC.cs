@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HslCommunication;
+﻿using HslCommunication;
 using HslCommunication.Profinet.Keyence;
-using HslCommunication.Profinet.Omron;
 using LogTool;
-using ZC_DataAcquisition;
+using System;
 
 namespace CommunicationUtilYwh.Communication.PLC
 {
@@ -148,6 +142,12 @@ namespace CommunicationUtilYwh.Communication.PLC
                             flag = operate.IsSuccess;
                             break;
                         }
+                    case "bool":
+                    {
+                        OperateResult operate = client.Write(adr, Convert.ToBoolean(value));
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     default:
                         LogMgr.Instance.Error($"Read Fail :Require read dataType [{type}] is not support");
                         throw new Exception($"Read PLC Error: not support dataType:[{type}]");

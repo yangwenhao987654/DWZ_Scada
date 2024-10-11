@@ -5,7 +5,7 @@
         /// <summary>
         /// 进站请求信号
         /// </summary>
-        public static readonly string EntrySignal = "";
+        public static readonly string EntrySignal = "M10";
 
         /// <summary>
         /// 出战请求信号
@@ -36,28 +36,28 @@
         /// <summary>
         /// 进站SN码
         /// </summary>
-        public static readonly string EntrySn = "";
+        public static readonly string EntrySn = "D100";
 
         /// <summary>
         /// 出站SN码
         /// </summary>
-        public static readonly string ExitSn = "";
+        public static readonly string ExitSn = "D200";
 
         /// <summary>
         /// 视觉1 SN码
         /// </summary>
-        public static readonly string Vision1_Sn = "";
+        public static readonly string Vision1_Sn = "D200";
 
 
         /// <summary>
         /// 视觉2 SN码
         /// </summary>
-        public static readonly string Vision2_Sn = "";
+        public static readonly string Vision2_Sn = "D300";
 
         /// <summary>
         /// 读取PLC状态地址
         /// </summary>
-        public static string State = "M1";
+        public static string State = "D10";
 
         /// <summary>
         /// 点检模式地址
@@ -72,31 +72,31 @@
         /// <summary>
         /// 视觉1完成
         /// </summary>
-        public static readonly string Vision1Finish = "";
+        public static readonly string Vision1Finish = "M11";
 
         /// <summary>
         /// 视觉2完成
         /// </summary>
-        public static readonly string Vision2Finish = "";
+        public static readonly string Vision2Finish = "M12";
 
         /// <summary>
         /// 视觉1结果信号
         /// </summary>
-        public static readonly string Vision1Result = "";
+        public static readonly string Vision1Result = "M21";
 
         /// <summary>
         /// 视觉2结果信号
         /// </summary>
-        public static readonly string Vision2Result = "";
+        public static readonly string Vision2Result = "M22";
 
         /// <summary>
         /// 视觉1写PLC出站采集结果
         /// </summary>
-        public static readonly string Vision1_Out = "";
+        public static readonly string Vision1_Out = "M31";
 
         /// <summary>
         /// 视觉2出站采集结果
         /// </summary>
-        public static readonly string Vision2_Out = "";
+        public static readonly string Vision2_Out = "M32";
     }
 }

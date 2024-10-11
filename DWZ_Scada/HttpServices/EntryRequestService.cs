@@ -22,9 +22,10 @@ namespace DWZ_Scada.HttpServices
             _httpClientHelper = httpClientHelper;
         }
 
-        public  async Task<bool> CheckIn(EntryRequestDTO dto)
+        public  async Task<(bool,string)> CheckIn(EntryRequestDTO dto)
         {
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);
+            string msg = string.Empty;
             bool isSuccessful = response.IsSuccessful;
             if (isSuccessful)
             {
@@ -38,15 +39,18 @@ namespace DWZ_Scada.HttpServices
                 else
                 {
                     LogMgr.Instance.Error($"请求失败:{resultDto.Message}");
+                    msg = resultDto.Message;
                 }
             }
             else
             {
                 LogMgr.Instance.Error("请求错误");
+                msg = "请求错误";
             }
 
             bool result = _httpClientHelper.AnalyzeResponse(response);
-            return result;
+         
+            return (result,msg);
         }
     }
 }

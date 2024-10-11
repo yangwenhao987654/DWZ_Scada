@@ -8,6 +8,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
 using LogTool;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RestSharp;
@@ -74,13 +75,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             InitializeComponent();
             _instance = this;
+        
         }
 
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug("打开OP10工站");
-
+            
             // Mes 选型服务  监控Mes选型消息
             TestHttp();
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
@@ -93,10 +95,80 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             MainFuncBase.RegisterFactory(() => new OP10MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
-              lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
+              //lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
               op10Model.ExitSN = "6666";
             //UpdateTempSN("6654");
+
+            OP10MainFunc.OnVision1Finished += PageOP10_OnVision1Finished;
+
+            OP10MainFunc.OnVision2Finished += PageOP10_OnVision2Finished;
         }
+
+        private void PageOP10_OnVision1Finished(string sn, bool result)
+        {
+            UpdateV1(sn, result);
+        }
+
+        private void PageOP10_OnVision2Finished(string sn, bool result)
+        {
+            UpdateV2(sn, result);
+        }
+
+        public void UpdateV1(string sn,bool result)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string,bool>(UpdateV1), sn,result);
+                return;
+            }
+            lbl_SN1.Text = sn;
+            lbl_Vision1Result.Text = result ? "OK" : "NG";
+        }
+
+        public void UpdateEnrtySN(string sn)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string>(UpdateEnrtySN), sn);
+                return;
+            }
+            lbl_EntrySN.Text = sn;
+           
+        }
+
+        public void UpdateEnrtyResult(bool result,string msg)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<bool,string>(UpdateEnrtyResult), result,msg);
+                return;
+            }
+            lbl_EntryResult.Text = result ? "OK" : "NG";
+            lbl_EntryMsg.Text = msg;
+        }
+
+        public void ClearEntryResult()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(ClearEntryResult));
+                return;
+            }
+            lbl_EntryResult.Text ="";
+            lbl_EntryMsg.Text = "请求中.....";
+        }
+
+        public void UpdateV2(string sn, bool result)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string, bool>(UpdateV2), sn, result);
+                return;
+            }
+            lbl_SN2.Text = sn;
+            lbl_Vision2Result.Text = result ? "OK" : "NG";
+        }
+
         public void UpdateTempSN(string newValue)
         {
             if (lbl_EntrySN.InvokeRequired)
@@ -109,7 +181,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 lbl_EntrySN.Text = newValue;
             }
         }
-
 
         private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
@@ -200,15 +271,12 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 StationCode = "OP10",
                 SnTemp = "AQW12dswSAW",
-                // PassStationData = n,
-                PassStationData = new OP10Data()
+                PassStationData = new PassStationData()
                 {
-                    /*       Material = "物料信息AAA",
-                           VisionData1 = "4dwadwa",
-                           VisionData2 = "sw23435",
-                           VisionPicPath = "D:\\test",
-                           VisionResult = "OK"*/
-                }
+                    Data = new Vision2Data() { Vision2Result = false },
+                    Good = false,
+                },
+                isLastStep = true
             };
             UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
             service.SendPassStationData(dto);

@@ -170,16 +170,9 @@ namespace DWZ_Scada
                 StationCode = "OP10",
                 SnTemp = "24TT0001",
                 // PassStationData = n
-                PassStationData = new OP10Data()
+                PassStationData = new PassStationData()
                 {
-                 /*   Material = "物料信息AAA",
-                    VisionData1 = "4dwadwa",
-                    VisionData2 = "sw23435",
-                    VisionPicPath = "D:\\test",
-                    VisionResult = "OK",*/
-                    a="111",
-                    b="222",
-                    Good = 1,
+
                 },
                 WorkOrder = "MO202409110002"
             };

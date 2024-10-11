@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DWZ_Scada.Pages.StationPages.OP50
+namespace DWZ_Scada.Pages.StationPages.OP70
 {
-    public class OP50Model:INotifyPropertyChanged
+    public class OP70Model:INotifyPropertyChanged
     {
 
         private string  _deviceId;

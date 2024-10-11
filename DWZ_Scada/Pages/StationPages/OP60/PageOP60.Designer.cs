@@ -54,7 +54,7 @@
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new System.Drawing.Size(1280, 59);
             uiLabel1.TabIndex = 1;
-            uiLabel1.Text = "OP60-出料打码工站";
+            uiLabel1.Text = "OP60-电测工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
             // 

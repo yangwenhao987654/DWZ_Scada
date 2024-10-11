@@ -68,6 +68,7 @@ namespace DWZ_Scada.HttpRequest
         {
             if (response.IsSuccessful)
             {
+                /*{"msg":"出站成功","code":200}*/
                 LogMgr.Instance.Info($"响应成功: {response.Content}");
                 return true;
             }

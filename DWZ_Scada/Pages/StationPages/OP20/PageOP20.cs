@@ -101,6 +101,12 @@ namespace DWZ_Scada
             MainFuncBase.RegisterFactory(() => new OP20MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
+            OP30MainFunc op30MainFunc = new OP30MainFunc(new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
+                SystemParams.Instance.OP30_PlcPort));
+            op30MainFunc.StartAsync();
+
+            //OP30的配置
+            
             int index = 1;
             for (int i = 0; i < ctrlWindingS.ColumnCount; i++)
             {
@@ -204,7 +210,7 @@ namespace DWZ_Scada
                 StationCode = "OP20",
                 SnTemp = "AQW12dswSAW",
                 // PassStationData = n
-                PassStationData = new OP10Data()
+                PassStationData = new PassStationData()
                 {
                     /*       Material = "物料信息AAA",
                            VisionData1 = "4dwadwa",

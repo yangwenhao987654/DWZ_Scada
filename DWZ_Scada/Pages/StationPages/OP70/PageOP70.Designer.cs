@@ -1,6 +1,6 @@
 ﻿namespace DWZ_Scada
 {
-    partial class PageOP50
+    partial class PageOP70
     {
         /// <summary>
         /// Required designer variable.
@@ -54,7 +54,7 @@
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new System.Drawing.Size(1280, 59);
             uiLabel1.TabIndex = 1;
-            uiLabel1.Text = "OP50-电测工站";
+            uiLabel1.Text = "OP70-出料打码工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
             // 
@@ -228,7 +228,7 @@
             btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             btn_Test.Click += btn_Test_Click;
             // 
-            // PageOP50
+            // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
@@ -248,7 +248,7 @@
             Controls.Add(uiTextBox1);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
-            Name = "PageOP50";
+            Name = "PageOP70";
             Text = "PageOP10";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;

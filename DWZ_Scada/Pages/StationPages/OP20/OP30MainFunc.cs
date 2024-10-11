@@ -1,6 +1,5 @@
 ﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
@@ -14,9 +13,15 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
-    public class OP20MainFunc : MainFuncBase, IDisposable
+    public class OP30MainFunc : MainFuncBase, IDisposable
     {
-        private static readonly OP20Model Model = new();
+       
+        public delegate void OP10VisionFinished(string sn, bool result);
+
+
+        public static event OP10VisionFinished OnVision1Finished;
+
+        private static readonly OP30Model Model = new();
 
         private const int AlarmState = 2;
 
@@ -46,10 +51,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         public static List<string> CurAlarmInfoVo = new();
 
 
-        public OP20MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
+        public OP30MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
-            StationName = "OP20";
-            StationCode = "OP20";
+            StationName = "OP30";
+            StationCode = "OP30";
         }
 
         public void Dispose()
@@ -170,11 +175,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         // 处理进站信号
                         await ProcessEntrySignal();
 
-                        //获取绕线完成位置
-                        GetWindingPos();
 
-                        //获取绕线开始信号
-                        WindingStart();
+                        //处理画像检测结果
+                        HandleVisionResult();
                     }
                     else
                     {
@@ -190,28 +193,40 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-        private void WindingStart()
+        private async void  HandleVisionResult()
         {
-            if (PLC.ReadBool(OP20Address.WindingStart, out bool isStart) && isStart)
+            if (PLC.ReadBool(OP30Address.VisionFinish, out bool isFinish) && isFinish)
             {
-                LogMgr.Instance.Info("收到绕线开始...");
-                PLC.Write(OP20Address.WindingStart, "Bool", false);
+                LogMgr.Instance.Debug("收到[OP30]视觉完成信号");
+                //复位视觉完成
+                PLC.Write(OP30Address.VisionFinish, "Bool", false);
+                PLC.Read(OP30Address.VisionSn, "string-20", out string sn);
+                LogMgr.Instance.Debug("读取出站条码内容:" + sn);
+                PLC.ReadInt16(OP30Address.VisionResult, out int result);
 
-                //TODO 获取到对应的位置 开始监控 
+                bool visionResult = result == 1 ? true : false;
+                //界面更新
+                OnVision1Finished?.Invoke(sn, visionResult);
+                //string snTest = "QWER123456";
+                //上传Mes测试数据
+                PassStationDTO dto = new PassStationDTO()
+                {
+                    StationCode = StationCode,
+                    SnTemp = SnTest,
+                    WorkOrder = "MO202409110002",
+                    PassStationData = new Vision1Data()
+                    {
+                        Vision1Result = visionResult, 
+                        Good = visionResult,
+                    },
+                    isLastStep = true
+                };
+                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
+                PLC.Write(OP30Address.VisionOut, "Bool", result);
             }
         }
 
-        private void GetWindingPos()
-        {
-            if (PLC.ReadInt16(OP20Address.WindingPos, out int pos) && pos != 0)
-            {
-                //获取到当前的绕线位置
-                string addressA = OP20Address.WindingStartSn;
-                string addressB = OP20Address.WindingStartSn;
-                PLC.Read(addressA, "string", out string snA);
-                PLC.Read(addressB, "string", out string snB);
-            }
-        }
 
         // 更新设备状态到UI
         private void UpdateDeviceStateUI(OP20Model model)
@@ -342,20 +357,21 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         // 处理进站信号
         private async Task ProcessEntrySignal()
         {
-            if (PLC.ReadBool(OP20Address.EntrySignal, out bool isEntry) && isEntry)
+            if (PLC.ReadBool(OP30Address.EntrySignal, out bool isEntry) && isEntry)
             {
-                PLC.Read(OP20Address.EntrySn, "string-20", out string sn);
+                PLC.Write(OP30Address.EntrySignal, "Bool", false);
+                PLC.Read(OP30Address.EntrySn, "string-20", out string sn);
                 EntryRequestDTO requestDto = new()
                 {
-                    SnTemp = sn,
+                    SnTemp = SnTest,
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
                 EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                 (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
                 //
-                LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}" );
-                PLC.Write(OP10Address.EntryResult, "Bool", flag);
+                LogMgr.Instance.Debug($"写进站结果{flag}");
+                PLC.Write(OP30Address.EntryResult, "Bool", flag);
             }
         }
 

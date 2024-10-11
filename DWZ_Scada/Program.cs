@@ -144,7 +144,7 @@ namespace DWZ_Scada
             {
                 BaseUrl = new Uri(URLConstants.Base),//配置基础URL-
                 //ThrowOnAnyError = true, //如果有错误，抛出异常
-                Timeout = TimeSpan.FromMilliseconds(10000)  ,//设置超时 10秒
+                Timeout = TimeSpan.FromMilliseconds(3000)  ,//设置超时 3秒
             }));
             //创建设备状态上报服务
 

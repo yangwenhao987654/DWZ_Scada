@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.ProcessControl.DTO
 {
-    public class OP10Data
+    public class OP70Data
     {
    /*     /// <summary>
         /// 物料信息
@@ -29,15 +29,13 @@ namespace DWZ_Scada.ProcessControl.DTO
 
     }
 
-    public class Vision1Data
+    public class FinalCodeData
     {
-        public bool Vision1Result { get; set; }
+        /*public bool FinalCodeResult { get; set; }*/
         public bool Good { get; set; }
-    }
 
-    public class Vision2Data
-    {
-        public bool Vision2Result { get; set; }
-        public bool Good { get; set; }
+        public string SN { get; set; }
+
+        public string Level { get; set; }
     }
 }

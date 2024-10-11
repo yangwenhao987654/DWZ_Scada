@@ -210,7 +210,7 @@ namespace AutoStation
                         uiTabControl1.SelectPage(page.PageIndex);
                     }
                     break;
-                case SystemParams.StationEnum.OP50电测工站:
+                case SystemParams.StationEnum.OP60电测工站:
                     ps = PageList.First(r => r.PageName == "绑定SSN站");
                     page = ps.ShowPage(uiTabControl1, 5002);
                     if (page != null)
@@ -218,7 +218,7 @@ namespace AutoStation
                         uiTabControl1.SelectPage(page.PageIndex);
                     }
                     break;
-                case SystemParams.StationEnum.OP60出料打码工站:
+                case SystemParams.StationEnum.OP70出料打码工站:
                     ps = PageList.First(r => r.PageName == "绑定SSN站");
                     page = ps.ShowPage(uiTabControl1, 5002);
                     if (page != null)

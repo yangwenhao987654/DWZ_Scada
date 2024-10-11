@@ -32,9 +32,9 @@ namespace DWZ_Scada
 
         /*/// <summary>
         /// 当前站名
-        /// OP60
+        /// OP50
         /// </summary>
-        private const string CURRENT_STATION_NAME = "OP60";*/
+        private const string CURRENT_STATION_NAME = "OP50";*/
 
         public List<OrderVo> Orders { get; set; }
 
@@ -88,8 +88,8 @@ namespace DWZ_Scada
 
             // Mes 选型服务  监控Mes选型消息
             TestHttp();
-            ISelectionStrategyEvent OP60Strategy = new OP60SelectionStrategy();
-            OP60Strategy.OnSelectionEvent += OP60SelectionStrategy_OnSelectionEvent;
+            ISelectionStrategyEvent OP50Strategy = new OP50SelectionStrategy();
+            OP50Strategy.OnSelectionEvent += OP50SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP60_PlcIP,
@@ -101,7 +101,7 @@ namespace DWZ_Scada
 
         }
 
-        private void OP60SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
+        private void OP50SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
             LogMgr.Instance.Info("触发选型");
             LogMgr.Instance.Info($"下发型号[{e.Model}]");
@@ -189,10 +189,10 @@ namespace DWZ_Scada
         {
             PassStationDTO dto = new PassStationDTO()
             {
-                StationCode = "OP60",
+                StationCode = "OP50",
                 SnTemp = "AQW12dswSAW",
                 // PassStationData = n
-                PassStationData = new OP10Data()
+                PassStationData = new PassStationData()
                 {
                     /*       Material = "物料信息AAA",
                            VisionData1 = "4dwadwa",

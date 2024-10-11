@@ -1,4 +1,6 @@
-﻿namespace DWZ_Scada.Pages.StationPages.OP10
+﻿using Sunny.UI;
+
+namespace DWZ_Scada.Pages.StationPages.OP10
 {
     partial class PageOP10
     {
@@ -28,27 +30,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            uiLabel1 = new Sunny.UI.UILabel();
-            uiTextBox1 = new Sunny.UI.UITextBox();
-            uiLabel2 = new Sunny.UI.UILabel();
-            uiLabel4 = new Sunny.UI.UILabel();
-            uiButton1 = new Sunny.UI.UIButton();
-            uiButton2 = new Sunny.UI.UIButton();
-            uiLabel3 = new Sunny.UI.UILabel();
-            uiButton3 = new Sunny.UI.UIButton();
-            lbl_EntrySN = new Sunny.UI.UILabel();
-            lbl_Vision1Result = new Sunny.UI.UILabel();
-            lbl_Vision2Result = new Sunny.UI.UILabel();
-            lbl_ExitResult = new Sunny.UI.UILabel();
-            uiSwitch_Spot = new Sunny.UI.UISwitch();
-            uiLabel5 = new Sunny.UI.UILabel();
-            cbx_Orders = new Sunny.UI.UIComboBox();
-            uiButton4 = new Sunny.UI.UIButton();
-            uiLabel9 = new Sunny.UI.UILabel();
-            uiLabel10 = new Sunny.UI.UILabel();
-            lbl_ExitSN = new Sunny.UI.UILabel();
-            uiLabel6 = new Sunny.UI.UILabel();
-            uiLabel7 = new Sunny.UI.UILabel();
+            uiLabel1 = new UILabel();
+            uiTextBox1 = new UITextBox();
+            uiLabel2 = new UILabel();
+            uiLabel4 = new UILabel();
+            uiButton1 = new UIButton();
+            uiButton2 = new UIButton();
+            uiLabel3 = new UILabel();
+            uiButton3 = new UIButton();
+            lbl_EntrySN = new UILabel();
+            lbl_Vision1Result = new UILabel();
+            lbl_Vision2Result = new UILabel();
+            uiSwitch_Spot = new UISwitch();
+            uiLabel5 = new UILabel();
+            cbx_Orders = new UIComboBox();
+            uiButton4 = new UIButton();
+            uiLabel9 = new UILabel();
+            uiLabel6 = new UILabel();
+            uiLabel7 = new UILabel();
+            uiLabel8 = new UILabel();
+            uiLabel11 = new UILabel();
+            lbl_SN1 = new UILabel();
+            lbl_SN2 = new UILabel();
+            uiLabel10 = new UILabel();
+            lbl_EntryResult = new UILabel();
+            lbl_EntryMsg = new UILabel();
             SuspendLayout();
             // 
             // uiLabel1
@@ -136,7 +142,7 @@
             // uiButton3
             // 
             uiButton3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Location = new System.Drawing.Point(176, 525);
+            uiButton3.Location = new System.Drawing.Point(476, 812);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
             uiButton3.Size = new System.Drawing.Size(122, 42);
@@ -158,7 +164,7 @@
             // 
             lbl_Vision1Result.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_Vision1Result.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_Vision1Result.Location = new System.Drawing.Point(246, 352);
+            lbl_Vision1Result.Location = new System.Drawing.Point(226, 596);
             lbl_Vision1Result.Name = "lbl_Vision1Result";
             lbl_Vision1Result.Size = new System.Drawing.Size(220, 42);
             lbl_Vision1Result.TabIndex = 12;
@@ -167,20 +173,10 @@
             // 
             lbl_Vision2Result.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_Vision2Result.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_Vision2Result.Location = new System.Drawing.Point(246, 428);
+            lbl_Vision2Result.Location = new System.Drawing.Point(826, 593);
             lbl_Vision2Result.Name = "lbl_Vision2Result";
             lbl_Vision2Result.Size = new System.Drawing.Size(220, 42);
             lbl_Vision2Result.TabIndex = 13;
-            // 
-            // lbl_ExitResult
-            // 
-            lbl_ExitResult.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            lbl_ExitResult.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_ExitResult.Location = new System.Drawing.Point(625, 397);
-            lbl_ExitResult.Name = "lbl_ExitResult";
-            lbl_ExitResult.Size = new System.Drawing.Size(212, 51);
-            lbl_ExitResult.TabIndex = 14;
-            lbl_ExitResult.Text = "出站总结果";
             // 
             // uiSwitch_Spot
             // 
@@ -210,7 +206,7 @@
             cbx_Orders.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             cbx_Orders.ItemHoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             cbx_Orders.ItemSelectForeColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            cbx_Orders.Location = new System.Drawing.Point(334, 512);
+            cbx_Orders.Location = new System.Drawing.Point(634, 799);
             cbx_Orders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             cbx_Orders.MinimumSize = new System.Drawing.Size(63, 0);
             cbx_Orders.Name = "cbx_Orders";
@@ -225,7 +221,7 @@
             // uiButton4
             // 
             uiButton4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton4.Location = new System.Drawing.Point(603, 525);
+            uiButton4.Location = new System.Drawing.Point(903, 812);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
             uiButton4.Size = new System.Drawing.Size(122, 42);
@@ -244,30 +240,11 @@
             uiLabel9.TabIndex = 20;
             uiLabel9.Text = "进站临时码:";
             // 
-            // uiLabel10
-            // 
-            uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new System.Drawing.Point(616, 287);
-            uiLabel10.Name = "uiLabel10";
-            uiLabel10.Size = new System.Drawing.Size(140, 42);
-            uiLabel10.TabIndex = 22;
-            uiLabel10.Text = "出站临时码:";
-            // 
-            // lbl_ExitSN
-            // 
-            lbl_ExitSN.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            lbl_ExitSN.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_ExitSN.Location = new System.Drawing.Point(762, 287);
-            lbl_ExitSN.Name = "lbl_ExitSN";
-            lbl_ExitSN.Size = new System.Drawing.Size(220, 42);
-            lbl_ExitSN.TabIndex = 21;
-            // 
             // uiLabel6
             // 
             uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new System.Drawing.Point(30, 428);
+            uiLabel6.Location = new System.Drawing.Point(616, 596);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new System.Drawing.Size(183, 42);
             uiLabel6.TabIndex = 24;
@@ -277,27 +254,97 @@
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(30, 352);
+            uiLabel7.Location = new System.Drawing.Point(21, 596);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(183, 42);
             uiLabel7.TabIndex = 23;
             uiLabel7.Text = "外观检测结果1:";
+            // 
+            // uiLabel8
+            // 
+            uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel8.Location = new System.Drawing.Point(21, 498);
+            uiLabel8.Name = "uiLabel8";
+            uiLabel8.Size = new System.Drawing.Size(183, 42);
+            uiLabel8.TabIndex = 25;
+            uiLabel8.Text = "视觉1临时码:";
+            // 
+            // uiLabel11
+            // 
+            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel11.Location = new System.Drawing.Point(617, 498);
+            uiLabel11.Name = "uiLabel11";
+            uiLabel11.Size = new System.Drawing.Size(159, 42);
+            uiLabel11.TabIndex = 26;
+            uiLabel11.Text = "视觉2临时码:";
+            // 
+            // lbl_SN1
+            // 
+            lbl_SN1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_SN1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_SN1.Location = new System.Drawing.Point(192, 488);
+            lbl_SN1.Name = "lbl_SN1";
+            lbl_SN1.Size = new System.Drawing.Size(220, 42);
+            lbl_SN1.TabIndex = 27;
+            // 
+            // lbl_SN2
+            // 
+            lbl_SN2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_SN2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_SN2.Location = new System.Drawing.Point(814, 488);
+            lbl_SN2.Name = "lbl_SN2";
+            lbl_SN2.Size = new System.Drawing.Size(220, 42);
+            lbl_SN2.TabIndex = 28;
+            // 
+            // uiLabel10
+            // 
+            uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel10.Location = new System.Drawing.Point(30, 339);
+            uiLabel10.Name = "uiLabel10";
+            uiLabel10.Size = new System.Drawing.Size(140, 42);
+            uiLabel10.TabIndex = 29;
+            uiLabel10.Text = "进站结果:";
+            // 
+            // lbl_EntryResult
+            // 
+            lbl_EntryResult.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_EntryResult.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_EntryResult.Location = new System.Drawing.Point(176, 339);
+            lbl_EntryResult.Name = "lbl_EntryResult";
+            lbl_EntryResult.Size = new System.Drawing.Size(220, 42);
+            lbl_EntryResult.TabIndex = 30;
+            // 
+            // lbl_EntryMsg
+            // 
+            lbl_EntryMsg.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_EntryMsg.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_EntryMsg.Location = new System.Drawing.Point(658, 287);
+            lbl_EntryMsg.Name = "lbl_EntryMsg";
+            lbl_EntryMsg.Size = new System.Drawing.Size(452, 94);
+            lbl_EntryMsg.TabIndex = 31;
             // 
             // PageOP10
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1024);
+            Controls.Add(lbl_EntryMsg);
+            Controls.Add(lbl_EntryResult);
+            Controls.Add(uiLabel10);
+            Controls.Add(lbl_SN2);
+            Controls.Add(lbl_SN1);
+            Controls.Add(uiLabel11);
+            Controls.Add(uiLabel8);
             Controls.Add(uiLabel6);
             Controls.Add(uiLabel7);
-            Controls.Add(uiLabel10);
-            Controls.Add(lbl_ExitSN);
             Controls.Add(uiLabel9);
             Controls.Add(uiButton4);
             Controls.Add(cbx_Orders);
             Controls.Add(uiLabel5);
             Controls.Add(uiSwitch_Spot);
-            Controls.Add(lbl_ExitResult);
             Controls.Add(lbl_Vision2Result);
             Controls.Add(lbl_Vision1Result);
             Controls.Add(lbl_EntrySN);
@@ -331,17 +378,21 @@
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UILabel lbl_EntrySN;
-        private Sunny.UI.UILabel lbl_Vision1Result;
+        private UILabel lbl_Vision1Result;
         private Sunny.UI.UILabel lbl_Vision2Result;
-        private Sunny.UI.UILabel lbl_ExitResult;
         private Sunny.UI.UISwitch uiSwitch_Spot;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UIComboBox cbx_Orders;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UILabel uiLabel9;
-        private Sunny.UI.UILabel uiLabel10;
-        private Sunny.UI.UILabel lbl_ExitSN;
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
+        private Sunny.UI.UILabel uiLabel8;
+        private Sunny.UI.UILabel uiLabel11;
+        private Sunny.UI.UILabel lbl_SN1;
+        private Sunny.UI.UILabel lbl_SN2;
+        private UILabel uiLabel10;
+        private UILabel lbl_EntryResult;
+        private UILabel lbl_EntryMsg;
     }
 }

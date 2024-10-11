@@ -204,7 +204,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 StationCode = CURRENT_STATION_NAME,
                 SnTemp = "AQW12dswSAW",
                 // PassStationData = n
-                PassStationData = new OP10Data()
+                PassStationData = new PassStationData()
                 {
                     /*       Material = "物料信息AAA",
                            VisionData1 = "4dwadwa",

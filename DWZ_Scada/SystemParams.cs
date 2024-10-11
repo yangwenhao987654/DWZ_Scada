@@ -72,8 +72,8 @@ namespace DWZ_Scada
             OP20机械手绕线工站,
             OP30绕线检查工站,
             OP40TIG电焊工站,
-            OP50电测工站,
-            OP60出料打码工站,
+            OP60电测工站,
+            OP70出料打码工站,
         }
 
         public static SystemParams Instance = new SystemParams();
@@ -128,6 +128,15 @@ namespace DWZ_Scada
         public int OP20_PlcPort { get; set; }
         #endregion
 
+        #region OP30工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("3.OP30工站"), Description("PLC的IP地址")]
+        public string OP30_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("3.OP30工站"), Description("PLC的端口号")]
+        public int OP30_PlcPort { get; set; }
+        #endregion
+
 
         #region OP40工站参数
         [Permission(3), ReadOnly(false)]
@@ -140,15 +149,6 @@ namespace DWZ_Scada
 
 
 
-        #region OP50工站参数
-        [Permission(3), ReadOnly(false)]
-        [DisplayName("1.PLC IP地址"), Category("5.OP50工站"), Description("PLC的IP地址")]
-        public string OP50_PlcIP { get; set; }
-        [Permission(3), ReadOnly(false)]
-        [DisplayName("2.PLC 端口号"), Category("5.OP50工站"), Description("PLC的端口号")]
-        public int OP50_PlcPort { get; set; }
-        #endregion
-
         #region OP60工站参数
         [Permission(3), ReadOnly(false)]
         [DisplayName("1.PLC IP地址"), Category("6.OP60工站"), Description("PLC的IP地址")]
@@ -156,6 +156,15 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("2.PLC 端口号"), Category("6.OP60工站"), Description("PLC的端口号")]
         public int OP60_PlcPort { get; set; }
+        #endregion
+
+        #region OP70工站参数
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.PLC IP地址"), Category("7.OP70工站"), Description("PLC的IP地址")]
+        public string OP70_PlcIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.PLC 端口号"), Category("7.OP70工站"), Description("PLC的端口号")]
+        public int OP70_PlcPort { get; set; }
         #endregion
 
 

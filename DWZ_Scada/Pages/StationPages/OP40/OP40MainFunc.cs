@@ -1,5 +1,7 @@
 ﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP20;
+using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
@@ -16,6 +18,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 {
     public class OP40MainFunc : MainFuncBase, IDisposable
     {
+        public delegate void OP40TestFinished(string sn, bool result);
+
+
+        public static event OP40TestFinished OnVision1Finished;
+
+        public static event OP40TestFinished OnWeldingFinished;
+
         private static readonly OP40Model OpModel = new();
 
         public static string StationName = "OP40";
@@ -50,6 +59,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         public OP40MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
+            StationName = "OP40";
+            StationCode = "OP40";
         }
 
         public void Dispose()
@@ -71,22 +82,22 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             }
             DeviceStateDTO dto = new DeviceStateDTO()
             {
-                DeviceCode = "0001",
-                DeviceName = "工站01",
+                DeviceCode = StationCode,
+                DeviceName = StationName,
             };
             switch (currentState)
             {
                 case -1:
-                    dto.Status = "停机";
+                    dto.Status = "stop";
                     break;
                 case 1:
-                    dto.Status = "运行中";
+                    dto.Status = "run";
                     break;
                 case 2:
-                    dto.Status = "待机中";
+                    dto.Status = "run";
                     break;
                 default:
-                    dto.Status = "故障";
+                    dto.Status = "breakdown";
                     break;
             }
 
@@ -103,10 +114,10 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             }
 
             DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            await stateService.AddDeviceState(dto);
+            //await stateService.AddDeviceState(dto);
         }
 
-        public override void PLCMainWork(CancellationToken token)
+        public override async void PLCMainWork(CancellationToken token)
         {
             //进站信号
             bool isEntry;
@@ -164,13 +175,18 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                             
                         }
                         // 处理设备状态
-                 
 
                         //这里判断设备是不是点检模式
 
 
                         // 处理进站信号
-                        ProcessEntrySignal(dt);
+                        await ProcessEntrySignal();
+
+                        //处理焊接流程 获取焊接数据
+                        await HandleWelding();
+
+                        //处理画像检测
+                        await HandleVisionResult();
                     }
                     else
                     {
@@ -182,8 +198,104 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 {
                     LogMgr.Instance.Error($"Exception in PLCMainWork: {ex.Message}");
                 }
-
                 Thread.Sleep(1000);
+            }
+        }
+
+        private async Task HandleWelding()
+        {
+            if (PLC.ReadBool(OP40Address.WeldingFinish, out bool isFinish) && isFinish)
+            {
+                LogMgr.Instance.Debug("收到[OP40]焊接完成信号");
+                //复位视觉完成
+                PLC.Write(OP40Address.WeldingFinish, "Bool", false);
+                PLC.Read(OP40Address.WeldingSn, "string-20", out string sn);
+                LogMgr.Instance.Debug("读取出站条码内容:" + sn);
+                //TODO 读取焊接数据数据
+                //PLC.Read(OP40Address.WeldingDataStart, out int result);
+
+                bool result =CheckWeldingData();
+                //界面更新
+                OnWeldingFinished?.Invoke(sn, result);
+                //string snTest = "QWER123456";
+                //上传Mes测试数据
+                PassStationDTO dto = new PassStationDTO()
+                {
+                    StationCode = StationCode,
+                    SnTemp = SnTest,
+                    WorkOrder = "MO202409110002",
+                    PassStationData = new WeldingData()
+                    {
+                        WeldingResult =result,
+                        Good = result,
+                        GasA1 = "1.12",
+                        GasA2 = "35.654",
+                        GasA3 = "35.12",
+                        GasA4 = "12.2",
+                        GasA5 = "66.5",
+                        GasA6 = "0.0",
+                        GasB1 = "1201",
+                        GasB2 = "12.2",
+                        GasB3 = "16.6",
+                        GasB4 = "785.5",
+                        GasB5 = "78.5",
+                        GasB6 = "78.415",
+                        GasC1 = "3.23",
+                        GasC2 = "5.415",
+                        GasC3 = "1.563",
+                        GasC4 = "8.453",
+                        GasC5 = "4.56",
+                        GasC6 = "6.46"
+                    },
+                    isLastStep = false
+                };
+                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                LogMgr.Instance.Debug($"焊接结果:{(result  ? "OK" : "NG")}");
+                PLC.Write(OP40Address.WeldingResult, "Bool", result);
+            }
+        }
+
+        /// <summary>
+        /// 判断绕线数据
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckWeldingData()
+        {
+            //判断绕线数据 是否正常
+            return true;
+        }
+
+        private async Task HandleVisionResult()
+        {
+            if (PLC.ReadBool(OP40Address.VisionFinish, out bool isFinish) && isFinish)
+            {
+                LogMgr.Instance.Debug("收到[OP40]视觉完成信号");
+                //复位视觉完成
+                PLC.Write(OP40Address.VisionFinish, "Bool", false);
+                PLC.Read(OP40Address.VisionSn, "string-20", out string sn);
+                LogMgr.Instance.Debug("读取出站条码内容:" + sn);
+                PLC.ReadInt16(OP40Address.VisionResult, out int result);
+
+                bool visionResult = result == 1 ? true : false;
+                //界面更新
+                OnVision1Finished?.Invoke(sn, visionResult);
+                //string snTest = "QWER123456";
+                //上传Mes测试数据
+                PassStationDTO dto = new PassStationDTO()
+                {
+                    StationCode = StationCode,
+                    SnTemp = SnTest,
+                    WorkOrder = "MO202409110002",
+                    PassStationData = new Vision1Data()
+                    {
+                        Vision1Result = visionResult,
+                        Good = visionResult,
+                    },
+                    isLastStep = true
+                };
+                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
+                PLC.Write(OP30Address.VisionOut, "Bool", result);
             }
         }
 
@@ -325,40 +437,25 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
 
         // 处理进站信号
-        private async Task ProcessEntrySignal(DateTime dt)
+
+        // 处理进站信号
+        private async Task ProcessEntrySignal()
         {
             if (PLC.ReadBool(OP40Address.EntrySignal, out bool isEntry) && isEntry)
             {
-                PLC.Read(OP40Address.EntrySn, "string", out string sn);
-                OP10EntryCommand entryCommand = new(sn);
-                entryCommand.Execute();
-
-                if (PLC.ReadInt16(OP40Address.Collect, out int collectSignal) && collectSignal == 1)
+                PLC.Write(OP40Address.EntrySignal, "Bool", false);
+                PLC.Read(OP40Address.EntrySn, "string-20", out string sn);
+                EntryRequestDTO requestDto = new()
                 {
-                    //TODO 开始数据采集
-                    if (IsSpotCheck)
-                    {
-                        //TODO 上传点检数据
-                        DeviceInspectDTO dto = new DeviceInspectDTO()
-                        {
-                            DeviceCode = StationName,
-                            DeviceName = "工站01",
-
-                        };
-                        await UploadSpotCheckData(dto);
-                    }
-                    else
-                    {
-                        //TODO 正常数据上报
-                        PassStationDTO dto = new()
-                        {
-                            StationCode = StationName,
-                            SnTemp = "AQW12dswSAW",
-                            PassStationData = new OP10Data()
-                        };
-                        await UploadStationData(dto);
-                    }
-                }
+                    SnTemp = SnTest,
+                    StationCode = StationCode,
+                    WorkOrder = "MO202409110002"
+                };
+                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
+                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                //
+                LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
+                PLC.Write(OP40Address.EntryResult, "Bool", flag);
             }
         }
 

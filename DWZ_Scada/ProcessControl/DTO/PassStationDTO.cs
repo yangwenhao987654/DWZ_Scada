@@ -18,8 +18,15 @@ namespace DWZ_Scada.ProcessControl.DTO
 
         public object PassStationData { get; set; }
 
-        public string a { get; set; }
+        /// <summary>
+        /// 是否是数据上报的最后一项
+        /// </summary>
+        public bool isLastStep { get; set; }
+    }
 
-        public string b { get; set; }
+    public class PassStationData
+    {
+        public bool Good { get; set; }
+        public object Data { get; set; }
     }
 }
