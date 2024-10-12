@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using static DWZ_Scada.Pages.StationPages.OP10.PageOP10;
 
 namespace DWZ_Scada.Pages.StationPages.OP10
 {

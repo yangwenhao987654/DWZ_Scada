@@ -11,11 +11,11 @@ namespace DWZ_Scada.ProcessControl.DTO
     /// </summary>
     public class EntryResultDTO
     {
-        public string Message { get; set; }
+        public string msg { get; set; }
 
         /// <summary>
         /// 状态码200 标识成功
         /// </summary>
-        public int Code { get; set; }
+        public int code { get; set; }
     }
 }

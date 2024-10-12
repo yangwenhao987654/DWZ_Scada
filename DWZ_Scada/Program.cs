@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.HttpRequest;
+﻿using AutoTF;
+using DWZ_Scada.HttpRequest;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages;
 using DWZ_Scada.ProcessControl;
@@ -81,6 +82,26 @@ namespace DWZ_Scada
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
                         #endregion
+                        //TODO 先登录 登录成功后进入系统
+                        PageLogin page = new PageLogin();
+                        page.BringToFront();
+                        page.Show();
+                        while (true)
+                        {
+                            Application.DoEvents(); // Process other events
+
+                            if (Global.IsLogin)
+                            {
+                                break; // Exit loop on successful login
+                            }
+
+                            if (Global.IsClose)
+                            {
+                                Environment.Exit(0); // Exit if the user closes the login dialog
+                                return;
+                            }
+                        }
+
 
                         //获取配置
                         //注册服务

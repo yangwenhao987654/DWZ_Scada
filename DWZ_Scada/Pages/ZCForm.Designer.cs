@@ -43,8 +43,8 @@ namespace DWZ_Scada.Pages
             uiLabel9 = new Sunny.UI.UILabel();
             uiLabel10 = new Sunny.UI.UILabel();
             panel3 = new System.Windows.Forms.Panel();
-            uiLabel14 = new Sunny.UI.UILabel();
-            lblLoginName = new Sunny.UI.UILabel();
+            lblLoginUserName = new Sunny.UI.UILabel();
+            lblLoginTime = new Sunny.UI.UILabel();
             lblTime = new Sunny.UI.UILabel();
             uiLabel5 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
@@ -231,8 +231,8 @@ namespace DWZ_Scada.Pages
             // panel3
             // 
             panel3.BackColor = System.Drawing.Color.Transparent;
-            panel3.Controls.Add(uiLabel14);
-            panel3.Controls.Add(lblLoginName);
+            panel3.Controls.Add(lblLoginUserName);
+            panel3.Controls.Add(lblLoginTime);
             panel3.Controls.Add(lblTime);
             panel3.Controls.Add(uiLabel5);
             panel3.Controls.Add(uiLabel6);
@@ -243,25 +243,23 @@ namespace DWZ_Scada.Pages
             panel3.Size = new System.Drawing.Size(435, 109);
             panel3.TabIndex = 2;
             // 
-            // uiLabel14
+            // lblLoginUserName
             // 
-            uiLabel14.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel14.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel14.Location = new System.Drawing.Point(114, 59);
-            uiLabel14.Name = "uiLabel14";
-            uiLabel14.Size = new System.Drawing.Size(311, 28);
-            uiLabel14.TabIndex = 6;
-            uiLabel14.Text = "张三(操作工)";
+            lblLoginUserName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lblLoginUserName.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lblLoginUserName.Location = new System.Drawing.Point(114, 59);
+            lblLoginUserName.Name = "lblLoginUserName";
+            lblLoginUserName.Size = new System.Drawing.Size(311, 28);
+            lblLoginUserName.TabIndex = 6;
             // 
-            // lblLoginName
+            // lblLoginTime
             // 
-            lblLoginName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            lblLoginName.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lblLoginName.Location = new System.Drawing.Point(114, 30);
-            lblLoginName.Name = "lblLoginName";
-            lblLoginName.Size = new System.Drawing.Size(311, 28);
-            lblLoginName.TabIndex = 5;
-            lblLoginName.Text = "苏州中昌";
+            lblLoginTime.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lblLoginTime.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lblLoginTime.Location = new System.Drawing.Point(114, 30);
+            lblLoginTime.Name = "lblLoginTime";
+            lblLoginTime.Size = new System.Drawing.Size(311, 28);
+            lblLoginTime.TabIndex = 5;
             // 
             // lblTime
             // 
@@ -271,7 +269,6 @@ namespace DWZ_Scada.Pages
             lblTime.Name = "lblTime";
             lblTime.Size = new System.Drawing.Size(311, 28);
             lblTime.TabIndex = 4;
-            lblTime.Text = "12345";
             // 
             // uiLabel5
             // 
@@ -471,7 +468,7 @@ namespace DWZ_Scada.Pages
             uiButton8.RectColor = System.Drawing.Color.SlateGray;
             uiButton8.Size = new System.Drawing.Size(161, 45);
             uiButton8.TabIndex = 8;
-            uiButton8.Text = "退出登录(F12)";
+            uiButton8.Text = "退出程序(Esc)";
             uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton8.Click += uiButton8_Click;
             // 
@@ -673,9 +670,9 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel uiLabel11;
         private Sunny.UI.UILabel uiLabel12;
         private Sunny.UI.UILabel uiLabel13;
-        private Sunny.UI.UILabel lblLoginName;
+        private Sunny.UI.UILabel lblLoginTime;
         private Sunny.UI.UILabel lblTime;
-        private Sunny.UI.UILabel uiLabel14;
+        private Sunny.UI.UILabel lblLoginUserName;
         private Sunny.UI.UILabel lbl_PLCState;
         private Sunny.UI.UILabel uiLabel17;
         private Sunny.UI.UILabel uiLabel18;

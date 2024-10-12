@@ -1,4 +1,5 @@
 ﻿using AutoTF;
+using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.Pages.StationPages.OP40;
@@ -8,6 +9,9 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using TouchSocket.Core;
+using TouchSocket.Http;
+using TouchSocket.Sockets;
 using Timer = System.Threading.Timer;
 
 namespace DWZ_Scada.Pages
@@ -15,6 +19,8 @@ namespace DWZ_Scada.Pages
     public partial class ZCForm : UIForm
     {
         private static ZCForm _instance;
+
+        public HttpService MyHttpService;
 
         private ListViewEx_Log listViewExLog;
         private Timer timer;
@@ -51,7 +57,8 @@ namespace DWZ_Scada.Pages
                 try
                 {
                     LogMgr.Instance.Info("退出程序");
-
+                    MyHttpService?.Stop();
+                    MyHttpService?.Dispose();
                     //释放资源
                     timer?.Dispose();
                     e.Cancel = false;
@@ -72,8 +79,32 @@ namespace DWZ_Scada.Pages
             KeyDown += Form_KeyDown;
 
             SetAutoStart();
+            StartServer();
             listViewExLog = new ListViewEx_Log();
             LogMgr.Instance.SetCtrl(listViewExLog);
+
+            lblLoginUserName.Text = Global.LoginUser;
+            lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+
+        }
+        public void StartServer()
+        {
+            MyHttpService = new HttpService();
+            MyHttpService.Setup(new TouchSocketConfig()
+                .SetListenIPHosts(8090)
+                /*   .ConfigureContainer(a =>
+                   {
+                       a.AddConsoleLogger();
+                   })*/
+                .ConfigurePlugins(a =>
+                {
+                    a.Add<SelectionHttpPlug>();
+                    a.Add<ConsumablePartsHttpPlug>();
+                    a.UseDefaultHttpServicePlugin();
+                })
+            );
+            MyHttpService.Start();
+            LogMgr.Instance.Info("启动HttpServer");
         }
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
@@ -178,8 +209,7 @@ namespace DWZ_Scada.Pages
                 return;
             }
 
-            lblTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff");
-            lblLoginName.Text = "调用线程ID:" + state;
+            lblTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ");
         }
 
         public void AddFormTopanel(Control ctrl)

@@ -61,7 +61,7 @@
             uiPanel1.Radius = 20;
             uiPanel1.RectSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.None;
             uiPanel1.RectSize = 2;
-            uiPanel1.Size = new System.Drawing.Size(849, 606);
+            uiPanel1.Size = new System.Drawing.Size(708, 506);
             uiPanel1.StyleCustomMode = true;
             uiPanel1.TabIndex = 0;
             uiPanel1.Text = null;
@@ -72,7 +72,7 @@
             label1.BackColor = System.Drawing.Color.Transparent;
             label1.Font = new System.Drawing.Font("宋体", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             label1.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            label1.Location = new System.Drawing.Point(162, 71);
+            label1.Location = new System.Drawing.Point(68, 46);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(495, 78);
             label1.TabIndex = 13;
@@ -86,7 +86,7 @@
             uiTextBox2.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiTextBox2.IconSize = 20;
             uiTextBox2.IntValue = 1111111;
-            uiTextBox2.Location = new System.Drawing.Point(255, 419);
+            uiTextBox2.Location = new System.Drawing.Point(161, 394);
             uiTextBox2.Margin = new System.Windows.Forms.Padding(0);
             uiTextBox2.MinimumSize = new System.Drawing.Size(1, 16);
             uiTextBox2.Name = "uiTextBox2";
@@ -110,7 +110,7 @@
             uiComboBox1.ItemHeight = 35;
             uiComboBox1.ItemHoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             uiComboBox1.ItemSelectForeColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            uiComboBox1.Location = new System.Drawing.Point(255, 280);
+            uiComboBox1.Location = new System.Drawing.Point(161, 255);
             uiComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
             uiComboBox1.Name = "uiComboBox1";
@@ -134,7 +134,7 @@
             uiSymbolButton2.FillSelectedColor = System.Drawing.Color.FromArgb(184, 64, 64);
             uiSymbolButton2.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiSymbolButton2.LightColor = System.Drawing.Color.FromArgb(253, 243, 243);
-            uiSymbolButton2.Location = new System.Drawing.Point(501, 350);
+            uiSymbolButton2.Location = new System.Drawing.Point(407, 325);
             uiSymbolButton2.MinimumSize = new System.Drawing.Size(1, 1);
             uiSymbolButton2.Name = "uiSymbolButton2";
             uiSymbolButton2.Radius = 15;
@@ -158,7 +158,7 @@
             uiSymbolButton1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             uiSymbolButton1.FillColor = System.Drawing.Color.DeepSkyBlue;
             uiSymbolButton1.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiSymbolButton1.Location = new System.Drawing.Point(501, 281);
+            uiSymbolButton1.Location = new System.Drawing.Point(407, 256);
             uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
             uiSymbolButton1.Name = "uiSymbolButton1";
             uiSymbolButton1.Radius = 15;
@@ -173,7 +173,7 @@
             // 
             uiTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             uiTextBox1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiTextBox1.Location = new System.Drawing.Point(255, 349);
+            uiTextBox1.Location = new System.Drawing.Point(161, 324);
             uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
             uiTextBox1.Name = "uiTextBox1";
@@ -192,7 +192,7 @@
             uiLine1.BackColor = System.Drawing.Color.Transparent;
             uiLine1.Font = new System.Drawing.Font("微软雅黑", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLine1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLine1.Location = new System.Drawing.Point(246, 202);
+            uiLine1.Location = new System.Drawing.Point(152, 148);
             uiLine1.MinimumSize = new System.Drawing.Size(1, 1);
             uiLine1.Name = "uiLine1";
             uiLine1.Size = new System.Drawing.Size(319, 62);
@@ -205,7 +205,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.FromArgb(253, 249, 241);
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            ClientSize = new System.Drawing.Size(849, 606);
+            ClientSize = new System.Drawing.Size(708, 506);
             ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(227, 175, 83);
             Controls.Add(uiPanel1);
             ExtendSymbol = 62144;

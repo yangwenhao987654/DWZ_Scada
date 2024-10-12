@@ -91,6 +91,7 @@ namespace AutoTF
         private void uiSymbolButton2_Click(object sender, EventArgs e)
         {
             //取消
+            Global.IsClose = true;
             this.Close();
         }
 

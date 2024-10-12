@@ -36,6 +36,7 @@ namespace DWZ_Scada
         public static bool isYWH { get; set; }
 
         public static List<PLCAlarmData> PlcAlarmList = new List<PLCAlarmData>();
+        public static bool IsClose { get; set; }
     }
    
   

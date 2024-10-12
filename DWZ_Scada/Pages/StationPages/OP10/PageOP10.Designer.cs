@@ -83,6 +83,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiTextBox1.TabIndex = 3;
             uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             uiTextBox1.Watermark = "扫码物料码";
+            uiTextBox1.TextChanged += uiTextBox1_TextChanged;
             // 
             // uiLabel2
             // 

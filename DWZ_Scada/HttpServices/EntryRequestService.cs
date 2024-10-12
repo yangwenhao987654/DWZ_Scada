@@ -1,9 +1,11 @@
-﻿using DWZ_Scada.HttpRequest;
+﻿using DWZ_Scada.dao.response;
+using DWZ_Scada.HttpRequest;
 using DWZ_Scada.ProcessControl;
 using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
 using System.Threading.Tasks;
 
 namespace DWZ_Scada.HttpServices
@@ -27,29 +29,34 @@ namespace DWZ_Scada.HttpServices
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);
             string msg = string.Empty;
             bool isSuccessful = response.IsSuccessful;
-            if (isSuccessful)
+            bool result =false;
+            try
             {
-                string content = response.Content;
-                EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(content);
-                if (resultDto.Code == 200)
+                if (isSuccessful)
                 {
-                    LogMgr.Instance.Info($"请求成功:{resultDto.Message}");
-                 
+                    string content = response.Content;
+                    EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(content);
+                    if (resultDto.code == 200)
+                    {
+                        LogMgr.Instance.Info($"请求成功:{resultDto.msg}");
+                        result = true;
+                    }
+                    else
+                    {
+                        LogMgr.Instance.Error($"请求失败:{resultDto.msg}");
+                    }
+                    msg = resultDto.msg;
                 }
                 else
                 {
-                    LogMgr.Instance.Error($"请求失败:{resultDto.Message}");
-                    msg = resultDto.Message;
+                    LogMgr.Instance.Error("请求错误");
+                    msg = "请求错误";
                 }
             }
-            else
+            catch (Exception e)
             {
-                LogMgr.Instance.Error("请求错误");
-                msg = "请求错误";
+                LogMgr.Instance.Error($"解析进站响应错误:{e.Message}");
             }
-
-            bool result = _httpClientHelper.AnalyzeResponse(response);
-         
             return (result,msg);
         }
     }

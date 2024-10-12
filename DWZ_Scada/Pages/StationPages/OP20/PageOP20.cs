@@ -30,14 +30,6 @@ namespace DWZ_Scada
     public partial class PageOP20 : UIPage
     {
 
-        public HttpService MyHttpService;
-
-        /*/// <summary>
-        /// 当前站名
-        /// OP20
-        /// </summary>
-        private const string CURRENT_STATION_NAME = "OP20";*/
-
         public List<OrderVo> Orders { get; set; }
 
         /// <summary>
@@ -88,8 +80,6 @@ namespace DWZ_Scada
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug($"打开{OP20MainFunc.StationName}工站");
 
-            // Mes 选型服务  监控Mes选型消息
-            TestHttp();
             ISelectionStrategyEvent op20Strategy = new OP20SelectionStrategy();
             op20Strategy.OnSelectionEvent += OP20SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -130,97 +120,17 @@ namespace DWZ_Scada
             LogMgr.Instance.Info("选型结束");
         }
 
-        public void TestHttp()
-        {
-            LogMgr.Instance.Debug($"启动{OP20MainFunc.StationCode}工站服务端...");
-            StartServer();
-            LogMgr.Instance.Debug($"{OP20MainFunc.StationCode}工站服务端启动完成...");
-            //HTTP客户端请求
-            /*     
-                 Console.WriteLine("启动模拟客户端发送请求...");
-                 string url = @"http://localhost:8090/test";
-                 TestGetRequest<SelectionResultDTO>(url);
-            */
-        }
-
-        public void StartServer()
-        {
-            MyHttpService = new HttpService();
-            MyHttpService.Setup(new TouchSocketConfig()
-               .SetListenIPHosts(8090)
-            /*   .ConfigureContainer(a =>
-               {
-                   a.AddConsoleLogger();
-               })*/
-               .ConfigurePlugins(a =>
-               {
-                   a.Add<SelectionHttpPlug>();
-                   a.Add<ConsumablePartsHttpPlug>();
-                   a.UseDefaultHttpServicePlugin();
-               })
-           );
-            MyHttpService.Start();
-            LogMgr.Instance.Info("启动HttpServer");
-        }
-
-        public static void TestGetRequest<T>(string url)
-        {
-            string baseUrl = url;
-            MyHttpClient client = new MyHttpClient(baseUrl);
-            Task<RestResponse> task = client.GetAsync("");
-            RestResponse response = task.Result;
-            string res = response.Content;
-            T dto = JsonConvert.DeserializeObject<T>(res);
-            Console.WriteLine(dto.GetType());
-            string jsonStr = JsonConvert.SerializeObject(dto);
-            SelectionResultDTO result = JsonConvert.DeserializeObject<SelectionResultDTO>(res);
-            Console.WriteLine(jsonStr);
-
-        }
 
         private void uiLabel1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void uiButton1_Click(object sender, EventArgs e)
-        {
-            string sn = uiTextBox1.Text;
-            if (string.IsNullOrEmpty(sn))
-            {
-                sn = "24TT0001";
-            }
-            EntryCommand op10Entry = new OP10EntryCommand(sn);
-            op10Entry.Execute();
-        }
-
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
-            MyHttpService?.Stop();
-            MyHttpService?.Dispose();
             OP20MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationName}程序");
-        }
-
-        private async Task TestPassStationUpload()
-        {
-            PassStationDTO dto = new PassStationDTO()
-            {
-                StationCode = "OP20",
-                SnTemp = "AQW12dswSAW",
-                // PassStationData = n
-                PassStationData = new PassStationData()
-                {
-                    /*       Material = "物料信息AAA",
-                           VisionData1 = "4dwadwa",
-                           VisionData2 = "sw23435",
-                           VisionPicPath = "D:\\test",
-                           VisionResult = "OK"*/
-                }
-            };
-            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
-            service.SendPassStationData(dto);
         }
 
         private void uiLabel2_Click(object sender, EventArgs e)

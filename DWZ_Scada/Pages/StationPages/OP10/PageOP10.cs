@@ -26,8 +26,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
     public partial class PageOP10 : UIPage
     {
 
-        public HttpService MyHttpService;
-
         /// <summary>
         /// 当前站名
         /// OP10
@@ -75,16 +73,16 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             InitializeComponent();
             _instance = this;
-        
+
         }
 
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug("打开OP10工站");
-            
+
             // Mes 选型服务  监控Mes选型消息
-            TestHttp();
+   
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -95,8 +93,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             MainFuncBase.RegisterFactory(() => new OP10MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
-              //lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
-              op10Model.ExitSN = "6666";
+            //lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
+            op10Model.ExitSN = "6666";
             //UpdateTempSN("6654");
 
             OP10MainFunc.OnVision1Finished += PageOP10_OnVision1Finished;
@@ -114,11 +112,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             UpdateV2(sn, result);
         }
 
-        public void UpdateV1(string sn,bool result)
+        public void UpdateV1(string sn, bool result)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string,bool>(UpdateV1), sn,result);
+                Invoke(new Action<string, bool>(UpdateV1), sn, result);
                 return;
             }
             lbl_SN1.Text = sn;
@@ -133,14 +131,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 return;
             }
             lbl_EntrySN.Text = sn;
-           
+
         }
 
-        public void UpdateEnrtyResult(bool result,string msg)
+        public void UpdateEnrtyResult(bool result, string msg)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<bool,string>(UpdateEnrtyResult), result,msg);
+                Invoke(new Action<bool, string>(UpdateEnrtyResult), result, msg);
                 return;
             }
             lbl_EntryResult.Text = result ? "OK" : "NG";
@@ -154,7 +152,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 Invoke(new Action(ClearEntryResult));
                 return;
             }
-            lbl_EntryResult.Text ="";
+            lbl_EntryResult.Text = "";
             lbl_EntryMsg.Text = "请求中.....";
         }
 
@@ -193,38 +191,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             LogMgr.Instance.Info("选型结束");
         }
 
-        public void TestHttp()
-        {
-            LogMgr.Instance.Debug("启动OP10工站服务端...");
-            StartServer();
-            LogMgr.Instance.Debug("OP10工站服务端启动完成...");
-            //HTTP客户端请求
-            /*     
-                 Console.WriteLine("启动模拟客户端发送请求...");
-                 string url = @"http://localhost:8090/test";
-                 TestGetRequest<SelectionResultDTO>(url);
-            */
-        }
-
-        public void StartServer()
-        {
-            MyHttpService = new HttpService();
-            MyHttpService.Setup(new TouchSocketConfig()
-               .SetListenIPHosts(8090)
-            /*   .ConfigureContainer(a =>
-               {
-                   a.AddConsoleLogger();
-               })*/
-               .ConfigurePlugins(a =>
-               {
-                   a.Add<SelectionHttpPlug>();
-                   a.Add<ConsumablePartsHttpPlug>();
-                   a.UseDefaultHttpServicePlugin();
-               })
-           );
-            MyHttpService.Start();
-            LogMgr.Instance.Info("启动HttpServer");
-        }
+      
 
         public static void TestGetRequest<T>(string url)
         {
@@ -259,8 +226,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
             LogMgr.Instance.Info("关闭OP10-HttpServer");
-            MyHttpService?.Stop();
-            MyHttpService?.Dispose();
             OP10MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info("关闭OP10程序");
         }
@@ -376,6 +341,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         }
 
         private void PageOP10_Initialize(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
