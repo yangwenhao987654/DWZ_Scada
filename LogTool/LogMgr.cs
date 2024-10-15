@@ -62,7 +62,7 @@ namespace LogTool
             {
                 return true;
             }
-            FileInfo fi = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Log4Net.config");
+            FileInfo fi = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Config//Log4Net.config");
             if(!fi.Exists)
             {
                 MessageBox.Show($@"日志路径{fi.FullName}不存在");

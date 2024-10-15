@@ -62,9 +62,6 @@
     <None Update="Config\dbConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Config\Log4Net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Config\OP10上料打码工站-PLC参数设置.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -80,9 +77,6 @@
     <None Update="DATA\无-PLC参数设置.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Params\Params-backup.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Params\Params.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -90,9 +84,15 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Update="Test\AAA11.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="E:\DotNetCoreCode\repos\DWZ_Scada-NetCore8.0\DWZ_Scada\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Params\Params-backup.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="E:\DotNetCoreCode\repos\DWZ_Scada-NetCore8.0\DWZ_Scada\.editorconfig" />
@@ -100,7 +100,9 @@
   <ItemGroup>
     <Folder Include="DATA\OP10上料打码工站-PLC参数设置.XML\" />
     <Folder Include="Pages\PLCControl\" />
-    <Folder Include="Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <DesignData Include="Params\Params-backup.json" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties testjsonfile_4getworkorder_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
 </Project>
