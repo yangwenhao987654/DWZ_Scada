@@ -81,7 +81,7 @@ namespace ZC_DataAcquisition
             throw new NotImplementedException();
         }
 
-        public override bool ReadInt16(string address, out int value)
+        public override bool ReadInt16(string address, out short value)
         {
             throw new NotImplementedException();
         }

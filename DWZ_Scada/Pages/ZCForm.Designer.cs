@@ -617,7 +617,8 @@ namespace DWZ_Scada.Pages
             EscClose = true;
             Font = new System.Drawing.Font("微软雅黑", 12F);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new System.Drawing.Size(1080, 680);
+            MaximumSize = new System.Drawing.Size(1920, 1080);
+            MinimumSize = new System.Drawing.Size(1280, 1024);
             Name = "ZCForm";
             Text = "数据采集系统";
             TitleColor = System.Drawing.Color.AliceBlue;

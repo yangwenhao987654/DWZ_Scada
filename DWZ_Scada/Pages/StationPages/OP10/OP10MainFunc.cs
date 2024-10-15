@@ -258,7 +258,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
                 PLC.Write(OP10Address.Vision2_Out, "Bool", result);
 
-
             }
         }
 
@@ -365,6 +364,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     // TODO: 上传报警信息到数据库
                 }
             }
+
             else
             {
                 if (ActiveAlarms.ContainsKey(alarmKey))
@@ -453,7 +453,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// <returns></returns>
         private int ReadPLCState()
         {
-            int state;
+            short state =-1;
             bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;

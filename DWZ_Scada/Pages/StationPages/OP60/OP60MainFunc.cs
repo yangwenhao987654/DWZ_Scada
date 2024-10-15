@@ -369,7 +369,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         /// <returns></returns>
         private int ReadPLCState()
         {
-            int state;
+            short state;
             bool readFlag = PLC.ReadInt16(OP60Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;

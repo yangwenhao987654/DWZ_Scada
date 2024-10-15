@@ -19,7 +19,7 @@ namespace CommunicationUtilYwh.Communication.PLC
 
         public abstract bool ReadBool(string address, out bool value);
 
-        public abstract bool ReadInt16(string address, out int value);
+        public abstract bool ReadInt16(string address, out short value);
 
         public abstract bool Read(string adr, string type, out string value);
 

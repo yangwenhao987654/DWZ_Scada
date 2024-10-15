@@ -1,10 +1,8 @@
 ﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP20;
-using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +17,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
     public class OP40MainFunc : MainFuncBase, IDisposable
     {
         public delegate void OP40TestFinished(string sn, bool result);
-
 
         public static event OP40TestFinished OnVision1Finished;
 
@@ -274,7 +271,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 PLC.Write(OP40Address.VisionFinish, "Bool", false);
                 PLC.Read(OP40Address.VisionSn, "string-20", out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-                PLC.ReadInt16(OP40Address.VisionResult, out int result);
+                PLC.ReadInt16(OP40Address.VisionResult, out short result);
 
                 bool visionResult = result == 1 ? true : false;
                 //界面更新
@@ -480,7 +477,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// <returns></returns>
         private int ReadPLCState()
         {
-            int state;
+            short state;
             bool readFlag = PLC.ReadInt16(OP40Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;

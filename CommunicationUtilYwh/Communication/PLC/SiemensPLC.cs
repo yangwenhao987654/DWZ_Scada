@@ -76,20 +76,6 @@ namespace CommunicationUtilYwh.Communication
         }
 
 
-        public bool ReadInt16(string adr, out short value)
-        {
-            bool flag = false;
-            value = 0;
-            lock (_lock)
-            {
-                OperateResult<Int16> operate = client.ReadInt16(adr);
-                value = operate.Content;
-                flag = operate.IsSuccess;
-            }
-            return flag;
-        }
-
-
         public bool ReadInt32(string adr, out int value)
         {
             bool flag = false;
@@ -116,9 +102,13 @@ namespace CommunicationUtilYwh.Communication
             return flag;
         }
 
-        public override bool ReadInt16(string address, out int value)
+        public override bool ReadInt16(string address, out short value)
         {
-            throw new NotImplementedException();
+            bool flag = false;
+            OperateResult<short> operate = client.ReadInt16(address);
+            value = operate.Content;
+            flag = operate.IsSuccess;
+            return flag;
         }
 
         public bool ReadBool(string adr, int length, out bool[] value)

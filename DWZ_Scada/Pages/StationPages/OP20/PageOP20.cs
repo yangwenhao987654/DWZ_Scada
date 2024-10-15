@@ -144,14 +144,6 @@ namespace DWZ_Scada
 
         }
 
-        private void uiButton4_Click(object sender, EventArgs e)
-        {
-            //进入点检模式 生产数据跟正常数据分开
-            OP20MainFunc.Instance.PLC.Write(OP20Address.SpotCheck, "bool", true);
-            OP20MainFunc.Instance.IsSpotCheck = true;
-
-        }
-
         private void uiSwitch_Spot_ValueChanged(object sender, bool value)
         {
             if (value)

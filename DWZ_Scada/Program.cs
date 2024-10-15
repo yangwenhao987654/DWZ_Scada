@@ -133,7 +133,7 @@ namespace DWZ_Scada
                         pageLogin.ShowDialog();*/
 
                         ZCForm mainForm = ZCForm.Instance;
-                        mainForm.WindowState = FormWindowState.Maximized;
+                        //mainForm.WindowState = FormWindowState.Maximized;
                         Application.Run(mainForm);
                     }
                 }
@@ -172,13 +172,13 @@ namespace DWZ_Scada
             #region Mes接口服务
 
             services.AddSingleton<HttpClientHelper>();
-            services.AddTransient<DeviceStateService>();
-            services.AddTransient<DamageableService>();
-            services.AddTransient<InspectService>();
-            services.AddTransient<EntryRequestService>();
-            services.AddTransient<ProductBomService>();
-            services.AddTransient<UploadPassStationService>();
-            services.AddTransient<WorkOrderService>();
+            services.AddSingleton<DeviceStateService>();
+            services.AddSingleton<DamageableService>();
+            services.AddSingleton<InspectService>();
+            services.AddSingleton<EntryRequestService>();
+            services.AddSingleton<ProductBomService>();
+            services.AddSingleton<UploadPassStationService>();
+            services.AddSingleton<WorkOrderService>();
 
             #endregion
 
