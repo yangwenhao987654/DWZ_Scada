@@ -33,7 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            uiTextBox1 = new Sunny.UI.UITextBox();
+            tbx_AlarmName = new Sunny.UI.UITextBox();
             uiButton4 = new Sunny.UI.UIButton();
             dataGridView1 = new Sunny.UI.UIDataGridView();
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,28 +42,37 @@
             Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            uiDatetimePicker1 = new Sunny.UI.UIDatetimePicker();
-            uiDatetimePicker2 = new Sunny.UI.UIDatetimePicker();
+            dp_AlarmStartTime = new Sunny.UI.UIDatetimePicker();
+            dp_AlarmEndTime = new Sunny.UI.UIDatetimePicker();
             dp_date = new Sunny.UI.UIDatePicker();
+            radioBtn_Alarmdate = new System.Windows.Forms.RadioButton();
+            uiGroupBox1 = new Sunny.UI.UIGroupBox();
+            uiGroupBox3 = new Sunny.UI.UIGroupBox();
+            uiLabel2 = new Sunny.UI.UILabel();
+            uiLabel3 = new Sunny.UI.UILabel();
+            uiGroupBox2 = new Sunny.UI.UIGroupBox();
+            radioBtn_Alarmtime = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            uiGroupBox1.SuspendLayout();
+            uiGroupBox3.SuspendLayout();
+            uiGroupBox2.SuspendLayout();
             SuspendLayout();
             // 
-            // uiTextBox1
+            // tbx_AlarmName
             // 
-            uiTextBox1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
-            uiTextBox1.Font = new System.Drawing.Font("黑体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiTextBox1.Location = new System.Drawing.Point(200, 18);
-            uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
-            uiTextBox1.Name = "uiTextBox1";
-            uiTextBox1.Padding = new System.Windows.Forms.Padding(5);
-            uiTextBox1.RectColor = System.Drawing.Color.Silver;
-            uiTextBox1.ShowText = false;
-            uiTextBox1.Size = new System.Drawing.Size(495, 68);
-            uiTextBox1.TabIndex = 45;
-            uiTextBox1.Text = "请输入报警名称";
-            uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            uiTextBox1.Watermark = "";
+            tbx_AlarmName.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            tbx_AlarmName.Font = new System.Drawing.Font("黑体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            tbx_AlarmName.Location = new System.Drawing.Point(49, 32);
+            tbx_AlarmName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbx_AlarmName.MinimumSize = new System.Drawing.Size(1, 16);
+            tbx_AlarmName.Name = "tbx_AlarmName";
+            tbx_AlarmName.Padding = new System.Windows.Forms.Padding(5);
+            tbx_AlarmName.RectColor = System.Drawing.Color.Silver;
+            tbx_AlarmName.ShowText = false;
+            tbx_AlarmName.Size = new System.Drawing.Size(307, 46);
+            tbx_AlarmName.TabIndex = 45;
+            tbx_AlarmName.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            tbx_AlarmName.Watermark = "请输入报警名称";
             // 
             // uiButton4
             // 
@@ -78,7 +87,7 @@
             uiButton4.ForeHoverColor = System.Drawing.Color.Black;
             uiButton4.ForePressColor = System.Drawing.Color.Black;
             uiButton4.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton4.Location = new System.Drawing.Point(718, 20);
+            uiButton4.Location = new System.Drawing.Point(1610, 73);
             uiButton4.Margin = new System.Windows.Forms.Padding(2);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
@@ -125,7 +134,7 @@
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dataGridView1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridView1.Location = new System.Drawing.Point(0, 110);
+            dataGridView1.Location = new System.Drawing.Point(0, 184);
             dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RectColor = System.Drawing.Color.GhostWhite;
@@ -149,7 +158,7 @@
             dataGridView1.ScrollBarRectColor = System.Drawing.Color.Silver;
             dataGridView1.ScrollBarStyleInherited = false;
             dataGridView1.SelectedIndex = -1;
-            dataGridView1.Size = new System.Drawing.Size(1912, 668);
+            dataGridView1.Size = new System.Drawing.Size(1912, 594);
             dataGridView1.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dataGridView1.TabIndex = 58;
             // 
@@ -187,57 +196,57 @@
             Column1.HeaderText = "报警时间";
             Column1.Name = "Column1";
             // 
-            // uiDatetimePicker1
+            // dp_AlarmStartTime
             // 
-            uiDatetimePicker1.FillColor = System.Drawing.Color.White;
-            uiDatetimePicker1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiDatetimePicker1.Location = new System.Drawing.Point(947, 20);
-            uiDatetimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiDatetimePicker1.MaxLength = 19;
-            uiDatetimePicker1.MinimumSize = new System.Drawing.Size(63, 0);
-            uiDatetimePicker1.Name = "uiDatetimePicker1";
-            uiDatetimePicker1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            uiDatetimePicker1.Size = new System.Drawing.Size(288, 66);
-            uiDatetimePicker1.SymbolDropDown = 61555;
-            uiDatetimePicker1.SymbolNormal = 61555;
-            uiDatetimePicker1.SymbolSize = 24;
-            uiDatetimePicker1.TabIndex = 59;
-            uiDatetimePicker1.Text = "2024-09-21 09:44:35";
-            uiDatetimePicker1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            uiDatetimePicker1.Value = new System.DateTime(2024, 9, 21, 9, 44, 35, 145);
-            uiDatetimePicker1.Watermark = "";
+            dp_AlarmStartTime.FillColor = System.Drawing.Color.White;
+            dp_AlarmStartTime.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dp_AlarmStartTime.Location = new System.Drawing.Point(194, 32);
+            dp_AlarmStartTime.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            dp_AlarmStartTime.MaxLength = 19;
+            dp_AlarmStartTime.MinimumSize = new System.Drawing.Size(63, 0);
+            dp_AlarmStartTime.Name = "dp_AlarmStartTime";
+            dp_AlarmStartTime.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            dp_AlarmStartTime.Size = new System.Drawing.Size(307, 46);
+            dp_AlarmStartTime.SymbolDropDown = 61555;
+            dp_AlarmStartTime.SymbolNormal = 61555;
+            dp_AlarmStartTime.SymbolSize = 24;
+            dp_AlarmStartTime.TabIndex = 59;
+            dp_AlarmStartTime.Text = "2024-09-21 09:44:35";
+            dp_AlarmStartTime.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            dp_AlarmStartTime.Value = new System.DateTime(2024, 9, 21, 9, 44, 35, 145);
+            dp_AlarmStartTime.Watermark = "";
             // 
-            // uiDatetimePicker2
+            // dp_AlarmEndTime
             // 
-            uiDatetimePicker2.FillColor = System.Drawing.Color.White;
-            uiDatetimePicker2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiDatetimePicker2.Location = new System.Drawing.Point(1296, 20);
-            uiDatetimePicker2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiDatetimePicker2.MaxLength = 19;
-            uiDatetimePicker2.MinimumSize = new System.Drawing.Size(63, 0);
-            uiDatetimePicker2.Name = "uiDatetimePicker2";
-            uiDatetimePicker2.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            uiDatetimePicker2.Size = new System.Drawing.Size(288, 66);
-            uiDatetimePicker2.SymbolDropDown = 61555;
-            uiDatetimePicker2.SymbolNormal = 61555;
-            uiDatetimePicker2.SymbolSize = 24;
-            uiDatetimePicker2.TabIndex = 60;
-            uiDatetimePicker2.Text = "2024-09-21 09:44:35";
-            uiDatetimePicker2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            uiDatetimePicker2.Value = new System.DateTime(2024, 9, 21, 9, 44, 35, 145);
-            uiDatetimePicker2.Watermark = "";
+            dp_AlarmEndTime.FillColor = System.Drawing.Color.White;
+            dp_AlarmEndTime.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dp_AlarmEndTime.Location = new System.Drawing.Point(194, 91);
+            dp_AlarmEndTime.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            dp_AlarmEndTime.MaxLength = 19;
+            dp_AlarmEndTime.MinimumSize = new System.Drawing.Size(63, 0);
+            dp_AlarmEndTime.Name = "dp_AlarmEndTime";
+            dp_AlarmEndTime.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            dp_AlarmEndTime.Size = new System.Drawing.Size(307, 46);
+            dp_AlarmEndTime.SymbolDropDown = 61555;
+            dp_AlarmEndTime.SymbolNormal = 61555;
+            dp_AlarmEndTime.SymbolSize = 24;
+            dp_AlarmEndTime.TabIndex = 60;
+            dp_AlarmEndTime.Text = "2024-09-21 09:44:35";
+            dp_AlarmEndTime.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            dp_AlarmEndTime.Value = new System.DateTime(2024, 9, 21, 9, 44, 35, 145);
+            dp_AlarmEndTime.Watermark = "";
             // 
             // dp_date
             // 
             dp_date.FillColor = System.Drawing.Color.White;
             dp_date.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dp_date.Location = new System.Drawing.Point(13, 30);
+            dp_date.Location = new System.Drawing.Point(49, 91);
             dp_date.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             dp_date.MaxLength = 10;
             dp_date.MinimumSize = new System.Drawing.Size(63, 0);
             dp_date.Name = "dp_date";
             dp_date.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            dp_date.Size = new System.Drawing.Size(167, 41);
+            dp_date.Size = new System.Drawing.Size(307, 46);
             dp_date.SymbolDropDown = 61555;
             dp_date.SymbolNormal = 61555;
             dp_date.SymbolSize = 24;
@@ -247,33 +256,127 @@
             dp_date.Value = new System.DateTime(2024, 9, 21, 9, 45, 31, 274);
             dp_date.Watermark = "";
             // 
+            // radioBtn_Alarmdate
+            // 
+            radioBtn_Alarmdate.AutoSize = true;
+            radioBtn_Alarmdate.Location = new System.Drawing.Point(30, 50);
+            radioBtn_Alarmdate.Name = "radioBtn_Alarmdate";
+            radioBtn_Alarmdate.Size = new System.Drawing.Size(147, 24);
+            radioBtn_Alarmdate.TabIndex = 0;
+            radioBtn_Alarmdate.TabStop = true;
+            radioBtn_Alarmdate.Text = "按照报警日期";
+            radioBtn_Alarmdate.UseVisualStyleBackColor = true;
+            // 
+            // uiGroupBox1
+            // 
+            uiGroupBox1.Controls.Add(uiGroupBox3);
+            uiGroupBox1.Controls.Add(uiGroupBox2);
+            uiGroupBox1.Controls.Add(radioBtn_Alarmtime);
+            uiGroupBox1.Controls.Add(radioBtn_Alarmdate);
+            uiGroupBox1.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiGroupBox1.Location = new System.Drawing.Point(47, 5);
+            uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiGroupBox1.Name = "uiGroupBox1";
+            uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            uiGroupBox1.Size = new System.Drawing.Size(1403, 172);
+            uiGroupBox1.TabIndex = 62;
+            uiGroupBox1.Text = "报警查询";
+            uiGroupBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiGroupBox3
+            // 
+            uiGroupBox3.Controls.Add(uiLabel2);
+            uiGroupBox3.Controls.Add(uiLabel3);
+            uiGroupBox3.Controls.Add(dp_AlarmStartTime);
+            uiGroupBox3.Controls.Add(dp_AlarmEndTime);
+            uiGroupBox3.Font = new System.Drawing.Font("黑体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiGroupBox3.Location = new System.Drawing.Point(808, 17);
+            uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
+            uiGroupBox3.Name = "uiGroupBox3";
+            uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            uiGroupBox3.Size = new System.Drawing.Size(534, 150);
+            uiGroupBox3.TabIndex = 65;
+            uiGroupBox3.Text = "报警时间";
+            uiGroupBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel2
+            // 
+            uiLabel2.Font = new System.Drawing.Font("黑体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel2.Location = new System.Drawing.Point(13, 49);
+            uiLabel2.Name = "uiLabel2";
+            uiLabel2.Size = new System.Drawing.Size(174, 23);
+            uiLabel2.TabIndex = 63;
+            uiLabel2.Text = "开始时间:";
+            // 
+            // uiLabel3
+            // 
+            uiLabel3.Font = new System.Drawing.Font("黑体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel3.Location = new System.Drawing.Point(12, 106);
+            uiLabel3.Name = "uiLabel3";
+            uiLabel3.Size = new System.Drawing.Size(175, 23);
+            uiLabel3.TabIndex = 64;
+            uiLabel3.Text = "结束时间:";
+            // 
+            // uiGroupBox2
+            // 
+            uiGroupBox2.Controls.Add(dp_date);
+            uiGroupBox2.Controls.Add(tbx_AlarmName);
+            uiGroupBox2.Font = new System.Drawing.Font("黑体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiGroupBox2.Location = new System.Drawing.Point(330, 17);
+            uiGroupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
+            uiGroupBox2.Name = "uiGroupBox2";
+            uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            uiGroupBox2.Size = new System.Drawing.Size(399, 150);
+            uiGroupBox2.TabIndex = 63;
+            uiGroupBox2.Text = "报警日期";
+            uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // radioBtn_Alarmtime
+            // 
+            radioBtn_Alarmtime.AutoSize = true;
+            radioBtn_Alarmtime.Location = new System.Drawing.Point(30, 110);
+            radioBtn_Alarmtime.Name = "radioBtn_Alarmtime";
+            radioBtn_Alarmtime.Size = new System.Drawing.Size(147, 24);
+            radioBtn_Alarmtime.TabIndex = 1;
+            radioBtn_Alarmtime.TabStop = true;
+            radioBtn_Alarmtime.Text = "按照报警时间";
+            radioBtn_Alarmtime.UseVisualStyleBackColor = true;
+            // 
             // Page_DeviceAlarmQuery
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.AliceBlue;
             ClientSize = new System.Drawing.Size(1912, 778);
-            Controls.Add(dp_date);
-            Controls.Add(uiDatetimePicker2);
-            Controls.Add(uiDatetimePicker1);
+            Controls.Add(uiGroupBox1);
             Controls.Add(dataGridView1);
             Controls.Add(uiButton4);
-            Controls.Add(uiTextBox1);
             Name = "Page_DeviceAlarmQuery";
             RectColor = System.Drawing.Color.Black;
             Text = "";
             TitleHeight = 29;
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             FormClosing += Formula_set_FormClosing;
+            Load += Page_DeviceAlarmQuery_Load;
+            SizeChanged += Page_DeviceAlarmQuery_SizeChanged;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            uiGroupBox1.ResumeLayout(false);
+            uiGroupBox1.PerformLayout();
+            uiGroupBox3.ResumeLayout(false);
+            uiGroupBox2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private Sunny.UI.UITextBox uiTextBox1;
+        private Sunny.UI.UITextBox tbx_AlarmName;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UIDataGridView dataGridView1;
-        private Sunny.UI.UIDatetimePicker uiDatetimePicker1;
-        private Sunny.UI.UIDatetimePicker uiDatetimePicker2;
+        private Sunny.UI.UIDatetimePicker dp_AlarmStartTime;
+        private Sunny.UI.UIDatetimePicker dp_AlarmEndTime;
         private Sunny.UI.UIDatePicker dp_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -281,5 +384,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.RadioButton radioBtn_Alarmdate;
+        private Sunny.UI.UIGroupBox uiGroupBox1;
+        private System.Windows.Forms.RadioButton radioBtn_Alarmtime;
+        private Sunny.UI.UILabel uiLabel3;
+        private Sunny.UI.UILabel uiLabel2;
+        private Sunny.UI.UIGroupBox uiGroupBox2;
+        private Sunny.UI.UIGroupBox uiGroupBox3;
     }
 }

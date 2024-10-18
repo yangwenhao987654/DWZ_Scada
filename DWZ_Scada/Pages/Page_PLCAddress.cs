@@ -13,6 +13,8 @@ using CommonUtilYwh.Communication.ModbusTCP;
 using DWZ_Scada.dao;
 using DWZ_Scada.Pages;
 using DWZ_Scada.Pages.StationPages.OP10;
+using Sunny.UI.Win32;
+using CSharpFormApplication;
 
 namespace DWZ_Scada
 {
@@ -39,7 +41,7 @@ namespace DWZ_Scada
         ComboBox ComboBox_2 = new ComboBox();
 
         public ModbusTCP ModbusTCP = new ModbusTCP();
-
+        AutoResizeForm asc = new AutoResizeForm();
         /// <summary>
         /// PLC地址数据
         /// </summary>
@@ -420,12 +422,18 @@ namespace DWZ_Scada
         private void Form_set_PLC_Load(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            asc.controllInitializeSize(this);
         }
 
         private void Form_set_PLC_FormClosing(object sender, FormClosingEventArgs e)
         {
             Page_PLCAddress.Instance?.Dispose();
             LogMgr.Instance.Info("关闭配方设定程序");
+        }
+
+        private void Page_PLCAddress_SizeChanged(object sender, EventArgs e)
+        {
+            asc.controlAutoSize(this);
         }
     }
 }
