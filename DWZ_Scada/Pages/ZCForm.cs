@@ -84,7 +84,7 @@ namespace DWZ_Scada.Pages
             LogMgr.Instance.SetCtrl(listViewExLog);
 
             lblLoginUserName.Text = Global.LoginUser;
-            lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
         }
         public void StartServer()

@@ -1,6 +1,7 @@
 ﻿using log4net;
 using log4net.Config;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace LogTool
         ILog ParamsLog;//系统参数变更log
         ListViewEx_Log ctrl;
         public bool IsLoad =false;
-        Queue<LogStruct> logQueue;
+        ConcurrentQueue<LogStruct> logQueue;
         List<LogStruct> UnShowLogList;
         private LogMgr()
         {
@@ -61,7 +62,7 @@ namespace LogTool
             {
                 return true;
             }
-            FileInfo fi = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Log4Net.config");
+            FileInfo fi = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "Config//Log4Net.config");
             if(!fi.Exists)
             {
                 MessageBox.Show($@"日志路径{fi.FullName}不存在");
@@ -69,7 +70,7 @@ namespace LogTool
             XmlConfigurator.Configure(fi);
             DebugLog = LogManager.GetLogger("Debug");
             ParamsLog = LogManager.GetLogger("Params");
-            logQueue = new Queue<LogStruct>();
+            logQueue = new ConcurrentQueue<LogStruct>();
             UnShowLogList = new List<LogStruct>();
             ThreadPool.QueueUserWorkItem(Monitor,null);
             IsLoad = true;
@@ -97,7 +98,7 @@ namespace LogTool
                     Thread.Sleep(100);
                     continue;
                 }
-                var logStruct = logQueue.Dequeue();
+                logQueue.TryDequeue(out var  logStruct);
                 if (logStruct.dt==null|| logStruct.line==null)
                 {
                     continue;

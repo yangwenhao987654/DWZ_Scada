@@ -201,7 +201,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 PLC.Write(OP70Address.VisionFinish, "Bool", false);
                 PLC.Read(OP70Address.EntrySn, "string-20", out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-                PLC.ReadInt16(OP70Address.VisionResult, out int result);
+                PLC.ReadInt16(OP70Address.VisionResult, out short result);
 
                 bool visionResult = result == 1 ? true : false;
                 //界面更新
@@ -494,7 +494,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
         /// <returns></returns>
         private int ReadPLCState()
         {
-            int state;
+            short state;
             bool readFlag = PLC.ReadInt16(OP70Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;

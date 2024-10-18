@@ -46,7 +46,7 @@ namespace CommunicationUtilYwh.Communication.PLC
             return result.IsSuccess;
         }
 
-        public override bool ReadInt16(string address, out int value)
+        public override bool ReadInt16(string address, out short value)
         {
             OperateResult<short> result = client.ReadInt16(address);
             value = result.Content;

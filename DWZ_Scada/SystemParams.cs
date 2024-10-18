@@ -126,6 +126,132 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("2.PLC 端口号"), Category("2.OP20工站"), Description("PLC的端口号")]
         public int OP20_PlcPort { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机1 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding1_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机1_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding1_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机1_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding1_StationNum { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机2 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding2_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机2_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding2_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机2_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding2_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机3 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding3_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机3_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding3_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机3_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding3_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机4 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding4_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机4_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding4_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机4_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding4_StationNum { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机5 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding5_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机5_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding5_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机5_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding5_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机6 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding6_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机6_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding6_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机6_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding6_StationNum { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机7 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding7_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机7_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding7_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机7_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding7_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机8 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding8_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机8_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding8_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机8_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding8_StationNum { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机9 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding9_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机9_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding9_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机9_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding9_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机@10 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding10_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机@10_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding10_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机@10_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding10_StationNum { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机_11 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding11_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机_11_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding11_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机_11_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding11_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机_12 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public string OP20_Winding12_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机_12_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public int OP20_Winding12_Port { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机_12_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
+        public byte OP20_Winding12_StationNum { get; set; }
         #endregion
 
         #region OP30工站参数

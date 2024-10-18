@@ -141,7 +141,7 @@ namespace DWZ_Scada.Pages.StationPages
         /// <summary>
         /// 启动流程
         /// </summary>
-        public  void StartAsync()
+        public virtual  void StartAsync()
         {
             Task.Run(() =>
             {
@@ -171,7 +171,6 @@ namespace DWZ_Scada.Pages.StationPages
 
         protected async Task UploadSpotCheckData(DeviceInspectDTO dto)
         {
-        
             await InspectService.AddInspectDada(dto);
         }
 
