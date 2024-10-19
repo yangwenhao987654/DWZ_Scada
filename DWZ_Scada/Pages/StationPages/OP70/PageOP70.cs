@@ -5,6 +5,7 @@ using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
+using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.Pages.StationPages.OP70;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -85,9 +86,8 @@ namespace DWZ_Scada
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP70_PlcIP,
                 SystemParams.Instance.OP70_PlcPort);
 
-            //TODO 这里导致程序卡顿
-            MainFuncBase.RegisterFactory(() => new OP70MainFunc(plcConfig));
-            MainFuncBase.Instance.StartAsync();
+            OP70MainFunc.CreateInstance(plcConfig);
+            OP70MainFunc.Instance.StartAsync();
         }
 
         private void OP70SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
@@ -119,6 +119,7 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _instance = null;
             LogMgr.Instance.Info($"关闭{OP70MainFunc.StationCode}-HttpServer");
             OP70MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info($"关闭{OP70MainFunc.StationName}程序");

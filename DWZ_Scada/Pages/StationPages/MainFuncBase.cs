@@ -42,7 +42,7 @@ namespace DWZ_Scada.Pages.StationPages
 
         //private static MainFuncBase myOp10Model;
 
-        public static MainFuncBase Instance
+        /*public static MainFuncBase Instance
         {
             get
             {
@@ -72,7 +72,7 @@ namespace DWZ_Scada.Pages.StationPages
         {
             _createInstanceFunc = factoryMethod;
            
-        }
+        }*/
 
         /// <summary>
         /// 设备是否点检模式

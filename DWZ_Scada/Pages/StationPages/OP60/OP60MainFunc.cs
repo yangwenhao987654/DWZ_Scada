@@ -1,5 +1,6 @@
 ﻿using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
@@ -15,6 +16,33 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 {
     public class OP60MainFunc : MainFuncBase, IDisposable
     {
+        private static OP60MainFunc _instance;
+
+        public static OP60MainFunc Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(OP60MainFunc))
+                    {
+                        if (_instance == null)
+                        {
+
+                            // 使用一个工厂方法创建实例，让子类决定实例化逻辑
+                            throw new Exception("OP60MainFunc is Not instantiate");
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        public static void CreateInstance(PLCConfig plcConfig)
+        {
+            _instance = new OP60MainFunc(plcConfig);
+        }
+
         private static readonly OP60Model Model = new();
 
         private const int AlarmState = 2;
@@ -55,6 +83,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         {
             //释放PLC监控线程 所有后台线程
             //释放PLC连接
+            base.Dispose();
             PLC?.Dispose();
         }
         /// <summary>

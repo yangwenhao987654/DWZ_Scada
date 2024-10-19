@@ -17,6 +17,33 @@ namespace DWZ_Scada.Pages.StationPages.OP10
     {
         public delegate void OP10VisionFinished(string sn, bool result);
 
+        private static OP10MainFunc _instance;
+
+        public static OP10MainFunc Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(OP10MainFunc))
+                    {
+                        if (_instance == null)
+                        {
+                           
+                                // 使用一个工厂方法创建实例，让子类决定实例化逻辑
+                                throw new Exception("OP10MainFunc is Not instantiate");
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        public static void  CreateInstance(PLCConfig plcConfig)
+        {
+            _instance = new OP10MainFunc(plcConfig);
+        }
+
 
         public static event OP10VisionFinished OnVision1Finished;
 
@@ -63,8 +90,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         public void Dispose()
         {
-            //释放PLC监控线程 所有后台线程
-            //释放PLC连接
+            base.Dispose();
             PLC?.Dispose();
         }
         /// <summary>

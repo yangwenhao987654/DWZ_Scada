@@ -5,6 +5,7 @@ using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages;
+using DWZ_Scada.Pages.StationPages.OP40;
 using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -89,13 +90,12 @@ namespace DWZ_Scada
             ISelectionStrategyEvent OP50Strategy = new OP50SelectionStrategy();
             OP50Strategy.OnSelectionEvent += OP50SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
-            //OP10工站 PLC配置
+            //OP60工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP60_PlcIP,
                 SystemParams.Instance.OP60_PlcPort);
 
-            //TODO 这里导致程序卡顿
-            MainFuncBase.RegisterFactory(() => new OP60MainFunc(plcConfig));
-            MainFuncBase.Instance.StartAsync();
+            OP60MainFunc.CreateInstance(plcConfig);
+            OP60MainFunc.Instance.StartAsync();
         }
 
         private void OP50SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
@@ -116,6 +116,7 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _instance = null;
             LogMgr.Instance.Info($"关闭{OP60MainFunc.StationCode}-HttpServer");
             OP60MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info($"关闭{OP60MainFunc.StationName}程序");

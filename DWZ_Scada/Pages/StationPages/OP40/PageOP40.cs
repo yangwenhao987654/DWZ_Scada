@@ -3,6 +3,7 @@ using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
@@ -82,13 +83,12 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
-            //OP10工站 PLC配置
+            //OP40工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP40_PlcIP,
                 SystemParams.Instance.OP40_PlcPort);
 
-            //TODO 这里导致程序卡顿
-            MainFuncBase.RegisterFactory(() => new OP40MainFunc(plcConfig));
-            MainFuncBase.Instance.StartAsync();
+            OP40MainFunc.CreateInstance(plcConfig);
+            OP40MainFunc.Instance.StartAsync();
 
 
             /*  lbl_EntrySN.DataBindings.Add("Text", Model, "TempSN");
@@ -129,6 +129,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         private void PageOP40_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _instance = null;
             LogMgr.Instance.Info($"关闭{CURRENT_STATION_NAME}-HttpServer");
             OP40MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info($"关闭{CURRENT_STATION_NAME}程序");

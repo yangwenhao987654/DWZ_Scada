@@ -73,7 +73,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             InitializeComponent();
             _instance = this;
-
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -90,8 +89,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
                 SystemParams.Instance.OP10_PlcPort);
 
-            MainFuncBase.RegisterFactory(() => new OP10MainFunc(plcConfig));
-            MainFuncBase.Instance.StartAsync();
+            OP10MainFunc.CreateInstance( plcConfig);
+            OP10MainFunc.Instance.StartAsync();
 
             //lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
             op10Model.ExitSN = "6666";
@@ -225,6 +224,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _instance = null;
             LogMgr.Instance.Info("关闭OP10-HttpServer");
             OP10MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info("关闭OP10程序");
