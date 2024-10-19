@@ -48,6 +48,12 @@ namespace DWZ_Scada
     {
         //用json格式保存,方便在程序未启动时手动修改配置
 
+        public SystemParams Clone()
+        {
+            //浅拷贝
+            return this.MemberwiseClone() as SystemParams;
+        }
+
         public enum VoiceSpeedLvl
         {
             特慢 = -2,
@@ -416,7 +422,7 @@ namespace DWZ_Scada
                     fileInfo.CopyTo(PathBackup, true);
                 }
 
-                string json = JsonConvert.SerializeObject(Instance, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(Instance, Formatting.Indented);//1. 序列化 //2.设置缩进
                 fileInfo.Directory.Create();
                 using (StreamWriter sw = new StreamWriter(Path, false, Encoding.UTF8))
                 {
@@ -440,6 +446,37 @@ namespace DWZ_Scada
             OpLvl = lvl;
             OPRule = rule;
             OPChangeEvent?.Invoke();
+        }
+
+
+        /// <summary>
+        /// 使用反射进行深拷贝
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="original"></param>
+        /// <returns></returns>
+        static T CreateDeepCopy<T>(T original)
+        {
+            if (original == null)
+            {
+                return default(T);
+            }
+
+            Type type = original.GetType();
+            object newObject = Activator.CreateInstance(type);
+
+            foreach (FieldInfo fieldInfo in type.GetFields())
+            {
+                if (fieldInfo.IsStatic)
+                {
+                    continue;
+                }
+
+                object value = fieldInfo.GetValue(original);
+                fieldInfo.SetValue(newObject, CreateDeepCopy(value));
+            }
+
+            return (T)newObject;
         }
     }
 }

@@ -61,6 +61,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         {
             //释放PLC监控线程 所有后台线程
             //释放PLC连接
+            _cts?.Cancel();
             PLC?.Dispose();
         }
         /// <summary>

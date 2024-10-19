@@ -17,6 +17,8 @@
             {
                 components.Dispose();
             }
+
+            PageOP10_FormClosing(this, null);
             base.Dispose(disposing);
         }
 

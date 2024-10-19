@@ -18,6 +18,7 @@ namespace DWZ_Scada.Pages
 {
     public partial class ZCForm : UIForm
     {
+        private Control mainControl;
         private static ZCForm _instance;
 
         public HttpService MyHttpService;
@@ -159,10 +160,15 @@ namespace DWZ_Scada.Pages
 
         private void SetMainPage(Control c)
         {
+            if (mainControl!=c)
+            {
+                mainControl?.Dispose();
+            }
             uiPanel1.Controls.Clear();
             c.Dock = DockStyle.Fill;
             c.Show();
             uiPanel1.Controls.Add(c);
+            mainControl = c;
         }
 
         public void SetAutoStart()
@@ -214,7 +220,7 @@ namespace DWZ_Scada.Pages
 
         public void AddFormTopanel(Control ctrl)
         {
-            LogMgr.Instance.Debug($"当前线程ID:{Thread.CurrentThread.ManagedThreadId.ToString()}");
+            //LogMgr.Instance.Debug($"当前线程ID:{Thread.CurrentThread.ManagedThreadId.ToString()}");
             uiPanel1.Controls.Clear();
             ctrl.Dock = DockStyle.Fill;
             uiPanel1.Controls.Add(ctrl);

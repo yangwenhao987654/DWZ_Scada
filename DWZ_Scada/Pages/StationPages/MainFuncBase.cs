@@ -145,6 +145,7 @@ namespace DWZ_Scada.Pages.StationPages
         {
             Task.Run(() =>
             {
+                _cts=new CancellationTokenSource();
                 //myOp10Model = Model;
                 //启动PLC监控线程
                 Thread t = new Thread(() => ConnStatusMonitor(_cts.Token));

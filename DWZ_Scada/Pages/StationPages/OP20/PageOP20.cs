@@ -67,6 +67,8 @@ namespace DWZ_Scada
             public string ProductCode { get; set; }
         }
 
+        private OP30MainFunc op30MainFunc;
+
         public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
 
         private PageOP20()
@@ -91,7 +93,7 @@ namespace DWZ_Scada
             MainFuncBase.RegisterFactory(() => new OP20MainFunc(plcConfig));
             MainFuncBase.Instance.StartAsync();
 
-            OP30MainFunc op30MainFunc = new OP30MainFunc(new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
+             op30MainFunc = new OP30MainFunc(new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
                 SystemParams.Instance.OP30_PlcPort));
             op30MainFunc.StartAsync();
 
@@ -116,7 +118,7 @@ namespace DWZ_Scada
             SelectionResultDTO dto = e.SelectionResult;
             dto.Message = $"处理选型[{e.Model}]完成";
             dto.Code = 1;
-            //Thread.Sleep(2000);
+            
             LogMgr.Instance.Info("选型结束");
         }
 
@@ -130,6 +132,7 @@ namespace DWZ_Scada
         {
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
             OP20MainFunc.Instance?.Dispose();
+            op30MainFunc?.Dispose();
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationName}程序");
         }
 

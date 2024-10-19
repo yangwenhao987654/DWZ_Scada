@@ -48,8 +48,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
         public List<ModbusTCP> ModbusTcpList = new();
 
-
-
         public List<ModbusConnConfig> ModbusConnections = new List<ModbusConnConfig>();
 
 
@@ -64,6 +62,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             //释放PLC监控线程 所有后台线程
             //释放PLC连接
             PLC?.Dispose();
+            foreach (ModbusTCP modbusTcp in ModbusTcpList)
+            {
+                modbusTcp?.Dispose();
+            }
         }
 
         public override void StartAsync()
@@ -96,7 +98,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
                 ModbusTcpList.Add(modbusTcp);
 
-                Thread thread = new Thread(() => MonitorWindingMachine(modbusTcp, index));
+                Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token,modbusTcp, index));
                 thread.Start();
                 a = i;
             }
@@ -161,10 +163,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
 
         // Generic method to monitor each winding machine
-        private void MonitorWindingMachine(ModbusTCP modbusTcp, int index)
+        private void MonitorWindingMachine(CancellationToken token, ModbusTCP modbusTcp, int index)
         {
-            Console.WriteLine("进入线程i的值:" + index);
-            while (true)
+            while (!token.IsCancellationRequested)
             {
                 if (modbusTcp.IsConnect)
                 {
@@ -186,33 +187,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     }
                 }
                 Thread.Sleep(1000);
-            }
-        }
-
-        private void Winding1Monitor()
-        {
-            ModbusTCP modbusTcp = ModbusTcpList[0];
-            while (true)
-            {
-                if (modbusTcp.IsConnect)
-                {
-                    //读取设备状态
-                    bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
-
-                    //
-                    modbusTcp.ReadInt16("2041", out short tension1);
-
-                }
-                else
-                {
-                    (bool flag, string err) = modbusTcp.Open(SystemParams.Instance.OP20_Winding1_IP,
-                        SystemParams.Instance.OP20_Winding1_Port, SystemParams.Instance.OP20_Winding1_StationNum);
-                    if (flag == false)
-                    {
-                        LogMgr.Instance.Error("绕线机连接失败:" + err);
-                    }
-                }
-                Thread.Sleep(100);
             }
         }
 

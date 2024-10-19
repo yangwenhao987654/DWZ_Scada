@@ -214,7 +214,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void uiButton1_Click(object sender, EventArgs e)
         {
-            string sn = uiTextBox1.Text;
+            string sn = tbx_Part.Text;
             if (string.IsNullOrEmpty(sn))
             {
                 sn = "24TT0001";
@@ -319,6 +319,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void uiButton4_Click_1(object sender, EventArgs e)
         {
+            //TODO 切换工单之后切换料号
+
 
         }
 

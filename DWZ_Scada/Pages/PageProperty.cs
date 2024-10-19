@@ -1,16 +1,8 @@
-﻿using Sunny.UI;
-using Sunny.UI.Win32;
+﻿using DWZ_Scada;
+using LogTool;
+using Sunny.UI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DWZ_Scada;
 
 
 namespace AutoTF
@@ -18,14 +10,17 @@ namespace AutoTF
     public partial class PageProperty : UIForm
     {
         public SystemParams Instance;
+
+        public SystemParams OldParams;
         public PageProperty(SystemParams instance)
         {
             InitializeComponent();
+            OldParams =instance.Clone();
             this.Instance = instance;
         }
         private void PageProperty_Load(object sender, EventArgs e)
         {
-         
+            LogMgr.Instance.Debug("打开系统配置界面");
             propertyGrid1.SelectedObject = Instance;
             //todo: propertyGrid1的行高修改
             //todo: propertyGrid1的描述修改
@@ -46,7 +41,14 @@ namespace AutoTF
 
         private void PageProperty_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+               //new object().Equals("1");
+            //比较修改了哪些属性的值
+            if (OldParams.OP20_Winding1_StationNum!= Instance.OP20_Winding1_StationNum)
+            {
+                //todo 这是OK的  怎么遍历所有属性 显示出修改的属性名称和值 
+                MessageBox.Show($"修改了站号:{OldParams.OP20_Winding1_StationNum}->{Instance.OP20_Winding1_StationNum}");
+            }
+            LogMgr.Instance.Debug("关闭系统配置界面");
             SystemParams.Save();
         }
     }
