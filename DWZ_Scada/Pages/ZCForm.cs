@@ -18,7 +18,7 @@ namespace DWZ_Scada.Pages
 {
     public partial class ZCForm : UIForm
     {
-        private Control mainControl;
+        private Form mainForm;
         private static ZCForm _instance;
 
         public HttpService MyHttpService;
@@ -158,17 +158,17 @@ namespace DWZ_Scada.Pages
             WindowState = FormWindowState.Maximized;
         }
 
-        private void SetMainPage(Control c)
+        private void SetMainPage(Form form)
         {
-            if (mainControl!=c)
+            if (mainForm!=form)
             {
-                mainControl?.Dispose();
+                mainForm?.Close();
             }
             uiPanel1.Controls.Clear();
-            c.Dock = DockStyle.Fill;
-            c.Show();
-            uiPanel1.Controls.Add(c);
-            mainControl = c;
+            form.Dock = DockStyle.Fill;
+            form.Show();
+            uiPanel1.Controls.Add(form);
+            mainForm = form;
         }
 
         public void SetAutoStart()
