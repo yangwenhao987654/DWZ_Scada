@@ -207,18 +207,19 @@
             // 
             ctrlWindingS.ColumnCount = 3;
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
-            ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
-            ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
+            ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
+            ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.Dock = System.Windows.Forms.DockStyle.Bottom;
-            ctrlWindingS.Location = new System.Drawing.Point(0, 220);
+            ctrlWindingS.Location = new System.Drawing.Point(0, 162);
             ctrlWindingS.Margin = new System.Windows.Forms.Padding(0);
             ctrlWindingS.Name = "ctrlWindingS";
-            ctrlWindingS.RowCount = 4;
-            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.Size = new System.Drawing.Size(1280, 620);
+            ctrlWindingS.RowCount = 5;
+            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            ctrlWindingS.Size = new System.Drawing.Size(1280, 678);
             ctrlWindingS.TabIndex = 20;
             ctrlWindingS.TagString = null;
             // 
@@ -274,6 +275,7 @@
             Text = "PageOP10";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;
+            Initialize += PageOP20_Initialize;
             FormClosing += PageOP10_FormClosing;
             Load += Page_Load;
             ResumeLayout(false);

@@ -236,7 +236,6 @@
             uiTableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
             uiTableLayoutPanel1.RowCount = 1;
             uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             uiTableLayoutPanel1.Size = new System.Drawing.Size(400, 208);
             uiTableLayoutPanel1.TabIndex = 15;
             uiTableLayoutPanel1.TagString = null;
@@ -261,7 +260,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(uiGroupBox3);
-            Margin = new System.Windows.Forms.Padding(4);
+            Margin = new System.Windows.Forms.Padding(0);
             Name = "UserCtrlAgingSingle";
             Size = new System.Drawing.Size(400, 240);
             Load += UserCtrlAgingSingle_Load;

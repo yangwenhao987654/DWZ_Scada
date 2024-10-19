@@ -98,15 +98,19 @@ namespace DWZ_Scada
             OP30MainFunc.Instance.StartAsync();
 
             //OP30的配置
-            
+
             int index = 1;
             for (int i = 0; i < ctrlWindingS.ColumnCount; i++)
             {
                 for (int j = 0; j < ctrlWindingS.RowCount; j++)
                 {
+                    if (i==2 && j>=2)
+                    {
+                        break;
+                    }
                     UserCtrlAgingSingle agingSingle = new UserCtrlAgingSingle(index++);
                     WindingCtrlList.Add(agingSingle);
-                    ctrlWindingS.Controls.Add(agingSingle);
+                    ctrlWindingS.Controls.Add(agingSingle,i,j);
                 }
             }
         }
@@ -118,7 +122,7 @@ namespace DWZ_Scada
             SelectionResultDTO dto = e.SelectionResult;
             dto.Message = $"处理选型[{e.Model}]完成";
             dto.Code = 1;
-            
+
             LogMgr.Instance.Info("选型结束");
         }
 
@@ -130,7 +134,7 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance=null;
+            _instance = null;
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
             OP20MainFunc.Instance?.Dispose();
             OP30MainFunc.Instance?.Dispose();
@@ -233,9 +237,14 @@ namespace DWZ_Scada
             }
             catch (Exception exception)
             {
-                LogMgr.Instance.Error("测试错误:"+exception.Message);
+                LogMgr.Instance.Error("测试错误:" + exception.Message);
                 UIMessageBox.ShowError("测试错误:" + exception.Message);
             }
+        }
+
+        private void PageOP20_Initialize(object sender, EventArgs e)
+        {
+
         }
     }
 }

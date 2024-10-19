@@ -371,6 +371,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 string addressB = OP20Address.WindingStartSn;
                 PLC.Read(addressA, "string", out string snA);
                 PLC.Read(addressB, "string", out string snB);
+                
+                //TODO 把SN写到对应的界面上去
+
             }
         }
 
