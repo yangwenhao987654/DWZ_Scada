@@ -280,7 +280,7 @@ namespace DWZ_Scada.Pages
 
         private void uiButton8_Click(object sender, EventArgs e)
         {
-
+            this.OnFormClosing(new FormClosingEventArgs(CloseReason.UserClosing, true));
         }
 
         public void UpdatePlcState(PlcState state)
