@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CSharpFormApplication;
 using Sunny.UI;
+using Sunny.UI.Win32;
 
 namespace DWZ_Scada.Pages
 {
@@ -31,6 +33,7 @@ namespace DWZ_Scada.Pages
                 return _instance;
             }
         }
+        AutoResizeForm asc = new AutoResizeForm();
         public Page_Formula_Set()
         {
             InitializeComponent();
@@ -44,6 +47,16 @@ namespace DWZ_Scada.Pages
         private void uiPanel1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Page_Formula_Set_Load(object sender, EventArgs e)
+        {
+            asc.controllInitializeSize(this);
+        }
+
+        private void Page_Formula_Set_SizeChanged(object sender, EventArgs e)
+        {
+            asc.controlAutoSize(this);
         }
     }
 }

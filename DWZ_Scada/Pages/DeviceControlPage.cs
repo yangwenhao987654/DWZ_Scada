@@ -16,6 +16,7 @@ using LogTool;
 using ScadaBase.DAL.Entity;
 using Sunny.UI;
 using UtilYwh.AlarmNotify;
+using CSharpFormApplication;
 
 namespace DWZ_Scada.Pages
 {
@@ -39,6 +40,8 @@ namespace DWZ_Scada.Pages
                 return _instance;
             }
         }
+        //1.声明自适应类实例
+        AutoResizeForm asc = new AutoResizeForm();
 
         public static bool IsLoad { get; set; } = false;
 
@@ -73,7 +76,7 @@ namespace DWZ_Scada.Pages
             _addAlarmDelegate = new Action<string>(AddAlarm);
             _clearAlarmDelegate = new Action(ClearAlarm);
 
-            
+
 
         }
 
@@ -296,7 +299,7 @@ namespace DWZ_Scada.Pages
             //lbx_Alarm.DataSource =list;
             //reflashList();
             //lbx_Alarm.Refresh();
-            list =alarmlist;
+            list = alarmlist;
             reflashList();
         }
 
@@ -391,6 +394,7 @@ namespace DWZ_Scada.Pages
 
         private void DeviceControlPage_Load(object sender, EventArgs e)
         {
+            asc.controllInitializeSize(this);
             /*  Thread t = new Thread(ReflashStatus);
               t.Start();*/
             //this.Show();
@@ -401,8 +405,13 @@ namespace DWZ_Scada.Pages
         {
             /*lbx_Alarm.DataSource = null;
             lbx_Alarm.DataSource = list;*/
-    
 
+
+        }
+
+        private void DeviceControlPage_SizeChanged(object sender, EventArgs e)
+        {
+            asc.controlAutoSize(this);
         }
     }
 }

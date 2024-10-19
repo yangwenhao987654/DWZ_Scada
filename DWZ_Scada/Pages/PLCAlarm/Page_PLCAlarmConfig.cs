@@ -1,7 +1,9 @@
 ﻿using Cap.Dialog;
+using CSharpFormApplication;
 using DWZ_Scada.Pages.PLCAlarm;
 using LogTool;
 using Sunny.UI;
+using Sunny.UI.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,11 +47,11 @@ namespace DWZ_Scada.Page.PLCControl
                 return _instance;
             }
         }
-
+        AutoResizeForm asc = new AutoResizeForm();
         private void Page_PLCAlarmConfigcs_Load(object sender, EventArgs e)
         {
             InitTable();
-
+            asc.controllInitializeSize(this);
         }
 
         private void InitTable()
@@ -244,6 +246,11 @@ namespace DWZ_Scada.Page.PLCControl
                 Global.PlcAlarmList.Insert(selectedIndex + 1, new PLCAlarmData());
             }
             reflashTable();
+        }
+
+        private void Page_PLCAlarmConfig_SizeChanged(object sender, EventArgs e)
+        {
+            asc.controlAutoSize(this);
         }
     }
 }

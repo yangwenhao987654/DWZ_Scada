@@ -71,7 +71,7 @@
             uiListBox2.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             uiListBox2.ItemSelectBackColor = System.Drawing.Color.Silver;
             uiListBox2.ItemSelectForeColor = System.Drawing.Color.White;
-            uiListBox2.Location = new System.Drawing.Point(99, 289);
+            uiListBox2.Location = new System.Drawing.Point(68, 266);
             uiListBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiListBox2.MinimumSize = new System.Drawing.Size(1, 1);
             uiListBox2.Name = "uiListBox2";
@@ -80,7 +80,7 @@
             uiListBox2.ScrollBarColor = System.Drawing.Color.Silver;
             uiListBox2.ScrollBarStyleInherited = false;
             uiListBox2.ShowText = false;
-            uiListBox2.Size = new System.Drawing.Size(780, 416);
+            uiListBox2.Size = new System.Drawing.Size(811, 457);
             uiListBox2.TabIndex = 54;
             uiListBox2.Text = "uiListBox1";
             // 
@@ -88,7 +88,7 @@
             // 
             uiLabel1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new System.Drawing.Point(99, 240);
+            uiLabel1.Location = new System.Drawing.Point(99, 217);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new System.Drawing.Size(172, 34);
             uiLabel1.TabIndex = 55;
@@ -99,14 +99,14 @@
             lbx_Alarm.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbx_Alarm.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             lbx_Alarm.ItemSelectForeColor = System.Drawing.Color.White;
-            lbx_Alarm.Location = new System.Drawing.Point(1036, 289);
+            lbx_Alarm.Location = new System.Drawing.Point(1004, 266);
             lbx_Alarm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             lbx_Alarm.MinimumSize = new System.Drawing.Size(1, 1);
             lbx_Alarm.Name = "lbx_Alarm";
             lbx_Alarm.Padding = new System.Windows.Forms.Padding(2);
             lbx_Alarm.RectColor = System.Drawing.Color.Silver;
             lbx_Alarm.ShowText = false;
-            lbx_Alarm.Size = new System.Drawing.Size(780, 416);
+            lbx_Alarm.Size = new System.Drawing.Size(812, 457);
             lbx_Alarm.TabIndex = 55;
             lbx_Alarm.Text = "uiListBox2";
             // 
@@ -114,7 +114,7 @@
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(1036, 240);
+            uiLabel2.Location = new System.Drawing.Point(1036, 217);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(172, 34);
             uiLabel2.TabIndex = 56;
@@ -221,6 +221,7 @@
             ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             FormClosing += Manual_Debug_FormClosing;
             Load += DeviceControlPage_Load;
+            SizeChanged += DeviceControlPage_SizeChanged;
             ResumeLayout(false);
         }
 

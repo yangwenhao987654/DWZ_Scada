@@ -64,7 +64,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel1.Location = new System.Drawing.Point(0, 35);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(1223, 59);
+            uiLabel1.Size = new System.Drawing.Size(1280, 59);
             uiLabel1.TabIndex = 1;
             uiLabel1.Text = "OP10-上料打码工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

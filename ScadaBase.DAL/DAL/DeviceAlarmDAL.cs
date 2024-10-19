@@ -30,6 +30,22 @@ namespace ScadaBase.DAL.BLL
         List<DeviceAlarmEntity> SelectByDate(string dateStr,string deviceName);
 
         /// <summary>
+        /// 根据开始时间和结束时间查询
+        /// </summary>
+        /// <param name="startDt">开始时间</param>
+        /// <param name="endDt">结束时间</param>
+        /// <returns></returns>
+        List<DeviceAlarmEntity> SelectByStartDate(DateTime startDt, DateTime endDt);
+
+        /// <summary>
+        /// 根据报警日期和报警名称查询
+        /// </summary>
+        /// <param name="dateStr">报警日期</param>
+        /// <param name="alarmName">报警名称</param>
+        /// <returns></returns>
+        List<DeviceAlarmEntity> SelectByDateANDAlarmName(string dateStr, string alarmName);
+
+        /// <summary>
         /// 按照报警开始时间和结束时间查询
         /// </summary>
         /// <param name="startDt">开始时间</param>
@@ -100,6 +116,32 @@ namespace ScadaBase.DAL.BLL
             {
                 list = db.tbDeviceAlarms
                     .Where(r => r.AlarmDateStr == dateStr && r.DeviceName==deviceName)
+                    .ToList();
+            }
+
+            return list;
+        }
+
+        public List<DeviceAlarmEntity> SelectByStartDate(DateTime startDt, DateTime endDt)
+        {
+            List<DeviceAlarmEntity> list = new List<DeviceAlarmEntity>();
+            using (MyDbContext db = new MyDbContext())
+            {
+                list = db.tbDeviceAlarms
+                    .Where(r =>  r.AlarmTime > startDt && r.AlarmTime < endDt)
+                    .ToList();
+            }
+
+            return list;
+        }
+
+        public List<DeviceAlarmEntity> SelectByDateANDAlarmName(string dateStr, string alarmName)
+        {
+            List<DeviceAlarmEntity> list = new List<DeviceAlarmEntity>();
+            using (MyDbContext db = new MyDbContext())
+            {
+                list = db.tbDeviceAlarms
+                    .Where(r => r.AlarmDateStr == dateStr && r.AlarmInfo == alarmName)
                     .ToList();
             }
 
