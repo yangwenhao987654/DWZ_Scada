@@ -294,10 +294,12 @@ namespace DWZ_Scada.Pages
                 Invoke(new Action<PlcState>(UpdatePlcState), state);
                 return;
             }
+            lbl_PLCConn.Text = "已连接";
             switch (state)
             {
                 case PlcState.OffLine:
                     lbl_PLCState.Text = "离线";
+                    lbl_PLCConn.Text = "未连接";
                     uiLight1.OnColor = Color.LightGray;
                     break;
 

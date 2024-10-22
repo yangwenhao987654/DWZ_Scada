@@ -129,9 +129,7 @@ namespace LogTool
                 else
                 {
                     UnShowLogList.Add(logStruct);
-                   
                 }
-               
             }
         }
         public void SetCtrl(ListViewEx_Log ctrl)

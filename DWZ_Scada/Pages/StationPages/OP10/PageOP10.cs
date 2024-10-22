@@ -299,13 +299,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             if (isSpot)
             {
-                Mylog.Instance.Info("启动点检");
-                LogMgr.Instance.Info("启动点检");
+                Mylog.Instance.Debug("启动点检");
             }
             else
             {
-                Mylog.Instance.Info("关闭点检");
-                LogMgr.Instance.Info("关闭点检");
+                Mylog.Instance.Debug("关闭点检");
             }
             short value = 0;
             if (isSpot)

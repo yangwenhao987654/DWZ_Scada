@@ -34,6 +34,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             清除 = new System.Windows.Forms.ToolStripMenuItem();
+            复制 = new System.Windows.Forms.ToolStripMenuItem();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             contextMenuStrip1.SuspendLayout();
@@ -56,16 +57,23 @@
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
-            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 清除 });
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 清除, 复制 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            contextMenuStrip1.Size = new System.Drawing.Size(137, 48);
             // 
             // 清除
             // 
             清除.Name = "清除";
-            清除.Size = new System.Drawing.Size(100, 22);
+            清除.Size = new System.Drawing.Size(136, 22);
             清除.Text = "清除";
             清除.Click += 清除_Click_1;
+            // 
+            // 复制
+            // 
+            复制.Name = "复制";
+            复制.Size = new System.Drawing.Size(136, 22);
+            复制.Text = "复制选中行";
+            复制.Click += 复制_Click;
             // 
             // columnHeader1
             // 
@@ -83,8 +91,9 @@
             Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2 });
             ContextMenuStrip = contextMenuStrip1;
             Font = new System.Drawing.Font("微软雅黑", 12F);
+            FullRowSelect = true;
+            HideSelection = true;
             LabelWrap = false;
-            MultiSelect = false;
             Size = new System.Drawing.Size(554, 345);
             View = System.Windows.Forms.View.Details;
             contextMenuStrip1.ResumeLayout(false);
@@ -99,5 +108,6 @@
         private System.Windows.Forms.ToolStripMenuItem 清除;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ToolStripMenuItem 复制;
     }
 }

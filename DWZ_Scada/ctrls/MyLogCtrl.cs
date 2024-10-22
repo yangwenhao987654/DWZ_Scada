@@ -20,8 +20,8 @@ namespace DWZ_Scada.ctrls
         public MyLogCtrl()
         {
             InitializeComponent();
-       /*     this.Columns[0].Text = "时间";
-            this.Columns[1].Text = "信息";*/
+            /*     this.Columns[0].Text = "时间";
+                 this.Columns[1].Text = "信息";*/
         }
 
         public void AppendLog(LogStruct log)
@@ -39,7 +39,7 @@ namespace DWZ_Scada.ctrls
                     Items.Clear();
                 }
                 //this.Invalidate();
-                while (_unShownLogQueue.TryDequeue( out LogStruct log))
+                while (_unShownLogQueue.TryDequeue(out LogStruct log))
                 {
                     if (log.line == null)
                     {
@@ -66,11 +66,11 @@ namespace DWZ_Scada.ctrls
                                 listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.Green;
                                 break;
-                            case LogLvl.info:                          
+                            case LogLvl.info:
                                 listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.Yellow;
                                 break;
-                            case LogLvl.error:                              
+                            case LogLvl.error:
                                 listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.Red;
                                 break;
@@ -96,6 +96,21 @@ namespace DWZ_Scada.ctrls
         private void 清除_Click_1(object sender, EventArgs e)
         {
             Clean();
+        }
+
+        private void 复制_Click(object sender, EventArgs e)
+        {
+            SelectedListViewItemCollection selectedItems = this.SelectedItems;
+            
+            foreach (ListViewItem item in selectedItems)
+            {
+                int index = item.Index;
+              
+                string info = this.Items[index].SubItems[1].Text;
+                string time = item.Text;
+                Clipboard.SetText(time + ":"+ info);
+            }
+         
         }
     }
 
