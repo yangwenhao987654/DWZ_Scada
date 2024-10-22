@@ -161,6 +161,7 @@ namespace DWZ_Scada.Pages
             uiLight1.Location = new System.Drawing.Point(232, 22);
             uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight1.Name = "uiLight1";
+            uiLight1.OnColor = System.Drawing.Color.LightGray;
             uiLight1.Radius = 59;
             uiLight1.Size = new System.Drawing.Size(59, 60);
             uiLight1.TabIndex = 10;
@@ -176,6 +177,7 @@ namespace DWZ_Scada.Pages
             lbl_PLCConn.Name = "lbl_PLCConn";
             lbl_PLCConn.Size = new System.Drawing.Size(91, 28);
             lbl_PLCConn.TabIndex = 9;
+            lbl_PLCConn.Text = "未连接";
             // 
             // uiLabel17
             // 
@@ -195,7 +197,7 @@ namespace DWZ_Scada.Pages
             lbl_PLCState.Name = "lbl_PLCState";
             lbl_PLCState.Size = new System.Drawing.Size(91, 28);
             lbl_PLCState.TabIndex = 7;
-            lbl_PLCState.Text = "在线";
+            lbl_PLCState.Text = "离线";
             // 
             // uiLabel8
             // 

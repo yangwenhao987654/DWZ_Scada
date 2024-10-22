@@ -110,9 +110,6 @@ namespace DWZ_Scada.ctrls
                 string time = item.Text;
                 Clipboard.SetText(time + ":"+ info);
             }
-         
         }
     }
-
-
 }
