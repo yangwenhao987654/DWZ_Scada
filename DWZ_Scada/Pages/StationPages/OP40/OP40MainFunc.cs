@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.HttpServices;
+﻿using DWZ_Scada.ctrls.LogCtrl;
+using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.Pages.StationPages.OP20;
@@ -275,7 +276,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     },
                     isLastStep = false
                 };
-                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                if (res == false)
+                {
+                    Mylog.Instance.Alarm("上传焊接数据错误:" + msg);
+                }
                 LogMgr.Instance.Debug($"焊接结果:{(result  ? "OK" : "NG")}");
                 PLC.Write(OP40Address.WeldingResult, "Bool", result);
             }
@@ -319,7 +324,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     },
                     isLastStep = true
                 };
-                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                if (res == false)
+                {
+                    Mylog.Instance.Alarm("上传视觉数据错误:" + msg);
+                }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
                 PLC.Write(OP30Address.VisionOut, "Bool", result);
             }

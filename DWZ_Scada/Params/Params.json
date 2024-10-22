@@ -1,7 +1,7 @@
 ﻿{
   "Station": 3,
   "OP10_PlcIP": "127.0.0.1",
-  "OP10_PlcPort": 102,
+  "OP10_PlcPort": 5000,
   "OP20_PlcIP": "127.0.0.1",
   "OP20_PlcPort": 101,
   "OP20_Winding1_IP": "127.0.0.1",

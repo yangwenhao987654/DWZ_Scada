@@ -5,7 +5,7 @@
         /// <summary>
         /// 进站请求信号
         /// </summary>
-        public static readonly string EntrySignal = "M10";
+        public static readonly string EntrySignal = "D3100";
 
         /// <summary>
         /// 出战请求信号
@@ -15,7 +15,7 @@
         /// <summary>
         /// 进站结果信号
         /// </summary>
-        public static readonly string EntryResult = "";
+        public static readonly string EntryResult = "D3200";
 
         /// <summary>
         /// 出站结果信号
@@ -26,7 +26,7 @@
         /// <summary>
         /// 报警信息地址 起始地址
         /// </summary>
-        public static readonly string AlarmAddress="";
+        public static readonly string AlarmAddress= "M59000";
 
         /// <summary>
         /// 报警地址长度 
@@ -36,33 +36,39 @@
         /// <summary>
         /// 进站SN码
         /// </summary>
-        public static readonly string EntrySn = "D100";
+        public static readonly string EntrySn = "D1100";
 
         /// <summary>
         /// 出站SN码
         /// </summary>
-        public static readonly string ExitSn = "D200";
+        public static readonly string ExitSn = "D1100";
 
         /// <summary>
         /// 视觉1 SN码
         /// </summary>
-        public static readonly string Vision1_Sn = "D200";
+        public static readonly string Vision1_Sn = "D1110";
 
 
         /// <summary>
         /// 视觉2 SN码
         /// </summary>
-        public static readonly string Vision2_Sn = "D300";
+        public static readonly string Vision2_Sn = "D1120";
 
         /// <summary>
         /// 读取PLC状态地址
         /// </summary>
-        public static string State = "D10";
+        public static string State = "D3000";
 
         /// <summary>
         /// 点检模式地址
         /// </summary>
-        public static string SpotCheck = "";
+        public static string SpotCheck = "D3030";
+
+
+        /// <summary>
+        /// 心跳地址
+        /// </summary>
+        public static string HeartBeat = "D3010";
 
         /// <summary>
         /// 采集信号
@@ -70,33 +76,54 @@
         public static readonly string Collect = "";
 
         /// <summary>
+        /// 视觉1开始
+        /// </summary>
+        public static readonly string Vision1Start = "D3101";
+
+        /// <summary>
         /// 视觉1完成
         /// </summary>
-        public static readonly string Vision1Finish = "M11";
+        public static readonly string Vision1Finish = "D3102";
+
+
+        /// <summary>
+        /// 视觉2开始
+        /// </summary>
+        public static readonly string Vision2Start = "D3103";
 
         /// <summary>
         /// 视觉2完成
         /// </summary>
-        public static readonly string Vision2Finish = "M12";
+        public static readonly string Vision2Finish = "D3104";
 
         /// <summary>
         /// 视觉1结果信号
         /// </summary>
-        public static readonly string Vision1Result = "M21";
+        public static readonly string Vision1Result = "D1119";
 
         /// <summary>
         /// 视觉2结果信号
         /// </summary>
-        public static readonly string Vision2Result = "M22";
+        public static readonly string Vision2Result = "D1129";
 
         /// <summary>
         /// 视觉1写PLC出站采集结果
         /// </summary>
-        public static readonly string Vision1_Out = "M31";
+        public static readonly string Vision1_Out = "D3201";
 
         /// <summary>
         /// 视觉2出站采集结果
         /// </summary>
-        public static readonly string Vision2_Out = "M32";
+        public static readonly string Vision2_Out = "D3202";
+
+        /// <summary>
+        /// 型号
+        /// </summary>
+        public static readonly string Product = "D3021";
+
+        /// <summary>
+        /// 切换型号
+        /// </summary>
+        public static readonly string ChangeProduct = "D3020";
     }
 }

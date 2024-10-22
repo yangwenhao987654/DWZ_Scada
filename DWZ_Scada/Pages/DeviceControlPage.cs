@@ -310,6 +310,7 @@ namespace DWZ_Scada.Pages
                 lbx_Alarm.Invoke(reflashList);
                 return;
             }
+           
             lbx_Alarm.DataSource = null;
             lbx_Alarm.DataSource = list;
         }

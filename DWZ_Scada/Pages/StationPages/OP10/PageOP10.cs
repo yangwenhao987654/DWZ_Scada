@@ -1,4 +1,5 @@
 ﻿using CommunicationUtilYwh.Communication;
+using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.MyHttpPlug;
@@ -12,9 +13,11 @@ using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RestSharp;
+using ScadaBase.DAL.Entity;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TouchSocket.Core;
@@ -31,6 +34,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// OP10
         /// </summary>
         private const string CURRENT_STATION_NAME = "OP10";
+
+        private readonly Action _clearAlarmDelegate;
 
         public List<OrderVo> Orders { get; set; }
 
@@ -99,27 +104,41 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             OP10MainFunc.OnVision1Finished += PageOP10_OnVision1Finished;
 
             OP10MainFunc.OnVision2Finished += PageOP10_OnVision2Finished;
+
+            Mylog.Instance.Init(myLogCtrl1);
         }
 
-        private void PageOP10_OnVision1Finished(string sn, bool result)
+        private void PageOP10_OnVision1Finished(string sn, int result)
         {
             UpdateV1(sn, result);
         }
 
-        private void PageOP10_OnVision2Finished(string sn, bool result)
+        private void PageOP10_OnVision2Finished(string sn, int result)
         {
             UpdateV2(sn, result);
         }
 
-        public void UpdateV1(string sn, bool result)
+        public void UpdateV1(string sn, int result)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string, bool>(UpdateV1), sn, result);
+                Invoke(new Action<string, int>(UpdateV1), sn, result);
                 return;
             }
             lbl_SN1.Text = sn;
-            lbl_Vision1Result.Text = result ? "OK" : "NG";
+            if (result == 0)
+            {
+                lbl_Vision1Result.Text = "测试中";
+            }
+            if (result == 1)
+            {
+                lbl_Vision1Result.Text = "OK";
+            }
+            if (result == 2)
+            {
+                lbl_Vision1Result.Text = "NG";
+            }
+            //lbl_Vision1Result.Text = result ? "OK" : "NG";
         }
 
         public void UpdateEnrtySN(string sn)
@@ -155,15 +174,26 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             lbl_EntryMsg.Text = "请求中.....";
         }
 
-        public void UpdateV2(string sn, bool result)
+        public void UpdateV2(string sn, int result)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string, bool>(UpdateV2), sn, result);
+                Invoke(new Action<string, int>(UpdateV2), sn, result);
                 return;
             }
             lbl_SN2.Text = sn;
-            lbl_Vision2Result.Text = result ? "OK" : "NG";
+            if (result == 0)
+            {
+                lbl_Vision2Result.Text = "测试中";
+            }
+            if (result == 1)
+            {
+                lbl_Vision2Result.Text = "OK";
+            }
+            if (result == 2)
+            {
+                lbl_Vision2Result.Text = "NG";
+            }
         }
 
         public void UpdateTempSN(string newValue)
@@ -189,8 +219,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             //Thread.Sleep(2000);
             LogMgr.Instance.Info("选型结束");
         }
-
-      
 
         public static void TestGetRequest<T>(string url)
         {
@@ -267,18 +295,29 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         }
 
-        private void uiSwitch_Spot_ValueChanged(object sender, bool value)
+        private void uiSwitch_Spot_ValueChanged(object sender, bool isSpot)
         {
-            if (value)
+            if (isSpot)
             {
+                Mylog.Instance.Info("启动点检");
                 LogMgr.Instance.Info("启动点检");
             }
             else
             {
+                Mylog.Instance.Info("关闭点检");
                 LogMgr.Instance.Info("关闭点检");
             }
-            OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", value);
-            OP10MainFunc.Instance.IsSpotCheck = value;
+            short value = 0;
+            if (isSpot)
+            {
+                value = 1;
+            }
+            else
+            {
+                value = 0;
+            }
+            OP10MainFunc.Instance.PLC.WriteInt16(OP10Address.SpotCheck,value);
+            OP10MainFunc.Instance.IsSpotCheck = isSpot;
         }
 
         private async void uiButton3_Click(object sender, EventArgs e)
@@ -310,7 +349,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 }
                 else
                 {
-                    LogMgr.Instance.Error("获取工单失败");
+                    Mylog.Instance.Error("获取工单失败");
                 }
             }
             cbx_Orders.DataSource = Orders;

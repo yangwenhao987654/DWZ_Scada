@@ -9,7 +9,7 @@ namespace DWZ_Scada.ProcessControl.DTO
     /// <summary>
     /// 进站请求结果
     /// </summary>
-    public class EntryResultDTO
+    public class ResultDTO
     {
         public string msg { get; set; }
 

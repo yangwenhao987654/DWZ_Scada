@@ -184,16 +184,7 @@ namespace CommunicationUtilYwh.Communication
             return flag;
         }
 
-        public bool WriteInt16(string adr, Int16 value)
-        {
-            lock (_lock)
-            {
-                bool flag = false;
-                OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-                flag = operate.IsSuccess;
-                return flag;
-            }
-        }
+    
 
         public bool WriteUInt16(string adr, UInt16 value)
         {
@@ -371,14 +362,15 @@ namespace CommunicationUtilYwh.Communication
             return flag;
 
         }
-        public bool WriteInt16(string adr, int value)
+    
+ 
+
+        public override bool WriteInt16(string address, short value)
         {
-
-            bool flag = false;
-            OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-            flag = operate.IsSuccess;
+            OperateResult operate = client.Write(address, Convert.ToInt16(value));
+            bool flag = operate.IsSuccess;
             return flag;
-
+            ;
         }
 
         public bool WriteBool(string adr, bool value)

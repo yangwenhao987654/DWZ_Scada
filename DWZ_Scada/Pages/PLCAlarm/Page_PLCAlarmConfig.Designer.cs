@@ -111,7 +111,7 @@
             dgv.ScrollBarStyleInherited = false;
             dgv.ScrollBarWidth = 10;
             dgv.SelectedIndex = -1;
-            dgv.Size = new System.Drawing.Size(1912, 672);
+            dgv.Size = new System.Drawing.Size(1280, 672);
             dgv.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dgv.TabIndex = 102;
             dgv.CellClick += dgv_CellClick;
@@ -166,7 +166,7 @@
             uiButton3.ForeHoverColor = System.Drawing.Color.Black;
             uiButton3.ForePressColor = System.Drawing.Color.Black;
             uiButton3.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton3.Location = new System.Drawing.Point(415, 34);
+            uiButton3.Location = new System.Drawing.Point(117, 37);
             uiButton3.Margin = new System.Windows.Forms.Padding(2);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
@@ -193,7 +193,7 @@
             uiButton4.ForeHoverColor = System.Drawing.Color.Black;
             uiButton4.ForePressColor = System.Drawing.Color.Black;
             uiButton4.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton4.Location = new System.Drawing.Point(1078, 34);
+            uiButton4.Location = new System.Drawing.Point(780, 37);
             uiButton4.Margin = new System.Windows.Forms.Padding(2);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
@@ -220,7 +220,7 @@
             uiButton2.ForeHoverColor = System.Drawing.Color.Black;
             uiButton2.ForePressColor = System.Drawing.Color.Black;
             uiButton2.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton2.Location = new System.Drawing.Point(637, 34);
+            uiButton2.Location = new System.Drawing.Point(339, 37);
             uiButton2.Margin = new System.Windows.Forms.Padding(2);
             uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton2.Name = "uiButton2";
@@ -274,7 +274,7 @@
             uiButton5.ForeHoverColor = System.Drawing.Color.Black;
             uiButton5.ForePressColor = System.Drawing.Color.Black;
             uiButton5.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton5.Location = new System.Drawing.Point(853, 34);
+            uiButton5.Location = new System.Drawing.Point(555, 37);
             uiButton5.Margin = new System.Windows.Forms.Padding(2);
             uiButton5.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton5.Name = "uiButton5";
@@ -292,7 +292,7 @@
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.AliceBlue;
-            ClientSize = new System.Drawing.Size(1912, 778);
+            ClientSize = new System.Drawing.Size(1280, 778);
             Controls.Add(uiButton5);
             Controls.Add(uiButton1);
             Controls.Add(uiButton2);

@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.HttpServices;
+﻿using DWZ_Scada.ctrls.LogCtrl;
+using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -6,6 +7,7 @@ using DWZ_Scada.ProcessControl.EntryHandle;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using ScadaBase.DAL.Entity;
+using Sunny.UI.Win32;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,7 +17,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 {
     public class OP10MainFunc : MainFuncBase, IDisposable
     {
-        public delegate void OP10VisionFinished(string sn, bool result);
+        public delegate void OP10VisionFinished(string sn, int result);
 
         private static OP10MainFunc _instance;
 
@@ -29,9 +31,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     {
                         if (_instance == null)
                         {
-                           
-                                // 使用一个工厂方法创建实例，让子类决定实例化逻辑
-                                throw new Exception("OP10MainFunc is Not instantiate");
+
+                            // 使用一个工厂方法创建实例，让子类决定实例化逻辑
+                            throw new Exception("OP10MainFunc is Not instantiate");
                         }
                     }
                 }
@@ -39,7 +41,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
         }
 
-        public static void  CreateInstance(PLCConfig plcConfig)
+        public static void CreateInstance(PLCConfig plcConfig)
         {
             _instance = new OP10MainFunc(plcConfig);
         }
@@ -52,14 +54,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private static readonly OP10Model myOp10Model = PageOP10.Instance.op10Model;
 
-        private const int AlarmState = 2;
+        private const int AlarmState = 3;
 
         private const int RunningState = 1;
 
         /// <summary>
         /// 设备停止中
         /// </summary>
-        private const int StopState = 3;
+        private const int StopState = 2;
 
         /// <summary>
         /// PLC连接断开
@@ -136,7 +138,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     dto.Message = message;
                 }
             }
-            await DeviceStateService.AddDeviceState(dto);
+            //await DeviceStateService.AddDeviceState(dto);
         }
 
         public override async void PLCMainWork(CancellationToken token)
@@ -157,6 +159,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         Thread.Sleep(500);
                         continue;
                     }
+
+
                     #region 读取PLC状态
 
                     //判断是否点检模式
@@ -222,56 +226,105 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private async void ProcessVision1()
         {
-            if (PLC.ReadBool(OP10Address.Vision1Finish, out bool isFinish) && isFinish)
+            if (PLC.ReadInt16(OP10Address.Vision1Start, out short isStart) && isStart == 1)
+            {
+                LogMgr.Instance.Debug("收到视觉1开始信号");
+                //复位视觉完成
+                PLC.WriteInt16(OP10Address.Vision1Start, 0);
+                PLC.Read(OP10Address.Vision1_Sn, "string-8", out string sn);
+
+                //界面更新
+                OnVision1Finished?.Invoke(sn, 0);
+            }
+            if (PLC.ReadInt16(OP10Address.Vision1Finish, out short isFinish) && isFinish == 1)
             {
                 LogMgr.Instance.Debug("收到视觉1完成信号");
                 //复位视觉完成
-                PLC.Write(OP10Address.Vision1Finish, "Bool", false);
-                PLC.Read(OP10Address.Vision1_Sn, "string-20", out string sn);
+                PLC.WriteInt16(OP10Address.Vision1Finish, 0);
+                PLC.Read(OP10Address.Vision1_Sn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-                PLC.ReadBool(OP10Address.Vision1Result, out bool result);
+                PLC.ReadInt16(OP10Address.Vision1Result, out short v1Result);
 
                 //界面更新
-                OnVision1Finished?.Invoke(sn,result);
-
+                OnVision1Finished?.Invoke(sn, v1Result);
+                bool result = v1Result == 1 ? true : false;
                 //上传Mes测试数据
-                PassStationDTO dto = new PassStationDTO()
+
+                if (IsSpotCheck)
                 {
-                    StationCode = StationCode,
-                    SnTemp = SNTest,
-                    WorkOrder = "MO202409110002",
-                    PassStationData = new Vision1Data()
+                    DeviceInspectDTO inspectDTO = new DeviceInspectDTO()
                     {
-                        Vision1Result = result,
-                        Good = true,
-                    },
-                    isLastStep = false
-                };
-                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                        StationCode = StationCode,
+                        SnTemp = sn,
+                        WorkOrder = "MO202410210001",
+                        PassStationData = new Vision1Data()
+                        {
+                            Vision1Result = result,
+                            Good = result,
+                        },
+                        isLastStep = false
+                    };
+                    (bool res, string msg) =await UploadSpotCheckData(inspectDTO);
+                    if (res==false)
+                    {
+                        Mylog.Instance.Alarm("点检上传错误:"+msg);
+                    }
+                }
+                else {
+                    PassStationDTO dto = new PassStationDTO()
+                    {
+                        StationCode = StationCode,
+                        SnTemp = sn,
+                        WorkOrder = "MO202410210001",
+                        PassStationData = new Vision1Data()
+                        {
+                            Vision1Result = result,
+                            Good = result,
+                        },
+                        isLastStep = false
+                    };
+                    (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                    if (res == false)
+                    {
+                        Mylog.Instance.Alarm("上传过站数据错误:" + msg);
+                    }
+                }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
                 PLC.Write(OP10Address.Vision1_Out, "Bool", result);
-
             }
         }
 
         private async void ProcessVision2()
         {
-            if (PLC.ReadBool(OP10Address.Vision2Finish, out bool isFinish) && isFinish)
+            if (PLC.ReadInt16(OP10Address.Vision2Start, out short isStart) && isStart == 1)
+            {
+                LogMgr.Instance.Debug("收到视觉2开始信号");
+                //复位视觉完成
+                PLC.WriteInt16(OP10Address.Vision2Start, 0);
+                PLC.Read(OP10Address.Vision2_Sn, "string-8", out string sn);
+
+                //界面更新
+                OnVision2Finished?.Invoke(sn, 0);
+            }
+            if (PLC.ReadInt16(OP10Address.Vision2Finish, out short isFinish) && isFinish == 1)
             {
                 LogMgr.Instance.Debug("收到视觉2完成信号");
                 //复位视觉2完成
-                PLC.Write(OP10Address.Vision2Finish, "Bool", false);
+                PLC.WriteInt16(OP10Address.Vision2Finish, 0);
 
-                PLC.Read(OP10Address.Vision2_Sn, "string-20", out string sn);
+                PLC.Read(OP10Address.Vision2_Sn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-                PLC.ReadBool(OP10Address.Vision2Result, out bool result);
+                PLC.ReadInt16(OP10Address.Vision2Result, out short v1Result);
 
-                OnVision2Finished?.Invoke(sn, result);
+                //界面更新
+                OnVision2Finished?.Invoke(sn, v1Result);
+                bool result = v1Result == 1 ? true : false;
+                OnVision2Finished?.Invoke(sn, v1Result);
                 //上传Mes测试数据
                 PassStationDTO dto = new PassStationDTO()
                 {
-                    SnTemp = SNTest,
-                    WorkOrder = "MO202409110002",
+                    SnTemp = sn,
+                    WorkOrder = "MO202410210001",
                     StationCode = StationCode,
                     PassStationData = new Vision2Data()
                     {
@@ -280,7 +333,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     },
                     isLastStep = true
                 };
-                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                if (res == false)
+                {
+                    Mylog.Instance.Alarm("上传视觉2数据错误:" + msg);
+                }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
                 PLC.Write(OP10Address.Vision2_Out, "Bool", result);
 
@@ -288,22 +345,23 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         }
 
         // 处理出战信号
-        private async Task ProcessExitSignal()
-        {
-            if (PLC.ReadBool(OP10Address.ExitSignal, out bool isExit) && isExit)
-            {
-                LogMgr.Instance.Debug("收到出站请求信号");
-                PLC.Read(OP10Address.ExitSn, "string", out string sn);
-                LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-                OP10EntryCommand entryCommand = new(sn);
-                entryCommand.Execute();
+        //private async Task ProcessExitSignal()
+        //{
+        //    if (PLC.ReadInt16(OP10Address.ExitSignal, out short isExit) && isExit==1)
+        //    {
+        //        LogMgr.Instance.Debug("收到出站请求信号");
+        //        PLC.WriteInt16(OP10Address.ExitSignal, 0);
+        //        PLC.Read(OP10Address.ExitSn, "string-8", out string sn);
+        //        LogMgr.Instance.Debug("读取出站条码内容:" + sn);
+        //        OP10EntryCommand entryCommand = new(sn);
+        //        entryCommand.Execute();
 
-                //
-                LogMgr.Instance.Debug("写出站结果OK");
-                PLC.Write(OP10Address.ExitResult, "Bool", true);
+        //        //
+        //        LogMgr.Instance.Debug("写出站结果OK");
+        //        PLC.Write(OP10Address.ExitResult, "Bool", true);
 
-            }
-        }
+        //    }
+        //}
 
         // 更新设备状态到UI
         private void UpdateDeviceStateUI(OP10Model model)
@@ -447,12 +505,12 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         // 处理进站信号
         private async Task ProcessEntrySignal()
         {
-            if (PLC.ReadBool(OP10Address.EntrySignal, out bool isEntry) && isEntry)
+            if (PLC.ReadInt16(OP10Address.EntrySignal, out short isEntry) && isEntry == 1)
             {
                 //复位进站请求
-                PLC.Write(OP10Address.EntrySignal, "Bool", false);
+                PLC.WriteInt16(OP10Address.EntrySignal, 0);
                 LogMgr.Instance.Debug("收到进站请求信号");
-                PLC.Read(OP10Address.EntrySn, "string-20", out string sn);
+                PLC.Read(OP10Address.EntrySn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取进站条码内容:" + sn);
                 //更新界面
                 PageOP10.Instance.UpdateEnrtySN(sn);
@@ -460,16 +518,21 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
                 EntryRequestDTO requestDto = new()
                 {
-                    SnTemp = SNTest,
+                    SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = "MO202409110002"
+                    WorkOrder = "MO202410210001"
                 };
                 EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
                 (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
                 //
-                PageOP10.Instance.UpdateEnrtyResult(flag,msg);
+                PageOP10.Instance.UpdateEnrtyResult(flag, msg);
                 LogMgr.Instance.Debug($"写进站结果{flag}");
-                PLC.Write(OP10Address.EntryResult, "Bool", flag);
+                short result = 2;
+                if (flag)
+                {
+                    result = 1;
+                }
+                PLC.WriteInt16(OP10Address.EntryResult, result);
             }
         }
 
@@ -479,7 +542,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// <returns></returns>
         private int ReadPLCState()
         {
-            short state =-1;
+            short state = -1;
             bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;

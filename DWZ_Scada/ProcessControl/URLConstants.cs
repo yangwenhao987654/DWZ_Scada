@@ -8,7 +8,7 @@ namespace DWZ_Scada.ProcessControl
 {
     public static class URLConstants
     {
-        public const string Base = "http://192.168.3.154/dev-api/";
+        public const string Base = "http://192.168.8.105/dev-api/";
 
         /// <summary>
         /// <para>提供Mes选型接口</para>

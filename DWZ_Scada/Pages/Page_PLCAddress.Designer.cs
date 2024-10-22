@@ -201,7 +201,7 @@ namespace DWZ_Scada
             dataGridView1.ScrollBarRectColor = System.Drawing.Color.Silver;
             dataGridView1.ScrollBarStyleInherited = false;
             dataGridView1.SelectedIndex = -1;
-            dataGridView1.Size = new System.Drawing.Size(1912, 596);
+            dataGridView1.Size = new System.Drawing.Size(1280, 596);
             dataGridView1.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dataGridView1.TabIndex = 7;
             dataGridView1.CellClick += dataGridView1_CellClick;
@@ -271,7 +271,7 @@ namespace DWZ_Scada
             button4.ForeHoverColor = System.Drawing.Color.Black;
             button4.ForePressColor = System.Drawing.Color.Black;
             button4.ForeSelectedColor = System.Drawing.Color.Black;
-            button4.Location = new System.Drawing.Point(1718, 109);
+            button4.Location = new System.Drawing.Point(964, 109);
             button4.Margin = new Padding(2);
             button4.MinimumSize = new System.Drawing.Size(1, 1);
             button4.Name = "button4";
@@ -298,7 +298,7 @@ namespace DWZ_Scada
             button3.ForeHoverColor = System.Drawing.Color.Black;
             button3.ForePressColor = System.Drawing.Color.Black;
             button3.ForeSelectedColor = System.Drawing.Color.Black;
-            button3.Location = new System.Drawing.Point(1338, 111);
+            button3.Location = new System.Drawing.Point(584, 111);
             button3.Margin = new Padding(2);
             button3.MinimumSize = new System.Drawing.Size(1, 1);
             button3.Name = "button3";
@@ -318,7 +318,7 @@ namespace DWZ_Scada
             textBox4.FillColor = System.Drawing.SystemColors.ButtonHighlight;
             textBox4.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             textBox4.ForeColor = System.Drawing.Color.Silver;
-            textBox4.Location = new System.Drawing.Point(948, 118);
+            textBox4.Location = new System.Drawing.Point(194, 118);
             textBox4.Margin = new Padding(2);
             textBox4.MinimumSize = new System.Drawing.Size(1, 16);
             textBox4.Name = "textBox4";
@@ -343,7 +343,7 @@ namespace DWZ_Scada
             button1.ForeHoverColor = System.Drawing.Color.Black;
             button1.ForePressColor = System.Drawing.Color.Black;
             button1.ForeSelectedColor = System.Drawing.Color.Black;
-            button1.Location = new System.Drawing.Point(1531, 109);
+            button1.Location = new System.Drawing.Point(777, 109);
             button1.Margin = new Padding(2);
             button1.MinimumSize = new System.Drawing.Size(1, 1);
             button1.Name = "button1";
@@ -376,12 +376,12 @@ namespace DWZ_Scada
             // 
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("微软雅黑", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            label4.Location = new System.Drawing.Point(795, 119);
+            label4.Location = new System.Drawing.Point(41, 119);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(93, 35);
+            label4.Size = new System.Drawing.Size(112, 35);
             label4.TabIndex = 42;
-            label4.Text = "地   址";
+            label4.Text = "地  址：";
             // 
             // button2
             // 
@@ -396,7 +396,7 @@ namespace DWZ_Scada
             button2.ForeHoverColor = System.Drawing.Color.Black;
             button2.ForePressColor = System.Drawing.Color.Black;
             button2.ForeSelectedColor = System.Drawing.Color.Black;
-            button2.Location = new System.Drawing.Point(1138, 110);
+            button2.Location = new System.Drawing.Point(384, 110);
             button2.Margin = new Padding(2);
             button2.MinimumSize = new System.Drawing.Size(1, 1);
             button2.Name = "button2";
@@ -413,7 +413,7 @@ namespace DWZ_Scada
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = System.Drawing.Color.AliceBlue;
-            ClientSize = new System.Drawing.Size(1912, 778);
+            ClientSize = new System.Drawing.Size(1280, 778);
             Controls.Add(button2);
             Controls.Add(label4);
             Controls.Add(label5);

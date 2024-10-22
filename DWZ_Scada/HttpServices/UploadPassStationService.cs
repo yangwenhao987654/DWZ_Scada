@@ -19,12 +19,11 @@ namespace DWZ_Scada.HttpServices
         /// <summary>
         /// 上传Mes过站数据
         /// </summary>
-        public  async Task<bool> SendPassStationData(PassStationDTO dto)
+        public  async Task<(bool,string)> SendPassStationData(PassStationDTO dto)
         {
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);
             LogMgr.Instance.Info($"获取响应:\n{response.Content}");
-            _httpClientHelper.AnalyzeResponse(response);
-            return true;
+            return _httpClientHelper.AnalyzeResponse(response);
         }
     }
 }

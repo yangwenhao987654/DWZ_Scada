@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.HttpServices;
+﻿using DWZ_Scada.ctrls.LogCtrl;
+using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -250,7 +251,11 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     },
                     isLastStep = true
                 };
-                bool isSuccess = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                if (res == false)
+                {
+                    Mylog.Instance.Alarm("上传视觉过站数据错误:" + msg);
+                }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
                 PLC.Write(OP30Address.VisionOut, "Bool", result);
             }

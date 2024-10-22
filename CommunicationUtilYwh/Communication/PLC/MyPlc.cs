@@ -21,6 +21,8 @@ namespace CommunicationUtilYwh.Communication.PLC
 
         public abstract bool ReadInt16(string address, out short value);
 
+        public abstract bool WriteInt16(string address,  short value);
+
         public abstract bool Read(string adr, string type, out string value);
 
         public abstract bool Write(string adr, string type, object value);

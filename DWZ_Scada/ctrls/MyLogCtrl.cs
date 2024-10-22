@@ -1,34 +1,27 @@
-﻿using System;
+﻿using DWZ_Scada.ctrls.LogCtrl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-namespace LogTool
+namespace DWZ_Scada.ctrls
 {
-    public partial class ListViewEx_Log : ListView
+    public partial class MyLogCtrl : ListView
     {
         Queue<LogStruct> _unShownLogQueue = new Queue<LogStruct>();
 
         public Control BindingControl;
 
-        public ListViewEx_Log()
+        public MyLogCtrl()
         {
             InitializeComponent();
-            this.Columns[0].Text = "时间";
-            this.Columns[1].Text = "信息";
-
-            // this.Font =new System.Drawing.Font("宋体", 15F);
-        }
-
-        public ListViewEx_Log(IContainer container) : this()
-        {
-            container.Add(this);
+       /*     this.Columns[0].Text = "时间";
+            this.Columns[1].Text = "信息";*/
         }
 
         public void AppendLog(LogStruct log)
@@ -37,22 +30,17 @@ namespace LogTool
             return;
         }
 
-        private void listView_Log_Resize(object sender, EventArgs e)
-        {
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (IsHandleCreated && _unShownLogQueue.Count > 0)
             {
-                if (this.Items.Count > 1000)
+                if (Items.Count > 100)
                 {
-                    this.Items.Clear();
+                    Items.Clear();
                 }
                 //this.Invalidate();
-                while (_unShownLogQueue.Count > 0)
+                while (_unShownLogQueue.TryDequeue( out LogStruct log))
                 {
-                    var log = _unShownLogQueue.Dequeue();
                     if (log.line == null)
                     {
                         return;
@@ -71,16 +59,20 @@ namespace LogTool
                         switch (log.lvl)
                         {
                             case LogLvl.debug:
-                                listViewItem.ForeColor = Color.Green;
+                                listViewItem.ForeColor = Color.Black;
+                                listViewItem.BackColor = Color.White;
                                 break;
-                            case LogLvl.info:
+                            case LogLvl.alarm:
+                                listViewItem.ForeColor = Color.Black;
+                                listViewItem.BackColor = Color.Green;
+                                break;
+                            case LogLvl.info:                          
+                                listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.Yellow;
-
-                                listViewItem.ForeColor = Color.Black;
                                 break;
-                            case LogLvl.error:
-                                listViewItem.BackColor = Color.Red;
+                            case LogLvl.error:                              
                                 listViewItem.ForeColor = Color.Black;
+                                listViewItem.BackColor = Color.Red;
                                 break;
                             default:
                                 break;
@@ -101,35 +93,11 @@ namespace LogTool
             Items.Clear();
         }
 
-        private void 清除_Click(object sender, EventArgs e)
+        private void 清除_Click_1(object sender, EventArgs e)
         {
             Clean();
         }
-
-        private void 弹出日志_Click(object sender, EventArgs e)
-        {
-            FormCustom form = new FormCustom(this, "调试日志");
-            form.Show();
-            form.CustomFormClosed += Form_CustomFormClosed;
-        }
-
-        private void Form_CustomFormClosed(object sender, EventArgs e)
-        {
-            try
-            {
-                LogMgr.Instance.Init();
-
-                if (BindingControl==null)
-
-                {
-                    BindingControl = this.Parent;
-                }
-                BindingControl.Controls.Add(this);
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("未设置日志绑定控件！");
-            }
-        }
     }
+
+
 }

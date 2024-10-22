@@ -43,6 +43,10 @@ namespace CommunicationUtilYwh.Communication.PLC
         {
             OperateResult<bool> result = client.ReadBool(address);
             value = result.Content;
+            if (!result.IsSuccess)
+            {
+                LogMgr.Instance.Error($"PLC Read Bool Error,地址:[{address}]  异常信息:{result.Message}");
+            }
             return result.IsSuccess;
         }
 
@@ -50,6 +54,10 @@ namespace CommunicationUtilYwh.Communication.PLC
         {
             OperateResult<short> result = client.ReadInt16(address);
             value = result.Content;
+            if (!result.IsSuccess)
+            {
+                LogMgr.Instance.Error($"PLC Read Int16 Error,地址:[{address}]  异常信息:{result.Message}");
+            }
             return result.IsSuccess;
         }
 
@@ -101,8 +109,9 @@ namespace CommunicationUtilYwh.Communication.PLC
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogMgr.Instance.Error($"PLC读取错误,地址:[{adr}] 类型[{type}] 异常信息:{ex.Message}");
                 flag = false;
             }
             return flag;
@@ -154,8 +163,9 @@ namespace CommunicationUtilYwh.Communication.PLC
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogMgr.Instance.Error($"PLC写入错误,地址:[{adr}] 类型[{type}] 异常信息:{ex.Message}");
                 flag = false;
             }
 
@@ -187,8 +197,9 @@ namespace CommunicationUtilYwh.Communication.PLC
                 value = operate.Content;
                 flag = operate.IsSuccess;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogMgr.Instance.Error($"PLC Read错误,地址:[{adr}] 类型[数据-{length}] 异常信息:{ex.Message}");
                 flag = false;
             }
             return flag;
@@ -197,7 +208,16 @@ namespace CommunicationUtilYwh.Communication.PLC
         public override void Dispose()
         {
             //Dispose 会调用Close()  =》  client?.ConnectClose();
+
+            LogMgr.Instance.Debug("释放Keyence-PLC连接");
             client?.Dispose();
+        }
+
+        public override bool WriteInt16(string address, short value)
+        {
+            OperateResult operate = client.Write(address, Convert.ToInt16(value));
+            bool flag = operate.IsSuccess;
+            return flag; ;
         }
     }
 }

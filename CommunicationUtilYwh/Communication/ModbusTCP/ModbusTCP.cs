@@ -421,6 +421,14 @@ namespace CommonUtilYwh.Communication.ModbusTCP
             return flag;
         }
 
+        public override bool WriteInt16(string address, short value)
+        {
+            OperateResult operate = client.Write(address, Convert.ToInt16(value));
+            bool flag = operate.IsSuccess;
+            return flag;
+            ;
+        }
+
         public override void Dispose()
         {
             client?.Dispose();

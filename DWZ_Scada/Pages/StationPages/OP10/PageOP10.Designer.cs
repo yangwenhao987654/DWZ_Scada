@@ -31,6 +31,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             uiLabel1 = new UILabel();
             tbx_Part = new UITextBox();
             uiLabel2 = new UILabel();
@@ -55,6 +56,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             lbl_EntryResult = new UILabel();
             lbl_EntryMsg = new UILabel();
             lbl_WorkOrder = new UILabel();
+            myLogCtrl1 = new ctrls.MyLogCtrl();
             SuspendLayout();
             // 
             // uiLabel1
@@ -64,7 +66,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel1.Location = new System.Drawing.Point(0, 35);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(1280, 59);
+            uiLabel1.Size = new System.Drawing.Size(1223, 59);
             uiLabel1.TabIndex = 1;
             uiLabel1.Text = "OP10-上料打码工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -141,19 +143,21 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             lbl_Vision1Result.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_Vision1Result.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_Vision1Result.Location = new System.Drawing.Point(237, 596);
+            lbl_Vision1Result.Location = new System.Drawing.Point(251, 524);
             lbl_Vision1Result.Name = "lbl_Vision1Result";
             lbl_Vision1Result.Size = new System.Drawing.Size(220, 42);
             lbl_Vision1Result.TabIndex = 12;
+            lbl_Vision1Result.Text = "...";
             // 
             // lbl_Vision2Result
             // 
             lbl_Vision2Result.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_Vision2Result.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_Vision2Result.Location = new System.Drawing.Point(826, 596);
+            lbl_Vision2Result.Location = new System.Drawing.Point(826, 512);
             lbl_Vision2Result.Name = "lbl_Vision2Result";
             lbl_Vision2Result.Size = new System.Drawing.Size(220, 42);
             lbl_Vision2Result.TabIndex = 13;
+            lbl_Vision2Result.Text = "...";
             // 
             // uiSwitch_Spot
             // 
@@ -221,7 +225,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new System.Drawing.Point(616, 596);
+            uiLabel6.Location = new System.Drawing.Point(630, 524);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new System.Drawing.Size(183, 42);
             uiLabel6.TabIndex = 24;
@@ -231,7 +235,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(21, 596);
+            uiLabel7.Location = new System.Drawing.Point(35, 524);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(183, 42);
             uiLabel7.TabIndex = 23;
@@ -241,7 +245,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(21, 498);
+            uiLabel8.Location = new System.Drawing.Point(35, 426);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new System.Drawing.Size(183, 42);
             uiLabel8.TabIndex = 25;
@@ -251,7 +255,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(617, 498);
+            uiLabel11.Location = new System.Drawing.Point(631, 426);
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new System.Drawing.Size(159, 42);
             uiLabel11.TabIndex = 26;
@@ -261,19 +265,21 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             lbl_SN1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_SN1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_SN1.Location = new System.Drawing.Point(226, 498);
+            lbl_SN1.Location = new System.Drawing.Point(240, 426);
             lbl_SN1.Name = "lbl_SN1";
             lbl_SN1.Size = new System.Drawing.Size(220, 42);
             lbl_SN1.TabIndex = 27;
+            lbl_SN1.Text = "V1SN";
             // 
             // lbl_SN2
             // 
             lbl_SN2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_SN2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_SN2.Location = new System.Drawing.Point(814, 498);
+            lbl_SN2.Location = new System.Drawing.Point(826, 426);
             lbl_SN2.Name = "lbl_SN2";
             lbl_SN2.Size = new System.Drawing.Size(220, 42);
             lbl_SN2.TabIndex = 28;
+            lbl_SN2.Text = "V2SN";
             // 
             // uiLabel10
             // 
@@ -298,10 +304,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             lbl_EntryMsg.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_EntryMsg.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_EntryMsg.Location = new System.Drawing.Point(658, 287);
+            lbl_EntryMsg.Location = new System.Drawing.Point(492, 278);
             lbl_EntryMsg.Name = "lbl_EntryMsg";
             lbl_EntryMsg.Size = new System.Drawing.Size(452, 94);
             lbl_EntryMsg.TabIndex = 31;
+            lbl_EntryMsg.Text = "...";
             // 
             // lbl_WorkOrder
             // 
@@ -313,11 +320,25 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             lbl_WorkOrder.TabIndex = 32;
             lbl_WorkOrder.Text = "当前工单";
             // 
+            // myLogCtrl1
+            // 
+            myLogCtrl1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            myLogCtrl1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            myLogCtrl1.LabelWrap = false;
+            myLogCtrl1.Location = new System.Drawing.Point(30, 579);
+            myLogCtrl1.MultiSelect = false;
+            myLogCtrl1.Name = "myLogCtrl1";
+            myLogCtrl1.Size = new System.Drawing.Size(1161, 396);
+            myLogCtrl1.TabIndex = 33;
+            myLogCtrl1.UseCompatibleStateImageBehavior = false;
+            myLogCtrl1.View = System.Windows.Forms.View.Details;
+            // 
             // PageOP10
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            ClientSize = new System.Drawing.Size(1223, 1024);
+            ClientSize = new System.Drawing.Size(1223, 1000);
+            Controls.Add(myLogCtrl1);
             Controls.Add(lbl_WorkOrder);
             Controls.Add(lbl_EntryMsg);
             Controls.Add(lbl_EntryResult);
@@ -379,5 +400,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private UILabel lbl_EntryResult;
         private UILabel lbl_EntryMsg;
         private UILabel lbl_WorkOrder;
+        private ctrls.MyLogCtrl myLogCtrl1;
     }
 }

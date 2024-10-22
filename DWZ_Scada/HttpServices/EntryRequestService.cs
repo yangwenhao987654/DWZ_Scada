@@ -35,7 +35,7 @@ namespace DWZ_Scada.HttpServices
                 if (isSuccessful)
                 {
                     string content = response.Content;
-                    EntryResultDTO resultDto = JsonConvert.DeserializeObject<EntryResultDTO>(content);
+                    ResultDTO resultDto = JsonConvert.DeserializeObject<ResultDTO>(content);
                     if (resultDto.code == 200)
                     {
                         LogMgr.Instance.Info($"请求成功:{resultDto.msg}");

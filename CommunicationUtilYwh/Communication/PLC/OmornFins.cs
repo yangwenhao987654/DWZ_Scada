@@ -86,6 +86,14 @@ namespace ZC_DataAcquisition
             throw new NotImplementedException();
         }
 
+        public override bool WriteInt16(string address, short value)
+        {
+            OperateResult operate = client.Write(address, Convert.ToInt16(value));
+            bool flag = operate.IsSuccess;
+            return flag;
+            ;
+        }
+
         public override bool Read(string adr, string type, out string value)
         {
             value = "0";

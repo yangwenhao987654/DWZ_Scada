@@ -1,9 +1,12 @@
 ﻿using DWZ_Scada.ProcessControl;
+using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,19 +67,54 @@ namespace DWZ_Scada.HttpRequest
         }
 
         // 分析响应
-        public bool AnalyzeResponse(RestResponse response)
+        //public bool AnalyzeResponse(RestResponse response)
+        //{
+        //    if (response.IsSuccessful)
+        //    {
+        //        /*{"msg":"出站成功","code":200}*/
+        //        LogMgr.Instance.Info($"响应成功: {response.Content}");
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        LogMgr.Instance.Error($"请求失败: {response.StatusCode},错误类型:{response.ResponseStatus} \n 错误信息: {response.ErrorMessage}");
+        //        return false;
+        //    }
+        //}
+
+        public (bool,string) AnalyzeResponse(RestResponse response)
         {
-            if (response.IsSuccessful)
+            string msg = string.Empty;
+            bool isSuccessful = response.IsSuccessful;
+            bool result = false;
+            try
             {
-                /*{"msg":"出站成功","code":200}*/
-                LogMgr.Instance.Info($"响应成功: {response.Content}");
-                return true;
+                if (isSuccessful)
+                {
+                    string content = response.Content;
+                    ResultDTO resultDto = JsonConvert.DeserializeObject<ResultDTO>(content);
+                    if (resultDto.code == 200)
+                    {
+                        LogMgr.Instance.Info($"请求成功:{resultDto.msg}");
+                        result = true;
+                    }
+                    else
+                    {
+                        LogMgr.Instance.Error($"请求失败:{resultDto.msg}");
+                    }
+                    msg = resultDto.msg;
+                }
+                else
+                {
+                    LogMgr.Instance.Error("请求错误");
+                    msg = "请求错误";
+                }
             }
-            else
+            catch (Exception e)
             {
-                LogMgr.Instance.Error($"请求失败: {response.StatusCode},错误类型:{response.ResponseStatus} \n 错误信息: {response.ErrorMessage}");
-                return false;
+                LogMgr.Instance.Error($"解析进站响应错误:{e.Message}");
             }
+            return (result, msg);
         }
     }
 }

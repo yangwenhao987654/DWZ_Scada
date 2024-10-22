@@ -8,6 +8,7 @@ using Cap.Dialog;
 using DWZ_Scada;
 using ScadaBase.DAL.Entity;
 using ScadaBase.DAL.DBContext;
+using LogTool;
 
 namespace AutoTF
 {
@@ -47,7 +48,8 @@ namespace AutoTF
             }
             catch (Exception e)
             {
-                CustomMessageBox.ShowDialog("警告", "初始化用户失败,请检查数据库连接");
+                LogMgr.Instance.Error("数据库连接失败:"+e.Message);
+                CustomMessageBox.ShowDialog("警告", "初始化用户失败,请检查数据库连接,"+e.Message);
                 //this.Close();
                 return;
             }

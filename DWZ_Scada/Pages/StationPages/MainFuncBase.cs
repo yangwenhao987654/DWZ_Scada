@@ -1,6 +1,7 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
@@ -170,9 +171,10 @@ namespace DWZ_Scada.Pages.StationPages
             await UploadPassStationService.SendPassStationData(dto);
         }
 
-        protected async Task UploadSpotCheckData(DeviceInspectDTO dto)
+        protected async Task<(bool, string)> UploadSpotCheckData(DeviceInspectDTO dto)
         {
-            await InspectService.AddInspectDada(dto);
+            return await InspectService.AddInspectDada(dto);
+
         }
 
 
@@ -220,7 +222,7 @@ namespace DWZ_Scada.Pages.StationPages
             }
             //记录报警信息
          
-            await DeviceStateService.AddDeviceState(dto);
+            //await DeviceStateService.AddDeviceState(dto);
         }
 
         protected MainFuncBase(PLCConfig PLCConfig)
@@ -244,28 +246,35 @@ namespace DWZ_Scada.Pages.StationPages
         {
             while (!token.IsCancellationRequested)
             {
-                if (!IsPlc_Connected)
+                try
                 {
-                    PlcState = PlcState.OffLine;
-                    //全局PLC连接配置
-                    Logger.Info("PLC连接中");
-                    bool flag = PLC.Connect(PLC_IP, PLC_PORT);
-                    if (flag)
+                    if (!IsPlc_Connected)
                     {
-                        IsPlc_Connected = true;
-                        Logger.Debug("PLC连接成功");
+                        PlcState = PlcState.OffLine;
+                        //全局PLC连接配置
+                        Logger.Info("PLC连接中");
+                        bool flag = PLC.Connect(PLC_IP, PLC_PORT);
+                        if (flag)
+                        {
+                            IsPlc_Connected = true;
+                            Logger.Debug("PLC连接成功");
+                        }
+                        else
+                        {
+                            IsPlc_Connected = false;
+                            Logger.Error("PLC连接失败:");
+                        }
                     }
                     else
                     {
-                        IsPlc_Connected = false;
-                        Logger.Error("PLC连接失败:");
+                        PLC.Write(OP10Address.HeartBeat, "int", 1);
                     }
+                    ZCForm.Instance.UpdatePlcState(PlcState);
                 }
-                else
+                catch (Exception ex)
                 {
-                  
+                    Logger.Error("PLC监控线程错误:"+ex.Message);
                 }
-                ZCForm.Instance.UpdatePlcState(PlcState);
                 Thread.Sleep(1000);
             }
         }

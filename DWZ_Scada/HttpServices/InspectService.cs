@@ -23,11 +23,11 @@ namespace DWZ_Scada.HttpServices
         /// <summary>
         /// 上传点检数据
         /// </summary>
-        public async Task AddInspectDada(DeviceInspectDTO  dto)
+        public async Task<(bool, string)> AddInspectDada(DeviceInspectDTO  dto)
         {
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);
             LogMgr.Instance.Info($"获取响应:\n{response.Content}");
-            _httpClientHelper.AnalyzeResponse(response);
+           return _httpClientHelper.AnalyzeResponse(response);
         }
     }
 }
