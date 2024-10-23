@@ -125,7 +125,7 @@ namespace LogTool
             {
                 LogMgr.Instance.Init();
 
-                if (BindingControl==null)
+                if (BindingControl == null)
 
                 {
                     BindingControl = this.Parent;
@@ -135,6 +135,25 @@ namespace LogTool
             catch (Exception exception)
             {
                 throw new Exception("未设置日志绑定控件！");
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void 复制选中项_Click(object sender, EventArgs e)
+        {
+            SelectedListViewItemCollection selectedItems = this.SelectedItems;
+
+            foreach (ListViewItem item in selectedItems)
+            {
+                int index = item.Index;
+
+                string info = this.Items[index].SubItems[1].Text;
+                string time = item.Text;
+                Clipboard.SetText(time + ":" + info);
             }
         }
     }

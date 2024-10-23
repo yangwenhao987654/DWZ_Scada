@@ -28,71 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.时间 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.内容 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.清除 = new System.Windows.Forms.ToolStripMenuItem();
-            this.弹出日志 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            时间 = new System.Windows.Forms.ColumnHeader();
+            内容 = new System.Windows.Forms.ColumnHeader();
+            timer1 = new System.Windows.Forms.Timer(components);
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            清除 = new System.Windows.Forms.ToolStripMenuItem();
+            弹出日志 = new System.Windows.Forms.ToolStripMenuItem();
+            复制选中项 = new System.Windows.Forms.ToolStripMenuItem();
+            contextMenuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // 时间
             // 
-            this.时间.Width = 200;
+            时间.Width = 200;
             // 
             // 内容
             // 
-            this.内容.Width = 2000;
+            内容.Width = 2000;
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Interval = 50;
+            timer1.Tick += timer1_Tick;
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.清除,
-            this.弹出日志});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
+            contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 清除, 弹出日志, 复制选中项 });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(137, 70);
+            contextMenuStrip1.Opening += contextMenuStrip1_Opening;
             // 
             // 清除
             // 
-            this.清除.Name = "清除";
-            this.清除.Size = new System.Drawing.Size(124, 22);
-            this.清除.Text = "清除";
-            this.清除.Click += new System.EventHandler(this.清除_Click);
+            清除.Name = "清除";
+            清除.Size = new System.Drawing.Size(136, 22);
+            清除.Text = "清除";
+            清除.Click += 清除_Click;
             // 
             // 弹出日志
             // 
-            this.弹出日志.Name = "弹出日志";
-            this.弹出日志.Size = new System.Drawing.Size(124, 22);
-            this.弹出日志.Text = "弹出日志";
-            this.弹出日志.Click += new System.EventHandler(this.弹出日志_Click);
+            弹出日志.Name = "弹出日志";
+            弹出日志.Size = new System.Drawing.Size(136, 22);
+            弹出日志.Text = "弹出日志";
+            弹出日志.Click += 弹出日志_Click;
+            // 
+            // 复制选中项
+            // 
+            复制选中项.Name = "复制选中项";
+            复制选中项.Size = new System.Drawing.Size(136, 22);
+            复制选中项.Text = "复制选中行";
+            复制选中项.Click += 复制选中项_Click;
             // 
             // ListViewEx_Log
             // 
-            this.AutoArrange = false;
-            this.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.时间,
-            this.内容});
-            this.ContextMenuStrip = this.contextMenuStrip1;
-            this.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.LabelWrap = false;
-            this.MultiSelect = false;
-            this.ShowGroups = false;
-            this.TabStop = false;
-            this.View = System.Windows.Forms.View.Details;
-            this.Resize += new System.EventHandler(this.listView_Log_Resize);
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoArrange = false;
+            Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { 时间, 内容 });
+            ContextMenuStrip = contextMenuStrip1;
+            Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            FullRowSelect = true;
+            HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            HideSelection = true;
+            LabelWrap = false;
+            MultiSelect = false;
+            ShowGroups = false;
+            TabStop = false;
+            View = System.Windows.Forms.View.Details;
+            Resize += listView_Log_Resize;
+            contextMenuStrip1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -103,5 +109,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 清除;
         private System.Windows.Forms.ToolStripMenuItem 弹出日志;
+        private System.Windows.Forms.ToolStripMenuItem 复制选中项;
     }
 }
