@@ -9,6 +9,7 @@ using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
+using Sunny.UI;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -149,15 +150,25 @@ namespace DWZ_Scada.Pages.StationPages
             {
                 while (!_cts.Token.IsCancellationRequested)
                 {
-                    if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
+                    try
                     {
-                        context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
-                        await context.SaveChangesAsync(); // 异步保存更改到数据库
+                        if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
+                        {
+                            context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
+                            //context.WriteConsole();
+                            await context.SaveChangesAsync(); // 异步保存更改到数据库
+                        }
+                        else
+                        {
+                            await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
+                        Logger.Error("存储报警信息错误:"+ex.Message);
+                       
                     }
+                 
                 }
             }
         }

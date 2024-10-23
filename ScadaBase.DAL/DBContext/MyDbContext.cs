@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using ScadaBase.DAL.Entity;
+using ScadaBase.DAL.Interceptor;
 
 namespace ScadaBase.DAL.DBContext
 {
@@ -32,7 +33,9 @@ namespace ScadaBase.DAL.DBContext
             //string connStr = $"Data Source=127.0.0.1;Initial Catalog=ScadaBase;User Id=sa;Password=123123;Trusted_Connection=True;Encrypt=false;";
             //string connectionStr = DbConfigManager.ConnectionStr;
             //optionsBuilder.UseSqlServer(connStr);
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+                .AddInterceptors(new MyDbCommandInterceptor())
+                .EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

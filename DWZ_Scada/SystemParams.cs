@@ -288,6 +288,34 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("2.PLC 端口号"), Category("6.OP60工站"), Description("PLC的端口号")]
         public int OP60_PlcPort { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.AtlBrx静态_01 IP地址"), Category("6.OP60工站"), Description("AtlBrx静态_01的IP地址")]
+        public string OP60_AtlBrx_01_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("4.AtlBrx静态_01 端口号"), Category("6.OP60工站"), Description("AtlBrx静态_01的端口号")]
+        public string OP60_AtlBrx_01_Port { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("5.AtlBrx静态_02 IP"), Category("6.OP60工站"), Description("AtlBrx静态_02的IP地址")]
+        public string OP60_AtlBrx_02_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("6.AtlBrx静态_02 端口号"), Category("6.OP60工站"), Description("AtlBrx静态_02的端口号")]
+        public string OP60_AtlBrx_02_Port { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("7.AtlBrx动态_01 IP地址"), Category("6.OP60工站"), Description("AtlBrx动态_01的IP地址")]
+        public string OP60_Dyn_01_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("8.AtlBrx动态_01 端口号"), Category("6.OP60工站"), Description("AtlBrx动态_01的端口号")]
+        public string OP60_Dyn_01_Port { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("9.AtlBrx动态_02 IP"), Category("6.OP60工站"), Description("AtlBrx动态_02的IP地址")]
+        public string OP60_Dyn_02_IP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("10.AtlBrx动态_02 端口号"), Category("6.OP60工站"), Description("AtlBrx动态_02的端口号")]
+        public string OP60_Dyn_02_Port { get; set; }
         #endregion
 
         #region OP70工站参数

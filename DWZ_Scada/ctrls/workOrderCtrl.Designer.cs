@@ -76,6 +76,7 @@
             uiButton3.TabIndex = 23;
             uiButton3.Text = "获取最新工单";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
             // 
             // uiLabel4
             // 
@@ -110,6 +111,7 @@
             tbx_Part.TabIndex = 20;
             tbx_Part.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             tbx_Part.Watermark = "扫码物料码";
+            tbx_Part.TextChanged += tbx_Part_TextChanged;
             // 
             // workOrderCtrl
             // 

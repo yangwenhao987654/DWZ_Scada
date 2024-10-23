@@ -11,6 +11,7 @@ using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.VO;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ using RestSharp;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TouchSocket.Core;
@@ -63,16 +65,7 @@ namespace DWZ_Scada
             }
         }
 
-        public class OrderVo
-        {
-            public string WorkOrderCode { get; set; }
 
-            public string WorkOrderName { get; set; }
-
-            public string ProductName { get; set; }
-
-            public string ProductCode { get; set; }
-        }
 
         public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
 
@@ -148,41 +141,7 @@ namespace DWZ_Scada
             OP60MainFunc.Instance.IsSpotCheck = value;
         }
 
-        private async void uiButton3_Click(object sender, EventArgs e)
-        {
-            //从Mes获取最新生产型号 
-            //list
-            //当前型号的物料Bom
-            Orders = new List<OrderVo>();
-            WorkOrderService service = Global.ServiceProvider.GetRequiredService<WorkOrderService>();
-            RestResponse response = await service.GetWorkOrder();
-            if (response.IsSuccessful)
-            {
-                WorkOrderDTO orderDto = JsonConvert.DeserializeObject<WorkOrderDTO>(response.Content);
-                if (orderDto.code == 200)
-                {
-                    //
-                    LogMgr.Instance.Debug("获取工单成功");
-                    List<DataItem> list = orderDto.data;
-                    foreach (var item in list)
-                    {
-                        OrderVo vo = new OrderVo();
-                        vo.WorkOrderCode = item.workorderCode;
-                        vo.WorkOrderName = item.workorderName;
-                        vo.ProductCode = item.productCode;
-                        vo.ProductName = item.productName;
-                        Orders.Add(vo);
-                    }
-                }
-                else
-                {
-                    LogMgr.Instance.Error("获取工单失败");
-                }
-            }
-            cbx_Orders.DataSource = Orders;
-            cbx_Orders.DisplayMember = nameof(OrderVo.WorkOrderCode);
-        }
-
+      
         private void uiButton4_Click_1(object sender, EventArgs e)
         {
 
@@ -213,7 +172,8 @@ namespace DWZ_Scada
         /// <param name="e"></param>
         private void btn_Test_Click(object sender, EventArgs e)
         {
-
+            AtlBrxTestForm from = new AtlBrxTestForm();
+            from.ShowDialog();
         }
 
         /// <summary>
@@ -222,6 +182,11 @@ namespace DWZ_Scada
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void uiButton5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiLabel3_Click(object sender, EventArgs e)
         {
 
         }

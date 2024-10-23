@@ -8,6 +8,7 @@ using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.VO;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -58,16 +59,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             }
         }
 
-        public class OrderVo
-        {
-            public string WorkOrderCode { get; set; }
-
-            public string WorkOrderName { get; set; }
-
-            public string ProductName { get; set; }
-
-            public string ProductCode { get; set; }
-        }
+      
 
         private PageOP40()
         {

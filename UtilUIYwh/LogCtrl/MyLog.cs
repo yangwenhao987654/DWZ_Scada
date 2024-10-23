@@ -30,7 +30,7 @@ namespace DWZ_Scada.ctrls.LogCtrl
             this.lvl = lvl;
         }
     }
-    public class Mylog
+    public class Mylog :IDisposable
     {
         public static Mylog Instance
         {
@@ -46,18 +46,29 @@ namespace DWZ_Scada.ctrls.LogCtrl
         private static Mylog _instance;
         MyLogCtrl ctrl;
         public bool IsLoad = false;
+        private bool IsRunning = true;
         ConcurrentQueue<LogStruct> logQueue;
         List<LogStruct> UnShowLogList;
+        public Mylog(MyLogCtrl ctrl)
+        {
+            Init(ctrl);  
+        }
+
         private Mylog()
         {
-           
+            
+        }
+
+        ~Mylog()
+        {
+            Dispose();
         }
         public void Init(MyLogCtrl ctrl)
         {
-           /* if (IsLoad)
+            if (IsLoad)
             {
-                return ;
-            }*/
+                return;
+            }
             logQueue = new ConcurrentQueue<LogStruct>();
             UnShowLogList = new List<LogStruct>();
             ThreadPool.QueueUserWorkItem(Monitor, null);
@@ -66,7 +77,7 @@ namespace DWZ_Scada.ctrls.LogCtrl
         }
         private void Monitor(object o)
         {
-            while (true)
+            while (IsRunning)
             {
                 if (ctrl != null && UnShowLogList.Count > 0)
                 {
@@ -128,6 +139,11 @@ namespace DWZ_Scada.ctrls.LogCtrl
         private void ShowLog(string line, LogLvl lvl)
         {
             logQueue.Enqueue(new LogStruct(line, lvl));
+        }
+
+        public void Dispose()
+        {
+            IsRunning = false;
         }
     }
 }
