@@ -64,14 +64,15 @@ namespace DWZ_Scada.ctrls
                                 listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.White;
                                 break;
-                            case LogLvl.alarm:
-                                listViewItem.ForeColor = Color.Black;
-                                listViewItem.BackColor = Color.Green;
-                                break;
                             case LogLvl.info:
+                                listViewItem.ForeColor = Color.Black;
+                                listViewItem.BackColor = Color.LightGreen;
+                                break;
+                            case LogLvl.alarm:
                                 listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.Yellow;
                                 break;
+                          
                             case LogLvl.error:
                                 listViewItem.ForeColor = Color.Black;
                                 listViewItem.BackColor = Color.Red;

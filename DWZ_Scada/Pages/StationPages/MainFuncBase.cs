@@ -119,6 +119,29 @@ namespace DWZ_Scada.Pages.StationPages
 
         public static string StationCode ;
 
+        /// <summary>
+        /// 当前的工单
+        /// </summary>
+        public string WorkOrder { get; set; }
+
+        /// <summary>
+        /// 当前批次号
+        /// </summary>
+        public string BatchNo { get; set; }
+
+
+        /// <summary>
+        /// 当前物料编码
+        /// </summary>
+        public string MaterialNo { get; set; }
+
+
+        /// <summary>
+        /// 当前物料SN码
+        /// </summary>
+        public string MaterialSN { get; set; }
+
+
         // 异步保存报警信息的方法
         private async Task SaveAlarmsToDatabaseAsync()
         {

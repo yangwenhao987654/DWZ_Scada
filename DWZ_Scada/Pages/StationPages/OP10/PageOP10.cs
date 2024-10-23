@@ -120,18 +120,18 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 Invoke(new Action<string, int>(UpdateV1), sn, result);
                 return;
             }
-            lbl_SN1.Text = sn;
+         
             if (result == 0)
             {
-                lbl_Vision1Result.Text = "测试中";
+                ctrlResult_V1.Start(sn);
             }
             if (result == 1)
             {
-                lbl_Vision1Result.Text = "OK";
+                ctrlResult_V1.Pass();
             }
             if (result == 2)
             {
-                lbl_Vision1Result.Text = "NG";
+                ctrlResult_V1.Fail();
             }
             //lbl_Vision1Result.Text = result ? "OK" : "NG";
         }
@@ -176,18 +176,18 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 Invoke(new Action<string, int>(UpdateV2), sn, result);
                 return;
             }
-            lbl_SN2.Text = sn;
+
             if (result == 0)
             {
-                lbl_Vision2Result.Text = "测试中";
+                ctrlResult_V2.Start(sn);
             }
             if (result == 1)
             {
-                lbl_Vision2Result.Text = "OK";
+                ctrlResult_V2.Pass();
             }
             if (result == 2)
             {
-                lbl_Vision2Result.Text = "NG";
+                ctrlResult_V2.Fail();
             }
         }
 
@@ -352,7 +352,20 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void uiButton4_Click_1(object sender, EventArgs e)
         {
             //TODO 切换工单之后切换料号
+            string workOrder = cbx_Orders.SelectedItem.ToString();
+          
+            if (workOrder == "")
+            {
+                return;
+            }
+            //清空物料编码
+            tbx_Part.Text = "";
+            OP10MainFunc.Instance.MaterialSN = "";
+            OP10MainFunc.Instance.MaterialNo = "";
 
+            //设置选中工单
+            lbl_WorkOrder.Text=workOrder;
+            OP10MainFunc.Instance.WorkOrder =workOrder;
 
         }
 

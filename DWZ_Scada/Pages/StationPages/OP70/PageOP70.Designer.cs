@@ -45,6 +45,7 @@
             uiButton4 = new Sunny.UI.UIButton();
             tbxTest = new Sunny.UI.UITextBox();
             btn_Test = new Sunny.UI.UIButton();
+            userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
             SuspendLayout();
             // 
             // uiLabel1
@@ -230,10 +231,21 @@
             btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             btn_Test.Click += btn_Test_Click;
             // 
+            // userCtrlResult1
+            // 
+            userCtrlResult1.Location = new System.Drawing.Point(119, 323);
+            userCtrlResult1.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlResult1.Name = "userCtrlResult1";
+            userCtrlResult1.Size = new System.Drawing.Size(981, 423);
+            userCtrlResult1.TabIndex = 23;
+            userCtrlResult1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlResult1.TextFont = new System.Drawing.Font("幼圆", 98F);
+            // 
             // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(userCtrlResult1);
             Controls.Add(btn_Test);
             Controls.Add(tbxTest);
             Controls.Add(uiButton4);
@@ -275,5 +287,6 @@
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UITextBox tbxTest;
         private Sunny.UI.UIButton btn_Test;
+        private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
     }
 }

@@ -11,10 +11,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="SunnyUI" Version="3.6.9" />
+    <PackageReference Include="SunnyUI" Version="3.7.2" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogTool\LogTool.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="LogCtrl\MyLogCtrl.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

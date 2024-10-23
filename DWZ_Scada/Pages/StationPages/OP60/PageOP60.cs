@@ -121,7 +121,7 @@ namespace DWZ_Scada
             OP60MainFunc.Instance?.Dispose();
             LogMgr.Instance.Info($"关闭{OP60MainFunc.StationName}程序");
         }
-       
+
 
         private void uiLabel2_Click(object sender, EventArgs e)
         {
@@ -206,22 +206,24 @@ namespace DWZ_Scada
 
         }
 
+        /// <summary>
+        /// AtlBrx调试界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Test_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string str = tbxTest.Text;
-                string[] strings = str.Split(",");
-                int index = int.Parse(strings[0]);
-                string sn = strings[1];
-                int pos = int.Parse(strings[2]);
-                WindingCtrlList[index - 1].StartTest(sn, pos);
-            }
-            catch (Exception exception)
-            {
-                LogMgr.Instance.Error("测试错误:"+exception.Message);
-                UIMessageBox.ShowError("测试错误:" + exception.Message);
-            }
+
+        }
+
+        /// <summary>
+        /// 安规调试界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uiButton5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
