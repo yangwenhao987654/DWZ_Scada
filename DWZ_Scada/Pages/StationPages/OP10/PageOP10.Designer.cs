@@ -57,6 +57,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             lbl_EntryMsg = new UILabel();
             lbl_WorkOrder = new UILabel();
             myLogCtrl1 = new ctrls.MyLogCtrl();
+            uiPanel1 = new UIPanel();
+            uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // uiLabel1
@@ -323,22 +325,38 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // myLogCtrl1
             // 
             myLogCtrl1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            myLogCtrl1.Dock = System.Windows.Forms.DockStyle.Fill;
             myLogCtrl1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            myLogCtrl1.FullRowSelect = true;
+            myLogCtrl1.HideSelection = true;
             myLogCtrl1.LabelWrap = false;
-            myLogCtrl1.Location = new System.Drawing.Point(30, 579);
+            myLogCtrl1.Location = new System.Drawing.Point(0, 0);
             myLogCtrl1.MultiSelect = false;
             myLogCtrl1.Name = "myLogCtrl1";
-            myLogCtrl1.Size = new System.Drawing.Size(1161, 396);
+            myLogCtrl1.Size = new System.Drawing.Size(1189, 348);
             myLogCtrl1.TabIndex = 33;
             myLogCtrl1.UseCompatibleStateImageBehavior = false;
             myLogCtrl1.View = System.Windows.Forms.View.Details;
+            // 
+            // uiPanel1
+            // 
+            uiPanel1.Controls.Add(myLogCtrl1);
+            uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiPanel1.Location = new System.Drawing.Point(18, 620);
+            uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiPanel1.Name = "uiPanel1";
+            uiPanel1.Size = new System.Drawing.Size(1189, 348);
+            uiPanel1.TabIndex = 34;
+            uiPanel1.Text = "uiPanel1";
+            uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PageOP10
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1000);
-            Controls.Add(myLogCtrl1);
+            Controls.Add(uiPanel1);
             Controls.Add(lbl_WorkOrder);
             Controls.Add(lbl_EntryMsg);
             Controls.Add(lbl_EntryResult);
@@ -372,6 +390,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             Initialize += PageOP10_Initialize;
             FormClosing += PageOP10_FormClosing;
             Load += Page_Load;
+            uiPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -401,5 +420,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private UILabel lbl_EntryMsg;
         private UILabel lbl_WorkOrder;
         private ctrls.MyLogCtrl myLogCtrl1;
+        private UIPanel uiPanel1;
     }
 }

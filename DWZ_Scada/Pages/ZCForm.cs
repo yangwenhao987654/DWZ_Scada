@@ -82,6 +82,10 @@ namespace DWZ_Scada.Pages
             SetAutoStart();
             StartServer();
             listViewExLog = new ListViewEx_Log();
+
+            //设置关闭弹窗后返回的位置
+            listViewExLog.BindingControl = uiPanel1;
+
             LogMgr.Instance.SetCtrl(listViewExLog);
 
             lblLoginUserName.Text = Global.LoginUser;

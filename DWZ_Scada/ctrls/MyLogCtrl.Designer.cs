@@ -37,6 +37,7 @@
             复制 = new System.Windows.Forms.ToolStripMenuItem();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            弹窗 = new System.Windows.Forms.ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,9 +58,9 @@
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
-            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 清除, 复制 });
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 清除, 复制, 弹窗 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new System.Drawing.Size(137, 48);
+            contextMenuStrip1.Size = new System.Drawing.Size(137, 70);
             // 
             // 清除
             // 
@@ -85,6 +86,13 @@
             columnHeader2.Text = "内容";
             columnHeader2.Width = 2000;
             // 
+            // 弹窗
+            // 
+            弹窗.Name = "弹窗";
+            弹窗.Size = new System.Drawing.Size(136, 22);
+            弹窗.Text = "弹窗";
+            弹窗.Click += 弹窗_Click;
+            // 
             // MyLogCtrl
             // 
             Alignment = System.Windows.Forms.ListViewAlignment.Default;
@@ -109,5 +117,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ToolStripMenuItem 复制;
+        private System.Windows.Forms.ToolStripMenuItem 弹窗;
     }
 }

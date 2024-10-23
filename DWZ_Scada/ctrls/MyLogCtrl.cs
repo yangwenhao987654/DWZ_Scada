@@ -1,4 +1,6 @@
-﻿using DWZ_Scada.ctrls.LogCtrl;
+﻿using Cap;
+using DWZ_Scada.ctrls.LogCtrl;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -101,14 +103,53 @@ namespace DWZ_Scada.ctrls
         private void 复制_Click(object sender, EventArgs e)
         {
             SelectedListViewItemCollection selectedItems = this.SelectedItems;
-            
+
             foreach (ListViewItem item in selectedItems)
             {
                 int index = item.Index;
-              
+
                 string info = this.Items[index].SubItems[1].Text;
                 string time = item.Text;
-                Clipboard.SetText(time + ":"+ info);
+                Clipboard.SetText(time + ":" + info);
+            }
+        }
+
+        private void 弹窗_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.Parent.Name == "formCustomDialog111")
+                {
+                    //避免二次弹窗
+                    return;
+                }
+                FormCustom form = new FormCustom(this, "运行日志");
+                form.Name = "formCustomDialog111";
+                form.Show();
+                form.CustomFormClosed += Form_CustomFormClosed;
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError(ex.Message);
+            }
+        }
+
+        private void Form_CustomFormClosed(object sender, EventArgs e)
+        {
+            try
+            {
+                //Mylog.Instance.Init();
+
+                if (BindingControl == null)
+
+                {
+                    BindingControl = this.Parent;
+                }
+                BindingControl.Controls.Add(this);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("未设置日志绑定控件！");
             }
         }
     }

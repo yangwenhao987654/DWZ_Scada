@@ -29,12 +29,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
     public partial class PageOP10 : UIPage
     {
 
-        /// <summary>
-        /// 当前站名
-        /// OP10
-        /// </summary>
-        private const string CURRENT_STATION_NAME = "OP10";
-
         private readonly Action _clearAlarmDelegate;
 
         public List<OrderVo> Orders { get; set; }
@@ -105,6 +99,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
             OP10MainFunc.OnVision2Finished += PageOP10_OnVision2Finished;
 
+            myLogCtrl1.BindingControl =uiPanel1;
             Mylog.Instance.Init(myLogCtrl1);
         }
 

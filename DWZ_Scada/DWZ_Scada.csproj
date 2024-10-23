@@ -35,6 +35,9 @@
     <Compile Update="ctrls\ETestBCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="myForms\FormCustom.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Pages\PLCAlarm\Page_DeviceAlarmQuery.cs">
       <SubType>Form</SubType>
     </Compile>
