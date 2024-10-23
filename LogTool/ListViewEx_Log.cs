@@ -108,7 +108,13 @@ namespace LogTool
 
         private void 弹出日志_Click(object sender, EventArgs e)
         {
+            if (this.Parent.Name == "formCustomDialog_ListViewEx_Log")
+            {
+                //避免二次弹窗
+                return;
+            }
             FormCustom form = new FormCustom(this, "调试日志");
+            form.Name = "formCustomDialog_ListViewEx_Log";
             form.Show();
             form.CustomFormClosed += Form_CustomFormClosed;
         }

@@ -118,13 +118,13 @@ namespace DWZ_Scada.ctrls
         {
             try
             {
-                if (this.Parent.Name == "formCustomDialog111")
+                if (this.Parent.Name == "formCustomDialog_MyLogCtrl")
                 {
                     //避免二次弹窗
                     return;
                 }
                 FormCustom form = new FormCustom(this, "运行日志");
-                form.Name = "formCustomDialog111";
+                form.Name = "formCustomDialog_MyLogCtrl";
                 form.Show();
                 form.CustomFormClosed += Form_CustomFormClosed;
             }
