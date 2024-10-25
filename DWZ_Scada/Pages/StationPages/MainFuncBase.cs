@@ -126,6 +126,11 @@ namespace DWZ_Scada.Pages.StationPages
         public string WorkOrder { get; set; }
 
         /// <summary>
+        /// 当前产品型号
+        /// </summary>
+        public string ProductCode { get; set; }
+
+        /// <summary>
         /// 当前批次号
         /// </summary>
         public string BatchNo { get; set; }

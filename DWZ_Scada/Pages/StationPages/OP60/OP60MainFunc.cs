@@ -360,10 +360,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         // 处理进站信号
         private async Task ProcessEntrySignal()
         {
-            if (PLC.ReadBool(OP60Address.EntrySignal, out bool isEntry) && isEntry)
+            if (PLC.ReadInt16(OP60Address.EntrySignal, out short isEntry) && isEntry==1)
             {
-                PLC.Write(OP60Address.EntrySignal, "Bool", false);
-                PLC.Read(OP60Address.EntrySn, "string-20", out string sn);
+                PLC.WriteInt16(OP60Address.EntrySignal, 0);
+                PLC.Read(OP60Address.EntrySn, "string-8", out string sn);
                 EntryRequestDTO requestDto = new()
                 {
                     SnTemp = SnTest,
@@ -372,25 +372,81 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 };
                 EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
                 (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
-                //
-                LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
-                PLC.Write(OP60Address.EntryResult, "Bool", flag);
+             
+                short result = 2;
+                if (flag)
+                {
+                    result = 1;
+                }
+                LogMgr.Instance.Debug($"写进站结果{flag}:{result} :\n{msg}");
+                PLC.WriteInt16(OP60Address.EntryResult, result);
             }
         }
-        /*/// <summary>
-        /// 上传过站数据
+
+        /// <summary>
+        /// 静态电测
         /// </summary>
-        private void UploadStationData()
+        /// <returns></returns>
+        private async Task ProcessStaticTest()
         {
-            PassStationDTO dto = new()
+            if (PLC.ReadInt16(OP60Address.StaticStartSignal, out short isStart) && isStart == 1)
             {
-                StationCode = "OP10",
-                SnTemp = "AQW12dswSAW",
-                PassStationData = new OP10Data()
-            };
-            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
-            service.SendPassStationData(dto);
-        }*/
+                PLC.WriteInt16(OP60Address.StaticStartSignal, 0);
+                PLC.Read(OP60Address.StaticSN1, "string-8", out string sn1);
+                PLC.Read(OP60Address.StaticSN2, "string-8", out string sn2);
+
+                TriggerStaticTest(1,sn1);
+                TriggerStaticTest(2,sn2);
+                short result1 = 2;
+                short result2 = 2;
+
+                PLC.WriteInt16(OP60Address.StaticSN1, result1);
+
+                PLC.WriteInt16(OP60Address.StaticSN2, result2);
+            }
+        }
+
+        private void TriggerStaticTest(int pos, string sn)
+        {
+            //工位1
+            if (pos == 1)
+            {
+                
+            }
+            else //工位2
+            {
+                
+            }
+        }
+
+        /// <summary>
+        /// 动态电测
+        /// </summary>
+        /// <returns></returns>
+        private async Task ProcessDynamicsTest()
+        {
+            if (PLC.ReadInt16(OP60Address.EntrySignal, out short isEntry) && isEntry == 1)
+            {
+                PLC.WriteInt16(OP60Address.EntrySignal, 0);
+                PLC.Read(OP60Address.EntrySn, "string-8", out string sn);
+                EntryRequestDTO requestDto = new()
+                {
+                    SnTemp = SnTest,
+                    StationCode = StationCode,
+                    WorkOrder = "MO202409110002"
+                };
+                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
+                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+
+                short result = 2;
+                if (flag)
+                {
+                    result = 1;
+                }
+                LogMgr.Instance.Debug($"写进站结果{flag}:{result} :\n{msg}");
+                PLC.WriteInt16(OP60Address.EntryResult, result);
+            }
+        }
 
         /// <summary>
         /// 读取PLC状态

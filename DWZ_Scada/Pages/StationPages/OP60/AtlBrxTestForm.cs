@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.ctrls;
+﻿using CommunicationUtilYwh.Device;
+using DWZ_Scada.ctrls;
 using DWZ_Scada.ctrls.LogCtrl;
 using Sunny.UI;
 using System;
@@ -16,6 +17,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
     public partial class AtlBrxTestForm : UIForm
     {
         Mylog mylog;
+
+        TcpDevice1 device = new TcpDevice1();
         public AtlBrxTestForm()
         {
             InitializeComponent();
@@ -79,6 +82,100 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         private void AtlBrxTestForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             mylog?.Dispose();
+        }
+
+        private void uiButton11_Click(object sender, EventArgs e)
+        {
+            string ip = tbxIP.Text;
+            string port = tbxPort.Text;
+            (bool f, string err) = device.Connect(ip, port);
+            if (!f)
+            {
+                UIMessageBox.ShowError($"连接错误:{err}");
+                return;
+            }
+            mylog.Info("打开连接");
+            uiButton11.Enabled = false;
+            uiButton12.Enabled = true;
+        }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+            string msg = device.QueryIsReady();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton12_Click(object sender, EventArgs e)
+        {
+            device?.Disconnect();
+            mylog.Info("关闭连接");
+            uiButton11.Enabled = true;
+            uiButton12.Enabled = false;
+        }
+
+        private void uiButton3_Click(object sender, EventArgs e)
+        {
+            string msg = device.TriggerWork();
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton4_Click(object sender, EventArgs e)
+        {
+            string msg = device.QueryTestStatus();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton5_Click(object sender, EventArgs e)
+        {
+            string msg = device.QueryWorkResult();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton6_Click(object sender, EventArgs e)
+        {
+            string msg = device.QueryDetailsWorkResult();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton7_Click(object sender, EventArgs e)
+        {
+            string msg = device.ClearData();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton8_Click(object sender, EventArgs e)
+        {
+            string msg = device.Stop();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton9_Click(object sender, EventArgs e)
+        {
+            string msg = device.QuerySchemeName();
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton10_Click(object sender, EventArgs e)
+        {
+            string str = tbxCommand.Text;
+            string msg = device.UpdateSchemeName(str);
+
+            mylog?.Debug(msg);
+        }
+
+        private void uiButton13_Click(object sender, EventArgs e)
+        {
+            string str = tbxCommand.Text;
+            string msg = device.UpdateProduct(str);
+
+            mylog?.Debug(msg);
         }
     }
 }

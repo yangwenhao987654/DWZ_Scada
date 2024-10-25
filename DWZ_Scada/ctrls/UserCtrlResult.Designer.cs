@@ -55,7 +55,7 @@
             lbl_Input.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             lbl_Input.Location = new System.Drawing.Point(0, 0);
             lbl_Input.Name = "lbl_Input";
-            lbl_Input.Size = new System.Drawing.Size(313, 29);
+            lbl_Input.Size = new System.Drawing.Size(313, 36);
             lbl_Input.TabIndex = 3;
             lbl_Input.Text = "SN";
             // 

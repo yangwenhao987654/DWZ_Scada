@@ -227,13 +227,14 @@
             // 
             // userCtrlResult1
             // 
-            userCtrlResult1.Location = new System.Drawing.Point(10, 357);
+            userCtrlResult1.Location = new System.Drawing.Point(13, 357);
             userCtrlResult1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult1.Name = "userCtrlResult1";
             userCtrlResult1.Size = new System.Drawing.Size(276, 168);
             userCtrlResult1.TabIndex = 60;
             userCtrlResult1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlResult1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            userCtrlResult1.Load += userCtrlResult1_Load;
             // 
             // userCtrlResult2
             // 
@@ -257,7 +258,7 @@
             // 
             // userCtrlResult4
             // 
-            userCtrlResult4.Location = new System.Drawing.Point(933, 357);
+            userCtrlResult4.Location = new System.Drawing.Point(944, 357);
             userCtrlResult4.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult4.Name = "userCtrlResult4";
             userCtrlResult4.Size = new System.Drawing.Size(276, 168);

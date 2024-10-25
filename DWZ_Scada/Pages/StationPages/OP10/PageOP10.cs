@@ -72,7 +72,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             LogMgr.Instance.Debug("打开OP10工站");
 
             // Mes 选型服务  监控Mes选型消息
-   
+
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -80,7 +80,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP10_PlcIP,
                 SystemParams.Instance.OP10_PlcPort);
 
-            OP10MainFunc.CreateInstance( plcConfig);
+            OP10MainFunc.CreateInstance(plcConfig);
             OP10MainFunc.Instance.StartAsync();
 
             //lbl_ExitSN.DataBindings.Add("Text", op10Model, "ExitSN");
@@ -91,7 +91,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
             OP10MainFunc.OnVision2Finished += PageOP10_OnVision2Finished;
 
-            myLogCtrl1.BindingControl =uiPanel1;
+            myLogCtrl1.BindingControl = uiPanel1;
             Mylog.Instance.Init(myLogCtrl1);
         }
 
@@ -112,7 +112,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 Invoke(new Action<string, int>(UpdateV1), sn, result);
                 return;
             }
-         
+
             if (result == 0)
             {
                 ctrlResult_V1.Start(sn);
@@ -301,7 +301,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 value = 0;
             }
-            OP10MainFunc.Instance.PLC.WriteInt16(OP10Address.SpotCheck,value);
+            OP10MainFunc.Instance.PLC.WriteInt16(OP10Address.SpotCheck, value);
             OP10MainFunc.Instance.IsSpotCheck = isSpot;
         }
 
@@ -344,9 +344,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void uiButton4_Click_1(object sender, EventArgs e)
         {
             //TODO 切换工单之后切换料号
-            string workOrder = cbx_Orders.SelectedItem.ToString();
-          
-            if (workOrder == "")
+            OrderVo workOrder = cbx_Orders.SelectedItem as OrderVo;
+
+            if (workOrder == null)
             {
                 return;
             }
@@ -356,8 +356,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             OP10MainFunc.Instance.MaterialNo = "";
 
             //设置选中工单
-            lbl_WorkOrder.Text=workOrder;
-            OP10MainFunc.Instance.WorkOrder =workOrder;
+            lbl_WorkOrder.Text = workOrder.WorkOrderName + ":" + workOrder.WorkOrderCode;
+            lbl_ProdNo.Text = workOrder.ProductName + ":" + workOrder.ProductCode;
+            OP10MainFunc.Instance.WorkOrder = workOrder.WorkOrderCode;
+            OP10MainFunc.Instance.ProductCode = workOrder.ProductCode;
 
         }
 
@@ -387,6 +389,15 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private void uiTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private async void uiButton1_Click_2(object sender, EventArgs e)
+        {
+            ProductBomService bomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
+            (bool flag, string msg) = await bomService.GetBomList(OP10MainFunc.Instance.ProductCode);
+            if (!flag) {
+                Mylog.Instance.Error("获取Bom失败:"+msg);
+            }
         }
     }
 }

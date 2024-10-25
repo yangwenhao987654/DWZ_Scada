@@ -51,6 +51,7 @@
             uiButton12 = new Sunny.UI.UIButton();
             uiComboBox1 = new Sunny.UI.UIComboBox();
             uiLabel4 = new Sunny.UI.UILabel();
+            uiButton13 = new Sunny.UI.UIButton();
             uiGroupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -165,20 +166,23 @@
             uiButton2.TabIndex = 8;
             uiButton2.Text = "查询设备状态";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.Click += uiButton2_Click;
             // 
             // uiButton3
             // 
             uiButton3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Location = new System.Drawing.Point(22, 66);
+            uiButton3.Location = new System.Drawing.Point(22, 50);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
-            uiButton3.Size = new System.Drawing.Size(92, 58);
+            uiButton3.Size = new System.Drawing.Size(124, 42);
             uiButton3.TabIndex = 9;
             uiButton3.Text = "触发测试";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
             // 
             // uiGroupBox1
             // 
+            uiGroupBox1.Controls.Add(uiButton13);
             uiGroupBox1.Controls.Add(uiButton10);
             uiGroupBox1.Controls.Add(uiButton9);
             uiGroupBox1.Controls.Add(uiButton8);
@@ -209,6 +213,7 @@
             uiButton10.TabIndex = 16;
             uiButton10.Text = "更新测试方案";
             uiButton10.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton10.Click += uiButton10_Click;
             // 
             // uiButton9
             // 
@@ -220,6 +225,7 @@
             uiButton9.TabIndex = 15;
             uiButton9.Text = "查询当前运行方案";
             uiButton9.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton9.Click += uiButton9_Click;
             // 
             // uiButton8
             // 
@@ -231,6 +237,7 @@
             uiButton8.TabIndex = 14;
             uiButton8.Text = "急停";
             uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton8.Click += uiButton8_Click;
             // 
             // uiButton7
             // 
@@ -242,6 +249,7 @@
             uiButton7.TabIndex = 13;
             uiButton7.Text = "清除数据记录";
             uiButton7.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton7.Click += uiButton7_Click;
             // 
             // uiButton6
             // 
@@ -253,6 +261,7 @@
             uiButton6.TabIndex = 12;
             uiButton6.Text = "测试结果明细";
             uiButton6.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton6.Click += uiButton6_Click;
             // 
             // uiButton5
             // 
@@ -264,6 +273,7 @@
             uiButton5.TabIndex = 11;
             uiButton5.Text = "查询测试结果";
             uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton5.Click += uiButton5_Click;
             // 
             // uiButton4
             // 
@@ -275,6 +285,7 @@
             uiButton4.TabIndex = 10;
             uiButton4.Text = "查询测试状态";
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton4.Click += uiButton4_Click;
             // 
             // uiButton11
             // 
@@ -286,6 +297,7 @@
             uiButton11.TabIndex = 11;
             uiButton11.Text = "连接";
             uiButton11.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton11.Click += uiButton11_Click;
             // 
             // uiButton12
             // 
@@ -297,6 +309,7 @@
             uiButton12.TabIndex = 12;
             uiButton12.Text = "断开";
             uiButton12.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton12.Click += uiButton12_Click;
             // 
             // uiComboBox1
             // 
@@ -326,6 +339,18 @@
             uiLabel4.Size = new System.Drawing.Size(126, 36);
             uiLabel4.TabIndex = 14;
             uiLabel4.Text = "选择设备:";
+            // 
+            // uiButton13
+            // 
+            uiButton13.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton13.Location = new System.Drawing.Point(22, 112);
+            uiButton13.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton13.Name = "uiButton13";
+            uiButton13.Size = new System.Drawing.Size(124, 42);
+            uiButton13.TabIndex = 17;
+            uiButton13.Text = "更新产品ID";
+            uiButton13.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton13.Click += uiButton13_Click;
             // 
             // AtlBrxTestForm
             // 
@@ -377,5 +402,6 @@
         private Sunny.UI.UIButton uiButton12;
         private Sunny.UI.UIComboBox uiComboBox1;
         private Sunny.UI.UILabel uiLabel4;
+        private Sunny.UI.UIButton uiButton13;
     }
 }

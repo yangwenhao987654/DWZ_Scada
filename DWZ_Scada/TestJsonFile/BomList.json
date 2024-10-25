@@ -1,11 +1,12 @@
+
 {
   "msg": "操作成功",
   "code": 200,
   "data": {
-    "itemId": 87,
-    "itemCode": "IF20240827001",
-    "itemName": "保险杠",
-    "specification": "BX-1",
+    "itemId": 86,
+    "itemCode": "IF20240816002",   产品型号Code
+    "itemName": "线圈B型",
+    "specification": "线圈B类型号",
     "unitOfMeasure": "PCS",
     "itemOrProduct": "PRODUCT",
     "itemTypeId": 277,
@@ -15,15 +16,87 @@
     "safeStockFlag": "N",
     "productBomList": [
       {
-        "bomId": 7,
-        "itemId": 87,
-        "bomItemId": 88,
-        "bomItemCode": "IF20240827002",
-        "bomItemName": "硬塑料",
-        "bomItemSpec": "B-1",
+        "bomId": 10,
+        "itemId": 86,
+        "bomItemId": 69,
+        "bomItemCode": "IF2022082437",     这个是物料编码
+        "bomItemName": "色粉【黑色】",
+        "bomItemSpec": "黑色23",
+        "unitOfMeasure": "g",
+        "itemOrProduct": "ITEM",
+        "quantity": 1.0,
+        "enableFlag": "Y",
+        "attr1": null,
+        "attr2": null,
+        "attr3": 0,
+        "attr4": 0,
+        "processCode": null,
+        "processName": null,
+        "batchList": [
+          {
+            "searchValue": null,
+            "createBy": "",
+            "createTime": "2024-08-16 10:12:40",
+            "updateBy": "",
+            "updateTime": "2024-08-16 15:32:07",
+            "remark": "",
+            "params": {},
+            "id": 1,
+            "batchCode": "MO202408160006",
+            "itemId": 86,
+            "itemCode": "IF20240816002",
+            "itemName": "线圈B型",
+            "orderNum": null,
+            "isDelete": 0
+          }
+        ]
+      },
+      {
+        "bomId": 11,
+        "itemId": 86,
+        "bomItemId": 71,
+        "bomItemCode": "IF2022082403",
+        "bomItemName": "色粉【蓝色】",
+        "bomItemSpec": "蓝色",
+        "unitOfMeasure": "g",
+        "itemOrProduct": "ITEM",
+        "quantity": 1.0,
+        "enableFlag": "Y",
+        "attr1": null,
+        "attr2": null,
+        "attr3": 0,
+        "attr4": 0,
+        "processCode": null,
+        "processName": null,
+        "batchList": [
+          {
+            "searchValue": null,
+            "createBy": "",
+            "createTime": "2024-08-16 10:12:40",
+            "updateBy": "",
+            "updateTime": "2024-08-16 15:32:07",
+            "remark": "",
+            "params": {},
+            "id": 1,
+            "batchCode": "MO202408160006",
+            "itemId": 86,
+            "itemCode": "IF20240816002",
+            "itemName": "线圈B型",
+            "orderNum": null,
+            "isDelete": 0
+          }
+        ]
+      },
+      {
+        "bomId": 12,
+        "itemId": 86,
+        "bomItemId": 70,
+        "bomItemCode": "IF2022082432",
+        "bomItemName": "PCB颗粒2",
+        "bomItemSpec": null,
         "unitOfMeasure": "KG",
         "itemOrProduct": "ITEM",
-        "quantity": 1,
+        "quantity": 1.0,
         "enableFlag": "Y",
         "attr1": null,
         "attr2": null,
@@ -32,49 +105,22 @@
         "processCode": null,
         "processName": null,
         "batchList": [
-
-        ]
-      },
-      {
-        "bomId": 8,
-        "itemId": 87,
-        "bomItemId": 73,
-        "bomItemCode": "IF2022082428",
-        "bomItemName": "螺丝刀刀柄",
-        "bomItemSpec": "10CM",
-        "unitOfMeasure": "PCS",
-        "itemOrProduct": "PRODUCT",
-        "quantity": 1,
-        "enableFlag": "Y",
-        "attr1": null,
-        "attr2": null,
-        "attr3": 0,
-        "attr4": 0,
-        "processCode": null,
-        "processName": null,
-        "batchList": [
-
-        ]
-      },
-      {
-        "bomId": 9,
-        "itemId": 87,
-        "bomItemId": 80,
-        "bomItemCode": "IF20230305006",
-        "bomItemName": "小包装",
-        "bomItemSpec": null,
-        "unitOfMeasure": "PCS",
-        "itemOrProduct": "ITEM",
-        "quantity": 1,
-        "enableFlag": "Y",
-        "attr1": null,
-        "attr2": null,
-        "attr3": 0,
-        "attr4": 0,
-        "processCode": null,
-        "processName": null,
-        "batchList": [
-
+          {
+            "searchValue": null,
+            "createBy": "",
+            "createTime": "2024-08-16 10:12:40",
+            "updateBy": "",
+            "updateTime": "2024-08-16 15:32:07",
+            "remark": "",
+            "params": {},
+            "id": 1,
+            "batchCode": "MO202408160006",
+            "itemId": 86,
+            "itemCode": "IF20240816002",
+            "itemName": "线圈B型",
+            "orderNum": null,
+            "isDelete": 0
+          }
         ]
       }
     ]

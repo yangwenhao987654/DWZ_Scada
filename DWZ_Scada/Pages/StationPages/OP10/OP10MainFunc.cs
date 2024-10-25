@@ -31,7 +31,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     {
                         if (_instance == null)
                         {
-
                             // 使用一个工厂方法创建实例，让子类决定实例化逻辑
                             throw new Exception("OP10MainFunc is Not instantiate");
                         }
@@ -46,11 +45,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             _instance = new OP10MainFunc(plcConfig);
         }
 
-
         public static event OP10VisionFinished OnVision1Finished;
 
         public static event OP10VisionFinished OnVision2Finished;
-
 
         private static readonly OP10Model myOp10Model = PageOP10.Instance.op10Model;
 
@@ -82,7 +79,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         public static List<string> CurAlarmInfoVo = new();
 
         public string SNTest = "QAZXSWWXHNJJ";
-
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
@@ -159,7 +155,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         Thread.Sleep(500);
                         continue;
                     }
-
 
                     #region 读取PLC状态
 

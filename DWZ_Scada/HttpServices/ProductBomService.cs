@@ -23,7 +23,7 @@ namespace DWZ_Scada.HttpServices
         /// <summary>
         /// 查询BOM
         /// </summary>
-        public  async Task GetBomList(string itemCode)
+        public  async Task<(bool,string)> GetBomList(string itemCode)
         {
             GetBomDTO dto = new GetBomDTO()
             {
@@ -31,7 +31,8 @@ namespace DWZ_Scada.HttpServices
             };
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url,dto);
             LogMgr.Instance.Info("获取响应");
-            _httpClientHelper.AnalyzeResponse(response);
+            (bool, string) value = _httpClientHelper.AnalyzeResponse(response);
+            return value;
         }
     }
 }

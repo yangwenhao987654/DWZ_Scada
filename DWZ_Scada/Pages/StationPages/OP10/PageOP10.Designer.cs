@@ -54,6 +54,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiPanel1 = new UIPanel();
             ctrlResult_V2 = new DIPTest.Ctrl.UserCtrlResult();
             ctrlResult_V1 = new DIPTest.Ctrl.UserCtrlResult();
+            lbl_ProdNo = new UILabel();
+            uiButton1 = new UIButton();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -89,7 +91,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(30, 121);
+            uiLabel2.Location = new System.Drawing.Point(345, 195);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(140, 35);
             uiLabel2.TabIndex = 4;
@@ -140,7 +142,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // uiSwitch_Spot
             // 
             uiSwitch_Spot.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiSwitch_Spot.Location = new System.Drawing.Point(871, 174);
+            uiSwitch_Spot.Location = new System.Drawing.Point(1013, 176);
             uiSwitch_Spot.MinimumSize = new System.Drawing.Size(1, 1);
             uiSwitch_Spot.Name = "uiSwitch_Spot";
             uiSwitch_Spot.Size = new System.Drawing.Size(141, 73);
@@ -152,7 +154,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel5.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new System.Drawing.Point(734, 195);
+            uiLabel5.Location = new System.Drawing.Point(876, 197);
             uiLabel5.Name = "uiLabel5";
             uiLabel5.Size = new System.Drawing.Size(131, 42);
             uiLabel5.TabIndex = 17;
@@ -253,9 +255,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             lbl_WorkOrder.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_WorkOrder.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_WorkOrder.Location = new System.Drawing.Point(176, 195);
+            lbl_WorkOrder.Location = new System.Drawing.Point(159, 195);
             lbl_WorkOrder.Name = "lbl_WorkOrder";
-            lbl_WorkOrder.Size = new System.Drawing.Size(129, 35);
+            lbl_WorkOrder.Size = new System.Drawing.Size(180, 35);
             lbl_WorkOrder.TabIndex = 32;
             lbl_WorkOrder.Text = "当前工单";
             // 
@@ -308,11 +310,34 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             ctrlResult_V1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             ctrlResult_V1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
+            // lbl_ProdNo
+            // 
+            lbl_ProdNo.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_ProdNo.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_ProdNo.Location = new System.Drawing.Point(532, 195);
+            lbl_ProdNo.Name = "lbl_ProdNo";
+            lbl_ProdNo.Size = new System.Drawing.Size(214, 35);
+            lbl_ProdNo.TabIndex = 37;
+            // 
+            // uiButton1
+            // 
+            uiButton1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Location = new System.Drawing.Point(1013, 278);
+            uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton1.Name = "uiButton1";
+            uiButton1.Size = new System.Drawing.Size(122, 42);
+            uiButton1.TabIndex = 38;
+            uiButton1.Text = "查询物料";
+            uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Click += uiButton1_Click_2;
+            // 
             // PageOP10
             // 
             AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1000);
+            Controls.Add(uiButton1);
+            Controls.Add(lbl_ProdNo);
             Controls.Add(ctrlResult_V1);
             Controls.Add(ctrlResult_V2);
             Controls.Add(uiPanel1);
@@ -370,5 +395,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private UIPanel uiPanel1;
         private DIPTest.Ctrl.UserCtrlResult ctrlResult_V2;
         private DIPTest.Ctrl.UserCtrlResult ctrlResult_V1;
+        private UILabel lbl_ProdNo;
+        private UIButton uiButton1;
     }
 }

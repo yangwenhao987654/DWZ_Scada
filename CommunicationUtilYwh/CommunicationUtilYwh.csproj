@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\Scanner\" />
-    <Folder Include="Device\" />
     <Folder Include="Printer\" />
   </ItemGroup>
   <ItemGroup>

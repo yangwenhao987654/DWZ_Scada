@@ -31,20 +31,7 @@ namespace DWZ_Scada
     public partial class PageOP60 : UIPage
     {
 
-        public HttpService MyHttpService;
-
-        /*/// <summary>
-        /// 当前站名
-        /// OP50
-        /// </summary>
-        private const string CURRENT_STATION_NAME = "OP50";*/
-
         public List<OrderVo> Orders { get; set; }
-
-        /// <summary>
-        /// 数据模型
-        /// </summary>
-        public OP60Model Model;
 
         private static PageOP60 _instance;
         public static PageOP60 Instance
@@ -64,10 +51,6 @@ namespace DWZ_Scada
                 return _instance;
             }
         }
-
-
-
-        public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
 
         private PageOP60()
         {
@@ -115,18 +98,6 @@ namespace DWZ_Scada
             LogMgr.Instance.Info($"关闭{OP60MainFunc.StationName}程序");
         }
 
-
-        private void uiLabel2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void uiButton1_Click_1(object sender, EventArgs e)
-        {
-
-
-        }
-
         private void uiSwitch_Spot_ValueChanged(object sender, bool value)
         {
             if (value)
@@ -141,30 +112,6 @@ namespace DWZ_Scada
             OP60MainFunc.Instance.IsSpotCheck = value;
         }
 
-      
-        private void uiButton4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbx_Orders_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //根据所选的工单 获取到产品型号
-            //根据产品型号 获取到产品的Bom表
-
-            //从Bom表里对比当前的物料号在Bom中是否存在 如果不存在 则不允许切换此型号
-            //需要更换型号 或者更换物料 只有当前型号的产品和当前选择物料相对应才能切换型号
-        }
-
-        private void uiButton2_Click(object sender, EventArgs e)
-        {
-            //切换物料 
-            //输入物料后，需要确保当前物料 包含在当前正在生产的产品型号内 
-            //根据当前产品型号获取物料Bom,从物料Bom中查询是否有这种物料 
-            //如果没有，则不允许切换物料
-
-        }
-
         /// <summary>
         /// AtlBrx调试界面
         /// </summary>
@@ -176,17 +123,7 @@ namespace DWZ_Scada
             from.ShowDialog();
         }
 
-        /// <summary>
-        /// 安规调试界面
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void uiButton5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void uiLabel3_Click(object sender, EventArgs e)
+        private void userCtrlResult1_Load(object sender, EventArgs e)
         {
 
         }
