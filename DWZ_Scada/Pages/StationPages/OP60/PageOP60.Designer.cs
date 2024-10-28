@@ -49,6 +49,10 @@
             userCtrlResult2 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlResult3 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlResult4 = new DIPTest.Ctrl.UserCtrlResult();
+            uiLight1 = new Sunny.UI.UILight();
+            uiLight2 = new Sunny.UI.UILight();
+            uiLight3 = new Sunny.UI.UILight();
+            uiLight4 = new Sunny.UI.UILight();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -266,10 +270,62 @@
             userCtrlResult4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlResult4.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
+            // uiLight1
+            // 
+            uiLight1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLight1.Location = new System.Drawing.Point(254, 305);
+            uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiLight1.Name = "uiLight1";
+            uiLight1.OnColor = System.Drawing.Color.DimGray;
+            uiLight1.Radius = 35;
+            uiLight1.Size = new System.Drawing.Size(35, 35);
+            uiLight1.TabIndex = 64;
+            uiLight1.Text = "uiLight1";
+            // 
+            // uiLight2
+            // 
+            uiLight2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLight2.Location = new System.Drawing.Point(556, 305);
+            uiLight2.MinimumSize = new System.Drawing.Size(1, 1);
+            uiLight2.Name = "uiLight2";
+            uiLight2.OnColor = System.Drawing.Color.DimGray;
+            uiLight2.Radius = 35;
+            uiLight2.Size = new System.Drawing.Size(35, 35);
+            uiLight2.TabIndex = 65;
+            uiLight2.Text = "uiLight2";
+            // 
+            // uiLight3
+            // 
+            uiLight3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLight3.Location = new System.Drawing.Point(876, 305);
+            uiLight3.MinimumSize = new System.Drawing.Size(1, 1);
+            uiLight3.Name = "uiLight3";
+            uiLight3.OnColor = System.Drawing.Color.DimGray;
+            uiLight3.Radius = 35;
+            uiLight3.Size = new System.Drawing.Size(35, 35);
+            uiLight3.TabIndex = 66;
+            uiLight3.Text = "uiLight3";
+            // 
+            // uiLight4
+            // 
+            uiLight4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLight4.Location = new System.Drawing.Point(1185, 305);
+            uiLight4.MinimumSize = new System.Drawing.Size(1, 1);
+            uiLight4.Name = "uiLight4";
+            uiLight4.OnColor = System.Drawing.Color.DimGray;
+            uiLight4.Radius = 35;
+            uiLight4.Size = new System.Drawing.Size(35, 35);
+            uiLight4.TabIndex = 67;
+            uiLight4.Text = "uiLight4";
+            // 
             // PageOP60
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(uiLight4);
+            Controls.Add(uiLight3);
+            Controls.Add(uiLight2);
+            Controls.Add(uiLight1);
             Controls.Add(userCtrlResult4);
             Controls.Add(userCtrlResult3);
             Controls.Add(userCtrlResult2);
@@ -319,5 +375,9 @@
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult2;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult3;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult4;
+        private Sunny.UI.UILight uiLight1;
+        private Sunny.UI.UILight uiLight2;
+        private Sunny.UI.UILight uiLight3;
+        private Sunny.UI.UILight uiLight4;
     }
 }

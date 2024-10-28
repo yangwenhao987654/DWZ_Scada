@@ -63,7 +63,7 @@ namespace DWZ_Scada
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug($"打开{OP70MainFunc.StationName}工站");
 
-            ISelectionStrategyEvent OP60Strategy = new OP60SelectionStrategy();
+            ISelectionStrategyEvent OP60Strategy = new OP70SelectionStrategy();
             OP60Strategy.OnSelectionEvent += OP70SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP70工站 PLC配置

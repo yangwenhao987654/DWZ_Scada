@@ -25,12 +25,12 @@ namespace CommunicationUtilYwh.Device
             Name = name;
         }
 
-        public bool Connect(string ip, string port)
+        public async Task<bool> Connect(string ip, string port)
         {
             bool flag = false;
             try
             {
-                flag = tcpclient.Open(ip, port);
+                flag =await tcpclient.Open(ip, port);
             }
             catch (Exception e)
             {

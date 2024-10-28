@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace CommunicationUtilYwh.Device
 {
-    public class TcpDevice1
+    public class TcpDevice1 :IDisposable
     {
         private TcpClient tcpclient = new TcpClient();
 
@@ -22,6 +22,9 @@ namespace CommunicationUtilYwh.Device
 
         private readonly string TriggerWorkCmd = "Func=Work";
 
+        /// <summary>
+        /// 查询测试状态命令
+        /// </summary>
         private readonly string queryTestStatusCmd = "Func=QueryTestStatus";
 
         private readonly string QueryWorkResultCmd = "Func=QueryWorkResult";
@@ -41,13 +44,22 @@ namespace CommunicationUtilYwh.Device
 
         private string port;
 
+
+        public int ID { get; set; }
+
         public string Name { get; set; }
-        public TcpDevice1()
+        public TcpDevice1(string name)
         {
-            // Name = name;
+             Name = name;
         }
 
-        public (bool, string) Connect(string ip, string port)
+        public TcpDevice1( string name, int id)
+        {
+            ID = id;
+            Name = name;
+        }
+
+        public async Task<(bool, string)> ConnectAsync(string ip, string port)
         {
             bool flag = false;
             string err = "";
@@ -57,9 +69,13 @@ namespace CommunicationUtilYwh.Device
                 {
                     tcpclient = new TcpClient();
                 }
-                flag = tcpclient.Open(ip, port);
+                flag = await tcpclient.Open(ip, port);
                 //TODO 连接成功之后查询设备状态
-                QueryIsReady();
+                if (flag)
+                {
+                    QueryIsReady();
+                }
+           
             }
             catch (Exception ex)
             {
@@ -75,14 +91,10 @@ namespace CommunicationUtilYwh.Device
         {
             tcpclient.Dispose();
         }
-        public bool DatalogicIsConnect()
-        {
-            return tcpclient.IsConnected();
-        }
 
         public bool IsConnect()
         {
-            return tcpclient.IsConnect;
+            return tcpclient.IsConnected();
         }
 
         public string UpdateProduct(string name)
@@ -104,6 +116,10 @@ namespace CommunicationUtilYwh.Device
             return Send(TriggerWorkCmd);
         }
 
+        /// <summary>
+        /// 查询测试状态
+        /// </summary>
+        /// <returns></returns>
         public string QueryTestStatus()
         {
             return Send(queryTestStatusCmd);
@@ -208,6 +224,35 @@ namespace CommunicationUtilYwh.Device
             }
         }
 
-    
+
+        public void Dispose()
+        {
+            tcpclient?.Dispose();
+        }
+
+        public int ParseTestState(string input)
+        {
+            int state = -1;
+            try
+            {
+                string[] parts = input.Split(',');
+
+                if (parts.Length == 4)
+                {
+                    var strings = parts[3].Split('=');
+                    if (strings.Length > 1)
+                    {
+                        string value = strings[1];
+                        value = value.Substring(0, 1);
+                        state = int.Parse(value);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+               LogMgr.Instance.Error($"[{this.Name}]->解析测试状态错误=>:"+e.Message);
+            }
+            return state;
+        }
     }
 }

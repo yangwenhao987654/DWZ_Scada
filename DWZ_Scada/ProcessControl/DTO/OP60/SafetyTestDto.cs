@@ -13,7 +13,7 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
     /// </summary>
     public class SafetyTestDto
     {
-        public string SafetyTestResult { get; set; }
+        public string SafetyTestResult { get; set; } = "N";
 
         public string TestTime { get; set; }
 

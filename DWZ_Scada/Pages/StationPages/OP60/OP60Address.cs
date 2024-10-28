@@ -26,54 +26,54 @@
         /// <summary>
         /// 静态测试开始信号
         /// </summary>
-        public static readonly string StaticStartSignal = "";
+        public static readonly string SafetyStartSignal = "";
 
         /// <summary>
         /// 静态测试1 SN
         /// </summary>
-        public static readonly string StaticSN1 = "";
+        public static readonly string SafetyTestSN1 = "";
 
         /// <summary>
         /// 静态测试1结果
         /// </summary>
-        public static readonly string StaticResult1 = "";
+        public static readonly string SafetyResult1 = "";
 
         /// <summary>
         /// 静态测试2 SN
         /// </summary>
-        public static readonly string StaticSN2 = "";
+        public static readonly string SafetyTestSN2 = "";
 
         /// <summary>
         /// 静态测试2结果
         /// </summary>
-        public static readonly string StaticResult2 = "";
+        public static readonly string SafetyResult2 = "";
         #endregion
 
         #region 动态测试
         /// <summary>
         /// 动态测试开始信号
         /// </summary>
-        public static readonly string DynamicsStartSignal = "";
+        public static readonly string AtlBrxStartSignal = "";
 
         /// <summary>
         /// 动态测试1 SN
         /// </summary>
-        public static readonly string DynamicsSN1 = "";
+        public static readonly string AtlBrxTestSN1 = "";
 
         /// <summary>
         /// 动态测试1结果
         /// </summary>
-        public static readonly string DynamicsResult1 = "";
+        public static readonly string AtlBrxResult1 = "";
 
         /// <summary>
         /// 动态测试2 SN
         /// </summary>
-        public static readonly string DynamicsSN2 = "";
+        public static readonly string AtlBrxTestSN2 = "";
 
         /// <summary>
         /// 动态测试2结果
         /// </summary>
-        public static readonly string DynamicsResult2 = "";
+        public static readonly string AtlBrxResult2 = "";
         #endregion
 
         #region 其他信号
@@ -86,6 +86,11 @@
         /// 点检模式地址
         /// </summary>
         public static string SpotCheck = "";
+
+        /// <summary>
+        /// 心跳地址
+        /// </summary>
+        public static string HeartBeat = "D3010";
         #endregion
 
     }

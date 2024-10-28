@@ -352,14 +352,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             //清空物料编码
             tbx_Part.Text = "";
-            OP10MainFunc.Instance.MaterialSN = "";
-            OP10MainFunc.Instance.MaterialNo = "";
+            OP10MainFunc.Instance.CurMaterialSN = "";
+            OP10MainFunc.Instance.CurMaterialNo = "";
 
             //设置选中工单
             lbl_WorkOrder.Text = workOrder.WorkOrderName + ":" + workOrder.WorkOrderCode;
             lbl_ProdNo.Text = workOrder.ProductName + ":" + workOrder.ProductCode;
-            OP10MainFunc.Instance.WorkOrder = workOrder.WorkOrderCode;
-            OP10MainFunc.Instance.ProductCode = workOrder.ProductCode;
+            OP10MainFunc.Instance.CurWorkOrder = workOrder.WorkOrderCode;
+            OP10MainFunc.Instance.CurProductCode = workOrder.ProductCode;
 
         }
 
@@ -394,7 +394,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private async void uiButton1_Click_2(object sender, EventArgs e)
         {
             ProductBomService bomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
-            (bool flag, string msg) = await bomService.GetBomList(OP10MainFunc.Instance.ProductCode);
+            (bool flag, string msg) = await bomService.GetBomList(OP10MainFunc.Instance.CurProductCode);
             if (!flag) {
                 Mylog.Instance.Error("获取Bom失败:"+msg);
             }

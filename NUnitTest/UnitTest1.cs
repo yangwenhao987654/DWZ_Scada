@@ -1,4 +1,5 @@
 using DWZ_Scada.ProcessControl.DTO.OP60;
+using System.Diagnostics;
 
 namespace NUnitTest
 {
@@ -35,15 +36,21 @@ namespace NUnitTest
         public void Test3()
         {
             //Assert.Fail();
+            Stopwatch sw = Stopwatch.StartNew();
             try
             {
-                SafetyTestDto dto = SafetyTestDto.ParseDto(SafetyTestDto.OKStr);
+                for (int i = 0; i < 10000; i++)
+                {
+                    SafetyTestDto dto = SafetyTestDto.ParseDto(SafetyTestDto.OKStr);
+                }               
             }
             catch (Exception ex)
             {
                 Assert.Fail(ex.Message);
                 throw ex;
             }
+            sw.Stop();
+            Assert.Pass($"测试成功 运行耗时:{sw.ElapsedMilliseconds} ms");
         }
     }
 }

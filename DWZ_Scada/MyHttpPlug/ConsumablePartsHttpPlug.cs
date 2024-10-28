@@ -87,7 +87,7 @@ namespace DWZ_Scada.MyHttpPlug
                             selectHandle = new DefaultSelectionStrategy();
                             break;
                     }
-                    Task<SelectionResultDTO> task = selectHandle.ExecuteAsync(modelDto.ProductCode);
+                    Task<SelectionResultDTO> task = selectHandle.ExecuteAsync(modelDto.CurProductCode);
                     resultDto = task.Result;*/
                     string resJson = resultDto.ToJsonString();
                     LogMgr.Instance.Debug("响应内容:");

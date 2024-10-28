@@ -1,7 +1,10 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
+using CommunicationUtilYwh.Device;
+using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
+using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
@@ -20,6 +23,37 @@ namespace DWZ_Scada.Pages.StationPages
 {
     public abstract class MainFuncBase : IDisposable
     {
+        #region 报警状态属性
+
+        private const int AlarmState = 2;
+
+        private const int RunningState = 1;
+
+        /// <summary>
+        /// 设备停止中
+        /// </summary>
+        private const int StopState = 3;
+
+        /// <summary>
+        /// PLC连接断开
+        /// </summary>
+        private const int OffState = -1;
+
+        /// <summary>
+        /// 在线状态
+        /// </summary>
+        private const int OnLineState = 0;
+
+        //手持扫码枪 切换物料
+        //输入物料
+        //1.扫码枪
+        //2.人工输入
+        public static List<DeviceAlarmEntity> CurrentAlarmList = new();
+
+        public static List<string> CurAlarmInfoVo = new();
+
+        #endregion
+
         /// <summary>
         /// 用于Mes测试SN
         /// </summary>
@@ -123,29 +157,29 @@ namespace DWZ_Scada.Pages.StationPages
         /// <summary>
         /// 当前的工单
         /// </summary>
-        public string WorkOrder { get; set; }
+        public string CurWorkOrder { get; set; }
 
         /// <summary>
         /// 当前产品型号
         /// </summary>
-        public string ProductCode { get; set; }
+        public string CurProductCode { get; set; }
 
         /// <summary>
         /// 当前批次号
         /// </summary>
-        public string BatchNo { get; set; }
+        public string CurBatchNo { get; set; }
 
 
         /// <summary>
         /// 当前物料编码
         /// </summary>
-        public string MaterialNo { get; set; }
+        public string CurMaterialNo { get; set; }
 
 
         /// <summary>
         /// 当前物料SN码
         /// </summary>
-        public string MaterialSN { get; set; }
+        public string CurMaterialSN { get; set; }
 
 
         // 异步保存报警信息的方法
@@ -185,7 +219,8 @@ namespace DWZ_Scada.Pages.StationPages
         {
             Task.Run(() =>
             {
-                _cts=new CancellationTokenSource();
+              
+                _cts =new CancellationTokenSource();
                 //myOp10Model = Model;
                 //启动PLC监控线程
                 Thread t = new Thread(() => ConnStatusMonitor(_cts.Token));
@@ -308,6 +343,7 @@ namespace DWZ_Scada.Pages.StationPages
                     {
                         PLC.Write(OP10Address.HeartBeat, "int", 1);
                     }
+                
                     ZCForm.Instance.UpdatePlcState(PlcState);
                 }
                 catch (Exception ex)
@@ -317,7 +353,193 @@ namespace DWZ_Scada.Pages.StationPages
                 Thread.Sleep(1000);
             }
         }
+
+
+
         #endregion
+
+        #region 处理设备报警
+        /// <summary>
+        /// 更新设备状态
+        /// </summary>
+        /// <param name="state"></param>
+        private void UpdateDeviceState(int state)
+        {
+            if (state == AlarmState)
+            {
+                PlcState = PlcState.Alarm;
+                //DeviceState = 2;
+            }
+            else if (state == RunningState)
+            {
+                PlcState = PlcState.Running;
+            }
+            else if (state == OffState)
+            {
+                PlcState = PlcState.OffLine;
+
+            }
+            else if (state == StopState)
+            {
+                PlcState = PlcState.Stop;
+            }
+            else
+            {
+                PlcState = PlcState.Online;
+            }
+            lock (stateLock)
+            {
+                DeviceState = state;
+            }
+        }
+        private void ProcessAlarms(DateTime dt)
+        {
+            CurrentAlarmList.Clear();
+
+            foreach (PLCAlarmData data in Global.PlcAlarmList)
+            {
+                if (data.IsArray && data.AlarmList.Count > 0)
+                {
+                    HandleArrayAlarm(data, dt);
+                }
+                else
+                {
+                    HandleSingleAlarm(data, dt);
+                }
+            }
+        }
+
+        // 处理数组形式的报警
+        private void HandleArrayAlarm(PLCAlarmData data, DateTime dt)
+        {
+            bool[] alarmArr = new bool[data.Length];
+            if (PLC.ReadAlarm(data.Address, out alarmArr, data.Length))
+            {
+                for (int i = 0; i < alarmArr.Length; i++)
+                {
+                    string alarmKey = data.AlarmList[i].Name;
+                    bool isAlarmActive = alarmArr[i];
+                    DeviceAlarmEntity alarmEntity = new();
+                    alarmEntity.AlarmInfo = data.AlarmList[i].Name;
+                    alarmEntity.AlarmType = data.AlarmList[i].AlarmType;
+                    alarmEntity.DeviceName = StationName;
+                    alarmEntity.AlarmDateStr = dt.ToString("yyyy-MM-dd");
+                    alarmEntity.AlarmTime = dt;
+                    UpdateAlarmStatus(alarmKey, isAlarmActive, alarmEntity, dt);
+                }
+            }
+        }
+
+        // 处理单一报警
+        private void HandleSingleAlarm(PLCAlarmData data, DateTime dt)
+        {
+            if (PLC.ReadBool(data.Address, out bool isAlarmActive))
+            {
+                string alarmKey = data.Name;
+                DeviceAlarmEntity alarmEntity = new();
+                alarmEntity.AlarmInfo = data.Name;
+                alarmEntity.AlarmType = data.AlarmType;
+                alarmEntity.DeviceName = StationName;
+                alarmEntity.AlarmDateStr = dt.ToString("yyyy-MM-dd");
+                alarmEntity.AlarmTime = dt;
+                UpdateAlarmStatus(alarmKey, isAlarmActive, alarmEntity, dt);
+            }
+        }
+
+        private void HandlePLCReadError()
+        {
+            IsPlc_Connected = false;
+            LogMgr.Instance.Error("读取PLC 信号异常");
+        }
+
+        // 更新报警状态
+        private void UpdateAlarmStatus(string alarmKey, bool isActive, DeviceAlarmEntity alarmEntity, DateTime dt)
+        {
+            if (isActive)
+            {
+                Global.IsDeviceAlarm = true;
+                CurAlarmInfoVo.Add($"{alarmEntity.AlarmTime:yyyy:MM:dd hh:mm:ss}:{alarmEntity.AlarmInfo}--{alarmEntity.AlarmType}");
+                CurrentAlarmList.Add(alarmEntity);
+                if (ActiveAlarms.TryAdd(alarmKey, alarmEntity))
+                {
+                    AlarmQueue.Enqueue(alarmEntity);
+                    // TODO: 上传报警信息到数据库
+                }
+            }
+            else
+            {
+                if (ActiveAlarms.ContainsKey(alarmKey))
+                {
+                    ActiveAlarms.Remove(alarmKey);
+                    // TODO: 上传报警消除记录
+                }
+            }
+        }
+
+        /// <summary>
+        /// 读取PLC状态
+        /// </summary>
+        /// <returns></returns>
+        protected abstract int ReadPLCState();
+        
+        protected void HandleAlarm()
+        {
+            #region 读取PLC状态
+            int state = -1;
+            DateTime dt;
+            //判断是否点检模式
+            dt = DateTime.Now;
+            // 进站请求信号
+            //TODO 先读一个总的报警信号  如果有报警 再去读报警内容
+            // state状态 报警中 暂停中 运行中
+            //每次循环清一遍
+            CurrentAlarmList.Clear();
+            CurAlarmInfoVo.Clear();
+            state = ReadPLCState();
+            UpdateDeviceState(state);
+            if (state != -1)
+            {
+                // 处理报警信息
+                //假如当前有报警 或者是上一次有报警
+                //TODO 上一次有报警 需要清除上一次的报警信息 
+                CurrentAlarmList.Clear();
+                if (state == AlarmState)
+                {
+                    lock (alarmLock)
+                    {
+                        AlarmInfoList.Clear();
+                        ProcessAlarms(dt);
+                    }
+                }
+                //如果上一次报警了 
+                if (DeviceState == AlarmState && state != AlarmState)
+                {
+                    //TODO 可以 foreach 遍历 获取所有报警消除记录
+                    ActiveAlarms.Clear();
+                }
+                if (DeviceControlPage.IsLoad)
+                {
+                    //DeviceControlPage.Instance.UpdateAlarm(new List<DeviceAlarmEntity>(CurrentAlarmList));
+
+                    DeviceControlPage.Instance.UpdateAlarm(new List<string>(CurAlarmInfoVo));
+
+                }
+                // 处理设备状态
+
+
+                //这里判断设备是不是点检模式
+
+
+            }
+            else
+            {
+                HandlePLCReadError();
+            }
+            #endregion
+        }
+
+        #endregion
+
 
         public void Dispose()
         {

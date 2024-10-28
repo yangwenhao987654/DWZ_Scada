@@ -44,9 +44,7 @@
     <Compile Update="Pages\StationPages\OP70\PageOP70.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Pages\StationPages\OP60\PageOP60.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Pages\StationPages\OP60\PageOP60.cs" />
     <Compile Update="Pages\StationPages\OP40\PageOP40.cs">
       <SubType>Form</SubType>
     </Compile>

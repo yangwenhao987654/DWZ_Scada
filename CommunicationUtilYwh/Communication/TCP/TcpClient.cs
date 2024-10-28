@@ -31,22 +31,34 @@ namespace CommunicationUtilYwh.Communication.TCP
         /// 读取超时时间 ms
         /// </summary>
         public int Timeout = 3000;
-        public bool Open(string ip, string port)
+        public async Task<bool> Open(string ip, string port)
         {
             try
             {
                 IPAddress IP = IPAddress.Parse(ip);
                 IPEndPoint Host = new IPEndPoint(IP, Convert.ToInt32(port));
                 tcpclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                tcpclient.Connect(Host);
+                tcpclient.SendTimeout = 3000;
+                tcpclient.ReceiveTimeout = 3000;
+                var timeoutTask = Task.Delay(3000);
+                Task connectTask = tcpclient.ConnectAsync(Host);
+                connectTask.Wait();
+                var completedTask = await Task.WhenAny(connectTask, timeoutTask);
+
+                if (completedTask==timeoutTask)
+                {
+                    tcpclient.Close();
+                    return false;
+                }
                 //StartReceiving();
-                return true;
+                return tcpclient.Connected;
             }
             catch (Exception ex)
             {
                 string error = "客户端连接打开出现错误，信息为" + ex.Message;
                 //function.LOGS_disp(error);
                 LogMgr.Instance.Error(error);
+                tcpclient?.Close();
                 return false;
             }
         }

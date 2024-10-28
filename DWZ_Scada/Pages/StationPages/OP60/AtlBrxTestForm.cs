@@ -18,7 +18,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
     {
         Mylog mylog;
 
-        TcpDevice1 device = new TcpDevice1();
+        TcpDevice1 device = new TcpDevice1("测试机");
         public AtlBrxTestForm()
         {
             InitializeComponent();
@@ -58,12 +58,12 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     port = SystemParams.Instance.OP60_AtlBrx_02_Port;
                     break;
                 case 2:
-                    ip = SystemParams.Instance.OP60_Dyn_01_IP;
-                    port = SystemParams.Instance.OP60_Dyn_01_Port;
+                    ip = SystemParams.Instance.OP60_Safety_01_IP;
+                    port = SystemParams.Instance.OP60_Safety_01_Port;
                     break;
                 case 3:
-                    ip = SystemParams.Instance.OP60_Dyn_02_IP;
-                    port = SystemParams.Instance.OP60_Dyn_02_Port;
+                    ip = SystemParams.Instance.OP60_Safety_02_IP;
+                    port = SystemParams.Instance.OP60_Safety_02_Port;
                     break;
                 default:
                     break;
@@ -84,18 +84,19 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             mylog?.Dispose();
         }
 
-        private void uiButton11_Click(object sender, EventArgs e)
+        private async void uiButton11_Click(object sender, EventArgs e)
         {
+            uiButton11.Enabled = false;
             string ip = tbxIP.Text;
             string port = tbxPort.Text;
-            (bool f, string err) = device.Connect(ip, port);
+            (bool f, string err) =await device.ConnectAsync(ip, port);
             if (!f)
             {
                 UIMessageBox.ShowError($"连接错误:{err}");
+                uiButton11.Enabled = false;
                 return;
             }
             mylog.Info("打开连接");
-            uiButton11.Enabled = false;
             uiButton12.Enabled = true;
         }
 

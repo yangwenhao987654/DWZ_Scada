@@ -9,7 +9,7 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
 {
     public class AtlBrxTestDto
     {
-        public string AtlBrxTestResult { get; set; }
+        public string AtlBrxTestResult { get; set; } = "N";
 
         public string TestTime { get; set; }
 
@@ -79,6 +79,7 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
         public static AtlBrxTestDto ParseDto(string input)
         {
             AtlBrxTestDto result = new AtlBrxTestDto();
+            result.AtlBrxTestResult = "N";
             try
             {
                 var keyValuePairs = input.Split(',');

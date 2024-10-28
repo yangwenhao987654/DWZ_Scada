@@ -1,36 +1,43 @@
-﻿using CommunicationUtilYwh.Communication;
-using DIPTest;
-using DWZ_Scada.dao.response;
-using DWZ_Scada.HttpServices;
-using DWZ_Scada.MyHttpPlug;
+﻿using DIPTest.Ctrl;
+using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages;
-using DWZ_Scada.Pages.StationPages.OP40;
 using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.VO;
 using LogTool;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using RestSharp;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
-using TouchSocket.Core;
-using TouchSocket.Http;
-using TouchSocket.Sockets;
 
 namespace DWZ_Scada
 {
+
     public partial class PageOP60 : UIPage
     {
+        // 定义一个新的事件参数类，包含SelectionResultDTO和string类型的属性
+        public class DeviceStateEventArgs : EventArgs
+        {
+            public int DeviceId { get; }
+            public bool isConnect { get; }
+             
+            public DeviceStateEventArgs(int id, bool isConnect)
+            {
+                DeviceId = id;
+                this.isConnect = isConnect;
+            }
+        }
+        public event EventHandler<DeviceStateEventArgs> OnDeviceStateChangedEvent;
 
+        // 定义一个字典，将ID映射到对应的UI控件
+        private Dictionary<int, UILight> lightMap= new Dictionary<int, UILight>();
+
+
+        // 定义一个字典，将ID映射到对应的UI控件
+        private Dictionary<int, UserCtrlResult> ctrlResultMap = new Dictionary<int, UserCtrlResult>();
         public List<OrderVo> Orders { get; set; }
 
         private static PageOP60 _instance;
@@ -56,6 +63,15 @@ namespace DWZ_Scada
         {
             InitializeComponent();
             _instance = this;
+            lightMap.Add(1, uiLight1);
+            lightMap.Add(2, uiLight2);
+            lightMap.Add(3, uiLight3);
+            lightMap.Add(4, uiLight4);
+
+            ctrlResultMap.Add(1,userCtrlResult1);
+            ctrlResultMap.Add(2, userCtrlResult2);
+            ctrlResultMap.Add(3, userCtrlResult3);
+            ctrlResultMap.Add(4, userCtrlResult4);
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -63,8 +79,8 @@ namespace DWZ_Scada
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug($"打开{OP60MainFunc.StationName}工站");
 
-            ISelectionStrategyEvent OP50Strategy = new OP50SelectionStrategy();
-            OP50Strategy.OnSelectionEvent += OP50SelectionStrategy_OnSelectionEvent;
+            ISelectionStrategyEvent op60SelectionStrategy = new OP60SelectionStrategy();
+            op60SelectionStrategy.OnSelectionEvent += OP60SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP60工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP60_PlcIP,
@@ -72,9 +88,33 @@ namespace DWZ_Scada
 
             OP60MainFunc.CreateInstance(plcConfig);
             OP60MainFunc.Instance.StartAsync();
+
+            Mylog.Instance.Init(myLogCtrl1);
+            OnDeviceStateChangedEvent += PageOP60_OnDeviceStateChangedEvent;
+        }
+        // 方法用于触发事件
+        public void TriggerDeviceStateChanged(int id,bool isConnect)
+        {
+            OnDeviceStateChangedEvent?.Invoke(this, new DeviceStateEventArgs(id,isConnect));
         }
 
-        private void OP50SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
+        private void PageOP60_OnDeviceStateChangedEvent(object sender, DeviceStateEventArgs e)
+        {
+            updateDeviceStateLight(e.DeviceId, e.isConnect);
+        }
+
+        private void updateDeviceStateLight(int id, bool isConnect)
+        {
+            if (lightMap.TryGetValue(id, out var light))
+            {
+                light.Invoke(new Action(() =>
+                {
+                    light.OnColor = isConnect ? Color.LawnGreen : Color.DimGray;
+                }));
+            }
+        }
+
+        private void OP60SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
             LogMgr.Instance.Info("触发选型");
             LogMgr.Instance.Info($"下发型号[{e.Model}]");
@@ -126,6 +166,30 @@ namespace DWZ_Scada
         private void userCtrlResult1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void StartTestUI(int pos ,string sn)
+        {
+            if(ctrlResultMap.TryGetValue(pos, out  var ctrl))
+            {
+                ctrl.Start(sn);
+            }
+        }
+
+        public void TestPassUI(int pos)
+        {
+            if (ctrlResultMap.TryGetValue(pos, out var ctrl))
+            {
+                ctrl.Pass();
+            }
+        }
+
+        public void TestFailUI(int pos)
+        {
+            if (ctrlResultMap.TryGetValue(pos, out var ctrl))
+            {
+                ctrl.Fail();
+            }
         }
     }
 }
