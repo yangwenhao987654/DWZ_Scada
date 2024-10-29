@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogTool;
+using System;
 using System.Net;
-using System.IO;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
-using LogTool;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Threading.Tasks;
 
 namespace CommunicationUtilYwh.Communication.TCP
 {

@@ -312,8 +312,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
-                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+         
+                (bool flag, string msg) = await EntryRequest(requestDto);
                 //
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
                 PLC.Write(OP10Address.EntryResult, "Bool", flag);

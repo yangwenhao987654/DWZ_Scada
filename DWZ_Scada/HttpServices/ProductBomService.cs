@@ -14,7 +14,7 @@ namespace DWZ_Scada.HttpServices
     public class ProductBomService
     {
         private readonly HttpClientHelper _httpClientHelper;
-        public static string Url = URLConstants.Base + URLConstants.ProductBomList;
+        public static string Url => URLConstants.Base + URLConstants.ProductBomList;
         public ProductBomService(HttpClientHelper httpClientHelper)
         {
             _httpClientHelper = httpClientHelper;

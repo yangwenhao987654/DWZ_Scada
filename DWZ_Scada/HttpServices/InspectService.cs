@@ -14,7 +14,7 @@ namespace DWZ_Scada.HttpServices
     public class InspectService
     {
         private readonly HttpClientHelper _httpClientHelper;
-        public static string Url = URLConstants.Base + URLConstants.InspectUrl;
+        public static string Url => URLConstants.Base + URLConstants.InspectUrl;
         public InspectService(HttpClientHelper httpClientHelper)
         {
             _httpClientHelper = httpClientHelper;

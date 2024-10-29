@@ -116,20 +116,6 @@ namespace DWZ_Scada
             LogMgr.Instance.Info("启动HttpServer");
         }
 
-        public static void TestGetRequest<T>(string url)
-        {
-            string baseUrl = url;
-            MyHttpClient client = new MyHttpClient(baseUrl);
-            Task<RestResponse> task = client.GetAsync("");
-            RestResponse response = task.Result;
-            string res = response.Content;
-            T dto = JsonConvert.DeserializeObject<T>(res);
-            Console.WriteLine(dto.GetType());
-            string jsonStr = JsonConvert.SerializeObject(dto);
-            SelectionResultDTO result = JsonConvert.DeserializeObject<SelectionResultDTO>(res);
-            Console.WriteLine(jsonStr);
-
-        }
 
         private void uiLabel1_Click(object sender, EventArgs e)
         {

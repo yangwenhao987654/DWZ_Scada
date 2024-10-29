@@ -1,10 +1,7 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
-using CommunicationUtilYwh.Device;
-using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
-using DWZ_Scada.Pages.StationPages.OP60;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
@@ -12,7 +9,6 @@ using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
-using Sunny.UI;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -69,12 +65,14 @@ namespace DWZ_Scada.Pages.StationPages
 
         private static Func<MainFuncBase> _createInstanceFunc;
 
+        private EntryRequestService EntryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
+
         public DeviceStateService DeviceStateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
 
 
-        public UploadPassStationService UploadPassStationService = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
+        private UploadPassStationService UploadPassStationService = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
 
-        public InspectService InspectService = Global.ServiceProvider.GetRequiredService<InspectService>();
+        private InspectService InspectService = Global.ServiceProvider.GetRequiredService<InspectService>();
 
         //private static MainFuncBase myOp10Model;
 
@@ -240,14 +238,20 @@ namespace DWZ_Scada.Pages.StationPages
         /// <summary>
         /// 上传过站数据
         /// </summary>
-        protected async Task UploadStationData(PassStationDTO dto)
+        protected async Task<(bool, string)> UploadStationData(PassStationDTO dto)
         {
-            await UploadPassStationService.SendPassStationData(dto);
+           return await UploadPassStationService.SendPassStationData(dto);
         }
 
         protected async Task<(bool, string)> UploadSpotCheckData(DeviceInspectDTO dto)
         {
             return await InspectService.AddInspectDada(dto);
+
+        }
+
+        protected async Task<(bool, string)> EntryRequest(EntryRequestDTO dto)
+        {
+            return await EntryRequestService.CheckIn(dto);
 
         }
 

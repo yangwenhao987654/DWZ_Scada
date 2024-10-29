@@ -170,7 +170,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                     },
                     isLastStep = false
                 };
-                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传视觉数据错误:" + msg);
@@ -210,7 +210,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传最终码数据错误:" + msg);

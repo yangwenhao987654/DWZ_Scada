@@ -1,13 +1,10 @@
 ﻿using CommunicationUtilYwh.Device;
 using DWZ_Scada.ctrls.LogCtrl;
-using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.DTO.OP60;
-using DWZ_Scada.Services;
 using LogTool;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -126,8 +123,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 }
             }
 
-            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            await stateService.AddDeviceState(dto);
+            await DeviceStateService.AddDeviceState(dto);
         }
 
         public override void PLCMainWork(CancellationToken token)
@@ -227,8 +223,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
-                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                (bool flag, string msg) = await EntryRequest(requestDto);
 
                 short result = 2;
                 if (flag)
@@ -286,8 +281,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PassStationData = dto,
                 isLastStep = false,
             };
-            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
-            (bool flag, string msg) = await service.SendPassStationData(requestDto);
+            (bool flag, string msg) = await UploadStationData(requestDto);
             LogMgr.Instance.Debug($"Device:[{device.Name}]写进站结果:{result} :\n{msg}");
             /*if (flag)
             {
@@ -325,8 +319,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PassStationData = dto,
                 isLastStep = true,
             };
-            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
-            (bool flag, string msg) = await service.SendPassStationData(requestDto);
+            (bool flag, string msg) = await UploadStationData(requestDto);
             LogMgr.Instance.Debug($"Device:[{device.Name}]写进站结果:{result} :\n{msg}");
             /*if (flag)
             {

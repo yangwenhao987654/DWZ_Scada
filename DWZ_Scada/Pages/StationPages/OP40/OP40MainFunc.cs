@@ -1,16 +1,8 @@
 ﻿using DWZ_Scada.ctrls.LogCtrl;
-using DWZ_Scada.HttpServices;
-using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages.OP10;
-using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.Services;
 using LogTool;
-using Microsoft.Extensions.DependencyInjection;
-using ScadaBase.DAL.Entity;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -107,9 +99,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     dto.Message = message;
                 }
             }
-
-            DeviceStateService stateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
-            //await stateService.AddDeviceState(dto);
+            //await DeviceStateService.AddDeviceState(dto);
         }
 
         public override async void PLCMainWork(CancellationToken token)
@@ -195,7 +185,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     },
                     isLastStep = false
                 };
-                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传焊接数据错误:" + msg);
@@ -243,13 +233,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传视觉数据错误:" + msg);
                 }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
-                PLC.Write(OP30Address.VisionOut, "Bool", result);
+                PLC.Write(OP40Address.VisionOut, "Bool", result);
             }
         }
 
@@ -268,8 +258,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
-                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                (bool flag, string msg) = await EntryRequest(requestDto);
                 //
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
                 PLC.Write(OP40Address.EntryResult, "Bool", flag);

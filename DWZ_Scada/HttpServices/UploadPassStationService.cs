@@ -10,7 +10,7 @@ namespace DWZ_Scada.HttpServices
     public class UploadPassStationService
     {
         private readonly HttpClientHelper _httpClientHelper;
-        public static string Url = URLConstants.Base + URLConstants.PassStationUpload;
+        public static string Url => URLConstants.Base + URLConstants.PassStationUpload;
         public UploadPassStationService(HttpClientHelper httpClientHelper)
         {
             _httpClientHelper = httpClientHelper;

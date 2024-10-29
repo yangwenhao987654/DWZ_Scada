@@ -16,7 +16,7 @@ namespace DWZ_Scada.HttpServices
     internal class WorkOrderService
     {
         private readonly HttpClientHelper _httpClientHelper;
-        public static string Url = URLConstants.Base + URLConstants.GetWorkOrderUrl;
+        public  string Url => URLConstants.Base + URLConstants.GetWorkOrderUrl;
         public WorkOrderService(HttpClientHelper httpClientHelper)
         {
             _httpClientHelper = httpClientHelper;

@@ -207,34 +207,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             LogMgr.Instance.Info("选型结束");
         }
 
-        public static void TestGetRequest<T>(string url)
-        {
-            string baseUrl = url;
-            MyHttpClient client = new MyHttpClient(baseUrl);
-            Task<RestResponse> task = client.GetAsync("");
-            RestResponse response = task.Result;
-            string res = response.Content;
-            T dto = JsonConvert.DeserializeObject<T>(res);
-            Console.WriteLine(dto.GetType());
-            string jsonStr = JsonConvert.SerializeObject(dto);
-            SelectionResultDTO result = JsonConvert.DeserializeObject<SelectionResultDTO>(res);
-            Console.WriteLine(jsonStr);
-        }
 
         private void uiLabel1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void uiButton1_Click(object sender, EventArgs e)
-        {
-            string sn = tbx_Part.Text;
-            if (string.IsNullOrEmpty(sn))
-            {
-                sn = "24TT0001";
-            }
-            EntryCommand op10Entry = new OP10EntryCommand(sn);
-            op10Entry.Execute();
         }
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
@@ -245,40 +221,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             LogMgr.Instance.Info("关闭OP10程序");
         }
 
-        private async Task TestPassStationUpload()
-        {
-            PassStationDTO dto = new PassStationDTO()
-            {
-                StationCode = "OP10",
-                SnTemp = "AQW12dswSAW",
-                PassStationData = new PassStationData()
-                {
-                    Data = new Vision2Data() { Vision2Result = false },
-                    Good = false,
-                },
-                isLastStep = true
-            };
-            UploadPassStationService service = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
-            service.SendPassStationData(dto);
-        }
+     
 
         private void uiLabel2_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void uiButton1_Click_1(object sender, EventArgs e)
-        {
-            //切换型号
-
-
-        }
-
-        private void uiButton4_Click(object sender, EventArgs e)
-        {
-            //进入点检模式 生产数据跟正常数据分开
-            OP10MainFunc.Instance.PLC.Write(OP10Address.SpotCheck, "bool", true);
-            OP10MainFunc.Instance.IsSpotCheck = true;
 
         }
 
@@ -370,15 +316,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
             //从Bom表里对比当前的物料号在Bom中是否存在 如果不存在 则不允许切换此型号
             //需要更换型号 或者更换物料 只有当前型号的产品和当前选择物料相对应才能切换型号
-        }
-
-        private void uiButton2_Click(object sender, EventArgs e)
-        {
-            //切换物料 
-            //输入物料后，需要确保当前物料 包含在当前正在生产的产品型号内 
-            //根据当前产品型号获取物料Bom,从物料Bom中查询是否有这种物料 
-            //如果没有，则不允许切换物料
-
         }
 
         private void PageOP10_Initialize(object sender, EventArgs e)

@@ -10,7 +10,7 @@ namespace DWZ_Scada.Services
     {
         private readonly HttpClientHelper _httpClientHelper;
 
-        public static string Url = URLConstants.Base + URLConstants.DeviceStateUrl;
+        public static  string Url => URLConstants.Base + URLConstants.DeviceStateUrl;
 
         public DeviceStateService(HttpClientHelper httpClientHelper)
         {

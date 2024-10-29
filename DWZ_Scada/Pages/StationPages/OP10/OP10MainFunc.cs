@@ -207,7 +207,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         },
                         isLastStep = false
                     };
-                    (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                    (bool res, string msg) = await UploadStationData(dto);
                     if (res == false)
                     {
                         Mylog.Instance.Alarm("上传过站数据错误:" + msg);
@@ -257,7 +257,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传视觉2数据错误:" + msg);
@@ -289,8 +289,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     StationCode = StationCode,
                     WorkOrder = "MO202410210001"
                 };
-                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                (bool flag, string msg) = await EntryRequest(requestDto);
                 //
                 PageOP10.Instance.UpdateEnrtyResult(flag, msg);
                 LogMgr.Instance.Debug($"写进站结果{flag}");
@@ -313,15 +312,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             bool readFlag = PLC.ReadInt16(OP10Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;
-        }
-
-        private async Task Execute(string tempSN)
-        {
-            EntryRequestDTO requestDto = new();
-            requestDto.SnTemp = tempSN;
-            requestDto.StationCode = "OP10";
-            EntryRequestService entryService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-            await entryService.CheckIn(requestDto);
         }
     }
 }

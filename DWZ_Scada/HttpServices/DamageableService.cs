@@ -10,7 +10,7 @@ namespace DWZ_Scada.HttpServices
     {
         private readonly HttpClientHelper _httpClientHelper;
 
-        public static string Url = URLConstants.Base + URLConstants.ReportConsumableUrl;
+        public static string Url => URLConstants.Base + URLConstants.ReportConsumableUrl;
 
 
         public DamageableService(HttpClientHelper httpClientHelper)

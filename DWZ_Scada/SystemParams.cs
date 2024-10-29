@@ -116,6 +116,10 @@ namespace DWZ_Scada
             StationChanged?.Invoke();
         }
 
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("0.Mes服务器 IP地址"), Category("0.Mes服务器"), Description("Mes服务器的IP地址")]
+        public string MesIP { get; set; }
+
         #region OP10工站参数
         [Permission(3), ReadOnly(false)]
         [DisplayName("1.PLC IP地址"), Category("1.OP10工站"), Description("PLC的IP地址")]

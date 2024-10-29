@@ -17,7 +17,7 @@ namespace DWZ_Scada.HttpServices
         /// <summary>
         /// 进站请求路径
         /// </summary>
-        public static string Url = URLConstants.Base + URLConstants.EntryUrl;
+        public static string Url => URLConstants.Base + URLConstants.EntryUrl;
 
         public EntryRequestService(HttpClientHelper httpClientHelper)
         {

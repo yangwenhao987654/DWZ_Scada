@@ -125,10 +125,11 @@ namespace DWZ_Scada
                                     builder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
                                 }, 1024)
                             ;*/
-                        ConfigureServices(serviceCollection);
-                        Global.ServiceProvider = serviceCollection.BuildServiceProvider();
                         LogMgr.Instance.Init();
                         SystemParams.Load();
+                        ConfigureServices(serviceCollection);
+                        Global.ServiceProvider = serviceCollection.BuildServiceProvider();
+                    
                      /*   PageLogin pageLogin = new PageLogin();
                         pageLogin.ShowDialog();*/
 
@@ -163,7 +164,7 @@ namespace DWZ_Scada
 
             services.AddSingleton<RestClient>(new RestClient(new RestClientOptions()
             {
-                BaseUrl = new Uri(URLConstants.Base),//配置基础URL-
+                //BaseUrl = new Uri(URLConstants.Base),//配置基础URL-
                 //ThrowOnAnyError = true, //如果有错误，抛出异常
                 Timeout = TimeSpan.FromMilliseconds(3000)  ,//设置超时 3秒
             }));

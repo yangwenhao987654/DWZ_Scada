@@ -170,7 +170,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadPassStationService.SendPassStationData(dto);
+                (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传视觉过站数据错误:" + msg);
@@ -193,10 +193,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
-                EntryRequestService entryRequestService = Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                (bool flag, string msg) = await EntryRequest(requestDto);
                 //
-                LogMgr.Instance.Debug($"写进站结果{flag}");
+                LogMgr.Instance.Debug($"写进站结果{flag}:{msg}");
                 PLC.Write(OP30Address.EntryResult, "Bool", flag);
             }
         }
