@@ -1,6 +1,7 @@
 ﻿using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
@@ -44,10 +45,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             _instance = new OP30MainFunc(plcConfig);
         }
 
-        public delegate void OP10VisionFinished(string sn, bool result);
+        //public delegate void TestStateChanged(string sn, bool result);
 
 
-        public static event OP10VisionFinished OnVision1Finished;
+        public  event TestStateChanged OnOP30VisionFinished;
 
  
         public OP30MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
@@ -107,7 +108,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     dto.Message = message;
                 }
             }
-            await DeviceStateService.AddDeviceState(dto);
+            //await DeviceStateService.AddDeviceState(dto);
         }
 
         public override async void PLCMainWork(CancellationToken token)
@@ -144,18 +145,29 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
         private async void HandleVisionResult()
         {
-            if (PLC.ReadBool(OP30Address.VisionFinish, out bool isFinish) && isFinish)
+            if (PLC.ReadInt16(OP30Address.Vision1Start, out short isStart) && isStart == 1)
+            {
+                LogMgr.Instance.Debug("收到视觉1开始信号");
+                //复位视觉完成
+                PLC.WriteInt16(OP30Address.Vision1Start, 0);
+                PLC.Read(OP30Address.VisionSn, "string-8", out string sn);
+
+                //界面更新
+                OnOP30VisionFinished?.Invoke(sn, 0);
+            }
+
+            if (PLC.ReadInt16(OP30Address.VisionFinish, out short isFinish) && isFinish==1)
             {
                 LogMgr.Instance.Debug("收到[OP30]视觉完成信号");
                 //复位视觉完成
-                PLC.Write(OP30Address.VisionFinish, "Bool", false);
-                PLC.Read(OP30Address.VisionSn, "string-20", out string sn);
+                PLC.WriteInt16(OP30Address.VisionFinish,  0);
+                PLC.Read(OP30Address.VisionSn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP30Address.VisionResult, out short result);
 
                 bool visionResult = result == 1 ? true : false;
                 //界面更新
-                OnVision1Finished?.Invoke(sn, visionResult);
+                OnOP30VisionFinished?.Invoke(sn, result);
                 //string snTest = "QWER123456";
                 //上传Mes测试数据
                 PassStationDTO dto = new PassStationDTO()
@@ -173,30 +185,30 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
-                    Mylog.Instance.Alarm("上传视觉过站数据错误:" + msg);
+                    LogMgr.Instance.Error("上传视觉过站数据错误:" + msg);
                 }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
-                PLC.Write(OP30Address.VisionOut, "Bool", result);
+                PLC.WriteInt16(OP30Address.VisionOut, result);
             }
         }
 
         // 处理进站信号
         private async Task ProcessEntrySignal()
         {
-            if (PLC.ReadBool(OP30Address.EntrySignal, out bool isEntry) && isEntry)
+            if (PLC.ReadInt16(OP30Address.EntrySignal, out short isEntry) && isEntry==1)
             {
-                PLC.Write(OP30Address.EntrySignal, "Bool", false);
-                PLC.Read(OP30Address.EntrySn, "string-20", out string sn);
+                PLC.WriteInt16(OP30Address.EntrySignal, 0);
+                PLC.Read(OP30Address.EntrySn, "string-8", out string sn);
                 EntryRequestDTO requestDto = new()
                 {
-                    SnTemp = SnTest,
+                    SnTemp = sn,
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
                 (bool flag, string msg) = await EntryRequest(requestDto);
-                //
-                LogMgr.Instance.Debug($"写进站结果{flag}:{msg}");
-                PLC.Write(OP30Address.EntryResult, "Bool", flag);
+                short result = (short)(flag ? 1 : 2);
+                LogMgr.Instance.Debug($"写进站结果{result}:{msg}");
+                PLC.WriteInt16(OP30Address.EntryResult, result);
             }
         }
 

@@ -176,19 +176,19 @@ namespace DWZ_Scada
             }
         }
 
-        public void TestPassUI(int pos)
+        public void TestPassUI(int pos,string sn)
         {
             if (ctrlResultMap.TryGetValue(pos, out var ctrl))
             {
-                ctrl.Pass();
+                ctrl.Pass(sn);
             }
         }
 
-        public void TestFailUI(int pos)
+        public void TestFailUI(int pos,string sn)
         {
             if (ctrlResultMap.TryGetValue(pos, out var ctrl))
             {
-                ctrl.Fail();
+                ctrl.Fail(sn);
             }
         }
     }

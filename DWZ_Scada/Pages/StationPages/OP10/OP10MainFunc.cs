@@ -1,15 +1,8 @@
 ﻿using DWZ_Scada.ctrls.LogCtrl;
-using DWZ_Scada.HttpServices;
-using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl.EntryHandle;
 using LogTool;
-using Microsoft.Extensions.DependencyInjection;
-using ScadaBase.DAL.Entity;
-using Sunny.UI.Win32;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +10,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 {
     public class OP10MainFunc : MainFuncBase, IDisposable
     {
-        public delegate void OP10VisionFinished(string sn, int result);
+      
 
         private static OP10MainFunc _instance;
 
@@ -45,9 +38,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             _instance = new OP10MainFunc(plcConfig);
         }
 
-        public static event OP10VisionFinished OnVision1Finished;
+        public static event TestStateChanged OnVision1Finished;
 
-        public static event OP10VisionFinished OnVision2Finished;
+        public static event TestStateChanged OnVision2Finished;
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {

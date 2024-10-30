@@ -26,12 +26,10 @@ namespace DWZ_Scada.ProcessControl
         /// </summary>
         public const string ConsumablePartsUrl = "/damageable/issue";
 
-
         /// <summary>
         /// 上报易损易耗件路径
         /// </summary>
         public const string ReportConsumableUrl = "mes/produceApi/mes/buildcontrol/reportDamageable";
-
 
         /// <summary>
         /// 设备点检请求路径
@@ -47,7 +45,6 @@ namespace DWZ_Scada.ProcessControl
         /// 获取产品Bom请求路径
         /// </summary>
         public const string ProductBomList = "mes/produceApi/mes/buildcontrol/mdProductBomList";
-
 
         /// <summary>
         /// 进站请求路径

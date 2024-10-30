@@ -12,6 +12,7 @@ using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +31,6 @@ namespace DWZ_Scada
 {
     public partial class PageOP20 : UIPage
     {
-
         public List<OrderVo> Orders { get; set; }
 
         /// <summary>
@@ -79,15 +79,17 @@ namespace DWZ_Scada
                 SystemParams.Instance.OP20_PlcPort);
 
             //TODO 这里导致程序卡顿
-            OP20MainFunc.CreateInstance(plcConfig);
-            OP20MainFunc.Instance.StartAsync();
+           /* OP20MainFunc.CreateInstance(plcConfig);
+            OP20MainFunc.Instance.StartAsync();*/
 
-            PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
-                SystemParams.Instance.OP20_PlcPort);
+            PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
+                SystemParams.Instance.OP30_PlcPort);
 
             OP30MainFunc.CreateInstance(op30Config);
             OP30MainFunc.Instance.StartAsync();
 
+
+            OP30MainFunc.Instance.OnOP30VisionFinished += InstanceOnOp30VisionFinished;
             //OP30的配置
 
             int index = 1;
@@ -104,6 +106,11 @@ namespace DWZ_Scada
                     ctrlWindingS.Controls.Add(agingSingle,i,j);
                 }
             }
+        }
+
+        private void InstanceOnOp30VisionFinished(string sn, int result)
+        {
+            MyUIControler.UpdateTestStateCtrl(userCtrlResult1,sn,result);
         }
 
         private void OP20SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)

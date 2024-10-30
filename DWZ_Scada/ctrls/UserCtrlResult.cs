@@ -67,25 +67,27 @@ namespace DIPTest.Ctrl
             uiLabel4.BackColor = Color.Yellow;
             lbl_Input.Text = SN;
         }
-        public void Pass()
+        public void Pass(string sn)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(Pass));
+                Invoke(new Action<string>(Pass));
                 return;
             }
             uiLabel4.Text = "OK";
             uiLabel4.BackColor = Color.Green;
+            lbl_Input.Text = sn;
         }
-        public void Fail()
+        public void Fail(string sn)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(Fail));
+                Invoke(new Action<string>(Fail));
                 return;
             }
             uiLabel4.Text = "NG";
             uiLabel4.BackColor = Color.Red;
+            lbl_Input.Text = sn;
         }
 
         private void UserCtrlResult_Resize(object sender, EventArgs e)

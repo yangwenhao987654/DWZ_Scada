@@ -1,4 +1,5 @@
 ﻿using CommunicationUtilYwh.Communication;
+using DIPTest.Ctrl;
 using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
@@ -8,6 +9,7 @@ using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Microsoft.EntityFrameworkCore.Storage.Json;
@@ -97,12 +99,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void PageOP10_OnVision1Finished(string sn, int result)
         {
-            UpdateV1(sn, result);
+            MyUIControler.UpdateTestStateCtrl(ctrlResult_V1, sn, result);
+            //UpdateV1(sn, result);
         }
 
         private void PageOP10_OnVision2Finished(string sn, int result)
         {
-            UpdateV2(sn, result);
+            MyUIControler.UpdateTestStateCtrl(ctrlResult_V2, sn, result);
+            //UpdateV2(sn, result);
         }
 
         public void UpdateV1(string sn, int result)
@@ -119,11 +123,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             if (result == 1)
             {
-                ctrlResult_V1.Pass();
+                ctrlResult_V1.Pass(sn);
             }
             if (result == 2)
             {
-                ctrlResult_V1.Fail();
+                ctrlResult_V1.Fail(sn);
             }
             //lbl_Vision1Result.Text = result ? "OK" : "NG";
         }
@@ -175,11 +179,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             if (result == 1)
             {
-                ctrlResult_V2.Pass();
+                ctrlResult_V2.Pass(sn);
             }
             if (result == 2)
             {
-                ctrlResult_V2.Fail();
+                ctrlResult_V2.Fail(sn);
             }
         }
 

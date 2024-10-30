@@ -37,6 +37,12 @@ namespace DIPTest
         //TODO 测试通讯流程
 
         public int Index { get; set; }
+
+
+        public UserCtrlAgingSingle()
+        {
+            InitializeComponent();
+        }
         public UserCtrlAgingSingle(int index)
         {
             this.row = row;
@@ -45,7 +51,7 @@ namespace DIPTest
         }
         private void UserCtrlAgingSingle_Load(object sender, EventArgs e)
         {
-            uiGroupBox3.Text = $"绕线机{Index}";
+            uiPanel3.Text = $"绕线机{Index}";
             //显示行号，至少包含两位小数
             /*uiGroupBox1.Text = row.Index.ToString("d2");
             Init();
@@ -62,7 +68,7 @@ namespace DIPTest
 
         public void Init()
         {
-            uiGroupBox1.BackColor = Color.Black;
+            uiPanel1.BackColor = Color.Black;
 
             tbx_SN_A.Text = "";
             tbx_SN_A.Enabled = row.IsEnable;
@@ -105,15 +111,14 @@ namespace DIPTest
             switch (State)
             {
                 case AgingStateEnum.Ready:
-                    uiGroupBox1.FillColor = Color.Transparent;
+                    uiPanel1.FillColor = Color.Transparent;
                     tbx_SN_A.Text = "";
                     tbx_SN_A.Enabled = true;
                     btn_A.Enabled = false;
                     PPID = "";
                     break;
                 case AgingStateEnum.PASS:
-                    tbx_SN_A.Text = "";
-                    uiGroupBox1.FillColor = Color.Green;
+                    uiPanel1.FillColor = Color.Green;
                     tbx_SN_A.Text = "";
                     tbx_SN_A.Enabled = true;
                     btn_A.Enabled = false;
@@ -123,9 +128,8 @@ namespace DIPTest
                     break;
                 //  Fail之后改变穴位颜色
                 case AgingStateEnum.FAIL:
-                    tbx_SN_A.Text = "";
                     tbx_SN_A.Watermark = "请输入SN";
-                    uiGroupBox1.FillColor = Color.Red;
+                    uiPanel1.FillColor = Color.Red;
                     tbx_SN_A.Text = "";
                     tbx_SN_A.Enabled = true;
                     btn_A.Enabled = false;
@@ -134,7 +138,7 @@ namespace DIPTest
                 case AgingStateEnum.CheckFAIL:
                     tbx_SN_A.Text = "";
                     tbx_SN_A.Watermark = "请输入SN";
-                    uiGroupBox1.FillColor = Color.IndianRed;
+                    uiPanel1.FillColor = Color.IndianRed;
                     tbx_SN_A.Enabled = true;
                     btn_A.Enabled = false;
                     break;
@@ -145,11 +149,11 @@ namespace DIPTest
                     tbx_SN_A.Text = "";
                     tbx_SN_A.Enabled = false;
                     btn_A.Enabled = true;
-                    uiGroupBox1.FillColor = Color.RoyalBlue;
+                    uiPanel1.FillColor = Color.RoyalBlue;
                     break;
                 case AgingStateEnum.Disable:
-                    uiGroupBox1.Enabled = false;
-                    uiGroupBox1.FillColor = Color.Black;
+                    //uiGroupBox1.Enabled = false;
+                    uiPanel1.FillColor = Color.Black;
                     tbx_SN_A.Watermark = "屏蔽中";
                     PPID = "";
                     break;

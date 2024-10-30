@@ -30,7 +30,6 @@ namespace DWZ_Scada.HttpServices
             RestResponse response = await _httpClientHelper.SendGetRequestAsync(Url);
             LogMgr.Instance.Info($"获取响应:\n{response.Content}");
             _httpClientHelper.AnalyzeResponse(response);
-            
             return response;
         }
     }

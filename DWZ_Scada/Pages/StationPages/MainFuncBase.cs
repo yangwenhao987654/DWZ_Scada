@@ -107,6 +107,12 @@ namespace DWZ_Scada.Pages.StationPages
             _createInstanceFunc = factoryMethod;
            
         }*/
+        /// <summary>
+        /// 更新测试状态
+        /// </summary>
+        /// <param name="sn"></param>
+        /// <param name="result"></param>
+        public delegate void TestStateChanged(string sn, int result);
 
         /// <summary>
         /// 设备是否点检模式
@@ -124,12 +130,12 @@ namespace DWZ_Scada.Pages.StationPages
         /// <summary>
         /// PLC的IP地址
         /// </summary>
-        public string PLC_IP;
+        public string PLC_IP { get; set; }
 
         /// <summary>
         /// PLC端口号
         /// </summary>
-        public int PLC_PORT;
+        public int PLC_PORT { get; set; }
 
         public CancellationTokenSource _cts = new CancellationTokenSource();
 

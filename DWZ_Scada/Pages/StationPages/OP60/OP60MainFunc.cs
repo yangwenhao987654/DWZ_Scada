@@ -343,11 +343,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     short result = await HandleSafetyTestAndResult(SafetyDevice1, sn1);
                     if (result==1)
                     {
-                        PageOP60.Instance.TestPassUI(1);
+                        PageOP60.Instance.TestPassUI(1,sn1);
                     }
                     else
                     {
-                        PageOP60.Instance.TestFailUI(1);
+                        PageOP60.Instance.TestFailUI(1, sn1);
                     }
                     PLC.WriteInt16(OP60Address.SafetyResult1, result);
                 });
@@ -360,11 +360,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     short result = await HandleSafetyTestAndResult(SafetyDevice1, sn2);
                     if (result == 1)
                     {
-                        PageOP60.Instance.TestPassUI(2);
+                        PageOP60.Instance.TestPassUI(2,sn2);
                     }
                     else
                     {
-                        PageOP60.Instance.TestFailUI(2);
+                        PageOP60.Instance.TestFailUI(2,sn2);
                     }
                     PLC.WriteInt16(OP60Address.SafetyResult2, result);
                 });
@@ -418,11 +418,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     short result = await HandleAtlBrxTestAndResult(AtlBrxDevice1, sn1);
                     if (result == 1)
                     {
-                        PageOP60.Instance.TestPassUI(3);
+                        PageOP60.Instance.TestPassUI(3,sn1);
                     }
                     else
                     {
-                        PageOP60.Instance.TestFailUI(3);
+                        PageOP60.Instance.TestFailUI(3, sn1);
                     }
                     PLC.WriteInt16(OP60Address.AtlBrxResult1, result);
                 });
@@ -435,11 +435,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     short result = await HandleAtlBrxTestAndResult(AtlBrxDevice2, sn2);
                     if (result == 1)
                     {
-                        PageOP60.Instance.TestPassUI(4);
+                        PageOP60.Instance.TestPassUI(4,sn2);
                     }
                     else
                     {
-                        PageOP60.Instance.TestFailUI(4);
+                        PageOP60.Instance.TestFailUI(4, sn2);
                     }
                     PLC.WriteInt16(OP60Address.AtlBrxResult2, result);
                 });

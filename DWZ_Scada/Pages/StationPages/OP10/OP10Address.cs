@@ -8,30 +8,11 @@
         public static readonly string EntrySignal = "D3100";
 
         /// <summary>
-        /// 出战请求信号
-        /// </summary>
-        public static readonly string ExitSignal = "";
-
-        /// <summary>
         /// 进站结果信号
         /// </summary>
         public static readonly string EntryResult = "D3200";
 
-        /// <summary>
-        /// 出站结果信号
-        /// </summary>
-        public static readonly string ExitResult = "";
 
-
-        /// <summary>
-        /// 报警信息地址 起始地址
-        /// </summary>
-        public static readonly string AlarmAddress= "M59000";
-
-        /// <summary>
-        /// 报警地址长度 
-        /// </summary>
-        public  const  int AlarmAddressLength = 50;
 
         /// <summary>
         /// 进站SN码

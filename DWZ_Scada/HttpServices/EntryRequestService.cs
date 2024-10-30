@@ -23,7 +23,6 @@ namespace DWZ_Scada.HttpServices
         {
             _httpClientHelper = httpClientHelper;
         }
-
         public  async Task<(bool,string)> CheckIn(EntryRequestDTO dto)
         {
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);

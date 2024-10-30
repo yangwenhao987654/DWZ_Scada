@@ -5,22 +5,22 @@
         /// <summary>
         /// 进站请求信号
         /// </summary>
-        public static readonly string EntrySignal = "M30";
+        public static readonly string EntrySignal = "D3100";
 
         /// <summary>
         /// 视觉完成信号
         /// </summary>
-        public static readonly string VisionFinish = "M31";
+        public static readonly string VisionFinish = "D3102";
 
         /// <summary>
         /// 视觉SN
         /// </summary>
-        public static readonly string VisionSn = "D100";
+        public static readonly string VisionSn = "D1110";
 
         /// <summary>
         /// 绕线视觉检测结果
         /// </summary>
-        public static readonly string VisionResult = "D200";
+        public static readonly string VisionResult = "D1119";
 
         /// <summary>
         /// 视觉出站复位
@@ -28,19 +28,9 @@
         public static readonly string VisionOut = "D300";
 
         /// <summary>
-        /// 报警信息地址 起始地址
-        /// </summary>
-        public static readonly string AlarmAddress="";
-
-        /// <summary>
-        /// 报警地址长度 
-        /// </summary>
-        public  const  int AlarmAddressLength = 50;
-
-        /// <summary>
         /// 进站SN码
         /// </summary>
-        public static readonly string EntrySn = "D310";
+        public static readonly string EntrySn = "D1100";
 
 
         /// <summary>
@@ -58,6 +48,9 @@
         /// 进站结果信号
         /// 上位机判断是否允许进站 返回Mes
         /// </summary>
-        public static readonly string EntryResult = "";
+        public static readonly string EntryResult = "D3200";
+
+
+        public static string Vision1Start = "D3101";
     }
 }
