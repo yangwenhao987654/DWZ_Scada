@@ -105,7 +105,10 @@ namespace DWZ_Scada
         {
             _instance = null;
             LogMgr.Instance.Info($"关闭{OP70MainFunc.StationCode}-HttpServer");
-            OP70MainFunc.Instance?.Dispose();
+            if (!OP70MainFunc.IsInstanceNull)
+            {
+                OP70MainFunc.Instance?.Dispose();
+            }
             LogMgr.Instance.Info($"关闭{OP70MainFunc.StationName}程序");
         }
 

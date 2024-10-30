@@ -1,15 +1,7 @@
-﻿using DWZ_Scada.ctrls.LogCtrl;
-using DWZ_Scada.HttpServices;
-using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages.OP10;
-using DWZ_Scada.PLC;
+﻿using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.Services;
 using LogTool;
-using Microsoft.Extensions.DependencyInjection;
-using ScadaBase.DAL.Entity;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

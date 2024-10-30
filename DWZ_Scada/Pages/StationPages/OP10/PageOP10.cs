@@ -221,7 +221,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             _instance = null;
             LogMgr.Instance.Info("关闭OP10-HttpServer");
-            OP10MainFunc.Instance?.Dispose();
+            if (!OP10MainFunc.IsInstanceNull)
+            {
+                OP10MainFunc.Instance?.Dispose();
+            }
+           
             LogMgr.Instance.Info("关闭OP10程序");
         }
 

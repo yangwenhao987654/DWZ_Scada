@@ -1,16 +1,10 @@
-﻿using CommunicationUtilYwh.Communication;
-using DIPTest;
-using DWZ_Scada.ctrls;
+﻿using DIPTest;
 using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
-using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages;
-using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
-using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
@@ -21,11 +15,7 @@ using RestSharp;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TouchSocket.Core;
-using TouchSocket.Http;
-using TouchSocket.Sockets;
 
 namespace DWZ_Scada
 {
@@ -134,8 +124,14 @@ namespace DWZ_Scada
         {
             _instance = null;
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
-            OP20MainFunc.Instance?.Dispose();
-            OP30MainFunc.Instance?.Dispose();
+            if (OP20MainFunc.IsInstanceNull)
+            {
+                OP20MainFunc.Instance.Dispose();
+            }
+            if (OP30MainFunc.IsInstanceNull)
+            {
+                OP30MainFunc.Instance.Dispose();
+            }
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationName}程序");
         }
 

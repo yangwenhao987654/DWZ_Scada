@@ -138,7 +138,10 @@ namespace DWZ_Scada
             LogMgr.Instance.Info("关闭OP10-HttpServer");
             MyHttpService?.Stop();
             MyHttpService?.Dispose();
-            OP20MainFunc.Instance?.Dispose();
+            if (!OP20MainFunc.IsInstanceNull)
+            {
+                OP20MainFunc.Instance?.Dispose();
+            }
             LogMgr.Instance.Info("关闭OP10程序");
         }
 

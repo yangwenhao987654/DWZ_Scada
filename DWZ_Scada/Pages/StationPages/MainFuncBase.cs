@@ -127,6 +127,8 @@ namespace DWZ_Scada.Pages.StationPages
 
         public PlcState PlcState;
 
+        public PLCConfig PLCConfig{ get; set; }
+
         /// <summary>
         /// PLC的IP地址
         /// </summary>
@@ -223,7 +225,6 @@ namespace DWZ_Scada.Pages.StationPages
         {
             Task.Run(() =>
             {
-              
                 _cts =new CancellationTokenSource();
                 //myOp10Model = Model;
                 //启动PLC监控线程
@@ -311,6 +312,7 @@ namespace DWZ_Scada.Pages.StationPages
 
         protected MainFuncBase(PLCConfig PLCConfig)
         {
+            //this.PLCConfig = PLCConfig;
             PLC = PLCConfig.MyPlc;
             PLC_IP = PLCConfig.IP;
             PLC_PORT = PLCConfig.Port;
@@ -363,8 +365,6 @@ namespace DWZ_Scada.Pages.StationPages
                 Thread.Sleep(1000);
             }
         }
-
-
 
         #endregion
 
