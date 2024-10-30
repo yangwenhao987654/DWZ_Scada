@@ -32,7 +32,7 @@
             components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
             lbl_EntrySN = new Sunny.UI.UILabel();
-            uiLabel8 = new Sunny.UI.UILabel();
+            lbl_EntryResult = new Sunny.UI.UILabel();
             myLogCtrl1 = new ctrls.MyLogCtrl();
             userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
             uiLabel2 = new Sunny.UI.UILabel();
@@ -96,21 +96,21 @@
             // 
             lbl_EntrySN.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_EntrySN.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_EntrySN.Location = new System.Drawing.Point(18, 121);
+            lbl_EntrySN.Location = new System.Drawing.Point(174, 121);
             lbl_EntrySN.Name = "lbl_EntrySN";
             lbl_EntrySN.Size = new System.Drawing.Size(150, 42);
             lbl_EntrySN.TabIndex = 11;
             lbl_EntrySN.Text = "进站临时码:";
             // 
-            // uiLabel8
+            // lbl_EntryResult
             // 
-            uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(365, 121);
-            uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new System.Drawing.Size(548, 42);
-            uiLabel8.TabIndex = 14;
-            uiLabel8.Text = "进站结果";
+            lbl_EntryResult.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_EntryResult.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_EntryResult.Location = new System.Drawing.Point(365, 121);
+            lbl_EntryResult.Name = "lbl_EntryResult";
+            lbl_EntryResult.Size = new System.Drawing.Size(548, 42);
+            lbl_EntryResult.TabIndex = 14;
+            lbl_EntryResult.Text = "进站结果";
             // 
             // myLogCtrl1
             // 
@@ -550,7 +550,7 @@
             // 
             uiLabel43.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel43.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel43.Location = new System.Drawing.Point(174, 121);
+            uiLabel43.Location = new System.Drawing.Point(18, 121);
             uiLabel43.Name = "uiLabel43";
             uiLabel43.Size = new System.Drawing.Size(150, 42);
             uiLabel43.TabIndex = 64;
@@ -605,7 +605,7 @@
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlResult1);
             Controls.Add(myLogCtrl1);
-            Controls.Add(uiLabel8);
+            Controls.Add(lbl_EntryResult);
             Controls.Add(lbl_EntrySN);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
@@ -622,7 +622,7 @@
         #endregion
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel lbl_EntrySN;
-        private Sunny.UI.UILabel uiLabel8;
+        private Sunny.UI.UILabel lbl_EntryResult;
         private ctrls.MyLogCtrl myLogCtrl1;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
         private Sunny.UI.UILabel uiLabel2;

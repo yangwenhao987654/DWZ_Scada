@@ -222,7 +222,9 @@ namespace DWZ_Scada
         {
             try
             {
+                //userCtrlResult1.Fail(str);
                 string str = tbxTest.Text;
+                userCtrlEntry1.Fail(str);
                 string[] strings = str.Split(",");
                 int index = int.Parse(strings[0]);
                 string sn = strings[1];

@@ -30,7 +30,7 @@ namespace UtilYwh
                 }
                 else if (value1==null || value2==null || !value1.Equals(value2))
                 {
-                    diffs.Add($"Property: {property.Name}:{value1}->{value2}");   
+                    diffs.Add($"Property Changed: {property.Name}:[{value1}]->[{value2}]");   
                 }
             }
             return diffs;

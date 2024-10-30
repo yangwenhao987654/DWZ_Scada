@@ -43,11 +43,13 @@
             cbx_Orders = new Sunny.UI.UIComboBox();
             uiButton4 = new Sunny.UI.UIButton();
             ctrlWindingS = new Sunny.UI.UITableLayoutPanel();
+            uiPanel1 = new Sunny.UI.UIPanel();
+            uiLabel7 = new Sunny.UI.UILabel();
+            uiLabel6 = new Sunny.UI.UILabel();
             userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
             tbxTest = new Sunny.UI.UITextBox();
             btn_Test = new Sunny.UI.UIButton();
-            uiPanel1 = new Sunny.UI.UIPanel();
-            uiLabel6 = new Sunny.UI.UILabel();
+            userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             ctrlWindingS.SuspendLayout();
             uiPanel1.SuspendLayout();
             SuspendLayout();
@@ -229,9 +231,48 @@
             ctrlWindingS.TabIndex = 20;
             ctrlWindingS.TagString = null;
             // 
+            // uiPanel1
+            // 
+            uiPanel1.Controls.Add(userCtrlEntry1);
+            uiPanel1.Controls.Add(uiLabel7);
+            uiPanel1.Controls.Add(uiLabel6);
+            uiPanel1.Controls.Add(userCtrlResult1);
+            uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiPanel1.Location = new System.Drawing.Point(856, 275);
+            uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiPanel1.Name = "uiPanel1";
+            ctrlWindingS.SetRowSpan(uiPanel1, 3);
+            uiPanel1.Size = new System.Drawing.Size(420, 389);
+            uiPanel1.TabIndex = 1;
+            uiPanel1.Text = null;
+            uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel7
+            // 
+            uiLabel7.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel7.Location = new System.Drawing.Point(4, 3);
+            uiLabel7.Name = "uiLabel7";
+            uiLabel7.Size = new System.Drawing.Size(176, 38);
+            uiLabel7.TabIndex = 2;
+            uiLabel7.Text = "OP30进站临时码:";
+            uiLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel6
+            // 
+            uiLabel6.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel6.Location = new System.Drawing.Point(7, 220);
+            uiLabel6.Name = "uiLabel6";
+            uiLabel6.Size = new System.Drawing.Size(160, 34);
+            uiLabel6.TabIndex = 1;
+            uiLabel6.Text = "OP30画像检测:";
+            uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // userCtrlResult1
             // 
-            userCtrlResult1.Location = new System.Drawing.Point(9, 149);
+            userCtrlResult1.Location = new System.Drawing.Point(4, 258);
             userCtrlResult1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult1.Name = "userCtrlResult1";
             userCtrlResult1.Size = new System.Drawing.Size(407, 127);
@@ -266,30 +307,15 @@
             btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             btn_Test.Click += btn_Test_Click;
             // 
-            // uiPanel1
+            // userCtrlEntry1
             // 
-            uiPanel1.Controls.Add(uiLabel6);
-            uiPanel1.Controls.Add(userCtrlResult1);
-            uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel1.Location = new System.Drawing.Point(856, 275);
-            uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
-            uiPanel1.Name = "uiPanel1";
-            ctrlWindingS.SetRowSpan(uiPanel1, 3);
-            uiPanel1.Size = new System.Drawing.Size(420, 389);
-            uiPanel1.TabIndex = 1;
-            uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // uiLabel6
-            // 
-            uiLabel6.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new System.Drawing.Point(5, 96);
-            uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new System.Drawing.Size(160, 49);
-            uiLabel6.TabIndex = 1;
-            uiLabel6.Text = "OP30画像检测:";
-            uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlEntry1.Location = new System.Drawing.Point(13, 45);
+            userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlEntry1.Name = "userCtrlEntry1";
+            userCtrlEntry1.Size = new System.Drawing.Size(354, 168);
+            userCtrlEntry1.TabIndex = 3;
+            userCtrlEntry1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlEntry1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // PageOP20
             // 
@@ -344,5 +370,7 @@
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UILabel uiLabel6;
+        private Sunny.UI.UILabel uiLabel7;
+        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
     }
 }
