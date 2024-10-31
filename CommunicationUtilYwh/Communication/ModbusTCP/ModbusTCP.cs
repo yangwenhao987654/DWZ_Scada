@@ -266,6 +266,13 @@ public class ModbusTCP : MyPlc
         return result.IsSuccess;
     }
 
+    public override bool ReadInt32(string address, out int value)
+    {
+        var result = client.ReadInt32(address);
+        value = result.Content;
+        return result.IsSuccess;
+    }
+
     public override bool ReadInt16(string address, out short value)
     {
         var result = client.ReadInt16(address);

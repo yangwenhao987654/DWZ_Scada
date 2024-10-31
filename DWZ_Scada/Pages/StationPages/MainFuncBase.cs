@@ -282,20 +282,23 @@ namespace DWZ_Scada.Pages.StationPages
             switch (currentState)
             {
                 case -1:
-                    dto.Status = "停机";
+                    dto.Status = "stop";
+                    break;
+                case 0:
+                    dto.Status = "stop";
                     break;
                 case 1:
-                    dto.Status = "运行中";
+                    dto.Status = "run";
                     break;
                 case 2:
-                    dto.Status = "待机中";
+                    dto.Status = "breakdown";
                     break;
                 default:
-                    dto.Status = "故障";
+                    dto.Status = "stop";
                     break;
             }
 
-      
+
             //如果有报警的话 需要带着报警信息
             lock (alarmLock)
             {

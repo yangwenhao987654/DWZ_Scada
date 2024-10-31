@@ -68,18 +68,17 @@ namespace DWZ_Scada
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
                 SystemParams.Instance.OP20_PlcPort);
 
-            //TODO 这里导致程序卡顿
-           /* OP20MainFunc.CreateInstance(plcConfig);
-            OP20MainFunc.Instance.StartAsync();*/
+            OP20MainFunc.CreateInstance(plcConfig);
+            OP20MainFunc.Instance.StartAsync();
 
-            PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
+           /* PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
                 SystemParams.Instance.OP30_PlcPort);
 
             OP30MainFunc.CreateInstance(op30Config);
             OP30MainFunc.Instance.StartAsync();
 
-
-            OP30MainFunc.Instance.OnOP30VisionFinished += InstanceOnOp30VisionFinished;
+    
+            OP30MainFunc.Instance.OnOP30VisionFinished += InstanceOnOp30VisionFinished;*/
             //OP30的配置
 
             int index = 1;

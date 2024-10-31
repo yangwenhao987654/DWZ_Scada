@@ -15,7 +15,7 @@
         /// <summary>
         /// 绕线开始信号 上位机收到复位
         /// </summary>
-        public static readonly string WindingStart = "";
+        public static readonly string Winding01Start = "M101";
 
         /// <summary>
         /// 报警信息地址 起始地址
@@ -67,5 +67,8 @@
         /// 上位机判断是否允许进站 返回Mes
         /// </summary>
         public static readonly string EntryResult = "";
+
+
+
     }
 }

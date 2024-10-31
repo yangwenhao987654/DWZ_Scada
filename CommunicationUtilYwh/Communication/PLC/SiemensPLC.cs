@@ -74,19 +74,11 @@ namespace CommunicationUtilYwh.Communication
             }
             return flag;
         }
-
-
-        public bool ReadInt32(string adr, out int value)
+        public override bool ReadInt32(string address, out int value)
         {
-            bool flag = false;
-            value = 0;
-            lock (_lock)
-            {
-                OperateResult<Int32> operate = client.ReadInt32(adr);
-                value = operate.Content;
-                flag = operate.IsSuccess;
-            }
-            return flag;
+            var result = client.ReadInt32(address);
+            value = result.Content;
+            return result.IsSuccess;
         }
 
 

@@ -50,6 +50,8 @@ namespace CommunicationUtilYwh.Communication.PLC
             // 如果找到了反斜杠或空字符，截取字符串，只保留其之前的部分
             return backslashIndex != -1 ? input.Substring(0, backslashIndex) : input;
         }
+
+        public abstract bool ReadInt32(string address, out int value);
     }
 
     public enum DataType

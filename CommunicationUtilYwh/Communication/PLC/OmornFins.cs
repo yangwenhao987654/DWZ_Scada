@@ -216,6 +216,12 @@ namespace ZC_DataAcquisition
         {
             client?.Dispose();
         }
+        public override bool ReadInt32(string address, out int value)
+        {
+            var result = client.ReadInt32(address);
+            value = result.Content;
+            return result.IsSuccess;
+        }
 
         public bool ReadAlarm(string adr, out bool[] value)
         {

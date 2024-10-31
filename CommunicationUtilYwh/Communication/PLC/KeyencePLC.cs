@@ -213,6 +213,14 @@ namespace CommunicationUtilYwh.Communication.PLC
             client?.Dispose();
         }
 
+       
+        public override bool ReadInt32(string address, out int value)
+        {
+            var result = client.ReadInt32(address);
+            value = result.Content;
+            return result.IsSuccess;
+        }
+
         public override bool WriteInt16(string address, short value)
         {
             OperateResult operate = client.Write(address, Convert.ToInt16(value));
