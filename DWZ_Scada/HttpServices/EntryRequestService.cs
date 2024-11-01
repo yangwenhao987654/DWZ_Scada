@@ -48,13 +48,14 @@ namespace DWZ_Scada.HttpServices
                 }
                 else
                 {
-                    LogMgr.Instance.Error("请求错误");
-                    msg = "请求错误";
+                    LogMgr.Instance.Error("请求错误:"+response.ErrorMessage);
+                    msg = "请求错误:"+ response.ErrorMessage;
                 }
             }
             catch (Exception e)
             {
                 LogMgr.Instance.Error($"解析进站响应错误:{e.Message}");
+                msg = e.Message;
             }
             return (result,msg);
         }

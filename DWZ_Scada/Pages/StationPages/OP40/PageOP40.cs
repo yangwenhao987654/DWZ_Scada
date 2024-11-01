@@ -1,7 +1,9 @@
 ﻿using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Sunny.UI;
@@ -52,20 +54,26 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 SystemParams.Instance.OP40_PlcPort);
             OP40MainFunc.CreateInstance(plcConfig);
             OP40MainFunc.Instance.StartAsync();
-        }
-        public void UpdateTempSN(string newValue)
-        {
-            if (lbl_EntrySN.InvokeRequired)
-            {
-                lbl_EntrySN.Invoke(new Action<string>(UpdateTempSN), newValue);
-                return;
-            }
-            else
-            {
-                lbl_EntrySN.Text = newValue;
-            }
+
+            OP40MainFunc.Instance.OP40EntryStateChanged += Instance_OP40EntryStateChanged;
+            OP40MainFunc.Instance.OnVision1Finished += Instance_OnVision1Finished;
+            OP40MainFunc.Instance.OnWeldingFinished += Instance_OnWeldingFinished;
         }
 
+        private void Instance_OnWeldingFinished(string sn, int result)
+        {
+            MyUIControler.UpdateTestStateCtrl(userCtrlResult_Welding,sn,result);
+        }
+
+        private void Instance_OnVision1Finished(string sn, int result)
+        {
+            MyUIControler.UpdateTestStateCtrl(userCtrlResult_Vision, sn, result);
+        }
+
+        private void Instance_OP40EntryStateChanged(string sn, int result, string msg = "")
+        {
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP40,sn, result, msg);
+        }
 
         private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {

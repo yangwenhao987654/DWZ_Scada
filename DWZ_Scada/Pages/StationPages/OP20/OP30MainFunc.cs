@@ -4,6 +4,7 @@ using LogTool;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using static DWZ_Scada.Pages.StationPages.MainFuncBase;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
@@ -38,9 +39,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         }
 
         //public delegate void TestStateChanged(string sn, bool result);
+        public  event EntryStateChanged OP30EntryStateChanged;
 
-
-        public  event TestStateChanged OnOP30VisionFinished;
+        public  event TestStateChanged OP30VisionFinished;
 
  
         public OP30MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
@@ -145,7 +146,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 PLC.Read(OP30Address.VisionSn, "string-8", out string sn);
 
                 //界面更新
-                OnOP30VisionFinished?.Invoke(sn, 0);
+                OP30VisionFinished?.Invoke(sn, 0);
             }
 
             if (PLC.ReadInt16(OP30Address.VisionFinish, out short isFinish) && isFinish==1)
@@ -159,7 +160,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                 bool visionResult = result == 1 ? true : false;
                 //界面更新
-                OnOP30VisionFinished?.Invoke(sn, result);
+                OP30VisionFinished?.Invoke(sn, result);
                 //string snTest = "QWER123456";
                 //上传Mes测试数据
                 PassStationDTO dto = new PassStationDTO()
@@ -187,21 +188,32 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         // 处理进站信号
         private async Task ProcessEntrySignal()
         {
-            if (PLC.ReadInt16(OP30Address.EntrySignal, out short isEntry) && isEntry==1)
+            try
             {
-                PLC.WriteInt16(OP30Address.EntrySignal, 0);
-                PLC.Read(OP30Address.EntrySn, "string-8", out string sn);
-                EntryRequestDTO requestDto = new()
+                if (PLC.ReadInt16(OP30Address.EntrySignal, out short isEntry) && isEntry == 1)
                 {
-                    SnTemp = sn,
-                    StationCode = StationCode,
-                    WorkOrder = "MO202409110002"
-                };
-                (bool flag, string msg) = await EntryRequest(requestDto);
-                short result = (short)(flag ? 1 : 2);
-                LogMgr.Instance.Debug($"写进站结果{result}:{msg}");
-                PLC.WriteInt16(OP30Address.EntryResult, result);
+                    PLC.WriteInt16(OP30Address.EntrySignal, 0);
+                    PLC.Read(OP30Address.EntrySn, "string-8", out string sn);
+                    OP30EntryStateChanged?.Invoke(sn, 0);
+                    EntryRequestDTO requestDto = new()
+                    {
+                        SnTemp = sn,
+                        StationCode = StationCode,
+                        WorkOrder = "MO202409110002"
+                    };
+                    (bool flag, string msg) = await EntryRequest(requestDto);
+                    short result = (short)(flag ? 1 : 2);
+
+                    OP30EntryStateChanged?.Invoke(sn, result, msg);
+                    LogMgr.Instance.Debug($"写进站结果{result}:{msg}");
+                    PLC.WriteInt16(OP30Address.EntryResult, result);
+                }
             }
+            catch (Exception e)
+            {
+               LogMgr.Instance.Error("处理进站请求错误:"+e.StackTrace);
+            }
+         
         }
 
         /// <summary>

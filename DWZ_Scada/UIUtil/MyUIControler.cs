@@ -36,5 +36,31 @@ namespace DWZ_Scada.UIUtil
                 ctrl.Init();
             }
         }
+
+        public static void UpdateEntryStateCtrl(UserCtrlEntry ctrl, string sn, int result,string msg="")
+        {
+            if (ctrl.InvokeRequired)
+            {
+                ctrl.Invoke(new Action<UserCtrlEntry, string, int,string>(UpdateEntryStateCtrl), ctrl, sn, result,msg);
+                return;
+            }
+
+            if (result == 0)
+            {
+                ctrl.Start(sn);
+            }
+            else if (result == 1)
+            {
+                ctrl.Pass(sn);
+            }
+            else if (result == 2)
+            {
+                ctrl.Fail(msg);
+            }
+            else
+            {
+                ctrl.Init();
+            }
+        }
     }
 }

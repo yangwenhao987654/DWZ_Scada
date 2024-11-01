@@ -46,10 +46,10 @@
             uiPanel1 = new Sunny.UI.UIPanel();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
-            userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
+            userCtrlResult_OP30 = new DIPTest.Ctrl.UserCtrlResult();
             tbxTest = new Sunny.UI.UITextBox();
             btn_Test = new Sunny.UI.UIButton();
-            userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
+            userCtrlEntry_OP30 = new DIPTest.Ctrl.UserCtrlEntry();
             ctrlWindingS.SuspendLayout();
             uiPanel1.SuspendLayout();
             SuspendLayout();
@@ -233,10 +233,10 @@
             // 
             // uiPanel1
             // 
-            uiPanel1.Controls.Add(userCtrlEntry1);
+            uiPanel1.Controls.Add(userCtrlEntry_OP30);
             uiPanel1.Controls.Add(uiLabel7);
             uiPanel1.Controls.Add(uiLabel6);
-            uiPanel1.Controls.Add(userCtrlResult1);
+            uiPanel1.Controls.Add(userCtrlResult_OP30);
             uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiPanel1.Location = new System.Drawing.Point(856, 275);
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -270,15 +270,15 @@
             uiLabel6.Text = "OP30画像检测:";
             uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // userCtrlResult1
+            // userCtrlResult_OP30
             // 
-            userCtrlResult1.Location = new System.Drawing.Point(4, 258);
-            userCtrlResult1.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlResult1.Name = "userCtrlResult1";
-            userCtrlResult1.Size = new System.Drawing.Size(407, 127);
-            userCtrlResult1.TabIndex = 0;
-            userCtrlResult1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlResult1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            userCtrlResult_OP30.Location = new System.Drawing.Point(4, 258);
+            userCtrlResult_OP30.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlResult_OP30.Name = "userCtrlResult_OP30";
+            userCtrlResult_OP30.Size = new System.Drawing.Size(407, 127);
+            userCtrlResult_OP30.TabIndex = 0;
+            userCtrlResult_OP30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlResult_OP30.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // tbxTest
             // 
@@ -307,15 +307,15 @@
             btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             btn_Test.Click += btn_Test_Click;
             // 
-            // userCtrlEntry1
+            // userCtrlEntry_OP30
             // 
-            userCtrlEntry1.Location = new System.Drawing.Point(13, 45);
-            userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlEntry1.Name = "userCtrlEntry1";
-            userCtrlEntry1.Size = new System.Drawing.Size(354, 168);
-            userCtrlEntry1.TabIndex = 3;
-            userCtrlEntry1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlEntry1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            userCtrlEntry_OP30.Location = new System.Drawing.Point(13, 45);
+            userCtrlEntry_OP30.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlEntry_OP30.Name = "userCtrlEntry_OP30";
+            userCtrlEntry_OP30.Size = new System.Drawing.Size(354, 168);
+            userCtrlEntry_OP30.TabIndex = 3;
+            userCtrlEntry_OP30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlEntry_OP30.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // PageOP20
             // 
@@ -367,10 +367,10 @@
         private Sunny.UI.UITableLayoutPanel ctrlWindingS;
         private Sunny.UI.UITextBox tbxTest;
         private Sunny.UI.UIButton btn_Test;
-        private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
+        private DIPTest.Ctrl.UserCtrlResult userCtrlResult_OP30;
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
-        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
+        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP30;
     }
 }

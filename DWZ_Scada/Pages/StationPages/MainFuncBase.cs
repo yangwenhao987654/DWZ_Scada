@@ -69,6 +69,7 @@ namespace DWZ_Scada.Pages.StationPages
 
         public DeviceStateService DeviceStateService = Global.ServiceProvider.GetRequiredService<DeviceStateService>();
 
+        private DamageableService DamageableService = Global.ServiceProvider.GetRequiredService<DamageableService>();
 
         private UploadPassStationService UploadPassStationService = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
 
@@ -113,6 +114,13 @@ namespace DWZ_Scada.Pages.StationPages
         /// <param name="sn"></param>
         /// <param name="result"></param>
         public delegate void TestStateChanged(string sn, int result);
+
+        /// <summary>
+        /// 进站请求处理状态
+        /// </summary>
+        /// <param name="sn"></param>
+        /// <param name="result"></param>
+        public delegate void EntryStateChanged(string sn, int result,string msg="");
 
         /// <summary>
         /// 设备是否点检模式
@@ -260,6 +268,11 @@ namespace DWZ_Scada.Pages.StationPages
         {
             return await EntryRequestService.CheckIn(dto);
 
+        }
+
+        protected async Task<(bool, string)> DamageableReport(DamageableDTO dto)
+        {
+            return await DamageableService.ReportDamageableAsync(dto);
         }
 
 

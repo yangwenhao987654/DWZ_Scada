@@ -26,22 +26,22 @@ namespace DWZ_Scada.ProcessControl.DTO.OP20
         /// <summary>
         /// 当前绕线圈数
         /// </summary>
-        public   int CoilsCurNum { get; set; }
+        public   uint CoilsCurNum { get; set; }
 
         /// <summary>
         /// 绕线目标圈数
         /// </summary>
-        public   int CoilsTargetNum { get; set; }
+        public   uint CoilsTargetNum { get; set; }
 
         /// <summary>
         /// 绕线速度
         /// </summary>
-        public   int CoilsSpeed { get; set; }
+        public   uint CoilsSpeed { get; set; }
 
         /// <summary>
         /// 绕线周期
         /// </summary>
-        public int CoilsTimes { get; set; }
+        public uint CoilsTimes { get; set; }
 
         /// <summary>
         /// 张力值

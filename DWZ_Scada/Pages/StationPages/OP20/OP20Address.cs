@@ -5,7 +5,7 @@
         /// <summary>
         /// 进站请求信号
         /// </summary>
-        public static readonly string EntrySignal = "";
+        public static readonly string EntrySignal = "D3100";
 
         /// <summary>
         /// 绕线放置完成位置 1-12 写0表示清空
@@ -18,24 +18,14 @@
         public static readonly string Winding01Start = "M101";
 
         /// <summary>
-        /// 报警信息地址 起始地址
-        /// </summary>
-        public static readonly string AlarmAddress="";
-
-        /// <summary>
-        /// 报警地址长度 
-        /// </summary>
-        public  const  int AlarmAddressLength = 50;
-
-        /// <summary>
         /// 进站SN码
         /// </summary>
-        public static readonly string EntrySn = "";
+        public static readonly string EntrySn = "D1100";
 
         /// <summary>
         /// 绕线SN码起始地址 绕线机1A
         /// </summary>
-        public static readonly string WindingStartSn = "";
+        public static readonly string WindingStartSn = "D1200";
 
         /// <summary>
         /// 读取PLC状态地址
@@ -46,11 +36,6 @@
         /// 点检模式地址
         /// </summary>
         public static string SpotCheck = "";
-
-        /// <summary>
-        /// 采集信号
-        /// </summary>
-        public static readonly string Collect = "";
 
         /// <summary>
         /// 进站机台号1-2
@@ -66,7 +51,7 @@
         /// 进站结果信号
         /// 上位机判断是否允许进站 返回Mes
         /// </summary>
-        public static readonly string EntryResult = "";
+        public static readonly string EntryResult = "D3200";
 
 
 

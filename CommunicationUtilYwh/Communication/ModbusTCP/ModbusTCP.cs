@@ -5,6 +5,7 @@ using HslCommunication;
 using HslCommunication.Core;
 using HslCommunication.ModBus;
 using LogTool;
+using Newtonsoft.Json.Linq;
 
 namespace CommonUtilYwh.Communication.ModbusTCP;
 
@@ -55,7 +56,7 @@ public class ModbusTCP : MyPlc
         client?.ConnectClose();
         client = new ModbusTcpNet(IP, port, station);
         client.AddressStartWithZero = true;
-        client.DataFormat = DataFormat.ABCD;
+        client.DataFormat = DataFormat.CDAB;
         client.IsStringReverse = false;
         try
         {
@@ -238,7 +239,7 @@ public class ModbusTCP : MyPlc
 
         client = new ModbusTcpNet(IP, port);
         client.AddressStartWithZero = true;
-        client.DataFormat = DataFormat.ABCD;
+        client.DataFormat = DataFormat.CDAB;
         client.IsStringReverse = false;
         try
         {
@@ -441,5 +442,12 @@ public class ModbusTCP : MyPlc
     public override void Dispose()
     {
         client?.Dispose();
+    }
+
+    public bool ReadUInt32(string address, out uint value)
+    {
+        var result = client.ReadUInt32(address);
+        value = result.Content;
+        return result.IsSuccess;
     }
 }

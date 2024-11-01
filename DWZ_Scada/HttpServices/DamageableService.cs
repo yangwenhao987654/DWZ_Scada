@@ -16,10 +16,10 @@ namespace DWZ_Scada.HttpServices
             _httpClientHelper = httpClientHelper;
         }
 
-        public async Task ReportDamageableAsync(DamageableDTO dto)
+        public async Task<(bool,string)> ReportDamageableAsync(DamageableDTO dto)
         {
             RestResponse response = await _httpClientHelper.SendPostRequestAsync(Url, dto);
-            _httpClientHelper.AnalyzeResponse(response);
+            return _httpClientHelper.AnalyzeResponse(response);
         }
     }
 }

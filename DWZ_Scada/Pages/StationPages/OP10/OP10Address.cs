@@ -12,17 +12,11 @@
         /// </summary>
         public static readonly string EntryResult = "D3200";
 
-
-
         /// <summary>
         /// 进站SN码
         /// </summary>
         public static readonly string EntrySn = "D1100";
 
-        /// <summary>
-        /// 出站SN码
-        /// </summary>
-        public static readonly string ExitSn = "D1100";
 
         /// <summary>
         /// 视觉1 SN码

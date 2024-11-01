@@ -10,8 +10,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 {
     public class OP10MainFunc : MainFuncBase, IDisposable
     {
-      
-
+        
         private static OP10MainFunc _instance;
 
         public static OP10MainFunc Instance

@@ -8,6 +8,11 @@
         public static  string EntrySignal = "M30";
 
         /// <summary>
+        /// 视觉开始信号
+        /// </summary>
+        public static readonly string VisionStart = "M32";
+
+        /// <summary>
         /// 视觉完成信号
         /// </summary>
         public static readonly string VisionFinish = "M32";
@@ -33,6 +38,11 @@
         public static readonly string AlarmAddress = "";
 
         /// <summary>
+        /// 大电流放电次数
+        /// </summary>
+        public static readonly string DisChargeCount = "";
+
+        /// <summary>
         /// 报警地址长度 
         /// </summary>
         public const int AlarmAddressLength = 50;
@@ -56,7 +66,7 @@
         /// <summary>
         /// 焊接请求
         /// </summary>
-        public static readonly string WeldingRequest = "M31";
+        public static readonly string WeldingStart = "M31";
 
         /// <summary>
         /// 允许焊接信号

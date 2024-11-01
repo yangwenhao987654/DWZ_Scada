@@ -26,12 +26,12 @@ namespace ScadaBase.DAL.Interceptor
             }
 
             // 输出到日志
-            LogMgr.Instance.Debug($"SQL: {sql}");
+            LogMgr.Instance.AddSQLLog($"SQL: {sql}");
             return base.ReaderExecutingAsync(command, eventData, result, cancellationToken);
         }
         public override ValueTask<InterceptionResult<int>> NonQueryExecutingAsync(DbCommand command, CommandEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
-            LogMgr.Instance.Debug($"SQL:{command.CommandText}");
+            LogMgr.Instance.AddSQLLog($"SQL:{command.CommandText}");
             return base.NonQueryExecutingAsync(command, eventData, result, cancellationToken);
         }
 
@@ -47,7 +47,7 @@ namespace ScadaBase.DAL.Interceptor
             }
 
             // 输出到日志
-            LogMgr.Instance.Debug($"SQL: {sql}");
+            LogMgr.Instance.AddSQLLog($"SQL: {sql}");
             return base.NonQueryExecuting(command, eventData, result);
         }
 
@@ -63,7 +63,7 @@ namespace ScadaBase.DAL.Interceptor
             }
 
             // 输出到日志
-            LogMgr.Instance.Debug($"SQL: {sql}");
+            LogMgr.Instance.AddSQLLog($"SQL: {sql}");
             return base.NonQueryExecuted(command, eventData, result);
         }
 
@@ -78,7 +78,7 @@ namespace ScadaBase.DAL.Interceptor
             }
 
             // 输出到日志
-            LogMgr.Instance.Debug($"SQL: {sql}");
+            LogMgr.Instance.AddSQLLog($"SQL: {sql}");
             return base.ReaderExecuting(command, eventData, result);
         }
     }

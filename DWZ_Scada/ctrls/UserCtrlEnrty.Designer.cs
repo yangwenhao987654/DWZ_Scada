@@ -43,7 +43,7 @@
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new System.Drawing.Size(313, 168);
             uiLabel4.TabIndex = 2;
-            uiLabel4.Text = "等待着";
+            uiLabel4.Text = "等待中";
             uiLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel4.Click += uiLabel4_Click;
             // 

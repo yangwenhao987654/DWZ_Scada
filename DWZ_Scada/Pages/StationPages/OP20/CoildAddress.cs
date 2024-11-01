@@ -20,7 +20,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// </summary>
         public static readonly string CoilsCurNum = "2021";
 
-
         /// <summary>
         /// 绕线目标圈数
         /// </summary>
@@ -40,7 +39,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// 张力值01
         /// </summary>
         public static readonly string TensionValue01 = "2041";
-
 
         /// <summary>
         /// 张力值02

@@ -255,7 +255,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     #endregion
 
                     // 处理进站信号
-                    await ProcessEntrySignal();
+                   // await ProcessEntrySignal();
 
                     //获取绕线完成位置
                     //GetWindingPos();
@@ -272,39 +272,38 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-        private void WindingStart()
+        private  void WindingStart()
         {
-            if (PLC.ReadBool(OP20Address.Winding01Start, out bool isStart) && isStart)
+            if (PLC.ReadInt16(OP20Address.Winding01Start, out short isStart) && isStart==1)
             {
                 LogMgr.Instance.Info("收到绕线开始...");
-                PLC.Write(OP20Address.Winding01Start, "Bool", false);
-                Task task = Task.Run(() =>
+                PLC.WriteInt16(OP20Address.Winding01Start, 0);
+                Task task = Task.Run(async () =>
                 {
                     //TODO 读取两次绕线的SN码
-                    string sn1 = "123456111";
-                    string sn2 = "123456222";
-                    ModbusTcpList[0].ReadInt16(CoildAddress.CoilsState, out short state);
+                    string sn1 = "TestCode001";
+                    string sn2 = "TestCode002";
+                    bool isStart = false;
                     while (true)
                     {
-                        if (state == 1)
+                        ModbusTcpList[0].ReadUInt16(CoildAddress.CoilsState, out ushort state);
+
+                        if (state == 1 && isStart)
                         {
                             //停止
                             LogMgr.Instance.Debug("读取到绕线停止..1");
-                        }
-                        else if (state == 12)
-                        {
-                            LogMgr.Instance.Debug("读取到绕线开始..12");
+                       
                             CoildDataDto dto = new CoildDataDto();
                             //运行中
-                            ModbusTcpList[0].ReadInt32(CoildAddress.CoilsCurNum, out int coilsCurNum);
+                            ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
                             dto.CoilsCurNum = coilsCurNum;
-                            ModbusTcpList[0].ReadInt32(CoildAddress.CoilsTargetNum, out int coilsTargetNum);
+                            ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
                             dto.CoilsTargetNum = coilsTargetNum;
 
-                            ModbusTcpList[0].ReadInt32(CoildAddress.CoilsSpeed, out int coilsSpeed);
+                            ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
                             dto.CoilsSpeed = coilsSpeed;
 
-                            ModbusTcpList[0].ReadInt32(CoildAddress.CoilsTimes, out int times);
+                            ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTimes, out uint times);
                             dto.CoilsTimes = times;
 
                             //采集张力值 TODO 需要区分是A/B哪个工位
@@ -319,27 +318,36 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                 isLastStep = true,
                                 SnTemp = sn1,
                                 StationCode = StationCode,
-                                WorkOrder = "",
+                                WorkOrder = "MO202410210001",
                                 PassStationData = dto
                             };
-                            UploadStationData(passStationDto01);
+                           await UploadStationData(passStationDto01);
 
                             PassStationDTO passStationDto02 = new PassStationDTO()
                             {
                                 isLastStep = true,
                                 SnTemp = sn2,
                                 StationCode = StationCode,
-                                WorkOrder = "",
+                                WorkOrder = "MO202410210001",
                                 PassStationData = dto02
                             };
-                            UploadStationData(passStationDto02);
+                           await UploadStationData(passStationDto02);
                             break;
+                        }
+                        else if (state == 12)
+                        {
+                            isStart = true;
+                            if (!isStart)
+                            {
+                                LogMgr.Instance.Debug("读取到绕线开始..12");
+                            }
                         }
                         else
                         {
                             //故障
                             LogMgr.Instance.Info($"读取到绕线状态位:{state}");
                         }
+                        Thread.Sleep(1000);
                     }
                 });
                 task.Wait();
@@ -367,12 +375,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         {
             if (PLC.ReadBool(OP20Address.EntrySignal, out bool isEntry) && isEntry)
             {
-                PLC.Read(OP20Address.EntrySn, "string-20", out string sn);
+                PLC.Read(OP20Address.EntrySn, "string-8", out string sn);
                 EntryRequestDTO requestDto = new()
                 {
                     SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = "MO202409110002"
+                    WorkOrder = "MO202410210001"
                 };
          
                 (bool flag, string msg) = await EntryRequest(requestDto);

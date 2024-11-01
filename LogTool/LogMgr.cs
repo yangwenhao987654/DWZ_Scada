@@ -47,7 +47,11 @@ namespace LogTool
         }
         private static LogMgr _instance ;
         ILog DebugLog;//总Log
-        ILog ParamsLog;//系统参数变更log
+        ILog ChargeLog;//系统参数变更log
+
+        ILog SQLLog;//SQL Log
+
+        ILog MesLog;//Mes请求 Log
         ListViewEx_Log ctrl;
         public bool IsLoad =false;
         ConcurrentQueue<LogStruct> logQueue;
@@ -69,7 +73,9 @@ namespace LogTool
             }
             XmlConfigurator.Configure(fi);
             DebugLog = LogManager.GetLogger("Debug");
-            ParamsLog = LogManager.GetLogger("Params");
+            ChargeLog = LogManager.GetLogger("ChargeLog");
+            SQLLog = LogManager.GetLogger("SQLLog");
+            MesLog = LogManager.GetLogger("MesLog");
             logQueue = new ConcurrentQueue<LogStruct>();
             UnShowLogList = new List<LogStruct>();
             ThreadPool.QueueUserWorkItem(Monitor,null);
@@ -122,6 +128,11 @@ namespace LogTool
                     default:
                         break;
                 }
+                if (logStruct.Log == SQLLog || logStruct.Log== MesLog)
+                {
+                    //TODO 如果是SQL log 界面不显示 
+                    continue;
+                }
                 if (ctrl!=null)
                 {
                     ctrl?.AppendLog(logStruct);
@@ -150,6 +161,44 @@ namespace LogTool
         {
             ShowLog(line, LogLvl.error);
         }
+
+        public void AddSQLLog(string line)
+        {
+            AppendSQLLog(line, LogLvl.debug);
+        }
+
+        private void AppendSQLLog(string line ,LogLvl lvl)
+        {
+            logQueue.Enqueue(new LogStruct(line, lvl, SQLLog));
+        }
+
+        public void AddMesDebug(string line)
+        {
+            AppendSQLLog(line, LogLvl.debug);
+        }
+        public void AddMesError(string line)
+        {
+            AppendSQLLog(line, LogLvl.error);
+        }
+
+        public void AddMesInfo(string line)
+        {
+            AppendSQLLog(line, LogLvl.info);
+        }
+
+        private void AppendMesLog(string line, LogLvl lvl)
+        {
+            logQueue.Enqueue(new LogStruct(line, lvl, MesLog));
+        }
+
+        public void AddChargeInfo(string line)
+        {
+            ShowChargeLog(line, LogLvl.info);
+        }
+        private void ShowChargeLog(string line, LogLvl lvl)
+        {
+            logQueue.Enqueue(new LogStruct(line, lvl, ChargeLog));
+        }
         private void ShowLog( string line,LogLvl lvl)
         {
             logQueue.Enqueue(new LogStruct(line, lvl,DebugLog));
@@ -157,7 +206,7 @@ namespace LogTool
         public void LogParams(string name,string oldValue,string newValue)
         {
             var line = $"{name.PadRightEx(30)}{oldValue.PadRightEx(30)}-->  {newValue}";
-            logQueue.Enqueue(new LogStruct(line, LogLvl.debug, ParamsLog));
+            logQueue.Enqueue(new LogStruct(line, LogLvl.debug, ChargeLog));
         }
     }
     public static class class1

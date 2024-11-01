@@ -65,21 +65,27 @@ namespace DWZ_Scada
             op20Strategy.OnSelectionEvent += OP20SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
+
+            #region OP20工站
+/*
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
                 SystemParams.Instance.OP20_PlcPort);
 
             OP20MainFunc.CreateInstance(plcConfig);
-            OP20MainFunc.Instance.StartAsync();
+            OP20MainFunc.Instance.StartAsync();*/
 
-           /* PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
+            #endregion
+
+            #region OP30工站
+            PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
                 SystemParams.Instance.OP30_PlcPort);
 
             OP30MainFunc.CreateInstance(op30Config);
             OP30MainFunc.Instance.StartAsync();
+            OP30MainFunc.Instance.OP30EntryStateChanged += Instance_OP30EntryStateChanged;
+            OP30MainFunc.Instance.OP30VisionFinished += Instance_OP30VisionFinished;
 
-    
-            OP30MainFunc.Instance.OnOP30VisionFinished += InstanceOnOp30VisionFinished;*/
-            //OP30的配置
+            #endregion
 
             int index = 1;
             for (int i = 0; i < ctrlWindingS.ColumnCount; i++)
@@ -97,9 +103,14 @@ namespace DWZ_Scada
             }
         }
 
-        private void InstanceOnOp30VisionFinished(string sn, int result)
+        private void Instance_OP30VisionFinished(string sn, int result)
         {
-            MyUIControler.UpdateTestStateCtrl(userCtrlResult1,sn,result);
+           MyUIControler.UpdateTestStateCtrl(userCtrlResult_OP30,sn,result);
+        }
+
+        private void Instance_OP30EntryStateChanged(string sn, int result,string msg="")
+        {
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP30,sn,result,msg);
         }
 
         private void OP20SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
@@ -123,11 +134,11 @@ namespace DWZ_Scada
         {
             _instance = null;
             LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
-            if (OP20MainFunc.IsInstanceNull)
+            if (!OP20MainFunc.IsInstanceNull)
             {
                 OP20MainFunc.Instance.Dispose();
             }
-            if (OP30MainFunc.IsInstanceNull)
+            if (!OP30MainFunc.IsInstanceNull)
             {
                 OP30MainFunc.Instance.Dispose();
             }
@@ -221,9 +232,9 @@ namespace DWZ_Scada
         {
             try
             {
-                //userCtrlResult1.Fail(str);
+                //userCtrlResult_OP30.Fail(str);
                 string str = tbxTest.Text;
-                userCtrlEntry1.Fail(str);
+                userCtrlEntry_OP30.Fail(str);
                 string[] strings = str.Split(",");
                 int index = int.Parse(strings[0]);
                 string sn = strings[1];
