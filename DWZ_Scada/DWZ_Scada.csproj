@@ -12,6 +12,7 @@
     <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <BaseOutputPath></BaseOutputPath>
+    <ApplicationIcon>ZCLogo_12.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommunicationUtilYwh\CommunicationUtilYwh.csproj" />
@@ -92,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <EditorConfigFiles Remove="E:\DotNetCoreCode\repos\DWZ_Scada-NetCore8.0\DWZ_Scada\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ZCLogo_12.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="E:\DotNetCoreCode\repos\DWZ_Scada-NetCore8.0\DWZ_Scada\.editorconfig" />
