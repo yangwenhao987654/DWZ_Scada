@@ -1,6 +1,7 @@
 ﻿using CommunicationUtilYwh.Device;
 using DWZ_Scada.ctrls;
 using DWZ_Scada.ctrls.LogCtrl;
+using DWZ_Scada.Pages.StationPages.OP10;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         {
             InitializeComponent();
             mylog = new Mylog(myLogCtrl1);
+           GlobalOP60.IsOpenDebugTCPDevice = true;
+           GlobalOP60.EnableDisConnect = true;
         }
 
         private void uiLabel2_Click(object sender, EventArgs e)
@@ -71,6 +74,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             }
             tbxIP.Text = ip;
             tbxPort.Text = port;
+            device?.Disconnect();
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -82,6 +86,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         private void AtlBrxTestForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             mylog?.Dispose();
+            device?.Disconnect();
+            GlobalOP60.IsOpenDebugTCPDevice = false;
         }
 
         private async void uiButton11_Click(object sender, EventArgs e)
@@ -93,7 +99,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             if (!f)
             {
                 UIMessageBox.ShowError($"连接错误:{err}");
-                uiButton11.Enabled = false;
+                uiButton11.Enabled = true;
+                uiButton12.Enabled = false;
                 return;
             }
             mylog.Info("打开连接");

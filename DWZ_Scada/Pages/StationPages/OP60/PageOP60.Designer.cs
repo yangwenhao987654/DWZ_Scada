@@ -31,20 +31,13 @@
         {
             components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
-            uiSwitch_Spot = new Sunny.UI.UISwitch();
-            uiLabel5 = new Sunny.UI.UILabel();
             btn_Test = new Sunny.UI.UIButton();
             uiPanel1 = new Sunny.UI.UIPanel();
             myLogCtrl1 = new ctrls.MyLogCtrl();
-            lbl_EntryMsg = new Sunny.UI.UILabel();
-            lbl_EntryResult = new Sunny.UI.UILabel();
-            uiLabel10 = new Sunny.UI.UILabel();
             uiLabel11 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel9 = new Sunny.UI.UILabel();
-            uiLabel12 = new Sunny.UI.UILabel();
-            uiLabel16 = new Sunny.UI.UILabel();
             userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlResult2 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlResult3 = new DIPTest.Ctrl.UserCtrlResult();
@@ -53,6 +46,8 @@
             uiLight2 = new Sunny.UI.UILight();
             uiLight3 = new Sunny.UI.UILight();
             uiLight4 = new Sunny.UI.UILight();
+            userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
+            uiLabel2 = new Sunny.UI.UILabel();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -68,27 +63,6 @@
             uiLabel1.Text = "OP60-电测工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
-            // 
-            // uiSwitch_Spot
-            // 
-            uiSwitch_Spot.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiSwitch_Spot.Location = new System.Drawing.Point(847, 114);
-            uiSwitch_Spot.MinimumSize = new System.Drawing.Size(1, 1);
-            uiSwitch_Spot.Name = "uiSwitch_Spot";
-            uiSwitch_Spot.Size = new System.Drawing.Size(117, 44);
-            uiSwitch_Spot.TabIndex = 16;
-            uiSwitch_Spot.Text = "uiSwitch1";
-            uiSwitch_Spot.ValueChanged += uiSwitch_Spot_ValueChanged;
-            // 
-            // uiLabel5
-            // 
-            uiLabel5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel5.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new System.Drawing.Point(710, 116);
-            uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new System.Drawing.Size(131, 42);
-            uiLabel5.TabIndex = 17;
-            uiLabel5.Text = "点检模式:";
             // 
             // btn_Test
             // 
@@ -130,36 +104,6 @@
             myLogCtrl1.TabIndex = 33;
             myLogCtrl1.UseCompatibleStateImageBehavior = false;
             myLogCtrl1.View = System.Windows.Forms.View.Details;
-            // 
-            // lbl_EntryMsg
-            // 
-            lbl_EntryMsg.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            lbl_EntryMsg.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_EntryMsg.Location = new System.Drawing.Point(472, 190);
-            lbl_EntryMsg.Name = "lbl_EntryMsg";
-            lbl_EntryMsg.Size = new System.Drawing.Size(452, 94);
-            lbl_EntryMsg.TabIndex = 47;
-            lbl_EntryMsg.Text = "...";
-            // 
-            // lbl_EntryResult
-            // 
-            lbl_EntryResult.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            lbl_EntryResult.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_EntryResult.Location = new System.Drawing.Point(156, 251);
-            lbl_EntryResult.Name = "lbl_EntryResult";
-            lbl_EntryResult.Size = new System.Drawing.Size(220, 42);
-            lbl_EntryResult.TabIndex = 46;
-            lbl_EntryResult.Text = "无";
-            // 
-            // uiLabel10
-            // 
-            uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new System.Drawing.Point(10, 251);
-            uiLabel10.Name = "uiLabel10";
-            uiLabel10.Size = new System.Drawing.Size(140, 42);
-            uiLabel10.TabIndex = 45;
-            uiLabel10.Text = "进站结果:";
             // 
             // uiLabel11
             // 
@@ -208,26 +152,6 @@
             uiLabel9.TabIndex = 39;
             uiLabel9.Text = "电性能测试1:";
             uiLabel9.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // uiLabel12
-            // 
-            uiLabel12.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel12.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel12.Location = new System.Drawing.Point(10, 199);
-            uiLabel12.Name = "uiLabel12";
-            uiLabel12.Size = new System.Drawing.Size(140, 42);
-            uiLabel12.TabIndex = 38;
-            uiLabel12.Text = "进站临时码:";
-            // 
-            // uiLabel16
-            // 
-            uiLabel16.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel16.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel16.Location = new System.Drawing.Point(156, 199);
-            uiLabel16.Name = "uiLabel16";
-            uiLabel16.Size = new System.Drawing.Size(193, 33);
-            uiLabel16.TabIndex = 54;
-            uiLabel16.Text = "V1SNQWEQSC";
             // 
             // userCtrlResult1
             // 
@@ -318,10 +242,33 @@
             uiLight4.TabIndex = 67;
             uiLight4.Text = "uiLight4";
             // 
+            // userCtrlEntry1
+            // 
+            userCtrlEntry1.Location = new System.Drawing.Point(13, 108);
+            userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlEntry1.Name = "userCtrlEntry1";
+            userCtrlEntry1.Size = new System.Drawing.Size(313, 168);
+            userCtrlEntry1.TabIndex = 68;
+            userCtrlEntry1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlEntry1.TextFont = new System.Drawing.Font("微软雅黑", 50F);
+            // 
+            // uiLabel2
+            // 
+            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel2.Location = new System.Drawing.Point(13, 62);
+            uiLabel2.Margin = new System.Windows.Forms.Padding(0);
+            uiLabel2.Name = "uiLabel2";
+            uiLabel2.Size = new System.Drawing.Size(133, 42);
+            uiLabel2.TabIndex = 69;
+            uiLabel2.Text = "产品进站:";
+            // 
             // PageOP60
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(uiLabel2);
+            Controls.Add(userCtrlEntry1);
             Controls.Add(uiLight4);
             Controls.Add(uiLight3);
             Controls.Add(uiLight2);
@@ -330,19 +277,12 @@
             Controls.Add(userCtrlResult3);
             Controls.Add(userCtrlResult2);
             Controls.Add(userCtrlResult1);
-            Controls.Add(uiLabel16);
             Controls.Add(uiPanel1);
-            Controls.Add(lbl_EntryMsg);
-            Controls.Add(lbl_EntryResult);
-            Controls.Add(uiLabel10);
             Controls.Add(uiLabel11);
             Controls.Add(uiLabel6);
             Controls.Add(uiLabel7);
             Controls.Add(uiLabel9);
-            Controls.Add(uiLabel12);
             Controls.Add(btn_Test);
-            Controls.Add(uiLabel5);
-            Controls.Add(uiSwitch_Spot);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP60";
@@ -357,20 +297,13 @@
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UISwitch uiSwitch_Spot;
-        private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UIButton btn_Test;
         private Sunny.UI.UIPanel uiPanel1;
         private ctrls.MyLogCtrl myLogCtrl1;
-        private Sunny.UI.UILabel lbl_EntryMsg;
-        private Sunny.UI.UILabel lbl_EntryResult;
-        private Sunny.UI.UILabel uiLabel10;
         private Sunny.UI.UILabel uiLabel11;
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UILabel uiLabel9;
-        private Sunny.UI.UILabel uiLabel12;
-        private Sunny.UI.UILabel uiLabel16;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult2;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult3;
@@ -379,5 +312,7 @@
         private Sunny.UI.UILight uiLight2;
         private Sunny.UI.UILight uiLight3;
         private Sunny.UI.UILight uiLight4;
+        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
+        private Sunny.UI.UILabel uiLabel2;
     }
 }

@@ -44,7 +44,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private static readonly OP60Model Model = new();
 
-
+        public event EntryStateChanged OP60EntryStateChanged;
 
         public TcpDevice1 SafetyDevice1 = new TcpDevice1("安规测试机1", 1);
 
@@ -74,6 +74,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             //释放PLC连接
             base.Dispose();
             PLC?.Dispose();
+            //AtlBrxDevice1?.Dispose();
             foreach ((int key, TcpDevice1 value) in DeviceMap)
             {
                 value?.Dispose();
@@ -271,19 +272,22 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 PLC.WriteInt16(OP60Address.EntrySignal, 0);
                 PLC.Read(OP60Address.EntrySn, "string-8", out string sn);
+                OP60EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {
                     SnTemp = SnTest,
                     StationCode = StationCode,
                     WorkOrder = "MO202409110002"
                 };
-                (bool flag, string msg) = await EntryRequest(requestDto);
-
+                //(bool flag, string msg) = await EntryRequest(requestDto);
+                bool flag = true;
+                string msg = "";
                 short result = 2;
                 if (flag)
                 {
                     result = 1;
                 }
+                OP60EntryStateChanged?.Invoke(sn, result, msg);
                 LogMgr.Instance.Debug($"写进站结果{flag}:{result} :\n{msg}");
                 PLC.WriteInt16(OP60Address.EntryResult, result);
             }
@@ -338,7 +342,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 isLastStep = false,
             };
             (bool flag, string msg) = await UploadStationData(requestDto);
-            LogMgr.Instance.Debug($"Device:[{device.Name}]写进站结果:{result} :\n{msg}");
+            LogMgr.Instance.Debug($"Device:[{device.Name}]写安规测试结果:{result} :\n{msg}");
             /*if (flag)
             {
                 result = 1;
@@ -376,7 +380,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 isLastStep = true,
             };
             (bool flag, string msg) = await UploadStationData(requestDto);
-            LogMgr.Instance.Debug($"Device:[{device.Name}]写进站结果:{result} :\n{msg}");
+            LogMgr.Instance.Debug($"Device:[{device.Name}]写电性能测试结果:{result} :\n{msg}");
             /*if (flag)
             {
                 result = 1;
@@ -424,7 +428,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     //工位2 安规测试
                     PLC.Read(OP60Address.SafetyTestSN2, "string-8", out string sn2);
                     PageOP60.Instance.StartTestUI(2, sn2);
-                    short result = await HandleSafetyTestAndResult(SafetyDevice1, sn2);
+                    short result = await HandleSafetyTestAndResult(SafetyDevice2, sn2);
                     if (result == 1)
                     {
                         PageOP60.Instance.TestPassUI(2, sn2);
@@ -442,9 +446,13 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<int> TriggerDeviceTest(TcpDevice1 device, string sn)
         {
+            device.ClearData();
+            Thread.Sleep(200);
             device.UpdateProduct(sn);
+            Thread.Sleep(200);
             device.TriggerWork();
-
+            Thread.Sleep(100);
+            Logger.Debug($"[{device.Name}]触发测试");
             var service = new ElecDeviceService(device);
             //解析测试结果
             //1.获取测试状态值
@@ -465,7 +473,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             //4.封装结果返回 给Mes
 
             //5.清空上一次测试数据
-            device.ClearData();
+           
             return result;
         }
 
@@ -526,6 +534,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     {
                         PageOP60.Instance.TestFailUI(4, sn2);
                     }
+                    //超时给3 
                     PLC.WriteInt16(OP60Address.AtlBrxResult2, result);
                     Mylog.Instance.Debug($"电性能测试2完成..结果[{(result == 1 ? "OK" : "NG")}]");
                 });
@@ -572,11 +581,23 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     {
                         PLC.Write(OP60Address.HeartBeat, "int", 1);
                     }
-                    CheckDeviceConnState(SafetyDevice1, SystemParams.Instance.OP60_Safety_01_IP, SystemParams.Instance.OP60_Safety_01_Port);
-                    CheckDeviceConnState(SafetyDevice2, SystemParams.Instance.OP60_Safety_02_IP, SystemParams.Instance.OP60_Safety_02_Port);
-                    CheckDeviceConnState(AtlBrxDevice1, SystemParams.Instance.OP60_AtlBrx_01_IP, SystemParams.Instance.OP60_AtlBrx_01_Port);
-                    CheckDeviceConnState(AtlBrxDevice2, SystemParams.Instance.OP60_AtlBrx_02_IP, SystemParams.Instance.OP60_AtlBrx_02_Port);
-                    //TODO 电测设备TCP连接监控
+                    if (!GlobalOP60.IsOpenDebugTCPDevice)
+                    {
+                        CheckDeviceConnState(SafetyDevice1, SystemParams.Instance.OP60_Safety_01_IP, SystemParams.Instance.OP60_Safety_01_Port);
+                        CheckDeviceConnState(SafetyDevice2, SystemParams.Instance.OP60_Safety_02_IP, SystemParams.Instance.OP60_Safety_02_Port);
+                        CheckDeviceConnState(AtlBrxDevice1, SystemParams.Instance.OP60_AtlBrx_01_IP, SystemParams.Instance.OP60_AtlBrx_01_Port);
+                        CheckDeviceConnState(AtlBrxDevice2, SystemParams.Instance.OP60_AtlBrx_02_IP, SystemParams.Instance.OP60_AtlBrx_02_Port);
+                        //TODO 电测设备TCP连接监控
+                    }
+                    if (GlobalOP60.EnableDisConnect)
+                    {
+                        GlobalOP60.EnableDisConnect = false;
+                        SafetyDevice1?.Disconnect();
+                        SafetyDevice2?.Disconnect();
+                        AtlBrxDevice1?.Disconnect();
+                        AtlBrxDevice2?.Disconnect();
+                    }
+
 
                     ZCForm.Instance.UpdatePlcState(PlcState);
                 }

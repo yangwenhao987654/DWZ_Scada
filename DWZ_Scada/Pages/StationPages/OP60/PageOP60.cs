@@ -6,6 +6,7 @@ using DWZ_Scada.Pages.StationPages.OP70;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Sunny.UI;
@@ -91,8 +92,15 @@ namespace DWZ_Scada
             OP60MainFunc.Instance.StartAsync();
 
             Mylog.Instance.Init(myLogCtrl1);
+            OP60MainFunc.Instance.OP60EntryStateChanged += Instance_OP60EntryStateChanged;
             OnDeviceStateChangedEvent += PageOP60_OnDeviceStateChangedEvent;
         }
+
+        private void Instance_OP60EntryStateChanged(string sn, int result, string msg = "")
+        {
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry1,sn,result,msg);
+        }
+
         // 方法用于触发事件
         public void TriggerDeviceStateChanged(int id,bool isConnect)
         {

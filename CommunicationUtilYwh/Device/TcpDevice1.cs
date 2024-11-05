@@ -89,12 +89,12 @@ namespace CommunicationUtilYwh.Device
 
         public void Disconnect()
         {
-            tcpclient.Dispose();
+            tcpclient?.Dispose();
         }
 
         public bool IsConnect()
         {
-            return tcpclient.IsConnected();
+            return tcpclient!=null &&tcpclient.IsConnected();
         }
 
         public string UpdateProduct(string name)

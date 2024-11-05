@@ -29,12 +29,14 @@ namespace CommunicationUtilYwh.Device
 
             if (completedTask == getTestStateTask)
             {
+                LogMgr.Instance.Debug($"[{Device.Name}]测试完成");
                 // 如果 GetTestState 任务完成，返回结果
                 cancellationTokenSource.Cancel(); // 停止 Task.Delay 任务
                 return await getTestStateTask;
             }
             else
             {
+                LogMgr.Instance.Debug($"[{Device.Name}]测试超时");
                 // 如果超时，返回 null 或其他超时处理
                 cancellationTokenSource.Cancel(); // 停止 GetTestState 任务
                 return 10;
@@ -68,9 +70,10 @@ namespace CommunicationUtilYwh.Device
                 if (state == 1)
                 {
                     //测试中
-                    Thread.Sleep(50);
+                    Thread.Sleep(1000);
                     GetTestState(device);
                 }
+                LogMgr.Instance.Debug($"[{Device.Name}]测试状态：[{state}]");
             }
             catch (Exception e)
             {

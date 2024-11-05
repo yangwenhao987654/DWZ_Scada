@@ -62,6 +62,10 @@ namespace DWZ_Scada.Pages
                     MyHttpService?.Dispose();
                     //释放资源
                     timer?.Dispose();
+                    foreach (Control ctrl in uiPanel1.Controls)
+                    {
+                        ctrl?.Dispose();
+                    }
                     e.Cancel = false;
                     Environment.Exit(0);
                 }
