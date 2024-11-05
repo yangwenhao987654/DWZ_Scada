@@ -35,7 +35,6 @@
             userCtrlResult_Vision = new DIPTest.Ctrl.UserCtrlResult();
             uiLabel2 = new Sunny.UI.UILabel();
             uiLabel3 = new Sunny.UI.UILabel();
-            uiLabel4 = new Sunny.UI.UILabel();
             uiLabel5 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
@@ -135,16 +134,6 @@
             uiLabel3.TabIndex = 18;
             uiLabel3.Text = "焊接测试:";
             // 
-            // uiLabel4
-            // 
-            uiLabel4.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel4.Location = new System.Drawing.Point(146, 194);
-            uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new System.Drawing.Size(209, 42);
-            uiLabel4.TabIndex = 19;
-            uiLabel4.Text = "焊接SN";
-            // 
             // uiLabel5
             // 
             uiLabel5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -183,7 +172,6 @@
             lbl_1_A.Name = "lbl_1_A";
             lbl_1_A.Size = new System.Drawing.Size(122, 42);
             lbl_1_A.TabIndex = 29;
-            lbl_1_A.Text = "焊接测试:";
             // 
             // lbl_1_B
             // 
@@ -193,7 +181,6 @@
             lbl_1_B.Name = "lbl_1_B";
             lbl_1_B.Size = new System.Drawing.Size(122, 42);
             lbl_1_B.TabIndex = 30;
-            lbl_1_B.Text = "焊接测试:";
             // 
             // lbl_1_C
             // 
@@ -203,7 +190,6 @@
             lbl_1_C.Name = "lbl_1_C";
             lbl_1_C.Size = new System.Drawing.Size(122, 42);
             lbl_1_C.TabIndex = 31;
-            lbl_1_C.Text = "焊接测试:";
             // 
             // lbl_2_C
             // 
@@ -213,7 +199,6 @@
             lbl_2_C.Name = "lbl_2_C";
             lbl_2_C.Size = new System.Drawing.Size(122, 42);
             lbl_2_C.TabIndex = 37;
-            lbl_2_C.Text = "焊接测试:";
             // 
             // lbl_2_B
             // 
@@ -223,7 +208,6 @@
             lbl_2_B.Name = "lbl_2_B";
             lbl_2_B.Size = new System.Drawing.Size(122, 42);
             lbl_2_B.TabIndex = 36;
-            lbl_2_B.Text = "焊接测试:";
             // 
             // lbl_2_A
             // 
@@ -233,7 +217,6 @@
             lbl_2_A.Name = "lbl_2_A";
             lbl_2_A.Size = new System.Drawing.Size(122, 42);
             lbl_2_A.TabIndex = 35;
-            lbl_2_A.Text = "焊接测试:";
             // 
             // uiLabel12
             // 
@@ -273,7 +256,6 @@
             lbl_3_C.Name = "lbl_3_C";
             lbl_3_C.Size = new System.Drawing.Size(122, 42);
             lbl_3_C.TabIndex = 43;
-            lbl_3_C.Text = "焊接测试:";
             // 
             // lbl_3_B
             // 
@@ -283,7 +265,7 @@
             lbl_3_B.Name = "lbl_3_B";
             lbl_3_B.Size = new System.Drawing.Size(122, 42);
             lbl_3_B.TabIndex = 42;
-            lbl_3_B.Text = "焊接测试:";
+            lbl_3_B.Click += lbl_3_B_Click;
             // 
             // lbl_3_A
             // 
@@ -293,7 +275,6 @@
             lbl_3_A.Name = "lbl_3_A";
             lbl_3_A.Size = new System.Drawing.Size(122, 42);
             lbl_3_A.TabIndex = 41;
-            lbl_3_A.Text = "焊接测试:";
             // 
             // uiLabel21
             // 
@@ -333,7 +314,6 @@
             lbl_4_C.Name = "lbl_4_C";
             lbl_4_C.Size = new System.Drawing.Size(122, 42);
             lbl_4_C.TabIndex = 49;
-            lbl_4_C.Text = "焊接测试:";
             // 
             // lbl_4_B
             // 
@@ -343,7 +323,6 @@
             lbl_4_B.Name = "lbl_4_B";
             lbl_4_B.Size = new System.Drawing.Size(122, 42);
             lbl_4_B.TabIndex = 48;
-            lbl_4_B.Text = "焊接测试:";
             // 
             // lbl_4_A
             // 
@@ -353,7 +332,6 @@
             lbl_4_A.Name = "lbl_4_A";
             lbl_4_A.Size = new System.Drawing.Size(122, 42);
             lbl_4_A.TabIndex = 47;
-            lbl_4_A.Text = "焊接测试:";
             // 
             // uiLabel27
             // 
@@ -393,7 +371,6 @@
             lbl_5_C.Name = "lbl_5_C";
             lbl_5_C.Size = new System.Drawing.Size(122, 42);
             lbl_5_C.TabIndex = 55;
-            lbl_5_C.Text = "焊接测试:";
             // 
             // lbl_5_B
             // 
@@ -403,7 +380,6 @@
             lbl_5_B.Name = "lbl_5_B";
             lbl_5_B.Size = new System.Drawing.Size(122, 42);
             lbl_5_B.TabIndex = 54;
-            lbl_5_B.Text = "焊接测试:";
             // 
             // lbl_5_A
             // 
@@ -413,7 +389,6 @@
             lbl_5_A.Name = "lbl_5_A";
             lbl_5_A.Size = new System.Drawing.Size(122, 42);
             lbl_5_A.TabIndex = 53;
-            lbl_5_A.Text = "焊接测试:";
             // 
             // uiLabel33
             // 
@@ -453,7 +428,6 @@
             lbl_6_C.Name = "lbl_6_C";
             lbl_6_C.Size = new System.Drawing.Size(122, 42);
             lbl_6_C.TabIndex = 61;
-            lbl_6_C.Text = "焊接测试:";
             // 
             // lbl_6_B
             // 
@@ -463,7 +437,6 @@
             lbl_6_B.Name = "lbl_6_B";
             lbl_6_B.Size = new System.Drawing.Size(122, 42);
             lbl_6_B.TabIndex = 60;
-            lbl_6_B.Text = "焊接测试:";
             // 
             // lbl_6_A
             // 
@@ -473,7 +446,6 @@
             lbl_6_A.Name = "lbl_6_A";
             lbl_6_A.Size = new System.Drawing.Size(122, 42);
             lbl_6_A.TabIndex = 59;
-            lbl_6_A.Text = "焊接测试:";
             // 
             // uiLabel39
             // 
@@ -591,7 +563,6 @@
             Controls.Add(uiLabel7);
             Controls.Add(uiLabel6);
             Controls.Add(uiLabel5);
-            Controls.Add(uiLabel4);
             Controls.Add(uiLabel3);
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlResult_Vision);
@@ -614,7 +585,6 @@
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Vision;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel3;
-        private Sunny.UI.UILabel uiLabel4;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;

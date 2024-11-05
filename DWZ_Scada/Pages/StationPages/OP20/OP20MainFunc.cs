@@ -296,23 +296,23 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                             CoildDataDto dto = new CoildDataDto();
                             //运行中
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
-                            dto.CoilsCurNum = coilsCurNum;
+                            dto.CoilsCurNum = coilsCurNum/100;
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
-                            dto.CoilsTargetNum = coilsTargetNum;
+                            dto.CoilsTargetNum = coilsTargetNum/100;
 
-                            ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
-                            dto.CoilsSpeed = coilsSpeed;
+                          /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
+                            dto.CoilsSpeed = coilsSpeed / 100;*/
 
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTimes, out uint times);
-                            dto.CoilsTimes = times;
+                            dto.CoilsTimes = times/100;
 
                             //采集张力值 TODO 需要区分是A/B哪个工位
                             ModbusTcpList[0].ReadInt16(CoildAddress.TensionValue01, out short tension01);
-                            dto.TensionValue = tension01;
+                            //dto.TensionValueList=new List<double> { tension01/100 };
                             CoildDataDto dto02 = new CoildDataDto(dto);
 
                             ModbusTcpList[0].ReadInt16(CoildAddress.TensionValue02, out short tension02);
-                            dto02.TensionValue = tension02;
+                            //dto02.TensionValueList = new List<double> { tension02/100 };
                             PassStationDTO passStationDto01 = new PassStationDTO()
                             {
                                 isLastStep = true,
@@ -340,6 +340,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                             if (!isStart)
                             {
                                 LogMgr.Instance.Debug("读取到绕线开始..12");
+                                //TODO 一直读取当前绕线张力值
                             }
                         }
                         else

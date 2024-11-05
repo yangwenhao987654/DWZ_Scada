@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.dao.response
+namespace DWZ_Scada.HttpServices.response
 {
     public class @params
     {

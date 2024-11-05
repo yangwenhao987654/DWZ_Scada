@@ -9,9 +9,10 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
 {
     public class AtlBrxTestDto
     {
+        public bool Good {  get; set; }
         public string AtlBrxTestResult { get; set; } = "N";
 
-        public string TestTime { get; set; }
+        public string AtlBrxTestTime { get; set; }
 
         public string PolePairs { get; set; }
 
@@ -74,7 +75,7 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
         public string BigSmallWaveDifference { get; set; }
 
 
-        public static string TestInput = "Func=QueryDetailsWorkResult,Result=Success,ErrTxt=,N=21,Tester=MAC,TestTime=2024-10-24 14:45:10,PolePairs=3,ExctingFrequency=10000Hz,ExctingVoltage=7V,ElectricError  =19.62\\A1\\E4,UpError=19.62\\A1\\E4,DownError=-9.93\\A1\\E4,PeakPeakError=29.55\\A1\\E4,FFTError=0:5.08\\A1\\E4;1:0.38\\A1\\E4;2:0.09\\A1\\E4;3:13.29\\A1\\E4,SinPhaseDisplacement=6.04\\A1\\E3,CosPhaseDisplacement=6.14\\A1\\E3,TranferRate0=0.2814,TranferRate90=0.2819,TranferRate180=0.2865,TranferRate270=0.2854,SinTransferRate=0.2854,CosTransferRate=0.2865,EsImpedance=118.6\\A6\\B8,EsImpedanceRealPart=37.18\\A6\\B8,EsImpedanceImagePart=112.6473\\A6\\B8,EsInductance=1.793mH,SinImpedance=244.2\\A6\\B8,SinImpedanceRealPart=66.4\\A6\\B8,SinImpedanceImagePart=234.9935\\A6\\B8,SinInductance=3.74mH,CosImpedance=233.6\\A6\\B8,CosImpedanceRealPart=68.65\\A6\\B8,CosImpedanceImagePart=223.2672\\A6\\B8,CosInductance=3.553mH,ZeroPositionVoltage=1.132mV,BigSmallWaveDifference=0.03638V,TestResult=Y,TestCount=9,OkCount=9,NgCount=0,PassRate=100.00%\\0D\\0A"; 
+        public static string OKStr = "Func=QueryDetailsWorkResult,Result=Success,ErrTxt=,N=21,Tester=MAC,TestTime=2024-10-24 14:45:10,PolePairs=3,ExctingFrequency=10000Hz,ExctingVoltage=7V,ElectricError  =19.62\\A1\\E4,UpError=19.62\\A1\\E4,DownError=-9.93\\A1\\E4,PeakPeakError=29.55\\A1\\E4,FFTError=0:5.08\\A1\\E4;1:0.38\\A1\\E4;2:0.09\\A1\\E4;3:13.29\\A1\\E4,SinPhaseDisplacement=6.04\\A1\\E3,CosPhaseDisplacement=6.14\\A1\\E3,TranferRate0=0.2814,TranferRate90=0.2819,TranferRate180=0.2865,TranferRate270=0.2854,SinTransferRate=0.2854,CosTransferRate=0.2865,EsImpedance=118.6\\A6\\B8,EsImpedanceRealPart=37.18\\A6\\B8,EsImpedanceImagePart=112.6473\\A6\\B8,EsInductance=1.793mH,SinImpedance=244.2\\A6\\B8,SinImpedanceRealPart=66.4\\A6\\B8,SinImpedanceImagePart=234.9935\\A6\\B8,SinInductance=3.74mH,CosImpedance=233.6\\A6\\B8,CosImpedanceRealPart=68.65\\A6\\B8,CosImpedanceImagePart=223.2672\\A6\\B8,CosInductance=3.553mH,ZeroPositionVoltage=1.132mV,BigSmallWaveDifference=0.03638V,TestResult=Y,TestCount=9,OkCount=9,NgCount=0,PassRate=100.00%\\0D\\0A"; 
 
         public static AtlBrxTestDto ParseDto(string input)
         {
@@ -99,13 +100,17 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
                         //case "Result": result.SafetyTestResult = value; break;
                         //case "ErrTxt": result.ErrTxt = value; break;
                         case "TestResult":
+                            if ("Y" == value)
+                            {
+                                result.Good = true;
+                            }
                             result.AtlBrxTestResult = value;
                             break;
                         //case "ProductModel": result.ProductModel = value; break;
                         //case "ProductId": result.ProductId = value; break;
                         //case "Tester": result.Tester = value; break;
                         case "TestTime":
-                            result.TestTime = value;
+                            result.AtlBrxTestTime = value;
                             break;
                         //case "Func": workResult.Func = value; break;
                         //case "Result": workResult.Result = value; break;

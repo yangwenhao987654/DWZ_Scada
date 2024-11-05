@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using CommunicationUtilYwh.Communication.PLC;
+﻿using CommunicationUtilYwh.Communication.PLC;
 using HslCommunication;
 using HslCommunication.Profinet.Omron;
 using LogTool;
+using System;
 
 //FINS(Factory Interface Network Service)协议
 
@@ -78,12 +77,29 @@ namespace ZC_DataAcquisition
 
         public override bool ReadBool(string address, out bool value)
         {
-            throw new NotImplementedException();
+            var result = client.ReadBool(address);
+            value = result.Content;
+            return result.IsSuccess;
         }
 
+        public override bool ReadInt16(string address, ushort length, out short[] value)
+        {
+            var result = client.ReadInt16(address, length);
+            value = result.Content;
+            return result.IsSuccess;
+        }
+
+        public override bool ReadInt32(string address, ushort length, out int[] value)
+        {
+            var result = client.ReadInt32(address, length);
+            value = result.Content;
+            return result.IsSuccess;
+        }
         public override bool ReadInt16(string address, out short value)
         {
-            throw new NotImplementedException();
+            var result = client.ReadInt16(address);
+            value = result.Content;
+            return result.IsSuccess;
         }
 
         public override bool WriteInt16(string address, short value)

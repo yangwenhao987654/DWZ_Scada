@@ -61,6 +61,20 @@ namespace CommunicationUtilYwh.Communication.PLC
             return result.IsSuccess;
         }
 
+        public override bool ReadInt16(string address, ushort length, out short[] value)
+        {
+            var result = client.ReadInt16(address, length);
+            value = result.Content;
+            return result.IsSuccess;
+        }
+
+        public override bool ReadInt32(string address, ushort length, out int[] value)
+        {
+            var result = client.ReadInt32(address, length);
+            value = result.Content;
+            return result.IsSuccess;
+        }
+
         public override bool Read(string adr, string type, out string value)
         {
             value = "0";

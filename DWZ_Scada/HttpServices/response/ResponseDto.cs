@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWZ_Scada.dao.response
+namespace DWZ_Scada.HttpServices.response
 {
     public class ResponseDto
     {
         public string msg { get; set; }
 
-        public int  code { get; set; }
+        public int code { get; set; }
     }
 }

@@ -172,10 +172,7 @@ namespace DWZ_Scada
         private async void uiButton3_Click(object sender, EventArgs e)
         {
 
-            string SnTemp = "AQW12dswSAW";
-            ProductBomService service = Global.ServiceProvider.GetRequiredService<ProductBomService>();
-            await service.GetBomList(SnTemp);
-            LogMgr.Instance.Info("测试请求BOM完成");
+         
         }
 
         private async void uiButton4_Click(object sender, EventArgs e)

@@ -5,6 +5,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,6 +40,10 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             _instance = new OP40MainFunc(plcConfig);
         }
 
+        public delegate void WeldDataRevived(short[] arr,string type);
+
+        public event WeldDataRevived OnWeldDataRevived;
+
         public event EntryStateChanged OP40EntryStateChanged;
 
         /// <summary>
@@ -56,7 +61,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         {
             StationName = "OP40";
             StationCode = "OP40";
-            Logger.AddChargeInfo("执行大电流放电");
+            //Logger.AddChargeInfo("执行大电流放电");
         }
 
         public void Dispose()
@@ -124,11 +129,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         public override async void PLCMainWork(CancellationToken token)
         {
-            //进站信号
-            bool isEntry;
-            int state = -1;
-            DateTime dt;
-            OP40Model model = new OP40Model();
+            Thread t1 = new Thread(() => WeldingMonitor(token));
+            t1.Start();
+
+            Thread t2 = new Thread(() => VisionMonitor(token));
+            t2.Start();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -142,15 +147,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
                     // 处理进站信号
                     await ProcessEntrySignal();
-
-                    //处理焊接流程 获取焊接数据
-                    await HandleWelding();
-
-                    DamageableRead();
-
-                    //处理画像检测
-                    await HandleVisionResult();
-
                 }
                 catch (Exception ex)
                 {
@@ -161,30 +157,123 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         }
 
         /// <summary>
+        /// 画像检测流程
+        /// </summary>
+        /// <param name="token"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void VisionMonitor(CancellationToken token)
+        {
+            try
+            {
+                if (IsPlc_Connected)
+                {
+                    HandleVisionProcess();
+                    Thread.Sleep(500);
+                }
+                Thread.Sleep(100);
+            }
+            catch (Exception e)
+            {
+                LogMgr.Instance.Error("画像检测线程错误:" + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// 焊接流程
+        /// </summary>
+        /// <param name="token"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void WeldingMonitor(CancellationToken token)
+        {
+            try
+            {
+                if (IsPlc_Connected)
+                {
+                    //TODO 读取大电流放电
+                    ReadCharge();
+
+                    //处理焊接流程 获取焊接数据
+                    HandleWelding();
+
+                 
+                    Thread.Sleep(500);
+                }
+                Thread.Sleep(100);
+            }
+            catch (Exception e)
+            {
+                LogMgr.Instance.Error("焊接流程线程错误:" + e.Message);
+            }
+        }
+
+        private void ReadCharge()
+        {
+            if (PLC.ReadInt16(OP40Address.ChargeStart, out short isStart) && isStart == 1)
+            {
+                Logger.AddChargeInfo("执行大电流放电");
+                LogMgr.Instance.Debug("收到[OP40]放电信号");
+                //复位视觉完成
+                PLC.WriteInt16(OP40Address.ChargeStart, 0);
+            }
+        }
+
+        /// <summary>
         /// 记录当前易损易耗件使用情况
         /// </summary>
         private void DamageableRead()
         {
-            
             //1.读取设备使用次数
             //TODO 读取PLC
+            PLC.ReadInt16(OP40Address.ProbeUseCount, out var count);
 
-
+            PLC.ReadInt16(OP40Address.ElecUseCount, out var count2);
+            Logger.Debug($"读取探针使用次数:[{count}]");
+            Logger.Debug($"读取电极使用次数:[{count2}]");
             //2.上报Mes 
             DamageableDTO dto = new DamageableDTO()
             {
-                deviceCode="",
-                code ="",
-                runNumber = 0,
+                deviceCode="OP40",
+                code ="01", //焊接探针
+                runNumber = count,
+                type = 1,
+            };
+          
+            DamageableDTO dto2 = new DamageableDTO()
+            {
+                deviceCode = "OP40",
+                code = "02", //焊接电极
+                runNumber = count2,
                 type = 1,
             };
             DamageableReport(dto);
+            DamageableReport(dto2);
         }
 
         private async Task HandleWelding()
         {
-            Logger.AddChargeInfo("执行焊接");
-            if (PLC.ReadInt16(OP40Address.WeldingStart, out short isStart) && isStart == 1)
+            if (PLC.ReadInt16(OP40Address.WeldingStart, out short isRequest) && isRequest == 1)
+            {
+                LogMgr.Instance.Debug("收到[OP40]焊接请求信号");
+                //复位视觉完成
+                PLC.WriteInt16(OP40Address.WeldingStart, 0);
+                /*   PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
+                   LogMgr.Instance.Debug("读取出站条码内容:" + sn);
+
+                   //界面更新 焊接开始
+                   OnWeldingFinished?.Invoke(sn, 0);*/
+                //if()
+                if (GlobalOP40.IsAllow)
+                {
+                    PLC.WriteInt16(OP40Address.WeldingConfirm, 1);
+                    LogMgr.Instance.Debug("上位机允许焊接");
+                }
+                else
+                {
+                    PLC.WriteInt16(OP40Address.WeldingConfirm, 2);
+                    LogMgr.Instance.Debug("上位机禁止焊接");
+                }
+            }
+      /*      if (PLC.ReadInt16(OP40Address.WeldingStart, out short isStart) && isStart == 1)
             {
                 LogMgr.Instance.Debug("收到[OP40]焊接开始信号");
                 //复位视觉完成
@@ -194,10 +283,12 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
                 //界面更新 焊接开始
                 OnWeldingFinished?.Invoke(sn, 0);
-            }
-
+            }*/
             if (PLC.ReadInt16(OP40Address.WeldingFinish, out short isFinish) && isFinish == 1)
             {
+                //TODO 焊接一次记录一次
+                Logger.AddChargeInfo("执行焊接");
+                //LogMgr.Instance.Debug("收到[OP40]焊接开始信号");
                 LogMgr.Instance.Debug("收到[OP40]焊接完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.WeldingFinish, 0);
@@ -205,50 +296,68 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
 
                 //TODO 读取焊接数据
+                short[] arrA = new short[6];
+                PLC.ReadInt16(OP40Address.Welding_A_DataStart,6,out arrA);
+                OnWeldDataRevived?.Invoke(arrA, "A");
+                short[] arrB = new short[6];
+                PLC.ReadInt16(OP40Address.Welding_B_DataStart, 6, out arrB);
+                OnWeldDataRevived?.Invoke(arrB, "B");
+                short[] arrC = new short[6];
+                PLC.ReadInt16(OP40Address.Welding_C_DataStart, 6, out arrC);
+                OnWeldDataRevived?.Invoke(arrC, "C");
+                //short[] arr = new short[18];
 
-                short result = CheckWeldingData();
+                //short result = CheckWeldingData();
                 //界面更新
+
+                //TODO 给PLC结果
+                PLC.ReadInt16(OP40Address.WeldingResult, out short result);
                 OnWeldingFinished?.Invoke(sn, result);
                 //string snTest = "QWER123456";
                 //上传Mes测试数据
                 bool isGood = result == 1;
+                LogMgr.Instance.Debug($"焊接结果:{(isGood ? "OK" : "NG")}");
+
                 PassStationDTO dto = new PassStationDTO()
                 {
                     StationCode = StationCode,
                     SnTemp = sn,
                     WorkOrder = "MO202409110002",
-                    PassStationData = new WeldingData()
+                    PassStationData = new OP40WeldingData()
                     {
                         WeldingResult = isGood,
                         Good = isGood,
-                        GasA1 = "1.12",
-                        GasA2 = "35.654",
-                        GasA3 = "35.12",
-                        GasA4 = "12.2",
-                        GasA5 = "66.5",
-                        GasA6 = "0.0",
-                        GasB1 = "1201",
-                        GasB2 = "12.2",
-                        GasB3 = "16.6",
-                        GasB4 = "785.5",
-                        GasB5 = "78.5",
-                        GasB6 = "78.415",
-                        GasC1 = "3.23",
-                        GasC2 = "5.415",
-                        GasC3 = "1.563",
-                        GasC4 = "8.453",
-                        GasC5 = "4.56",
-                        GasC6 = "6.46"
+                        GasA1 = arrA[0].ToString(),
+                        GasA2 = arrA[1].ToString(),
+                        GasA3 = arrA[2].ToString(),
+                        GasA4 = arrA[3].ToString(),
+                        GasA5 = arrA[4].ToString(),
+                        GasA6 = arrA[5].ToString(),
+
+                        GasB1 = arrB[0].ToString(),
+                        GasB2 = arrB[1].ToString(),
+                        GasB3 = arrB[2].ToString(),
+                        GasB4 = arrB[3].ToString(),
+                        GasB5 = arrB[4].ToString(),
+                        GasB6 = arrB[5].ToString(),
+
+                        GasC1 = arrC[0].ToString(),
+                        GasC2 = arrC[1].ToString(),
+                        GasC3 = arrC[2].ToString(),
+                        GasC4 = arrC[3].ToString(),
+                        GasC5 = arrC[4].ToString(),
+                        GasC6 = arrC[5].ToString(),
                     },
                     isLastStep = false
                 };
+
+                DamageableRead();
+
                 (bool res, string msg) = await UploadStationData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传焊接数据错误:" + msg);
                 }
-                LogMgr.Instance.Debug($"焊接结果:{(isGood ? "OK" : "NG")}");
-                PLC.WriteInt16(OP40Address.WeldingResult, result);
             }
         }
 
@@ -261,11 +370,12 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //判断绕线数据 是否正常
             short result = 1;
             
+            //TODO 或者是读PLC 判断结果
             //1 OK 2NG 
             return result;
         }
 
-        private async Task HandleVisionResult()
+        private async Task HandleVisionProcess()
         {
             if (PLC.ReadInt16(OP40Address.VisionStart, out short isStart) && isStart == 1)
             {
@@ -293,9 +403,9 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 PassStationDTO dto = new PassStationDTO()
                 {
                     StationCode = StationCode,
-                    SnTemp = SnTest,
+                    SnTemp = sn,
                     WorkOrder = "MO202409110002",
-                    PassStationData = new Vision1Data()
+                    PassStationData = new OP10Vision1Data()
                     {
                         Vision1Result = visionResult,
                         Good = visionResult,
@@ -330,8 +440,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     WorkOrder = "MO202409110002"
                 };
 
-                (bool flag, string msg) = await EntryRequest(requestDto);
-                short result =(short)(flag ? 1 : 2);
+               /* (bool flag, string msg) = await EntryRequest(requestDto);
+                short result =(short)(flag ? 1 : 2);*/
+                short result =1;
+                bool flag = true;
+                string msg = "";
                 OP40EntryStateChanged?.Invoke(sn, result,msg);
 
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");

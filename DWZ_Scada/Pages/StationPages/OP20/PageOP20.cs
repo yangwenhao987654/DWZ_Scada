@@ -1,6 +1,6 @@
 ﻿using DIPTest;
-using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
+using DWZ_Scada.HttpServices.response;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;

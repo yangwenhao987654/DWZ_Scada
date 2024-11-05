@@ -8,9 +8,10 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
     /// </summary>
     public class SafetyTestDto
     {
+        public bool Good { get; set; }
         public string SafetyTestResult { get; set; } = "N";
 
-        public string TestTime { get; set; }
+        public string SafetyTestTime { get; set; }
 
         public string ACEsCosSinGndResult { get; set; }
 
@@ -99,13 +100,17 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
                         //case "Result": result.SafetyTestResult = value; break;
                         //case "ErrTxt": result.ErrTxt = value; break;
                         case "TestResult":
+                            if ("Y" == value)
+                            {
+                                result.Good =true;
+                            }
                             result.SafetyTestResult = value;
                             break;
                         //case "ProductModel": result.ProductModel = value; break;
                         //case "ProductId": result.ProductId = value; break;
                         //case "Tester": result.Tester = value; break;
                         case "TestTime":
-                            result.TestTime = value;
+                            result.SafetyTestTime = value;
                             break;
                         case "AC_EsCosSin_Gnd_Result":
                             result.ACEsCosSinGndResult = value;

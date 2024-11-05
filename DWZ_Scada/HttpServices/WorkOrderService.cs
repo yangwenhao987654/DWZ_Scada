@@ -1,4 +1,4 @@
-﻿using DWZ_Scada.dao.response;
+﻿
 using DWZ_Scada.HttpRequest;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.HttpServices
 {
-    internal class WorkOrderService
+    public class WorkOrderService
     {
         private readonly HttpClientHelper _httpClientHelper;
         public  string Url => URLConstants.Base + URLConstants.GetWorkOrderUrl;

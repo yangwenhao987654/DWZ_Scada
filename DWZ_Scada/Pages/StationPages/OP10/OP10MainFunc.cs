@@ -172,7 +172,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         StationCode = StationCode,
                         SnTemp = sn,
                         WorkOrder = "MO202410210001",
-                        PassStationData = new Vision1Data()
+                        PassStationData = new OP10Vision1Data()
                         {
                             Vision1Result = result,
                             Good = result,
@@ -192,7 +192,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         StationCode = StationCode,
                         SnTemp = sn,
                         WorkOrder = "MO202410210001",
-                        PassStationData = new Vision1Data()
+                        PassStationData = new OP10Vision1Data()
                         {
                             Vision1Result = result,
                             Good = result,
@@ -242,7 +242,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     SnTemp = sn,
                     WorkOrder = "MO202410210001",
                     StationCode = StationCode,
-                    PassStationData = new Vision2Data()
+                    PassStationData = new OP10Vision2Data()
                     {
                         Vision2Result = result,
                         Good = result,

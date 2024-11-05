@@ -13,7 +13,7 @@ namespace DWZ_Scada.ProcessControl.DTO
     }
 
 
-    public class WeldingData
+    public class OP40WeldingData
     {
         public bool Good { get; set; }
 

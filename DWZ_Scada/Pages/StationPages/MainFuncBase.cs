@@ -21,14 +21,14 @@ namespace DWZ_Scada.Pages.StationPages
     {
         #region 报警状态属性
 
-        private const int AlarmState = 2;
+        private const int AlarmState = 3;
 
         private const int RunningState = 1;
 
         /// <summary>
         /// 设备停止中
         /// </summary>
-        private const int StopState = 3;
+        private const int StopState = 2;
 
         /// <summary>
         /// PLC连接断开
@@ -303,8 +303,11 @@ namespace DWZ_Scada.Pages.StationPages
                 case 1:
                     dto.Status = "run";
                     break;
-                case 2:
+                case 3:
                     dto.Status = "breakdown";
+                    break;
+                case 2:
+                    dto.Status = "stop";
                     break;
                 default:
                     dto.Status = "stop";

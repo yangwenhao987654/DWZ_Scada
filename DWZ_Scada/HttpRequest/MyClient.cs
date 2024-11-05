@@ -55,8 +55,7 @@ namespace DWZ_Scada.HttpRequest
             DeviceInspectDTO dto = new DeviceInspectDTO()
             {
                 DeviceCode = "OP10",
-                DeviceName = "工站01",
-           
+                DeviceName = "工站01",           
             };
             //组装过站数据给Mes
             request.MakePost(url, dto);

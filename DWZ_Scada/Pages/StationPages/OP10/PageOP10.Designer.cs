@@ -74,18 +74,23 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             // tbx_Part
             // 
+            tbx_Part.AcceptsReturn = true;
             tbx_Part.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            tbx_Part.ImeMode = System.Windows.Forms.ImeMode.Disable;
             tbx_Part.Location = new System.Drawing.Point(880, 121);
             tbx_Part.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             tbx_Part.MinimumSize = new System.Drawing.Size(1, 16);
             tbx_Part.Name = "tbx_Part";
             tbx_Part.Padding = new System.Windows.Forms.Padding(5);
             tbx_Part.ShowText = false;
-            tbx_Part.Size = new System.Drawing.Size(202, 36);
+            tbx_Part.Size = new System.Drawing.Size(202, 71);
             tbx_Part.TabIndex = 3;
             tbx_Part.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             tbx_Part.Watermark = "扫码物料码";
+            tbx_Part.Click += tbx_Part_Click;
             tbx_Part.TextChanged += uiTextBox1_TextChanged;
+            tbx_Part.KeyDown += tbx_Part_KeyDown;
+            tbx_Part.KeyPress += tbx_Part_KeyPress;
             // 
             // uiLabel2
             // 
@@ -107,6 +112,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiLabel4.Size = new System.Drawing.Size(140, 42);
             uiLabel4.TabIndex = 6;
             uiLabel4.Text = "当前物料";
+            uiLabel4.Click += uiLabel4_Click;
             // 
             // uiLabel3
             // 

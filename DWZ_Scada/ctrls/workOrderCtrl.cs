@@ -1,5 +1,5 @@
-﻿using DWZ_Scada.dao.response;
-using DWZ_Scada.HttpServices;
+﻿using DWZ_Scada.HttpServices;
+using DWZ_Scada.HttpServices.response;
 using DWZ_Scada.VO;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;

@@ -11,9 +11,10 @@ namespace DWZ_Scada.ProcessControl
         /// <summary>
         /// BaseUrl属性
         /// </summary>
-        public static string Base =>$"http://{SystemParams.Instance.MesIP}/dev-api/";
+        //public static string Base =>$"http://{SystemParams.Instance.MesIP}/dev-api/";
 
-        //public static string Base = $"http://127.0.0.1/dev-api/";
+        public static string Base => $"http://{SystemParams.Instance.MesIP}/";
+        //public static string Base = $"http://192.168.3.12/";
 
         /// <summary>
         /// <para>提供Mes选型接口</para>

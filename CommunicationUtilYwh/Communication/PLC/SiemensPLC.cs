@@ -62,6 +62,20 @@ namespace CommunicationUtilYwh.Communication
             return flag;
         }
 
+        public override bool ReadInt16(string address, ushort length, out short[] value)
+        {
+            var result = client.ReadInt16(address, length);
+            value = result.Content;
+            return result.IsSuccess;
+        }
+
+        public override bool ReadInt32(string address, ushort length, out int[] value)
+        {
+            var result = client.ReadInt32(address, length);
+            value = result.Content;
+            return result.IsSuccess;
+        }
+
         public bool ReadUInt32(string adr, out uint value)
         {
             bool flag = false;

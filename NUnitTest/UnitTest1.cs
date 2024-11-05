@@ -1,3 +1,5 @@
+using DWZ_Scada;
+using DWZ_Scada.HttpServices;
 using DWZ_Scada.ProcessControl.DTO.OP60;
 using System.Diagnostics;
 
@@ -13,7 +15,7 @@ namespace NUnitTest
         [Test]
         public void Test1()
         {
-            Assert.Pass();
+   
         }
 
         [Test]
@@ -22,7 +24,7 @@ namespace NUnitTest
             //Assert.Fail();
             try
             {
-                AtlBrxTestDto dto = AtlBrxTestDto.ParseDto(AtlBrxTestDto.TestInput);
+                AtlBrxTestDto dto = AtlBrxTestDto.ParseDto(AtlBrxTestDto.OKStr);
             }
             catch (Exception ex)
             {        

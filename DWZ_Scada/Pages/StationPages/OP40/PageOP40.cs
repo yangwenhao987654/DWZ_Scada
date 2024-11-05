@@ -1,6 +1,8 @@
-﻿using DWZ_Scada.Pages.PLCAlarm;
+﻿using DIPTest.Ctrl;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
+using DWZ_Scada.ProcessControl.Damageable;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
@@ -58,11 +60,93 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             OP40MainFunc.Instance.OP40EntryStateChanged += Instance_OP40EntryStateChanged;
             OP40MainFunc.Instance.OnVision1Finished += Instance_OnVision1Finished;
             OP40MainFunc.Instance.OnWeldingFinished += Instance_OnWeldingFinished;
+
+            OP40MainFunc.Instance.OnWeldDataRevived += Instance_OnWeldDataRevived;
+
+            //OP40DamageStrategy op40DamageStrategy = new OP40DamageStrategy();
+            //op40DamageStrategy.OnDamageableEvent += Op40DamageStrategy_OnSelectionEvent;
+
+        }
+
+        private void Op40DamageStrategy_OnSelectionEvent(object sender, DamageEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Instance_OnWeldDataRevived(short[] arr,string type)
+        {
+            UpdateWeldingData(arr, type);
+        }
+
+        public void UpdateWeldingData(short[] arr,string type)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => UpdateWeldingData(arr,type)));
+                return;
+            }
+            switch (type)
+            {
+                case "A":
+                    lbl_1_A.Text = arr[0].ToString();
+                    lbl_2_A.Text = arr[1].ToString();
+                    lbl_3_A.Text = arr[2].ToString();
+                    lbl_4_A.Text = arr[3].ToString();
+                    lbl_5_A.Text = arr[4].ToString();
+                    lbl_6_A.Text = arr[5].ToString();
+
+          /*          lbl_2_A.Text = arr[3].ToString();
+                    lbl_2_B.Text = arr[4].ToString();
+                    lbl_2_C.Text = arr[5].ToString();*/
+                    break;
+                  
+                case "B":
+       
+                    lbl_1_B.Text = arr[0].ToString();
+                    lbl_2_B.Text = arr[1].ToString();
+                    lbl_3_B.Text = arr[2].ToString();
+                    lbl_4_B.Text = arr[3].ToString();
+                    lbl_5_B.Text = arr[4].ToString();
+                    lbl_6_B.Text = arr[5].ToString();
+                    break;
+                case "C":
+                    lbl_1_C.Text = arr[0].ToString();
+                    lbl_2_C.Text = arr[1].ToString();
+                    lbl_3_C.Text = arr[2].ToString();
+                    lbl_4_C.Text = arr[3].ToString();
+                    lbl_5_C.Text = arr[4].ToString();
+                    lbl_6_C.Text = arr[5].ToString();
+                    break;
+
+            }
+/*            lbl_1_A.Text = arr[0].ToString();
+            lbl_1_B.Text = arr[1].ToString();
+            lbl_1_C.Text = arr[2].ToString();
+
+            lbl_2_A.Text = arr[3].ToString();
+            lbl_2_B.Text = arr[4].ToString();
+            lbl_2_C.Text = arr[5].ToString();
+
+            lbl_3_A.Text = arr[6].ToString();
+            lbl_3_B.Text = arr[7].ToString();
+            lbl_3_C.Text = arr[8].ToString();
+
+            lbl_4_A.Text = arr[9].ToString();
+            lbl_4_B.Text = arr[10].ToString();
+            lbl_4_C.Text = arr[11].ToString();
+
+            lbl_5_A.Text = arr[12].ToString();
+            lbl_5_B.Text = arr[13].ToString();
+            lbl_5_C.Text = arr[14].ToString();
+
+            lbl_6_A.Text = arr[15].ToString();
+            lbl_6_B.Text = arr[16].ToString();
+            lbl_6_C.Text = arr[17].ToString();*/
         }
 
         private void Instance_OnWeldingFinished(string sn, int result)
         {
-            MyUIControler.UpdateTestStateCtrl(userCtrlResult_Welding,sn,result);
+            MyUIControler.UpdateTestStateCtrl(userCtrlResult_Welding, sn, result);
         }
 
         private void Instance_OnVision1Finished(string sn, int result)
@@ -72,7 +156,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         private void Instance_OP40EntryStateChanged(string sn, int result, string msg = "")
         {
-            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP40,sn, result, msg);
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP40, sn, result, msg);
         }
 
         private void OP10SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
@@ -98,6 +182,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 OP40MainFunc.Instance?.Dispose();
             }
             LogMgr.Instance.Info($"关闭OP40程序");
+        }
+
+        private void lbl_3_B_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

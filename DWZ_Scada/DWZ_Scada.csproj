@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\PLCControl\" />
+    <Folder Include="ProcessControl\DTO\OP40\" />
     <Folder Include="Test\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties testjsonfile_4getworkorder_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>

@@ -8,46 +8,52 @@ namespace DWZ_Scada.ProcessControl.DTO.OP20
 {
     public class CoildDataDto
     {
-  
         public CoildDataDto(CoildDataDto dto)
         {
 
             CoilsCurNum = dto.CoilsCurNum;
             CoilsTargetNum = dto.CoilsTargetNum;
-            CoilsSpeed = dto.CoilsSpeed;
+            //CoilsSpeed = dto.CoilsSpeed;
             CoilsTimes = dto.CoilsTimes;
-            TensionValue = 0;
+            //TensionValueList = new();
         }
 
         public CoildDataDto()
         {
+
         }
+
+        public bool Good { get; set; }
+
+
+        /// <summary>
+        /// 当前批次号
+        /// </summary>
+        public string BreachNo { get; set; }
 
         /// <summary>
         /// 当前绕线圈数
         /// </summary>
-        public   uint CoilsCurNum { get; set; }
+        public   double CoilsCurNum { get; set; }
 
         /// <summary>
         /// 绕线目标圈数
         /// </summary>
-        public   uint CoilsTargetNum { get; set; }
+        public   double CoilsTargetNum { get; set; }
 
-        /// <summary>
+      /*  /// <summary>
         /// 绕线速度
         /// </summary>
-        public   uint CoilsSpeed { get; set; }
+        public   double CoilsSpeed { get; set; }*/
 
         /// <summary>
         /// 绕线周期
         /// </summary>
-        public uint CoilsTimes { get; set; }
+        public double CoilsTimes { get; set; }
 
         /// <summary>
-        /// 张力值
+        /// 张力值 List
         /// </summary>
-        public short TensionValue { get; set; }
-
-       
+        public string TensionValue { get; set; }
     }
 }

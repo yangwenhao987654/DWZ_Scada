@@ -11,26 +11,27 @@ namespace DWZ_Scada.ProcessControl.DTO
         /// <summary>
         /// 流水号
         /// </summary>
-        public int BomId { get; set; }
+        public string BomId { get; set; }
 
         /// <summary>
         /// 物料产品ID
         /// </summary>
-        public int ItemId { get; set; }
+        public string ItemId { get; set; }
 
         /// <summary>
         /// Bom物料ID
         /// </summary>
-        public int BomItemId { get; set; }
+        public string BomItemId { get; set; }
 
         /// <summary>
         /// Bom物料编码
+        /// TODO 需要这个
         /// </summary>
-        public int BomItemCode { get; set; }
+        public string BomItemCode { get; set; }
 
         /// <summary>
         /// Bom物料名称
         /// </summary>
-        public int BomItemName { get; set; }
+        public string BomItemName { get; set; }
     }
 }

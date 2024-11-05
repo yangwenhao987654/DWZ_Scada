@@ -9,8 +9,10 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 {
     public class GlobalOP40
     {
-
-    
+        /// <summary>
+        /// 焊接允许信号
+        /// </summary>
+        public static bool IsAllow = true;
 
     }
 }

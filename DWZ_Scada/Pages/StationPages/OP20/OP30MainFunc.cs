@@ -168,7 +168,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     StationCode = StationCode,
                     SnTemp = SnTest,
                     WorkOrder = "MO202409110002",
-                    PassStationData = new Vision1Data()
+                    PassStationData = new OP10Vision1Data()
                     {
                         Vision1Result = visionResult,
                         Good = visionResult,

@@ -1,8 +1,8 @@
 ﻿using CommunicationUtilYwh.Communication;
 using DIPTest.Ctrl;
 using DWZ_Scada.ctrls.LogCtrl;
-using DWZ_Scada.dao.response;
 using DWZ_Scada.HttpServices;
+using DWZ_Scada.HttpServices.response;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using TouchSocket.Core;
 using TouchSocket.Http;
 using TouchSocket.Sockets;
+using UtilUIYwh;
 
 namespace DWZ_Scada.Pages.StationPages.OP10
 {
@@ -225,11 +226,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 OP10MainFunc.Instance?.Dispose();
             }
-           
+
             LogMgr.Instance.Info("关闭OP10程序");
         }
 
-     
+
 
         private void uiLabel2_Click(object sender, EventArgs e)
         {
@@ -333,16 +334,52 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void uiTextBox1_TextChanged(object sender, EventArgs e)
         {
-
+            /* if (tbx_Part.Text.EndsWith("\n"))
+             {
+                 string msg = tbx_Part.Text.Trim().Replace("\n", "");
+                 UIMessageBox.ShowError($"输入[{msg}],长度[{msg.Length}]");
+             }*/
         }
 
         private async void uiButton1_Click_2(object sender, EventArgs e)
         {
             ProductBomService bomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
-            (bool flag, string msg) = await bomService.GetBomList(OP10MainFunc.Instance.CurProductCode);
-            if (!flag) {
-                Mylog.Instance.Error("获取Bom失败:"+msg);
+            (bool flag, string msg, ProductDetailDto dto) = await bomService.GetBomList(OP10MainFunc.Instance.CurProductCode);
+            if (!flag)
+            {
+                Mylog.Instance.Error("获取Bom失败:" + msg);
             }
+        }
+
+        private void uiLabel4_Click(object sender, EventArgs e)
+        {
+            string msg = tbx_Part.Text;
+        }
+
+        private void tbx_Part_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                UIMessageBox.ShowError("按下回车");
+                //这里是能捕捉到这个动作的
+
+                //TODO 抛出一个输入完成事件
+            }
+        }
+
+        private void tbx_Part_KeyDown(object sender, KeyEventArgs e)
+        {
+            /* if (e.KeyCode == Keys.Enter)
+             {
+                 UIMessageBox.ShowError("键盘按下回车");
+             }*/
+        }
+
+        private void tbx_Part_Click(object sender, EventArgs e)
+        {
+            //TODO 点击输入框 自动切换输入法为英文
+            //InputMethodSwitcher.Set_En_US_LanguageMode();
+
         }
     }
 }
