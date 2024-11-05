@@ -508,7 +508,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         /// <returns></returns>
         private async Task ProcessAtlBrxTest2()
         {
-
             if (PLC.ReadInt16(OP60Address.AtlBrxStartSignal2, out short isEntry2) && isEntry2 == 1)
             {
                 PLC.WriteInt16(OP60Address.AtlBrxStartSignal2, 0);
