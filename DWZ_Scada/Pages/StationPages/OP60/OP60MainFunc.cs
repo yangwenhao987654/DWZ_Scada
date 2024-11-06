@@ -276,9 +276,9 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 OP60EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {
-                    SnTemp = SnTest,
+                    SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = "MO202409110002"
+                    WorkOrder = CurWorkOrder,
                 };
                 //(bool flag, string msg) = await EntryRequest(requestDto);
                 bool flag = true;
@@ -293,8 +293,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PLC.WriteInt16(OP60Address.EntryResult, result);
             }
         }
-
-
 
         private void StartTest(int pos, string sn)
         {

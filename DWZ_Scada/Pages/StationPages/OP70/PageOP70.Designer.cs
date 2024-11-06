@@ -38,14 +38,21 @@
             uiButton2 = new Sunny.UI.UIButton();
             uiLabel3 = new Sunny.UI.UILabel();
             uiButton3 = new Sunny.UI.UIButton();
-            uiLabel8 = new Sunny.UI.UILabel();
             uiSwitch_Spot = new Sunny.UI.UISwitch();
             uiLabel5 = new Sunny.UI.UILabel();
             cbx_Orders = new Sunny.UI.UIComboBox();
             uiButton4 = new Sunny.UI.UIButton();
             tbxTest = new Sunny.UI.UITextBox();
-            btn_Test = new Sunny.UI.UIButton();
-            userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
+            uiLabel6 = new Sunny.UI.UILabel();
+            userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
+            userCtrlVisionResult = new DIPTest.Ctrl.UserCtrlResult();
+            uiLabel11 = new Sunny.UI.UILabel();
+            uiLabel7 = new Sunny.UI.UILabel();
+            lbl_FinalCode = new Sunny.UI.UILabel();
+            uiLabel9 = new Sunny.UI.UILabel();
+            lbl_grade = new Sunny.UI.UILabel();
+            lbl_CodeResult = new Sunny.UI.UILabel();
+            uiLabel10 = new Sunny.UI.UILabel();
             SuspendLayout();
             // 
             // uiLabel1
@@ -142,16 +149,6 @@
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton3.Click += uiButton3_Click;
             // 
-            // uiLabel8
-            // 
-            uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(879, 61);
-            uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new System.Drawing.Size(212, 36);
-            uiLabel8.TabIndex = 14;
-            uiLabel8.Text = "绕线检查结果";
-            // 
             // uiSwitch_Spot
             // 
             uiSwitch_Spot.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -219,40 +216,137 @@
             tbxTest.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             tbxTest.Watermark = "张力测试（输入机台号,SN,工位号1|2）";
             // 
-            // btn_Test
+            // uiLabel6
             // 
-            btn_Test.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Location = new System.Drawing.Point(1051, 57);
-            btn_Test.MinimumSize = new System.Drawing.Size(1, 1);
-            btn_Test.Name = "btn_Test";
-            btn_Test.Size = new System.Drawing.Size(122, 42);
-            btn_Test.TabIndex = 22;
-            btn_Test.Text = "测试";
-            btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Click += btn_Test_Click;
+            uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel6.Location = new System.Drawing.Point(62, 230);
+            uiLabel6.Margin = new System.Windows.Forms.Padding(0);
+            uiLabel6.Name = "uiLabel6";
+            uiLabel6.Size = new System.Drawing.Size(133, 42);
+            uiLabel6.TabIndex = 71;
+            uiLabel6.Text = "产品进站:";
             // 
-            // userCtrlResult1
+            // userCtrlEntry1
             // 
-            userCtrlResult1.Location = new System.Drawing.Point(119, 323);
-            userCtrlResult1.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlResult1.Name = "userCtrlResult1";
-            userCtrlResult1.Size = new System.Drawing.Size(981, 423);
-            userCtrlResult1.TabIndex = 23;
-            userCtrlResult1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlResult1.TextFont = new System.Drawing.Font("幼圆", 98F);
+            userCtrlEntry1.Location = new System.Drawing.Point(62, 276);
+            userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlEntry1.Name = "userCtrlEntry1";
+            userCtrlEntry1.Size = new System.Drawing.Size(313, 168);
+            userCtrlEntry1.TabIndex = 70;
+            userCtrlEntry1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlEntry1.TextFont = new System.Drawing.Font("微软雅黑", 50F);
+            // 
+            // userCtrlVisionResult
+            // 
+            userCtrlVisionResult.Location = new System.Drawing.Point(62, 555);
+            userCtrlVisionResult.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlVisionResult.Name = "userCtrlVisionResult";
+            userCtrlVisionResult.Size = new System.Drawing.Size(313, 168);
+            userCtrlVisionResult.TabIndex = 73;
+            userCtrlVisionResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlVisionResult.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            // 
+            // uiLabel11
+            // 
+            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel11.Location = new System.Drawing.Point(47, 509);
+            uiLabel11.Margin = new System.Windows.Forms.Padding(0);
+            uiLabel11.Name = "uiLabel11";
+            uiLabel11.Size = new System.Drawing.Size(121, 42);
+            uiLabel11.TabIndex = 72;
+            uiLabel11.Text = "画像检测:";
+            uiLabel11.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // uiLabel7
+            // 
+            uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel7.Location = new System.Drawing.Point(464, 230);
+            uiLabel7.Margin = new System.Windows.Forms.Padding(0);
+            uiLabel7.Name = "uiLabel7";
+            uiLabel7.Size = new System.Drawing.Size(97, 42);
+            uiLabel7.TabIndex = 74;
+            uiLabel7.Text = "最终码:";
+            // 
+            // lbl_FinalCode
+            // 
+            lbl_FinalCode.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_FinalCode.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_FinalCode.Location = new System.Drawing.Point(561, 230);
+            lbl_FinalCode.Margin = new System.Windows.Forms.Padding(0);
+            lbl_FinalCode.Name = "lbl_FinalCode";
+            lbl_FinalCode.Size = new System.Drawing.Size(329, 42);
+            lbl_FinalCode.TabIndex = 75;
+            lbl_FinalCode.Text = "最终码:";
+            // 
+            // uiLabel9
+            // 
+            uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel9.Location = new System.Drawing.Point(464, 292);
+            uiLabel9.Margin = new System.Windows.Forms.Padding(0);
+            uiLabel9.Name = "uiLabel9";
+            uiLabel9.Size = new System.Drawing.Size(97, 42);
+            uiLabel9.TabIndex = 76;
+            uiLabel9.Text = "等   级:";
+            // 
+            // lbl_grade
+            // 
+            lbl_grade.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_grade.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_grade.Location = new System.Drawing.Point(551, 276);
+            lbl_grade.Margin = new System.Windows.Forms.Padding(0);
+            lbl_grade.Name = "lbl_grade";
+            lbl_grade.Size = new System.Drawing.Size(112, 61);
+            lbl_grade.TabIndex = 77;
+            lbl_grade.Text = "A";
+            lbl_grade.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_CodeResult
+            // 
+            lbl_CodeResult.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_CodeResult.ForeColor = System.Drawing.Color.Green;
+            lbl_CodeResult.Location = new System.Drawing.Point(584, 337);
+            lbl_CodeResult.Margin = new System.Windows.Forms.Padding(0);
+            lbl_CodeResult.Name = "lbl_CodeResult";
+            lbl_CodeResult.Size = new System.Drawing.Size(160, 81);
+            lbl_CodeResult.TabIndex = 78;
+            lbl_CodeResult.Text = "OK";
+            lbl_CodeResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel10
+            // 
+            uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel10.Location = new System.Drawing.Point(464, 337);
+            uiLabel10.Margin = new System.Windows.Forms.Padding(0);
+            uiLabel10.Name = "uiLabel10";
+            uiLabel10.Size = new System.Drawing.Size(97, 42);
+            uiLabel10.TabIndex = 79;
+            uiLabel10.Text = "结   果:";
+            uiLabel10.Click += uiLabel10_Click;
             // 
             // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
-            Controls.Add(userCtrlResult1);
-            Controls.Add(btn_Test);
+            Controls.Add(uiLabel10);
+            Controls.Add(lbl_CodeResult);
+            Controls.Add(lbl_grade);
+            Controls.Add(uiLabel9);
+            Controls.Add(lbl_FinalCode);
+            Controls.Add(uiLabel7);
+            Controls.Add(userCtrlVisionResult);
+            Controls.Add(uiLabel11);
+            Controls.Add(uiLabel6);
+            Controls.Add(userCtrlEntry1);
             Controls.Add(tbxTest);
             Controls.Add(uiButton4);
             Controls.Add(cbx_Orders);
             Controls.Add(uiLabel5);
             Controls.Add(uiSwitch_Spot);
-            Controls.Add(uiLabel8);
             Controls.Add(uiButton3);
             Controls.Add(uiLabel3);
             Controls.Add(uiButton2);
@@ -280,13 +374,20 @@
         private Sunny.UI.UIButton uiButton2;
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UIButton uiButton3;
-        private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UISwitch uiSwitch_Spot;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UIComboBox cbx_Orders;
         private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UITextBox tbxTest;
-        private Sunny.UI.UIButton btn_Test;
-        private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
+        private Sunny.UI.UILabel uiLabel6;
+        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
+        private DIPTest.Ctrl.UserCtrlResult userCtrlVisionResult;
+        private Sunny.UI.UILabel uiLabel11;
+        private Sunny.UI.UILabel uiLabel7;
+        private Sunny.UI.UILabel lbl_FinalCode;
+        private Sunny.UI.UILabel uiLabel9;
+        private Sunny.UI.UILabel lbl_grade;
+        private Sunny.UI.UILabel lbl_CodeResult;
+        private Sunny.UI.UILabel uiLabel10;
     }
 }

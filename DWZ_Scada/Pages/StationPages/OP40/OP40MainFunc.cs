@@ -161,13 +161,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// </summary>
         /// <param name="token"></param>
         /// <exception cref="NotImplementedException"></exception>
-        private void VisionMonitor(CancellationToken token)
+        private async void VisionMonitor(CancellationToken token)
         {
             try
             {
                 if (IsPlc_Connected)
                 {
-                    HandleVisionProcess();
+                   await  HandleVisionProcess();
                     Thread.Sleep(500);
                 }
                 Thread.Sleep(100);

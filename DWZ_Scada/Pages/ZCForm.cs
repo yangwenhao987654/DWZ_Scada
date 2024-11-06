@@ -57,6 +57,7 @@ namespace DWZ_Scada.Pages
             {
                 try
                 {
+                    PlcAlarmLoader.Save();
                     LogMgr.Instance.Info("退出程序");
                     MyHttpService?.Stop();
                     MyHttpService?.Dispose();

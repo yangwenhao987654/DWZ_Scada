@@ -23,6 +23,12 @@
         /// </summary>
         public static readonly string VisionOut = "D300";
 
+
+        /// <summary>
+        /// 最终码开始打码
+        /// </summary>
+        public static readonly string FinalCodeStart = "M32";
+
         /// <summary>
         /// 最终码完成
         /// </summary>
@@ -43,15 +49,6 @@
         /// </summary>
         public static readonly string FinalCodeResult = "D320";
 
-        /// <summary>
-        /// 报警信息地址 起始地址
-        /// </summary>
-        public static readonly string AlarmAddress = "";
-
-        /// <summary>
-        /// 报警地址长度 
-        /// </summary>
-        public const int AlarmAddressLength = 50;
 
         /// <summary>
         /// 进站SN码
@@ -76,5 +73,9 @@
         /// 上位机判断是否允许进站 返回Mes
         /// </summary>
         public static readonly string EntryResult = "M20";
+
+        public static readonly string VisionStart = "";
+
+
     }
 }

@@ -7,27 +7,24 @@ using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.EntryHandle;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RestSharp;
 using Sunny.UI;
+using Sunny.UI.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DWZ_Scada
 {
     public partial class PageOP70 : UIPage
     {
-
         public List<OrderVo> Orders { get; set; }
-
-        /// <summary>
-        /// 数据模型
-        /// </summary>
-        public OP70Model Model;
 
         private static PageOP70 _instance;
         public static PageOP70 Instance
@@ -47,10 +44,6 @@ namespace DWZ_Scada
                 return _instance;
             }
         }
-
-       
-
-        public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
 
         private PageOP70()
         {
@@ -72,6 +65,45 @@ namespace DWZ_Scada
 
             OP70MainFunc.CreateInstance(plcConfig);
             OP70MainFunc.Instance.StartAsync();
+
+            OP70MainFunc.Instance.OnVision1Finished += Instance_OnVision1Finished;
+            OP70MainFunc.Instance.OP70EntryStateChanged += Instance_OP70EntryStateChanged;
+            OP70MainFunc.Instance.OP70FinalCodeFinished += Instance_OP70FinalCodeFinished;
+        }
+
+        private void Instance_OP70FinalCodeFinished(string finalcode, string codeType, bool result)
+        {
+            UpdateFinalcodeUI(finalcode, codeType, result);
+        }
+
+        private void UpdateFinalcodeUI(string finalcode, string codeType, bool result)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string, string, bool>(UpdateFinalcodeUI),
+                    finalcode, codeType, result);
+                return;
+            }
+            if (result) {
+                lbl_CodeResult.Text = "OK";
+                lbl_CodeResult.ForeColor =Color.Green;
+            }
+            else {
+                lbl_CodeResult.Text = "NG";
+                lbl_CodeResult.ForeColor = Color.Red;
+            }
+            lbl_FinalCode.Text = finalcode;
+            lbl_grade.Text = finalcode;
+        }
+
+        private void Instance_OP70EntryStateChanged(string sn, int result, string msg = "")
+        {
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry1, sn, result, msg);
+        }
+
+        private void Instance_OnVision1Finished(string sn, int result)
+        {
+            MyUIControler.UpdateTestStateCtrl(userCtrlVisionResult, sn, result);
         }
 
         private void OP70SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
@@ -88,17 +120,6 @@ namespace DWZ_Scada
         private void uiLabel1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void uiButton1_Click(object sender, EventArgs e)
-        {
-            string sn = uiTextBox1.Text;
-            if (string.IsNullOrEmpty(sn))
-            {
-                sn = "24TT0001";
-            }
-            EntryCommand op10Entry = new OP10EntryCommand(sn);
-            op10Entry.Execute();
         }
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
@@ -195,22 +216,9 @@ namespace DWZ_Scada
 
         }
 
-        private void btn_Test_Click(object sender, EventArgs e)
+        private void uiLabel10_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string str = tbxTest.Text;
-                string[] strings = str.Split(",");
-                int index = int.Parse(strings[0]);
-                string sn = strings[1];
-                int pos = int.Parse(strings[2]);
-                WindingCtrlList[index - 1].StartTest(sn, pos);
-            }
-            catch (Exception exception)
-            {
-                LogMgr.Instance.Error("测试错误:"+exception.Message);
-                UIMessageBox.ShowError("测试错误:" + exception.Message);
-            }
+
         }
     }
 }

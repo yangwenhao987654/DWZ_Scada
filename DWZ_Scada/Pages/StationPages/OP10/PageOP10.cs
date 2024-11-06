@@ -61,8 +61,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
         }
 
-
-
         private PageOP10()
         {
             InitializeComponent();
