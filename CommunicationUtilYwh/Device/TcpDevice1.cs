@@ -1,12 +1,8 @@
 ﻿using CommunicationUtilYwh.Communication.TCP;
 using LogTool;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace CommunicationUtilYwh.Device
 {
@@ -179,8 +175,10 @@ namespace CommunicationUtilYwh.Device
         {
             cmd += "\r\n";
             bool f = Write(cmd);
-
+            LogMgr.Instance.Debug("发送命令:"+cmd);
+            Thread.Sleep(500);
             string result = Read();
+            LogMgr.Instance.Debug("读取结果:" + result);
             return result;
 
         }
@@ -191,7 +189,6 @@ namespace CommunicationUtilYwh.Device
             int times = 0;
             while (true)
             {
-
                 times++;
                 res = tcpclient.Read();
                 if (!string.IsNullOrEmpty(res))
@@ -220,7 +217,6 @@ namespace CommunicationUtilYwh.Device
             lock (_lock)
             {
                 return tcpclient.Write(msg);
-
             }
         }
 

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using TouchSocket.Core;
 
 namespace DWZ_Scada.Pages.StationPages.OP60
 {
@@ -127,7 +128,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             await DeviceStateService.AddDeviceState(dto);
         }
 
-        public override void PLCMainWork(CancellationToken token)
+        public override async void PLCMainWork(CancellationToken token)
         {
             //进站信号
             bool isEntry;
@@ -157,7 +158,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
                     HandleAlarm();
                     // 处理进站信号
-                    ProcessEntrySignal();
+                    await ProcessEntrySignal();
 
                 }
                 catch (Exception ex)
@@ -169,7 +170,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             }
         }
 
-        private void SafetyTestMonitor(CancellationToken token)
+        private async void SafetyTestMonitor(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
@@ -179,7 +180,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     {
                         if (SafetyDevice1.IsConnect())
                         {
-                            ProcessSafetyTestSignal();
+                            await ProcessSafetyTestSignal();
                         }
                         Thread.Sleep(500);
                     }
@@ -187,13 +188,13 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 }
                 catch (Exception e)
                 {
-                    LogMgr.Instance.Error("安规测试线程错误:" + e.Message);
+                    LogMgr.Instance.Error("安规测试1线程错误:" + e.StackTrace);
                 }
             }
         }
 
 
-        private void SafetyTestMonitor2(CancellationToken token)
+        private async void SafetyTestMonitor2(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
@@ -203,7 +204,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     {
                         if (SafetyDevice2.IsConnect())
                         {
-                            ProcessSafetyTestSignal2();
+                            await ProcessSafetyTestSignal2();
                         }
                         Thread.Sleep(500);
                     }
@@ -211,12 +212,12 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 }
                 catch (Exception e)
                 {
-                    LogMgr.Instance.Error("安规测试线程错误:" + e.Message);
+                    LogMgr.Instance.Error("安规测试2线程错误:" + e.StackTrace);
                 }
             }
         }
 
-        private void AtlBrxTestMonitor(CancellationToken token)
+        private async void AtlBrxTestMonitor(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
@@ -226,7 +227,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     {
                         if (AtlBrxDevice1.IsConnect())
                         {
-                            ProcessAtlBrxTest();
+                            await ProcessAtlBrxTest();
                         }
 
                         Thread.Sleep(500);
@@ -235,12 +236,12 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 }
                 catch (Exception e)
                 {
-                    LogMgr.Instance.Error("电性能测试线程错误:" + e.Message);
+                    LogMgr.Instance.Error("电性能测试1线程错误:" + e.StackTrace);
                 }
             }
         }
 
-        private void AtlBrxTestMonitor2(CancellationToken token)
+        private async void AtlBrxTestMonitor2(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
@@ -250,7 +251,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     {
                         if (AtlBrxDevice2.IsConnect())
                         {
-                            ProcessAtlBrxTest2();
+                            await ProcessAtlBrxTest2();
                         }
 
                         Thread.Sleep(500);
@@ -259,7 +260,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 }
                 catch (Exception e)
                 {
-                    LogMgr.Instance.Error("电性能测试线程错误:" + e.Message);
+                    LogMgr.Instance.Error("电性能测试2线程错误:" + e.StackTrace);
                 }
             }
         }
@@ -315,7 +316,9 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<short> HandleSafetyTestAndResult(TcpDevice1 device, string sn)
         {
-            int state = await TriggerDeviceTest(device, sn);
+            Mylog.Instance.Debug($"准备触发测试");
+            int state = await TriggerDeviceTest(device, sn, SystemParams.Instance.OP60_Safety_TimeOut * 1000);
+            Logger.Debug($"获取测试状态:[{state}]");
             SafetyTestDto dto = new SafetyTestDto();
             short result = 2; //结果2 表示NG
             if (state == 2)
@@ -341,7 +344,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PassStationData = dto,
                 isLastStep = false,
             };
-            (bool flag, string msg) = await UploadStationData(requestDto);
+            // (bool flag, string msg) = await UploadStationData(requestDto);
+            string msg = "屏蔽mes";
             LogMgr.Instance.Debug($"Device:[{device.Name}]写安规测试结果:{result} :\n{msg}");
             /*if (flag)
             {
@@ -353,7 +357,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<short> HandleAtlBrxTestAndResult(TcpDevice1 device, string sn)
         {
-            int state = await TriggerDeviceTest(device, sn);
+            int state = await TriggerDeviceTest(device, sn, SystemParams.Instance.OP60_AtlBrx_TimeOut * 60);
             AtlBrxTestDto dto = new AtlBrxTestDto();
             short result = 2; //结果2 表示NG
             if (state == 2)
@@ -396,22 +400,34 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PLC.WriteInt16(OP60Address.SafetyStartSignal, 0);
                 Mylog.Instance.Debug("安规测试1开始..");
                 //工位1 安规测试
+                PLC.Read(OP60Address.SafetyTestSN1, "string-8", out string sn1);
+                PageOP60.Instance.StartTestUI(1, sn1);
                 Task task1 = Task.Run(async () =>
                 {
-                    PLC.Read(OP60Address.SafetyTestSN1, "string-8", out string sn1);
-                    PageOP60.Instance.StartTestUI(1, sn1);
-                    short result = await HandleSafetyTestAndResult(SafetyDevice1, sn1);
-                    if (result == 1)
+                    try
                     {
-                        PageOP60.Instance.TestPassUI(1, sn1);
+                        short result = await HandleSafetyTestAndResult(SafetyDevice1, sn1);
+                        Mylog.Instance.Debug($"await 异步测试完成..result:[{result}]");
+                        if (result == 1)
+                        {
+                            PageOP60.Instance.TestPassUI(1, sn1);
+                        }
+                        else
+                        {
+                            PageOP60.Instance.TestFailUI(1, sn1);
+                        }
+                        PLC.WriteInt16(OP60Address.SafetyResult1, result);
+                        Mylog.Instance.Debug($"安规测试1完成..结果[{(result == 1 ? "OK" : "NG")}]");
                     }
-                    else
+                    catch (Exception ex)
                     {
                         PageOP60.Instance.TestFailUI(1, sn1);
+                        PLC.WriteInt16(OP60Address.SafetyResult1, 2);
+                        Mylog.Instance.Error("安规测试1等待测试异步任务错误:" + ex.Message);
+                        Mylog.Instance.Error(ex.StackTrace);
                     }
-                    PLC.WriteInt16(OP60Address.SafetyResult1, result);
-                    Mylog.Instance.Debug($"安规测试1完成..结果[{(result == 1 ? "OK" : "NG")}]");
                 });
+                //task1.Wait();
 
             }
         }
@@ -421,43 +437,60 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         {
             if (PLC.ReadInt16(OP60Address.SafetyStartSignal2, out short isEntry2) && isEntry2 == 1)
             {
+
                 PLC.WriteInt16(OP60Address.SafetyStartSignal2, 0);
                 Mylog.Instance.Debug("安规测试2开始..");
+                //工位2 安规测试
+                PLC.Read(OP60Address.SafetyTestSN2, "string-8", out string sn2);
+                PageOP60.Instance.StartTestUI(2, sn2);
                 Task task2 = Task.Run(async () =>
                 {
-                    //工位2 安规测试
-                    PLC.Read(OP60Address.SafetyTestSN2, "string-8", out string sn2);
-                    PageOP60.Instance.StartTestUI(2, sn2);
-                    short result = await HandleSafetyTestAndResult(SafetyDevice2, sn2);
-                    if (result == 1)
+
+                    try
                     {
-                        PageOP60.Instance.TestPassUI(2, sn2);
+                        short result = await HandleSafetyTestAndResult(SafetyDevice2, sn2);
+                        if (result == 1)
+                        {
+                            PageOP60.Instance.TestPassUI(2, sn2);
+                        }
+                        else
+                        {
+                            PageOP60.Instance.TestFailUI(2, sn2);
+                        }
+                        PLC.WriteInt16(OP60Address.SafetyResult2, result);
+                        Mylog.Instance.Debug($"安规测试2完成..结果[{(result == 1 ? "OK" : "NG")}]");
+
                     }
-                    else
+                    catch (Exception ex)
                     {
                         PageOP60.Instance.TestFailUI(2, sn2);
+                        PLC.WriteInt16(OP60Address.SafetyResult2, 2);
+                        Mylog.Instance.Error("安规测试2等待测试异步任务错误:" + ex.Message);
+                        Mylog.Instance.Error(ex.StackTrace);
                     }
-                    PLC.WriteInt16(OP60Address.SafetyResult2, result);
-                    Mylog.Instance.Debug($"安规测试2完成..结果[{(result == 1 ? "OK" : "NG")}]");
                 });
-
+                /*                task2.Wait();*/
             }
         }
 
-        private async Task<int> TriggerDeviceTest(TcpDevice1 device, string sn)
+        private async Task<int> TriggerDeviceTest(TcpDevice1 device, string sn, int timeout)
         {
+            Mylog.Instance.Debug($"清除上一次数据");
             device.ClearData();
-            Thread.Sleep(200);
+            //Thread.Sleep(200);
+            Mylog.Instance.Debug($"更新产品ID");
             device.UpdateProduct(sn);
-            Thread.Sleep(200);
+            //Thread.Sleep(200);
+            Mylog.Instance.Debug($"触发测试命令");
             device.TriggerWork();
-            Thread.Sleep(100);
+            //Thread.Sleep(100);
             Logger.Debug($"[{device.Name}]触发测试");
             var service = new ElecDeviceService(device);
             //解析测试结果
             //1.获取测试状态值
             //TODO 一直监控测试状态,控制超时时间
-            int timeout = 1000 * 60; // 设置超时时间（毫秒）
+            //int timeout = 1000 * 60; // 设置超时时间（毫秒）
+            Mylog.Instance.Debug($"等待测试结果");
             var result = await service.GetTestStateWithTimeout(timeout);
             //10 表示超时
             if (result != 10)
@@ -468,12 +501,13 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 Logger.Error($"Device:[{device.Name}]GetTestState超时");
             }
+            Mylog.Instance.Debug($"获取到测试结果:{result}");
             //3. 请求测试结果明细
 
             //4.封装结果返回 给Mes
 
             //5.清空上一次测试数据
-           
+
             return result;
         }
 
@@ -485,29 +519,48 @@ namespace DWZ_Scada.Pages.StationPages.OP60
         {
             if (PLC.ReadInt16(OP60Address.AtlBrxStartSignal, out short isEntry) && isEntry == 1)
             {
-                PLC.WriteInt16(OP60Address.AtlBrxStartSignal, 0);
-                Mylog.Instance.Debug("电性能测试1开始..");
-                Task task1 = Task.Run(async () =>
+                try
                 {
+                    PLC.WriteInt16(OP60Address.AtlBrxStartSignal, 0);
+                    Mylog.Instance.Debug("电性能测试1开始..");
                     //工位2 安规测试
                     PLC.Read(OP60Address.AtlBrxTestSN1, "string-8", out string sn1);
                     PageOP60.Instance.StartTestUI(3, sn1);
-                    short result = await HandleAtlBrxTestAndResult(AtlBrxDevice1, sn1);
-                    if (result == 1)
+                    Task task1 = Task.Run(async () =>
                     {
-                        PageOP60.Instance.TestPassUI(3, sn1);
-                    }
-                    else
-                    {
-                        PageOP60.Instance.TestFailUI(3, sn1);
-                    }
-                    PLC.WriteInt16(OP60Address.AtlBrxResult1, result);
-                    Mylog.Instance.Debug($"电性能测试1完成..结果[{(result == 1 ? "OK" : "NG")}]");
-                });
 
+                        try
+                        {
+
+                            short result = await HandleAtlBrxTestAndResult(AtlBrxDevice1, sn1);
+                            if (result == 1)
+                            {
+                                PageOP60.Instance.TestPassUI(3, sn1);
+                            }
+                            else
+                            {
+                                PageOP60.Instance.TestFailUI(3, sn1);
+                            }
+                            PLC.WriteInt16(OP60Address.AtlBrxResult1, result);
+                            Mylog.Instance.Debug($"电性能测试1完成..结果[{(result == 1 ? "OK" : "NG")}]");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            PLC.WriteInt16(OP60Address.AtlBrxResult1, 2);
+                            PageOP60.Instance.TestFailUI(3, sn1);
+                            Mylog.Instance.Error("电性能测试1等待测试异步任务错误:" + ex.Message);
+                            Mylog.Instance.Error(ex.StackTrace);
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Mylog.Instance.Error("异步执行电性能测试1错误:" + ex.Message);
+                    Logger.Error("错误堆栈:" + ex.StackTrace);
+                }
 
             }
-
         }
 
         /// <summary>
@@ -520,25 +573,36 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 PLC.WriteInt16(OP60Address.AtlBrxStartSignal2, 0);
                 Mylog.Instance.Debug("电性能测试2开始..");
+                PLC.Read(OP60Address.AtlBrxTestSN2, "string-8", out string sn2);
+                PageOP60.Instance.StartTestUI(4, sn2);
                 Task task2 = Task.Run(async () =>
                 {
-                    //工位2 安规测试
-                    PLC.Read(OP60Address.AtlBrxTestSN2, "string-8", out string sn2);
-                    PageOP60.Instance.StartTestUI(4, sn2);
-                    short result = await HandleAtlBrxTestAndResult(AtlBrxDevice2, sn2);
-                    if (result == 1)
+                    try
                     {
-                        PageOP60.Instance.TestPassUI(4, sn2);
-                    }
-                    else
-                    {
-                        PageOP60.Instance.TestFailUI(4, sn2);
-                    }
-                    //超时给3 
-                    PLC.WriteInt16(OP60Address.AtlBrxResult2, result);
-                    Mylog.Instance.Debug($"电性能测试2完成..结果[{(result == 1 ? "OK" : "NG")}]");
-                });
+                        //工位2 安规测试
 
+                        short result = await HandleAtlBrxTestAndResult(AtlBrxDevice2, sn2);
+                        if (result == 1)
+                        {
+                            PageOP60.Instance.TestPassUI(4, sn2);
+                        }
+                        else
+                        {
+                            PageOP60.Instance.TestFailUI(4, sn2);
+                        }
+                        //超时给3 
+                        PLC.WriteInt16(OP60Address.AtlBrxResult2, result);
+                        Mylog.Instance.Debug($"电性能测试2完成..结果[{(result == 1 ? "OK" : "NG")}]");
+                    }
+                    catch (Exception ex)
+                    {
+                        PLC.WriteInt16(OP60Address.AtlBrxResult2, 2);
+                        PageOP60.Instance.TestFailUI(4, sn2);
+                        Mylog.Instance.Error("异步执行电性能测试2错误:" + ex.Message);
+
+                        Logger.Error("错误堆栈:" + ex.StackTrace);
+                    }
+                });
             }
         }
 

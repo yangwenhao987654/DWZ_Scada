@@ -320,6 +320,14 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("9.2安规测试机_02 端口号"), Category("6.OP60工站"), Description("安规测试机_02的端口号")]
         public string OP60_Safety_02_Port { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("A.安规测试机_测试超时(秒)"), Category("6.OP60工站"), Description("A.安规测试机_测试超时(秒)")]
+        public int OP60_Safety_TimeOut { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("B.电性能测试机_测试超时(秒)"), Category("6.OP60工站"), Description("A.电性能测试机_测试超时(秒)")]
+        public int OP60_AtlBrx_TimeOut { get; set; }
         #endregion
 
         #region OP70工站参数
