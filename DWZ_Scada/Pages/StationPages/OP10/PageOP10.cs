@@ -110,11 +110,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             //UpdateV2(sn, result);
         }
 
-        public void UpdateV1(string sn, int result)
+        public void UpdateV1(string sn, int result,string err="")
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string, int>(UpdateV1), sn, result);
+                Invoke(new Action<string, int,string>(UpdateV1), sn, result,err);
                 return;
             }
 
@@ -128,7 +128,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             if (result == 2)
             {
-                ctrlResult_V1.Fail(sn);
+                ctrlResult_V1.Fail(sn,err);
             }
             //lbl_Vision1Result.Text = result ? "OK" : "NG";
         }
@@ -166,11 +166,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             lbl_EntryMsg.Text = "请求中.....";
         }
 
-        public void UpdateV2(string sn, int result)
+        public void UpdateV2(string sn, int result,string err)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string, int>(UpdateV2), sn, result);
+                Invoke(new Action<string, int,string>(UpdateV2), sn, result,err);
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
             if (result == 2)
             {
-                ctrlResult_V2.Fail(sn);
+                ctrlResult_V2.Fail(sn,err);
             }
         }
 

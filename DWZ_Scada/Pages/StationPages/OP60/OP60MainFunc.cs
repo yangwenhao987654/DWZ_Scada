@@ -336,6 +336,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 LogMgr.Instance.Error($"[{device.Name}]未进行测试!");
             }
+            else if (state == 10)
+            {
+                //返回10 表示超时
+                result = 10;
+            }
             PassStationDTO requestDto = new()
             {
                 SnTemp = sn,
@@ -346,7 +351,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             };
             // (bool flag, string msg) = await UploadStationData(requestDto);
             string msg = "屏蔽mes";
-            LogMgr.Instance.Debug($"Device:[{device.Name}]写安规测试结果:{result} :\n{msg}");
+            LogMgr.Instance.Debug($"Device:[{device.Name}]传Mes安规测试结果:{result} :\n{msg}");
             /*if (flag)
             {
                 result = 1;
@@ -374,6 +379,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             else if (state == 0)
             {
                 LogMgr.Instance.Error($"[{device.Name}]未进行测试!");
+            }
+            else if( state == 10) {
+            
+                result = 10;
             }
             PassStationDTO requestDto = new()
             {
@@ -411,6 +420,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                         if (result == 1)
                         {
                             PageOP60.Instance.TestPassUI(1, sn1);
+                        }
+                        else if (result == 10)
+                        {
+                            PageOP60.Instance.TestFailUI(1, sn1,"超时");
                         }
                         else
                         {
@@ -452,6 +465,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                         if (result == 1)
                         {
                             PageOP60.Instance.TestPassUI(2, sn2);
+                        }
+                        else if (result == 10)
+                        {
+                            PageOP60.Instance.TestFailUI(2, sn2, "超时");
                         }
                         else
                         {
@@ -537,6 +554,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                             {
                                 PageOP60.Instance.TestPassUI(3, sn1);
                             }
+                            else if (result == 10)
+                            {
+                                PageOP60.Instance.TestFailUI(3, sn1, "超时");
+                            }
                             else
                             {
                                 PageOP60.Instance.TestFailUI(3, sn1);
@@ -585,6 +606,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                         if (result == 1)
                         {
                             PageOP60.Instance.TestPassUI(4, sn2);
+                        }
+                        else if (result == 10)
+                        {
+                            PageOP60.Instance.TestFailUI(4, sn2, "超时");
                         }
                         else
                         {

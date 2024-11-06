@@ -71,21 +71,28 @@ namespace DIPTest.Ctrl
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string>(Pass));
+                Invoke(new Action<string>(Pass),sn);
                 return;
             }
             uiLabel4.Text = "OK";
             uiLabel4.BackColor = Color.Green;
             lbl_Input.Text = sn;
         }
-        public void Fail(string sn)
+        public void Fail(string sn,string err)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string>(Fail));
+                Invoke(new Action<string,string>(Fail),sn,err);
                 return;
             }
-            uiLabel4.Text = "NG";
+            if (err == "")
+            {
+                uiLabel4.Text = "NG";
+            }
+            else
+            {
+                uiLabel4.Text = "超时";
+            }
             uiLabel4.BackColor = Color.Red;
             lbl_Input.Text = sn;
         }

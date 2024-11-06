@@ -196,11 +196,11 @@ namespace DWZ_Scada
             }
         }
 
-        public void TestFailUI(int pos,string sn)
+        public void TestFailUI(int pos,string sn,string err="")
         {
             if (ctrlResultMap.TryGetValue(pos, out var ctrl))
             {
-                ctrl.Fail(sn);
+                ctrl.Fail(sn, err);
             }
         }
     }
