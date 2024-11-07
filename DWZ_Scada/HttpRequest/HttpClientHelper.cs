@@ -35,7 +35,7 @@ namespace DWZ_Scada.HttpRequest
             catch (Exception ex)
             {
                 LogMgr.Instance.AddMesError($"请求失败: {ex.Message}");
-                throw;
+                throw ;
             }
         }
 

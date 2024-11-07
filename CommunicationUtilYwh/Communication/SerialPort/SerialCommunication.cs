@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LogTool;
+using System;
 using System.IO.Ports;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using LogTool;
 
 namespace CommunicationUtilYwh.Communication
 {

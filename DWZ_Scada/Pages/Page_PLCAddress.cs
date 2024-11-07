@@ -1,6 +1,4 @@
-﻿using HslCommunication;
-using HslCommunication.ModBus;
-using LogTool;
+﻿using LogTool;
 using DWZ_Scada;
 using Sunny.UI;
 using System;

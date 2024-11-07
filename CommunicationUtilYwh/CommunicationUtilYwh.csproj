@@ -19,7 +19,6 @@
     <Folder Include="Printer\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="HslCommunication" Version="7.0.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.3.0" />
@@ -36,5 +35,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LogTool\LogTool.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="HslCommunication">
+      <HintPath>..\DWZ_Scada\bin\Debug\net8.0-windows\dll\HslCommunication.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="dll\HslCommunication.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

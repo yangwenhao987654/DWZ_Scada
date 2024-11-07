@@ -1,45 +1,46 @@
-﻿using HslCommunication;
+﻿using CommunicationUtilYwh.Communication.PLC;
 using HslCommunication.Profinet.Keyence;
-using LogTool;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HslCommunication.ModBus;
+using LogTool;
+using HslCommunication;
 
-namespace CommunicationUtilYwh.Communication.PLC
+namespace CommunicationUtilYwh.Communication.ModbusRTU
 {
-    /// <summary>
-    /// 基恩士PLC的MC协议 TCP
-    /// </summary>
-    public class KeyencePLC: MyPlc
+    public class ModbusRTU : MyPlc
     {
-        private KeyenceMcNet client;
+        public string PortName { get; set; } = "COM1";
 
-        public override bool Connect(string ip, int port)
+        public ModbusRTU(string portName)
         {
-            bool flag = true;
-            try
-            {
-                client = new KeyenceMcNet(ip, port);
-                OperateResult connect = client.ConnectServer();
-                if (!connect.IsSuccess)
-                {
-                    flag = false;
-                }
-                if (flag)
-                {
-                    LogMgr.Instance.Info("PLC连接成功");
-                }
-                else
-                {
-                    LogMgr.Instance.Error("PLC连接失败:" + connect.Message);
-                }
-            }
-            catch (Exception)
-            {
-                flag = false;
-            }
-            return flag;
+            PortName = portName;
         }
 
-        public override bool ReadBool(string address,out bool value )
+        ModbusRtu client = new ModbusRtu();
+        public override bool Connect(string ip, int port)
+        {
+            throw new NotSupportedException("RTU仅支持串口通信");
+        }
+
+        public bool Open()
+        {
+            try
+            {
+                client.SerialPortInni(portName: PortName);
+                client.Open();
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"打开ModbusRTU连接错误: 串口名称:[{PortName}] 错误信息:[{ex.Message}]");;
+            }
+            return client.IsOpen();
+        }
+
+        public override bool ReadBool(string address, out bool value)
         {
             OperateResult<bool> result = client.ReadBool(address);
             value = result.Content;
@@ -76,18 +77,25 @@ namespace CommunicationUtilYwh.Communication.PLC
         {
             var result = client.ReadInt32(address, length);
             value = result.Content;
-              if (!result.IsSuccess)
+            if (!result.IsSuccess)
             {
                 LogMgr.Instance.Error($"PLC Read Int32 Arr[] Error,地址:[{address}] 长度:[{length}] 异常信息:{result.Message}");
             }
             return result.IsSuccess;
         }
 
+        public override bool WriteInt16(string address, short value)
+        {
+            OperateResult operate = client.Write(address, Convert.ToInt16(value));
+            bool flag = operate.IsSuccess;
+            return flag; ;
+        }
+
         public override bool Read(string adr, string type, out string value)
         {
             value = "0";
             bool flag = true;
-            type =type.ToLower();
+            type = type.ToLower();
             //获取类型和长度 string-10
             string[] str_Type = type.Split('-');
             try
@@ -95,34 +103,34 @@ namespace CommunicationUtilYwh.Communication.PLC
                 switch (str_Type[0])
                 {
                     case "int":
-                        {
-                            OperateResult<Int16> operate = client.ReadInt16(adr);
-                            value = operate.Content.ToString();
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult<Int16> operate = client.ReadInt16(adr);
+                        value = operate.Content.ToString();
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "double":
-                        {
-                            OperateResult<double> operate = client.ReadDouble(adr);
-                            value = operate.Content.ToString("f2");
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult<double> operate = client.ReadDouble(adr);
+                        value = operate.Content.ToString("f2");
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "float":
-                        {
-                            OperateResult<float> operate = client.ReadFloat(adr);
-                            value = operate.Content.ToString("f2");
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult<float> operate = client.ReadFloat(adr);
+                        value = operate.Content.ToString("f2");
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "string":
-                        {
-                            OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
-                            value = operate.Content.ToString();
-                            value = RemoveAllCharactersAfterBackslashOrNull(value);
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
+                        value = operate.Content.ToString();
+                        value = RemoveAllCharactersAfterBackslashOrNull(value);
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     default:
 
                         LogMgr.Instance.Error($"Read Fail :Require read dataType [{type}] is not support");
@@ -139,7 +147,6 @@ namespace CommunicationUtilYwh.Communication.PLC
             return flag;
         }
 
-
         public override bool Write(string adr, string type, object value)
         {
             bool flag = true;
@@ -149,30 +156,30 @@ namespace CommunicationUtilYwh.Communication.PLC
                 switch (type)
                 {
                     case "int":
-                        {
-                            OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult operate = client.Write(adr, Convert.ToInt16(value));
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "double":
-                        {
-                            OperateResult operate = client.Write(adr, Convert.ToDouble(value));
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult operate = client.Write(adr, Convert.ToDouble(value));
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "float":
-                        {
-                            float valueF = (float)value;
-                            OperateResult operate = client.Write(adr, valueF);
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        float valueF = (float)value;
+                        OperateResult operate = client.Write(adr, valueF);
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "string":
-                        {
-                            OperateResult operate = client.Write(adr, value.ToString());
-                            flag = operate.IsSuccess;
-                            break;
-                        }
+                    {
+                        OperateResult operate = client.Write(adr, value.ToString());
+                        flag = operate.IsSuccess;
+                        break;
+                    }
                     case "bool":
                     {
                         OperateResult operate = client.Write(adr, Convert.ToBoolean(value));
@@ -190,7 +197,6 @@ namespace CommunicationUtilYwh.Communication.PLC
                 LogMgr.Instance.Error($"PLC写入错误,地址:[{adr}] 类型[{type}] 异常信息:{ex.Message}");
                 flag = false;
             }
-
             return flag;
         }
 
@@ -209,6 +215,7 @@ namespace CommunicationUtilYwh.Communication.PLC
             }
             return flag;
         }
+
         public override bool ReadAlarm(string adr, out bool[] value, int length)
         {
             value = new bool[length];
@@ -229,25 +236,17 @@ namespace CommunicationUtilYwh.Communication.PLC
 
         public override void Dispose()
         {
-            //Dispose 会调用Close()  =》  client?.ConnectClose();
-
-            LogMgr.Instance.Debug("释放Keyence-PLC连接");
+            LogMgr.Instance.Debug("ModbusRtu连接");
+            client?.Close();
             client?.Dispose();
         }
 
-       
         public override bool ReadInt32(string address, out int value)
         {
             var result = client.ReadInt32(address);
             value = result.Content;
             return result.IsSuccess;
         }
-
-        public override bool WriteInt16(string address, short value)
-        {
-            OperateResult operate = client.Write(address, Convert.ToInt16(value));
-            bool flag = operate.IsSuccess;
-            return flag; ;
-        }
     }
+
 }

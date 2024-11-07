@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net;
-using CommunicationUtilYwh.Communication.PLC;
+﻿using CommunicationUtilYwh.Communication.PLC;
 using HslCommunication;
 using HslCommunication.Core;
 using HslCommunication.ModBus;
 using LogTool;
-using Newtonsoft.Json.Linq;
+using System;
+using System.Net;
 
 namespace CommonUtilYwh.Communication.ModbusTCP;
 

@@ -66,7 +66,6 @@ namespace CommunicationUtilYwh.Device
                     tcpclient = new TcpClient();
                 }
                 flag = await tcpclient.Open(ip, port);
-                //TODO 连接成功之后查询设备状态
                 if (flag)
                 {
                     QueryIsReady();
