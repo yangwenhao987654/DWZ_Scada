@@ -69,7 +69,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             DeviceMap.Add(4, AtlBrxDevice2);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             //释放PLC监控线程 所有后台线程
             //释放PLC连接

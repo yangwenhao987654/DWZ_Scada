@@ -13,7 +13,7 @@ namespace DWZ_Scada.ProcessControl
         /// </summary>
         //public static string Base =>$"http://{SystemParams.Instance.MesIP}/dev-api/";
 
-        public static string Base => $"http://{SystemParams.Instance.MesIP}/";
+        public static string Base => $"http://{SystemParams.Instance.MesIP}/dev-api/";
         //public static string Base = $"http://192.168.3.12/";
 
         /// <summary>

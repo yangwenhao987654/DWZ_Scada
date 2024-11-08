@@ -51,7 +51,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             StationCode = "OP20";
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             //释放PLC监控线程 所有后台线程
             //释放PLC连接

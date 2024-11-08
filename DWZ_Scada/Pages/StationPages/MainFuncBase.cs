@@ -570,7 +570,7 @@ namespace DWZ_Scada.Pages.StationPages
         #endregion
 
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             //释放PLC监控线程 所有后台线程
             _cts.Cancel();

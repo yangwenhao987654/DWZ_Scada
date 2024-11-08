@@ -26,7 +26,7 @@ namespace CommunicationUtilYwh.Communication.TCP
         /// <summary>
         /// 读取超时时间 ms
         /// </summary>
-        public int Timeout = 3000;
+        public int Timeout { get; set; }= 3000;
         public async Task<bool> Open(string ip, string port)
         {
             try

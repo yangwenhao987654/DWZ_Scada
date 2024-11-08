@@ -39,6 +39,9 @@
     <Compile Update="ctrls\UserCtrlEnrty.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="ctrls\userCtrlScanInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="myForms\FormCustom.cs">
       <SubType>Form</SubType>
     </Compile>

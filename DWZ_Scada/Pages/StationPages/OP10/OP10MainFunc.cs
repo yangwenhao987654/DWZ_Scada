@@ -47,7 +47,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             StationCode = "OP10";
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             base.Dispose();
             PLC?.Dispose();

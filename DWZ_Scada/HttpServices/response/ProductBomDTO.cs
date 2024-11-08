@@ -6,22 +6,6 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.HttpServices.response
 {
-    public class ProductBomDTO
-    {
-        /// <summary>
-        /// 操作成功
-        /// </summary>
-        public string msg { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int code { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public Data data { get; set; }
-    }
-
     public class ProductBomListItem
     {
         /// <summary>

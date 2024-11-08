@@ -1,11 +1,8 @@
 ﻿using DWZ_Scada.ctrls.LogCtrl;
-using DWZ_Scada.HttpServices;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
 using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -64,7 +61,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //Logger.AddChargeInfo("执行大电流放电");
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             //释放PLC监控线程 所有后台线程
             //释放PLC连接

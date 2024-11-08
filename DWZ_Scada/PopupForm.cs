@@ -76,7 +76,7 @@ namespace DIPTest
             this.Show();
         }
 
-        private void CenterToScreen()
+        private  void CenterToScreen()
         {
             int x = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
             int y = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
