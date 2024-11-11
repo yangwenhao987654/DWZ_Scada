@@ -1,4 +1,5 @@
 ﻿using DIPTest;
+using DWZ_Scada.ctrls;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.HttpServices.response;
 using DWZ_Scada.Pages.PLCAlarm;
@@ -43,7 +44,7 @@ namespace DWZ_Scada
         }
 
       
-        public List<UserCtrlAgingSingle> WindingCtrlList = new List<UserCtrlAgingSingle>();
+        public List<windingCtrl> WindingCtrlList = new List<windingCtrl>();
 
         private PageOP20()
         {
@@ -62,12 +63,12 @@ namespace DWZ_Scada
             //OP10工站 PLC配置
 
             #region OP20工站
-/*
+
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
                 SystemParams.Instance.OP20_PlcPort);
 
             OP20MainFunc.CreateInstance(plcConfig);
-            OP20MainFunc.Instance.StartAsync();*/
+            OP20MainFunc.Instance.StartAsync();
 
             #endregion
 
@@ -83,17 +84,19 @@ namespace DWZ_Scada
             #endregion
 
             int index = 1;
-            for (int i = 0; i < ctrlWindingS.ColumnCount; i++)
+            for (int i = 0; i < ctrlWindingS.RowCount; i++)
             {
-                for (int j = 0; j < ctrlWindingS.RowCount; j++)
+                for (int j = 0; j < ctrlWindingS.ColumnCount; j++)
                 {
-                    if (i==2 && j>=2)
+                   /* if (i==2 && j>=2)
                     {
                         break;
-                    }
-                    UserCtrlAgingSingle agingSingle = new UserCtrlAgingSingle(index++);
-                    WindingCtrlList.Add(agingSingle);
-                    ctrlWindingS.Controls.Add(agingSingle,i,j);
+                    }*/
+                    windingCtrl ctrlSingle = new windingCtrl();
+                    ctrlSingle.WeldingTitle = $"绕线机{index++:D2}";
+                    WindingCtrlList.Add(ctrlSingle);
+                    ctrlSingle.Dock = DockStyle.Fill;
+                    ctrlWindingS.Controls.Add(ctrlSingle, j,i);//TODO 这里会调用Load方法
                 }
             }
         }
@@ -142,22 +145,7 @@ namespace DWZ_Scada
 
         private void btn_Test_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //userCtrlResult_OP30.Fail(str);
-                string str = tbxTest.Text;
-                userCtrlEntry_OP30.Fail(str);
-                string[] strings = str.Split(",");
-                int index = int.Parse(strings[0]);
-                string sn = strings[1];
-                int pos = int.Parse(strings[2]);
-                WindingCtrlList[index - 1].StartTest(sn, pos);
-            }
-            catch (Exception exception)
-            {
-                LogMgr.Instance.Error("测试错误:" + exception.Message);
-                UIMessageBox.ShowError("测试错误:" + exception.Message);
-            }
+            
         }
 
         private void PageOP20_Initialize(object sender, EventArgs e)

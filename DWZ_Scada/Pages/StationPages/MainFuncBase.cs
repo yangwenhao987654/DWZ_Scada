@@ -60,7 +60,7 @@ namespace DWZ_Scada.Pages.StationPages
         //PLC 连接配置  IP地址 端口号
 
 
-        //父类只提供通用方法，不涉及实例管理
+        //父类只提供通用方法，不涉及实际例管理
 
 /*        public  static  bool IsInstanceNull => _instance==null;
 
@@ -292,8 +292,8 @@ namespace DWZ_Scada.Pages.StationPages
             }
             DeviceStateDTO dto = new DeviceStateDTO()
             {
-                DeviceCode = "0001",
-                DeviceName = "工站01",
+                DeviceCode = StationCode,
+                DeviceName = StationName,
             };
             switch (currentState)
             {
@@ -316,7 +316,6 @@ namespace DWZ_Scada.Pages.StationPages
                     dto.Status = "stop";
                     break;
             }
-
 
             //如果有报警的话 需要带着报警信息
             lock (alarmLock)

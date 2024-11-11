@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DWZ_Scada.ctrls
 {
-    public partial class WindingCtrl : UserControl
+    public partial class ETestBCtrl : UserControl
     {
-        public WindingCtrl()
+        public ETestBCtrl()
         {
             InitializeComponent();
         }

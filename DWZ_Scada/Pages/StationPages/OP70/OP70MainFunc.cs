@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.Pages.StationPages.OP70
 {
-    public class OP70MainFunc : MainFuncBase, IDisposable
+    public class OP70MainFunc : MainFuncBase
     {
         public static bool IsInstanceNull => _instance == null;
 

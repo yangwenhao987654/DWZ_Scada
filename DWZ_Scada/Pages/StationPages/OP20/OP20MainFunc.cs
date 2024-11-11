@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
-    public class OP20MainFunc : MainFuncBase, IDisposable
+    public class OP20MainFunc : MainFuncBase
     {
         public static bool IsInstanceNull => _instance == null;
 
@@ -105,32 +105,39 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         {
             while (!token.IsCancellationRequested)
             {
-                if (modbusTcp.IsConnect)
+                try
                 {
-                    modbusTcp.ReadInt16("2000", out short state);
-                    ReportDeviceState(index + 1, state);
-                    /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
-                    modbusTcp.ReadInt16("2041", out short tension1);*/
-                }
-                else
-                {
-                    // Attempt to reconnect
-                    (bool flag, string err) = modbusTcp.Open(
-                        ModbusConnections[index].IP,
-                        ModbusConnections[index].Port,
-                        ModbusConnections[index].StationNum
-                    );
-
-                    if (!flag)
-                    {
-                        ReportDeviceState(index+1,1);
-                       // LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
-                    }
-                    else
+                    if (modbusTcp.IsConnect)
                     {
                         modbusTcp.ReadInt16("2000", out short state);
                         ReportDeviceState(index + 1, state);
+                        /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
+                        modbusTcp.ReadInt16("2041", out short tension1);*/
                     }
+                    else
+                    {
+                        // Attempt to reconnect
+                        (bool flag, string err) = modbusTcp.Open(
+                            ModbusConnections[index].IP,
+                            ModbusConnections[index].Port,
+                            ModbusConnections[index].StationNum
+                        );
+
+                        if (!flag)
+                        {
+                            ReportDeviceState(index + 1, 1);
+                            // LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
+                        }
+                        else
+                        {
+                            modbusTcp.ReadInt16("2000", out short state);
+                            ReportDeviceState(index + 1, state);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                   LogMgr.Instance.Error($"绕线机线程[{index+1}]错误, {e.Message}\n{e.StackTrace}");
                 }
                 Thread.Sleep(1000);
             }

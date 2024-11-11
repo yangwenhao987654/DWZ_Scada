@@ -82,7 +82,7 @@
             uiLabel1.Dock = System.Windows.Forms.DockStyle.Top;
             uiLabel1.Font = new System.Drawing.Font("微软雅黑", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new System.Drawing.Point(0, 35);
+            uiLabel1.Location = new System.Drawing.Point(0, 0);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new System.Drawing.Size(1223, 59);
             uiLabel1.TabIndex = 1;
@@ -520,7 +520,6 @@
             // 
             // PageOP40
             // 
-            AllowShowTitle = true;
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1024);
             Controls.Add(userCtrlEntry_OP40);
@@ -570,8 +569,6 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP40";
-            Padding = new System.Windows.Forms.Padding(0, 35, 0, 0);
-            ShowTitle = true;
             Text = "PageOP40";
             TitleFillColor = System.Drawing.Color.Transparent;
             FormClosing += PageOP40_FormClosing;

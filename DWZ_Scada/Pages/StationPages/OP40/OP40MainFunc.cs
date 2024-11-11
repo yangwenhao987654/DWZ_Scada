@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada.Pages.StationPages.OP40
 {
-    public class OP40MainFunc : MainFuncBase, IDisposable
+    public class OP40MainFunc : MainFuncBase
     {
         public static bool IsInstanceNull => _instance == null;
 

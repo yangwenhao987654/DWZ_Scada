@@ -30,16 +30,12 @@
         private void InitializeComponent()
         {
             uiLabel1 = new Sunny.UI.UILabel();
-            uiLabel8 = new Sunny.UI.UILabel();
             ctrlWindingS = new Sunny.UI.UITableLayoutPanel();
             uiPanel1 = new Sunny.UI.UIPanel();
             userCtrlEntry_OP30 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             userCtrlResult_OP30 = new DIPTest.Ctrl.UserCtrlResult();
-            tbxTest = new Sunny.UI.UITextBox();
-            btn_Test = new Sunny.UI.UIButton();
-            ctrlWindingS.SuspendLayout();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,34 +52,21 @@
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
             // 
-            // uiLabel8
-            // 
-            uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(879, 61);
-            uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new System.Drawing.Size(212, 36);
-            uiLabel8.TabIndex = 14;
-            uiLabel8.Text = "绕线检查结果";
-            // 
             // ctrlWindingS
             // 
             ctrlWindingS.ColumnCount = 3;
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
-            ctrlWindingS.Controls.Add(uiPanel1, 2, 2);
-            ctrlWindingS.Dock = System.Windows.Forms.DockStyle.Bottom;
-            ctrlWindingS.Location = new System.Drawing.Point(0, 162);
+            ctrlWindingS.Location = new System.Drawing.Point(18, 162);
             ctrlWindingS.Margin = new System.Windows.Forms.Padding(0);
             ctrlWindingS.Name = "ctrlWindingS";
-            ctrlWindingS.RowCount = 5;
+            ctrlWindingS.RowCount = 4;
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            ctrlWindingS.Size = new System.Drawing.Size(1280, 678);
+            ctrlWindingS.Size = new System.Drawing.Size(824, 678);
             ctrlWindingS.TabIndex = 20;
             ctrlWindingS.TagString = null;
             // 
@@ -94,12 +77,11 @@
             uiPanel1.Controls.Add(uiLabel6);
             uiPanel1.Controls.Add(userCtrlResult_OP30);
             uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel1.Location = new System.Drawing.Point(856, 275);
+            uiPanel1.Location = new System.Drawing.Point(917, 314);
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel1.Name = "uiPanel1";
-            ctrlWindingS.SetRowSpan(uiPanel1, 3);
-            uiPanel1.Size = new System.Drawing.Size(420, 389);
+            uiPanel1.Size = new System.Drawing.Size(306, 389);
             uiPanel1.TabIndex = 1;
             uiPanel1.Text = null;
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -146,41 +128,12 @@
             userCtrlResult_OP30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlResult_OP30.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
-            // tbxTest
-            // 
-            tbxTest.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            tbxTest.Location = new System.Drawing.Point(971, 116);
-            tbxTest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tbxTest.MinimumSize = new System.Drawing.Size(1, 16);
-            tbxTest.Name = "tbxTest";
-            tbxTest.Padding = new System.Windows.Forms.Padding(5);
-            tbxTest.ShowText = false;
-            tbxTest.Size = new System.Drawing.Size(252, 36);
-            tbxTest.TabIndex = 21;
-            tbxTest.Text = "1,S1245655,1";
-            tbxTest.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            tbxTest.Watermark = "张力测试（输入机台号,SN,工位号1|2）";
-            // 
-            // btn_Test
-            // 
-            btn_Test.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Location = new System.Drawing.Point(1051, 57);
-            btn_Test.MinimumSize = new System.Drawing.Size(1, 1);
-            btn_Test.Name = "btn_Test";
-            btn_Test.Size = new System.Drawing.Size(122, 42);
-            btn_Test.TabIndex = 22;
-            btn_Test.Text = "测试";
-            btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Click += btn_Test_Click;
-            // 
             // PageOP20
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
-            Controls.Add(btn_Test);
-            Controls.Add(tbxTest);
+            Controls.Add(uiPanel1);
             Controls.Add(ctrlWindingS);
-            Controls.Add(uiLabel8);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP20";
@@ -190,17 +143,13 @@
             Initialize += PageOP20_Initialize;
             FormClosing += PageOP10_FormClosing;
             Load += Page_Load;
-            ctrlWindingS.ResumeLayout(false);
             uiPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UITableLayoutPanel ctrlWindingS;
-        private Sunny.UI.UITextBox tbxTest;
-        private Sunny.UI.UIButton btn_Test;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult_OP30;
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UILabel uiLabel6;

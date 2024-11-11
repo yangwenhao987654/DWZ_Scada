@@ -13,7 +13,7 @@ using TouchSocket.Core;
 
 namespace DWZ_Scada.Pages.StationPages.OP60
 {
-    public class OP60MainFunc : MainFuncBase, IDisposable
+    public class OP60MainFunc : MainFuncBase
     {
         public static bool IsInstanceNull => _instance == null;
 
