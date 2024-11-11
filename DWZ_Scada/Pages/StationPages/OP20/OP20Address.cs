@@ -1,4 +1,6 @@
-﻿namespace DWZ_Scada.Pages.StationPages.OP20
+﻿using System.Collections.Generic;
+
+namespace DWZ_Scada.Pages.StationPages.OP20
 {
     public class OP20Address
     {
@@ -16,6 +18,26 @@
         /// 绕线开始信号 上位机收到复位
         /// </summary>
         public static readonly string Winding01Start = "M101";
+
+
+        /// <summary>
+        /// 绕线开始信号 上位机收到复位
+        /// </summary>
+        public static readonly List<string> WindingStartList = new List<string>()
+        {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        };
 
         /// <summary>
         /// 进站SN码

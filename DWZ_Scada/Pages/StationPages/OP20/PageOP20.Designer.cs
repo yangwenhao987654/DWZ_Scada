@@ -32,10 +32,8 @@
             uiLabel1 = new Sunny.UI.UILabel();
             ctrlWindingS = new Sunny.UI.UITableLayoutPanel();
             uiPanel1 = new Sunny.UI.UIPanel();
-            userCtrlEntry_OP30 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
-            userCtrlResult_OP30 = new DIPTest.Ctrl.UserCtrlResult();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -58,7 +56,7 @@
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333321F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
-            ctrlWindingS.Location = new System.Drawing.Point(18, 162);
+            ctrlWindingS.Location = new System.Drawing.Point(18, 145);
             ctrlWindingS.Margin = new System.Windows.Forms.Padding(0);
             ctrlWindingS.Name = "ctrlWindingS";
             ctrlWindingS.RowCount = 4;
@@ -72,10 +70,8 @@
             // 
             // uiPanel1
             // 
-            uiPanel1.Controls.Add(userCtrlEntry_OP30);
             uiPanel1.Controls.Add(uiLabel7);
             uiPanel1.Controls.Add(uiLabel6);
-            uiPanel1.Controls.Add(userCtrlResult_OP30);
             uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiPanel1.Location = new System.Drawing.Point(917, 314);
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -85,16 +81,6 @@
             uiPanel1.TabIndex = 1;
             uiPanel1.Text = null;
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // userCtrlEntry_OP30
-            // 
-            userCtrlEntry_OP30.Location = new System.Drawing.Point(13, 45);
-            userCtrlEntry_OP30.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlEntry_OP30.Name = "userCtrlEntry_OP30";
-            userCtrlEntry_OP30.Size = new System.Drawing.Size(354, 168);
-            userCtrlEntry_OP30.TabIndex = 3;
-            userCtrlEntry_OP30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlEntry_OP30.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // uiLabel7
             // 
@@ -117,16 +103,6 @@
             uiLabel6.TabIndex = 1;
             uiLabel6.Text = "OP30画像检测:";
             uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // userCtrlResult_OP30
-            // 
-            userCtrlResult_OP30.Location = new System.Drawing.Point(4, 258);
-            userCtrlResult_OP30.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlResult_OP30.Name = "userCtrlResult_OP30";
-            userCtrlResult_OP30.Size = new System.Drawing.Size(407, 127);
-            userCtrlResult_OP30.TabIndex = 0;
-            userCtrlResult_OP30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlResult_OP30.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // PageOP20
             // 

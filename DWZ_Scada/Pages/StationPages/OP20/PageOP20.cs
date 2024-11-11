@@ -16,6 +16,7 @@ using RestSharp;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 
 namespace DWZ_Scada
@@ -68,7 +69,10 @@ namespace DWZ_Scada
                 SystemParams.Instance.OP20_PlcPort);
 
             OP20MainFunc.CreateInstance(plcConfig);
+            OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
             OP20MainFunc.Instance.StartAsync();
+
+       
 
             #endregion
 
@@ -100,6 +104,21 @@ namespace DWZ_Scada
                 }
             }
         }
+
+        private void Instance_OnWeldingStateChangedAction(int index, int state)
+        {
+            UpdateWeldingStateLight(index, state);
+        }
+        private void UpdateWeldingStateLight(int index, int state)
+        {
+            if (InvokeRequired)
+            {
+                //this.Invoke(new Action(()=>UpdateWeldingStateLight(index, state)));
+                this.Invoke(new Action<int, int>(UpdateWeldingStateLight), index, state);
+            }
+            WindingCtrlList[index].UpdateState(state);
+        }
+
 
         private void Instance_OP30VisionFinished(string sn, int result)
         {

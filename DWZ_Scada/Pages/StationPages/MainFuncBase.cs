@@ -62,9 +62,9 @@ namespace DWZ_Scada.Pages.StationPages
 
         //父类只提供通用方法，不涉及实际例管理
 
-/*        public  static  bool IsInstanceNull => _instance==null;
+        /*        public  static  bool IsInstanceNull => _instance==null;
 
-        private static MainFuncBase _instance;*/
+                private static MainFuncBase _instance;*/
 
         private static Func<MainFuncBase> _createInstanceFunc;
 
@@ -123,22 +123,22 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         /// <param name="sn"></param>
         /// <param name="result"></param>
-        public delegate void EntryStateChanged(string sn, int result,string msg="");
+        public delegate void EntryStateChanged(string sn, int result, string msg = "");
 
         /// <summary>
         /// 设备是否点检模式
         /// </summary>
-        public  bool IsSpotCheck { get; set; }
+        public bool IsSpotCheck { get; set; }
 
-        public  bool IsPlc_Connected;
+        public bool IsPlc_Connected;
 
         public LogMgr Logger = LogMgr.Instance;
 
-        public  MyPlc PLC ;
+        public MyPlc PLC;
 
         public PlcState PlcState;
 
-        public PLCConfig PLCConfig{ get; set; }
+        public PLCConfig PLCConfig { get; set; }
 
         /// <summary>
         /// PLC的IP地址
@@ -152,9 +152,9 @@ namespace DWZ_Scada.Pages.StationPages
 
         public CancellationTokenSource _cts = new CancellationTokenSource();
 
-        public  int DeviceState = -1;
+        public int DeviceState = -1;
 
-        public  readonly object stateLock = new object();
+        public readonly object stateLock = new object();
 
 
         public readonly object alarmLock = new object();
@@ -163,13 +163,13 @@ namespace DWZ_Scada.Pages.StationPages
 
         public ConcurrentQueue<DeviceAlarmEntity> AlarmQueue = new ConcurrentQueue<DeviceAlarmEntity>();
 
-        public  Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
+        public Dictionary<string, DeviceAlarmEntity> ActiveAlarms = new Dictionary<string, DeviceAlarmEntity>();
 
-        public  List<string> AlarmInfoList = new List<string>();
+        public List<string> AlarmInfoList = new List<string>();
 
-        public static string StationName ;
+        public static string StationName;
 
-        public static string StationCode ;
+        public static string StationCode;
 
         /// <summary>
         /// 当前的工单
@@ -202,16 +202,16 @@ namespace DWZ_Scada.Pages.StationPages
         // 异步保存报警信息的方法
         private async Task SaveAlarmsToDatabaseAsync()
         {
-            using (var context = new MyDbContext())
+            try
             {
                 while (!_cts.Token.IsCancellationRequested)
                 {
-                    try
+                    using (var context = new MyDbContext())
                     {
                         if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
                         {
                             context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
-                            //context.WriteConsole();
+                                                                     //context.WriteConsole();
                             await context.SaveChangesAsync(); // 异步保存更改到数据库
                         }
                         else
@@ -219,24 +219,24 @@ namespace DWZ_Scada.Pages.StationPages
                             await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.Error("存储报警信息错误:"+ex.Message);
-                       
-                    }
-                 
+                    Thread.Sleep(100);
                 }
             }
+            catch (Exception ex)
+            {
+                Logger.Error($"存储报警信息错误:{ex.StackTrace}\n" + ex.Message);
+                Thread.Sleep(1000);
+            }
         }
-
+        
         /// <summary>
         /// 启动流程
         /// </summary>
-        public virtual  void StartAsync()
+        public virtual void StartAsync()
         {
             Task.Run(() =>
             {
-                _cts =new CancellationTokenSource();
+                _cts = new CancellationTokenSource();
                 //myOp10Model = Model;
                 //启动PLC监控线程
                 Thread t = new Thread(() => ConnStatusMonitor(_cts.Token));
@@ -258,19 +258,17 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         protected async Task<(bool, string)> UploadStationData(PassStationDTO dto)
         {
-           return await UploadPassStationService.SendPassStationData(dto);
+            return await UploadPassStationService.SendPassStationData(dto);
         }
 
         protected async Task<(bool, string)> UploadSpotCheckData(DeviceInspectDTO dto)
         {
             return await InspectService.AddInspectDada(dto);
-
         }
 
         protected async Task<(bool, string)> EntryRequest(EntryRequestDTO dto)
         {
             return await EntryRequestService.CheckIn(dto);
-
         }
 
         protected async Task<(bool, string)> DamageableReport(DamageableDTO dto)
@@ -278,14 +276,13 @@ namespace DWZ_Scada.Pages.StationPages
             return await DamageableService.ReportDamageableAsync(dto);
         }
 
-
         /// <summary>
         /// 上报设备状态 1S 上报一次
         /// </summary>
         /// <param name="state"></param>
         protected virtual async void ReportDeviceState(object state)
         {
-            int currentState =-1;
+            int currentState = -1;
             lock (stateLock)
             {
                 currentState = DeviceState;
@@ -320,14 +317,14 @@ namespace DWZ_Scada.Pages.StationPages
             //如果有报警的话 需要带着报警信息
             lock (alarmLock)
             {
-                if (AlarmInfoList.Count>0)
+                if (AlarmInfoList.Count > 0)
                 {
-                   string message = string.Join(";", AlarmInfoList);
-                   dto.Message =message;
+                    string message = string.Join(";", AlarmInfoList);
+                    dto.Message = message;
                 }
             }
             //记录报警信息
-         
+
             //await DeviceStateService.AddDeviceState(dto);
         }
 
@@ -376,12 +373,12 @@ namespace DWZ_Scada.Pages.StationPages
                     {
                         PLC.Write(OP10Address.HeartBeat, "int", 1);
                     }
-                
+
                     ZCForm.Instance.UpdatePlcState(PlcState);
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("PLC监控线程错误:"+ex.Message);
+                    Logger.Error("PLC监控线程错误:" + ex.Message);
                 }
                 Thread.Sleep(1000);
             }
@@ -512,7 +509,7 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         /// <returns></returns>
         protected abstract int ReadPLCState();
-        
+
         protected void HandleAlarm()
         {
             #region 读取PLC状态

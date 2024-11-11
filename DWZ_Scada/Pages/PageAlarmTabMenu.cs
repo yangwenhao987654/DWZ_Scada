@@ -1,13 +1,6 @@
 ﻿using DWZ_Scada.Page.PLCControl;
 using Sunny.UI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DWZ_Scada.Pages
@@ -50,7 +43,6 @@ namespace DWZ_Scada.Pages
             pageAlarmConfig.Dock = DockStyle.Fill;
             pageAlarmConfig.Show();
             tabPage1.Controls.Add(pageAlarmConfig);
-
 
             //历史报警查询
             Page_DeviceAlarmQuery pageDeviceAlarmQuery = Page_DeviceAlarmQuery.Instance;

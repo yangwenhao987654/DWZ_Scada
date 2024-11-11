@@ -7,6 +7,7 @@ using DWZ_Scada.Services;
 using LogTool;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +28,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     {
                         if (_instance == null)
                         {
-
                             // 使用一个工厂方法创建实例，让子类决定实例化逻辑
                             throw new Exception("OP20MainFunc is Not instantiate");
                         }
@@ -45,6 +45,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         public List<ModbusTCP> ModbusTcpList = new();
 
         public List<ModbusConnConfig> ModbusConnections = new List<ModbusConnConfig>();
+
+        public event Action<int, int> OnWeldingStateChangedAction;
 
 
         public OP20MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
@@ -105,32 +107,32 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         {
             while (!token.IsCancellationRequested)
             {
+                short state = -1;
                 try
                 {
                     if (modbusTcp.IsConnect)
                     {
-                        modbusTcp.ReadInt16("2000", out short state);
+                        modbusTcp.ReadInt16("2000", out  state);
                         ReportDeviceState(index + 1, state);
                         /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
                         modbusTcp.ReadInt16("2041", out short tension1);*/
                     }
                     else
                     {
-                        // Attempt to reconnect
                         (bool flag, string err) = modbusTcp.Open(
                             ModbusConnections[index].IP,
                             ModbusConnections[index].Port,
                             ModbusConnections[index].StationNum
                         );
-
                         if (!flag)
                         {
-                            ReportDeviceState(index + 1, 1);
+                            //state = 0;
+                            ReportDeviceState(index + 1, state);
                             // LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
                         }
                         else
                         {
-                            modbusTcp.ReadInt16("2000", out short state);
+                            modbusTcp.ReadInt16("2000", out  state);
                             ReportDeviceState(index + 1, state);
                         }
                     }
@@ -139,6 +141,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 {
                    LogMgr.Instance.Error($"绕线机线程[{index+1}]错误, {e.Message}\n{e.StackTrace}");
                 }
+                //TODO 更新界面绕线机状态
+                OnWeldingStateChangedAction?.Invoke(index , state);
                 Thread.Sleep(1000);
             }
         }
@@ -177,7 +181,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     dto.Status = "stop";
                     break;
             }
-
             //TODO 如果有报警 封装所有的报警信息给Mes
 
             //如果有报警的话 需要带着报警信息
@@ -192,26 +195,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             await DeviceStateService.AddDeviceState(dto);
         }
 
-        public  async void ReportDeviceState(int weldingMachineId ,int state)
+        public  async void ReportDeviceState(int weldingMachineId ,short state)
         {
-            int currentState = -1;
-
+            short currentState = -1;
             DeviceStateDTO dto = new DeviceStateDTO();
             dto.DeviceName = "OP20绕线机"+ weldingMachineId.ToString("D2");
             dto.DeviceCode = "OP20_"+ weldingMachineId.ToString("D2");
-           /* switch (weldingMechineId)
-            {
-                case 1:
-                    name = "OP20绕线机1";
-                    code = "OP20_1";
-                    break;
-            }*/
-
-           /* DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = "0001",
-                DeviceName = "工站01",
-            };*/
 
             switch (currentState)
             {
@@ -228,18 +217,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     dto.Status = "stop";
                     break;
             }
-
-           /* //如果有报警的话 需要带着报警信息
-            lock (alarmLock)
-            {
-                if (AlarmInfoList.Count > 0)
-                {
-                    string message = string.Join(";", AlarmInfoList);
-                    dto.Message = message;
-                }
-            }*/
-            //记录报警信息
-
             await DeviceStateService.AddDeviceState(dto);
         }
 
@@ -283,6 +260,101 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
         private  void WindingStart()
         {
+            //TODO 收到绕线开始信号  读取条码  采集绕线机测试数据
+            //持续监控绕线机状态
+            if (PLC.ReadInt16(OP20Address.Winding01Start,12, out short[] startArr))
+            {
+                for (var i = 0; i < startArr.Length; i++)
+                {
+                    if (startArr[i]==1)
+                    {
+                        //绕线机开始
+                        LogMgr.Instance.Info("收到绕线开始...");
+                        PLC.WriteInt16(OP20Address.WindingStartList[i], 0);
+
+                        Task task = Task.Run(async () =>
+                        {
+                            //TODO 读取两次绕线的SN码
+                            string sn1 = "TestCode001";
+                            string sn2 = "TestCode002";
+                            bool isStart = false;
+                            bool isFinish = false;
+                            Stopwatch sw = Stopwatch.StartNew();
+                            sw.Start();
+                            //TODO 增加一个超时
+
+                            while (true) //300秒 60*5 5分钟
+                            {
+                                ModbusTcpList[0].ReadUInt16(CoildAddress.CoilsState, out ushort state);
+
+                                if (state == 1 && isStart)
+                                {
+                                    //停止
+                                    LogMgr.Instance.Debug("读取到绕线停止..1");
+                                    isFinish = true;
+                                
+                                    CoildDataDto dto = new CoildDataDto();
+                                    //运行中
+                                    ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
+                                    dto.CoilsCurNum = coilsCurNum / 100;
+                                    ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
+                                    dto.CoilsTargetNum = coilsTargetNum / 100;
+
+                                    /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
+                                      dto.CoilsSpeed = coilsSpeed / 100;*/
+
+                                    ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTimes, out uint times);
+                                    dto.CoilsTimes = times / 100;
+
+                                    //采集张力值 TODO 需要区分是A/B哪个工位
+                                    ModbusTcpList[0].ReadInt16(CoildAddress.TensionValue01, out short tension01);
+                                    //dto.TensionValueList=new List<double> { tension01/100 };
+                                    CoildDataDto dto02 = new CoildDataDto(dto);
+
+                                    ModbusTcpList[0].ReadInt16(CoildAddress.TensionValue02, out short tension02);
+                                    //dto02.TensionValueList = new List<double> { tension02/100 };
+                                    PassStationDTO passStationDto01 = new PassStationDTO()
+                                    {
+                                        isLastStep = true,
+                                        SnTemp = sn1,
+                                        StationCode = StationCode,
+                                        WorkOrder = "MO202410210001",
+                                        PassStationData = dto
+                                    };
+                                    await UploadStationData(passStationDto01);
+
+                                    PassStationDTO passStationDto02 = new PassStationDTO()
+                                    {
+                                        isLastStep = true,
+                                        SnTemp = sn2,
+                                        StationCode = StationCode,
+                                        WorkOrder = "MO202410210001",
+                                        PassStationData = dto02
+                                    };
+                                    await UploadStationData(passStationDto02);
+                                    break;
+                                }
+                                else if (state == 12)
+                                {
+                                    isStart = true;
+                                    if (!isStart)
+                                    {
+                                        LogMgr.Instance.Debug("读取到绕线开始..12");
+                                        //TODO 一直读取当前绕线张力值
+                                    }
+                                }
+                                else
+                                {
+                                    LogMgr.Instance.Info($"读取到绕线状态位:{state}");
+                                }
+                                Thread.Sleep(1000);
+                            }
+                            LogMgr.Instance.Debug("绕线完成..");
+                        });
+                    }
+                }
+            }
+
             if (PLC.ReadInt16(OP20Address.Winding01Start, out short isStart) && isStart==1)
             {
                 LogMgr.Instance.Info("收到绕线开始...");
@@ -354,7 +426,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         }
                         else
                         {
-                            //故障
                             LogMgr.Instance.Info($"读取到绕线状态位:{state}");
                         }
                         Thread.Sleep(1000);
