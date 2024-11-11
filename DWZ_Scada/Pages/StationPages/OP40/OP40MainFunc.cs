@@ -10,6 +10,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 {
     public class OP40MainFunc : MainFuncBase, IDisposable
     {
+        public static bool IsInstanceNull => _instance == null;
+
         private static OP40MainFunc _instance;
 
         public static OP40MainFunc Instance

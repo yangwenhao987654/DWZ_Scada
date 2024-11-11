@@ -15,6 +15,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 {
     public class OP60MainFunc : MainFuncBase, IDisposable
     {
+        public static bool IsInstanceNull => _instance == null;
+
         private static OP60MainFunc _instance;
 
         public static OP60MainFunc Instance

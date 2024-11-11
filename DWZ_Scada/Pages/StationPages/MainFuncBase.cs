@@ -59,9 +59,12 @@ namespace DWZ_Scada.Pages.StationPages
         //PLC类型  
         //PLC 连接配置  IP地址 端口号
 
-        public static bool IsInstanceNull => _instance==null;
 
-        private static MainFuncBase _instance;
+        //父类只提供通用方法，不涉及实例管理
+
+/*        public  static  bool IsInstanceNull => _instance==null;
+
+        private static MainFuncBase _instance;*/
 
         private static Func<MainFuncBase> _createInstanceFunc;
 

@@ -10,7 +10,8 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 {
     public class OP10MainFunc : MainFuncBase, IDisposable
     {
-        
+        public static bool IsInstanceNull => _instance == null;
+
         private static OP10MainFunc _instance;
 
         public static OP10MainFunc Instance
@@ -37,9 +38,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             _instance = new OP10MainFunc(plcConfig);
         }
 
-        public static event TestStateChanged OnVision1Finished;
+        public  event TestStateChanged OnVision1Finished;
 
-        public static event TestStateChanged OnVision2Finished;
+        public  event TestStateChanged OnVision2Finished;
+
+        public event EntryStateChanged OnEntryStateChanged;
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
@@ -271,10 +274,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 LogMgr.Instance.Debug("收到进站请求信号");
                 PLC.Read(OP10Address.EntrySn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取进站条码内容:" + sn);
-                //更新界面
-                PageOP10.Instance.UpdateEnrtySN(sn);
-                PageOP10.Instance.ClearEntryResult();
-
+                OnEntryStateChanged?.Invoke(sn,0);
                 EntryRequestDTO requestDto = new()
                 {
                     SnTemp = sn,
@@ -282,14 +282,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     WorkOrder = "MO202410210001"
                 };
                 (bool flag, string msg) = await EntryRequest(requestDto);
-                //
-                PageOP10.Instance.UpdateEnrtyResult(flag, msg);
+               
                 LogMgr.Instance.Debug($"写进站结果{flag}");
                 short result = 2;
                 if (flag)
                 {
                     result = 1;
                 }
+                OnEntryStateChanged?.Invoke(sn, result, msg);
                 PLC.WriteInt16(OP10Address.EntryResult, result);
             }
         }
