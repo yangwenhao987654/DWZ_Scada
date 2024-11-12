@@ -1,6 +1,5 @@
 ﻿using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
-using DWZ_Scada.ProcessControl.Damageable;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
@@ -168,13 +167,14 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         }
         private void PageOP40_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance = null;
+
             LogMgr.Instance.Info($"关闭OP40-HttpServer");
             if (OP40MainFunc.IsInstanceNull)
             {
                 OP40MainFunc.Instance?.Dispose();
             }
             LogMgr.Instance.Info($"关闭OP40程序");
+            _instance = null;
         }
 
         private void lbl_3_B_Click(object sender, EventArgs e)

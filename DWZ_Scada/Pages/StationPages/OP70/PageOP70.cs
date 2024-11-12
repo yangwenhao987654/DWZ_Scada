@@ -130,6 +130,7 @@ namespace DWZ_Scada
                 LogMgr.Instance.Info($"关闭{OP70MainFunc.Instance.StationName}程序");
                 OP70MainFunc.Instance?.Dispose();
             }
+            _instance =null;
         }
 
         private void uiLabel10_Click(object sender, EventArgs e)

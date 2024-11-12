@@ -87,7 +87,7 @@ namespace DWZ_Scada.Pages
             KeyDown += Form_KeyDown;
 
             SetAutoStart();
-            StartServer();
+            //StartServer();
             listViewExLog = new ListViewEx_Log();
 
             //设置关闭弹窗后返回的位置
@@ -177,9 +177,11 @@ namespace DWZ_Scada.Pages
             }
             uiPanel1.Controls.Clear();
             form.Dock = DockStyle.Fill;
+            //PageOp20的Show方法 很慢才进来
             form.Show();
             uiPanel1.Controls.Add(form);
             mainForm = form;
+            this.Text = "数据采集系统-"+mainForm.Text;
         }
 
         public void SetAutoStart()

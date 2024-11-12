@@ -17,7 +17,6 @@
             {
                 components.Dispose();
             }
-            PageOP10_FormClosing(this, null);
             base.Dispose(disposing);
         }
 
@@ -117,11 +116,11 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP30";
-            Text = "PageOP10";
+            Text = "OP30";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;
-            Initialize += PageOP20_Initialize;
-            FormClosing += PageOP10_FormClosing;
+            Initialize += PageOP30_Initialize;
+            FormClosing += PageOP30_FormClosing;
             Load += Page_Load;
             uiPanel1.ResumeLayout(false);
             ResumeLayout(false);

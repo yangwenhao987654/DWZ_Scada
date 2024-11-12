@@ -17,7 +17,6 @@
             {
                 components.Dispose();
             }
-            PageOP20_FormClosing(this, null);
             base.Dispose(disposing);
         }
 
@@ -137,7 +136,7 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP20";
-            Text = "PageOP20";
+            Text = "OP20";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;
             Initialize += PageOP20_Initialize;

@@ -2,7 +2,6 @@
 using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP60;
-using DWZ_Scada.Pages.StationPages.OP70;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
@@ -148,6 +147,7 @@ namespace DWZ_Scada
                 LogMgr.Instance.Info($"关闭{OP60MainFunc.Instance.StationCode}-HttpServer");
                 OP60MainFunc.Instance?.Dispose();
             }
+            _instance =null;
         }
 
         /// <summary>

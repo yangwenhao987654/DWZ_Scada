@@ -1,10 +1,8 @@
 ﻿using DWZ_Scada.ctrls;
 using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
-using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Sunny.UI;
@@ -122,11 +120,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 LogMgr.Instance.Info($"关闭{OP20MainFunc.Instance.StationCode}-HttpServer");
                 OP20MainFunc.Instance.Dispose();
             }
+            _instance = null;
         }
 
         private void PageOP20_Initialize(object sender, EventArgs e)
         {
-
+            // 先进入Load  再进入 Initialize 
         }
     }
 }

@@ -69,17 +69,17 @@ namespace DWZ_Scada.Pages.StationPages.OP30
 
         }
 
-        private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
+        private void PageOP30_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance = null;
-            LogMgr.Instance.Info($"关闭{OP30MainFunc.Instance.StationCode}-HttpServer");
             if (!OP30MainFunc.IsInstanceNull)
             {
+                LogMgr.Instance.Info($"关闭{OP30MainFunc.Instance.StationCode}-HttpServer");
+                LogMgr.Instance.Info($"关闭{OP30MainFunc.Instance.StationName}程序");
                 OP30MainFunc.Instance.Dispose();
             }
-            LogMgr.Instance.Info($"关闭{OP30MainFunc.Instance.StationName}程序");
+            _instance = null;
         }
-        private void PageOP20_Initialize(object sender, EventArgs e)
+        private void PageOP30_Initialize(object sender, EventArgs e)
         {
 
         }

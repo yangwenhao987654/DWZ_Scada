@@ -64,14 +64,7 @@ namespace DWZ_Scada
                 string mutexName = System.Reflection.Assembly.GetEntryAssembly().FullName;
                 using (Mutex m = new Mutex(false, mutexName, out canCreateNew))
                 {
-                    if (!canCreateNew)
-                    {
-                        MessageBox.Show(null, "有一个和本程序相同的应用程序已经在运行，请不要同时运行多个本程序。\n\n这个程序即将退出。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        Environment.Exit(1);
-                    }
-                    else
-                    {
-                        //GC.RegisterForFullGCNotification(GarbageCollectionNotificationCallback,null));
+                    //GC.RegisterForFullGCNotification(GarbageCollectionNotificationCallback,null));
                         #region 处理全局异常,Task类中出现的异常无法在此捕获.
                         Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                         //处理UI异常
@@ -82,6 +75,19 @@ namespace DWZ_Scada
                         Application.SetCompatibleTextRenderingDefault(false);
                         #endregion
                         //TODO 先登录 登录成功后进入系统
+                        LogMgr.Instance.Init();
+                        SystemParams.Load();
+                        if (SystemParams.Instance.Station==SystemParams.StationEnum.OP20机械手绕线工站 || SystemParams.StationEnum.OP30绕线检查工站==SystemParams.Instance.Station)
+                        {
+                            canCreateNew = true;
+                        }
+                        if (!canCreateNew)
+                        {
+                            MessageBox.Show(null, "有一个和本程序相同的应用程序已经在运行，请不要同时运行多个本程序。\n\n这个程序即将退出。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Environment.Exit(1);
+                            return;
+                        }
+
                         PageLogin page = new PageLogin();
                         page.BringToFront();
                         page.Show();
@@ -100,8 +106,6 @@ namespace DWZ_Scada
                                 return;
                             }
                         }
-
-
                         //获取配置
                         //注册服务
                         /*    var config = new ConfigurationBuilder()
@@ -124,8 +128,7 @@ namespace DWZ_Scada
                                     builder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
                                 }, 1024)
                             ;*/
-                        LogMgr.Instance.Init();
-                        SystemParams.Load();
+                    
                         ConfigureServices(serviceCollection);
                         Global.ServiceProvider = serviceCollection.BuildServiceProvider();
                     
@@ -135,7 +138,6 @@ namespace DWZ_Scada
                         ZCForm mainForm = ZCForm.Instance;
                         //mainForm.WindowState = FormWindowState.Maximized;
                         Application.Run(mainForm);
-                    }
                 }
             }
             catch (Exception ex)

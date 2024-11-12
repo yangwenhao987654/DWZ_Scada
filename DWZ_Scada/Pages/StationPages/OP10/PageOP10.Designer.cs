@@ -19,7 +19,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 components.Dispose();
             }
-            this.PageOP10_FormClosing(this,null);
+            //this.PageOP10_FormClosing(this,null);
             base.Dispose(disposing);
         }
 

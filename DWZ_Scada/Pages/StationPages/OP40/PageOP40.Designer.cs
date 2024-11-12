@@ -17,7 +17,6 @@
             {
                 components.Dispose();
             }
-            PageOP40_FormClosing(this, null);
             base.Dispose(disposing);
         }
 
@@ -569,7 +568,7 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP40";
-            Text = "PageOP40";
+            Text = "OP40";
             TitleFillColor = System.Drawing.Color.Transparent;
             FormClosing += PageOP40_FormClosing;
             Load += Page_Load;

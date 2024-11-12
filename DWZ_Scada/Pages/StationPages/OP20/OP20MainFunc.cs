@@ -1,5 +1,4 @@
 ﻿using CommonUtilYwh.Communication.ModbusTCP;
-using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.DTO.OP20;
@@ -48,7 +47,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
         public event Action<int, int> OnWeldingStateChangedAction;
 
-
         public OP20MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
             StationName = "OP20";
@@ -60,7 +58,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             //释放PLC监控线程 所有后台线程
             //释放PLC连接
             base.Dispose();
-            _cts.Cancel();
+            _cts?.Cancel();
             PLC?.Dispose();
             foreach (ModbusTCP modbusTcp in ModbusTcpList)
             {
@@ -72,7 +70,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         {
             base.StartAsync();
             //TODO 增加Modbus TCP 的连接
-            ModbusConnections = new List<ModbusConnConfig>
+            Task.Run(() =>
+            {
+                ModbusConnections = new List<ModbusConnConfig>
             {
                 new (SystemParams.Instance.OP20_Winding1_IP, SystemParams.Instance.OP20_Winding1_Port, SystemParams.Instance.OP20_Winding1_StationNum),
                 new (SystemParams.Instance.OP20_Winding2_IP, SystemParams.Instance.OP20_Winding2_Port, SystemParams.Instance.OP20_Winding2_StationNum),
@@ -87,18 +87,19 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 new (SystemParams.Instance.OP20_Winding11_IP, SystemParams.Instance.OP20_Winding11_Port, SystemParams.Instance.OP20_Winding11_StationNum),
                 new(SystemParams.Instance.OP20_Winding12_IP, SystemParams.Instance.OP20_Winding12_Port, SystemParams.Instance.OP20_Winding12_StationNum)
             };
-            int a = 0;
-            for (int i = 0; i < ModbusConnections.Count; i++)
-            {
-                int index = i;
-                var modbusTcp = new ModbusTCP();
-                var connection = ModbusConnections[index];
-                modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
-                ModbusTcpList.Add(modbusTcp);
+                int a = 0;
+                for (int i = 0; i < ModbusConnections.Count; i++)
+                {
+                    int index = i;
+                    var modbusTcp = new ModbusTCP();
+                    var connection = ModbusConnections[index];
+                    modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
+                    ModbusTcpList.Add(modbusTcp);
 
-                Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token, modbusTcp, index));
-                thread.Start();
-            }
+                    Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token, modbusTcp, index));
+                    thread.Start();
+                }
+            });
         }
 
 
@@ -465,7 +466,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 (bool flag, string msg) = await EntryRequest(requestDto);
                 //
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
-                PLC.Write(OP10Address.EntryResult, "Bool", flag);
+                PLC.Write(OP20Address.EntryResult, "Bool", flag);
             }
         }
 

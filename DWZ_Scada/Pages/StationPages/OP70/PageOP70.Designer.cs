@@ -17,8 +17,6 @@
             {
                 components.Dispose();
             }
-
-            PageOP10_FormClosing(this, null);
             base.Dispose(disposing);
         }
 
@@ -41,7 +39,6 @@
             lbl_grade = new Sunny.UI.UILabel();
             lbl_CodeResult = new Sunny.UI.UILabel();
             uiLabel10 = new Sunny.UI.UILabel();
-            workOrderCtrl1 = new ctrls.workOrderCtrl();
             SuspendLayout();
             // 
             // uiLabel1
@@ -169,24 +166,10 @@
             uiLabel10.Text = "结   果:";
             uiLabel10.Click += uiLabel10_Click;
             // 
-            // workOrderCtrl1
-            // 
-            workOrderCtrl1.BackColor = System.Drawing.Color.White;
-            workOrderCtrl1.CurPartNo = "";
-            workOrderCtrl1.CurProductCode = "";
-            workOrderCtrl1.CurProductName = "";
-            workOrderCtrl1.CurWorkOrderNo = "";
-            workOrderCtrl1.Location = new System.Drawing.Point(23, 62);
-            workOrderCtrl1.Name = "workOrderCtrl1";
-            workOrderCtrl1.Orders = null;
-            workOrderCtrl1.Size = new System.Drawing.Size(1223, 122);
-            workOrderCtrl1.TabIndex = 80;
-            // 
             // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
-            Controls.Add(workOrderCtrl1);
             Controls.Add(uiLabel10);
             Controls.Add(lbl_CodeResult);
             Controls.Add(lbl_grade);
@@ -200,7 +183,7 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP70";
-            Text = "PageOP10";
+            Text = "OP10";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;
             FormClosing += PageOP10_FormClosing;

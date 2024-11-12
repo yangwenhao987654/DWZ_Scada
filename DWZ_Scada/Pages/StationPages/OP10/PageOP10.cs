@@ -110,14 +110,14 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance = null;
             LogMgr.Instance.Info("关闭OP10-HttpServer");
             if (!OP10MainFunc.IsInstanceNull)
             {
                 OP10MainFunc.Instance?.Dispose();
             }
-
             LogMgr.Instance.Info("关闭OP10程序");
+            _instance = null;
+            //调用 Close() 方法,先进入  FormClosing 事件 ，之后再调用Designer类的Dispose
         }
     }
 }
