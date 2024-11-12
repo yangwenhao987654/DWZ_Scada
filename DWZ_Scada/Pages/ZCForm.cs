@@ -2,6 +2,8 @@
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
+using DWZ_Scada.Pages.StationPages.OP20;
+using DWZ_Scada.Pages.StationPages.OP30;
 using DWZ_Scada.Pages.StationPages.OP40;
 using LogTool;
 using Sunny.UI;
@@ -198,7 +200,7 @@ namespace DWZ_Scada.Pages
                     SetMainPage(PageOP20.Instance);
                     break;
                 case SystemParams.StationEnum.OP30绕线检查工站:
-                    SetMainPage(PageOP20.Instance);
+                    SetMainPage(PageOP30.Instance);
                     break;
                 case SystemParams.StationEnum.OP40TIG电焊工站:
                     SetMainPage(PageOP40.Instance);

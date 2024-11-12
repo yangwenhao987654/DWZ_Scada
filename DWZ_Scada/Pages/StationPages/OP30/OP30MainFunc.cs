@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static DWZ_Scada.Pages.StationPages.MainFuncBase;
 
-namespace DWZ_Scada.Pages.StationPages.OP20
+namespace DWZ_Scada.Pages.StationPages.OP30
 {
     public class OP30MainFunc : MainFuncBase
     {
@@ -107,11 +107,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
         public override async void PLCMainWork(CancellationToken token)
         {
-            //进站信号
-            bool isEntry;
             int state = -1;
-            DateTime dt;
-            OP20Model model = new OP20Model();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -224,7 +220,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         protected override int ReadPLCState()
         {
             short state;
-            bool readFlag = PLC.ReadInt16(OP20Address.State, out state);
+            bool readFlag = PLC.ReadInt16(OP30Address.State, out state);
             //读取失败 返回-1
             return readFlag ? state : -1;
         }

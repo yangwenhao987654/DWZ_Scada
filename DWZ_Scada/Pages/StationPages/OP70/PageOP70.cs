@@ -54,7 +54,7 @@ namespace DWZ_Scada
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug($"打开{OP70MainFunc.StationName}工站");
+
 
             ISelectionStrategyEvent OP60Strategy = new OP70SelectionStrategy();
             OP60Strategy.OnSelectionEvent += OP70SelectionStrategy_OnSelectionEvent;
@@ -65,7 +65,7 @@ namespace DWZ_Scada
 
             OP70MainFunc.CreateInstance(plcConfig);
             OP70MainFunc.Instance.StartAsync();
-
+            LogMgr.Instance.Debug($"打开{OP70MainFunc.Instance.StationName}工站");
             OP70MainFunc.Instance.OnVision1Finished += Instance_OnVision1Finished;
             OP70MainFunc.Instance.OP70EntryStateChanged += Instance_OP70EntryStateChanged;
             OP70MainFunc.Instance.OP70FinalCodeFinished += Instance_OP70FinalCodeFinished;
@@ -124,15 +124,13 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance = null;
-            LogMgr.Instance.Info($"关闭{OP70MainFunc.StationCode}-HttpServer");
             if (!OP70MainFunc.IsInstanceNull)
             {
+                LogMgr.Instance.Info($"关闭{OP70MainFunc.Instance.StationCode}-HttpServer");
+                LogMgr.Instance.Info($"关闭{OP70MainFunc.Instance.StationName}程序");
                 OP70MainFunc.Instance?.Dispose();
             }
-            LogMgr.Instance.Info($"关闭{OP70MainFunc.StationName}程序");
         }
-
 
         private void uiLabel10_Click(object sender, EventArgs e)
         {

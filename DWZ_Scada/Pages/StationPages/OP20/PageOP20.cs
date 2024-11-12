@@ -1,7 +1,4 @@
-﻿using DIPTest;
-using DWZ_Scada.ctrls;
-using DWZ_Scada.HttpServices;
-using DWZ_Scada.HttpServices.response;
+﻿using DWZ_Scada.ctrls;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.PLC;
@@ -10,16 +7,12 @@ using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using RestSharp;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
 
-namespace DWZ_Scada
+namespace DWZ_Scada.Pages.StationPages.OP20
 {
     public partial class PageOP20 : UIPage
     {
@@ -55,9 +48,6 @@ namespace DWZ_Scada
 
         private void Page_Load(object sender, EventArgs e)
         {
-            //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug($"打开{OP20MainFunc.StationName}工站");
-
             ISelectionStrategyEvent op20Strategy = new OP20SelectionStrategy();
             op20Strategy.OnSelectionEvent += OP20SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -71,20 +61,8 @@ namespace DWZ_Scada
             OP20MainFunc.CreateInstance(plcConfig);
             OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
             OP20MainFunc.Instance.StartAsync();
-
-       
-
-            #endregion
-
-            #region OP30工站
-            PLCConfig op30Config = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP30_PlcIP,
-                SystemParams.Instance.OP30_PlcPort);
-
-            OP30MainFunc.CreateInstance(op30Config);
-            OP30MainFunc.Instance.StartAsync();
-            OP30MainFunc.Instance.OP30EntryStateChanged += Instance_OP30EntryStateChanged;
-            OP30MainFunc.Instance.OP30VisionFinished += Instance_OP30VisionFinished;
-
+            //LogMgr.Instance.SetCtrl(listViewEx_Log1);
+            LogMgr.Instance.Debug($"打开{OP20MainFunc.Instance.StationName}工站");
             #endregion
 
             int index = 1;
@@ -119,17 +97,6 @@ namespace DWZ_Scada
             WindingCtrlList[index].UpdateState(state);
         }
 
-
-        private void Instance_OP30VisionFinished(string sn, int result)
-        {
-           MyUIControler.UpdateTestStateCtrl(userCtrlResult_OP30,sn,result);
-        }
-
-        private void Instance_OP30EntryStateChanged(string sn, int result,string msg="")
-        {
-            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP30,sn,result,msg);
-        }
-
         private void OP20SelectionStrategy_OnSelectionEvent(object sender, SelectionEventArgs e)
         {
             LogMgr.Instance.Info("触发选型");
@@ -147,24 +114,14 @@ namespace DWZ_Scada
 
         }
 
-        private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
+        private void PageOP20_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance = null;
-            LogMgr.Instance.Info($"关闭{OP20MainFunc.StationCode}-HttpServer");
             if (!OP20MainFunc.IsInstanceNull)
             {
+                LogMgr.Instance.Info($"关闭{OP20MainFunc.Instance.StationName}程序");
+                LogMgr.Instance.Info($"关闭{OP20MainFunc.Instance.StationCode}-HttpServer");
                 OP20MainFunc.Instance.Dispose();
             }
-            if (!OP30MainFunc.IsInstanceNull)
-            {
-                OP30MainFunc.Instance.Dispose();
-            }
-            LogMgr.Instance.Info($"关闭{OP20MainFunc.StationName}程序");
-        }
-
-        private void btn_Test_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void PageOP20_Initialize(object sender, EventArgs e)

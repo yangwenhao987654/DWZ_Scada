@@ -167,9 +167,9 @@ namespace DWZ_Scada.Pages.StationPages
 
         public List<string> AlarmInfoList = new List<string>();
 
-        public static string StationName;
+        public  string StationName;
 
-        public static string StationCode;
+        public  string StationCode;
 
         /// <summary>
         /// 当前的工单

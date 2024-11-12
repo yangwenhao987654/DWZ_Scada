@@ -8,7 +8,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 {
     public class CoildAddress
     {
-
         #region 绕线机数据通讯 ModbusTCP通讯
         /// <summary>
         /// 绕线机状态  0故障 1待机 12 运行中

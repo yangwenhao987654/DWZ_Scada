@@ -4,6 +4,7 @@ using Cap.Dialog;
 using DIPTest;
 using DWZ_Scada;
 using DWZ_Scada.Pages;
+using DWZ_Scada.Pages.StationPages.OP30;
 using LogTool;
 using SJTU_UI.Pages.User;
 using Sunny.UI;
@@ -276,7 +277,7 @@ namespace AutoStation
             parent = uiNavMenu1.CreateNode("上料打码工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);
             uiNavMenu1.CreateChildNode(parent, "OP10工站", SymbolFontUtil.ChildNodeIcon, point, 24, pageIndex++);
 
-            PageList.Add(new MyPage("OP10工站", typeof(PageOP20), null));
+            PageList.Add(new MyPage("OP10工站", typeof(PageOP30), null));
             //查询界面
             pageIndex = 200;
             parent = uiNavMenu1.CreateNode("机械手绕线工站", SymbolFontUtil.ParentNodeIcon, point, 24, pageIndex++);

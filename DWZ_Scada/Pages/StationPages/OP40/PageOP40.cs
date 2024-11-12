@@ -1,6 +1,4 @@
-﻿using DIPTest.Ctrl;
-using DWZ_Scada.Pages.PLCAlarm;
-using DWZ_Scada.Pages.StationPages.OP10;
+﻿using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.Damageable;
 using DWZ_Scada.ProcessControl.DTO;
@@ -66,11 +64,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //OP40DamageStrategy op40DamageStrategy = new OP40DamageStrategy();
             //op40DamageStrategy.OnDamageableEvent += Op40DamageStrategy_OnSelectionEvent;
 
-        }
-
-        private void Op40DamageStrategy_OnSelectionEvent(object sender, DamageEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void Instance_OnWeldDataRevived(short[] arr,string type)

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DWZ_Scada.Pages.PLCAlarm
+﻿namespace DWZ_Scada.Pages.PLCAlarm
 {
     public class SingleAlarmAddress
     {

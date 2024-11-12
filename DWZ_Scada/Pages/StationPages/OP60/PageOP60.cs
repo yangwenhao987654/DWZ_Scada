@@ -79,8 +79,7 @@ namespace DWZ_Scada
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug($"打开{OP60MainFunc.StationName}工站");
-
+        
             ISelectionStrategyEvent op60SelectionStrategy = new OP60SelectionStrategy();
             op60SelectionStrategy.OnSelectionEvent += OP60SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -92,6 +91,8 @@ namespace DWZ_Scada
             OP60MainFunc.Instance.StartAsync();
 
             Mylog.Instance.Init(myLogCtrl1);
+            LogMgr.Instance.Debug($"打开{OP60MainFunc.Instance.StationName}工站");
+
             OP60MainFunc.Instance.OP60EntryStateChanged += Instance_OP60EntryStateChanged;
             OnDeviceStateChangedEvent += PageOP60_OnDeviceStateChangedEvent;
         }
@@ -141,27 +142,12 @@ namespace DWZ_Scada
 
         private void PageOP10_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _instance = null;
-            LogMgr.Instance.Info($"关闭{OP60MainFunc.StationCode}-HttpServer");
             if (!OP60MainFunc.IsInstanceNull)
             {
+                LogMgr.Instance.Info($"关闭{OP60MainFunc.Instance.StationName}程序");
+                LogMgr.Instance.Info($"关闭{OP60MainFunc.Instance.StationCode}-HttpServer");
                 OP60MainFunc.Instance?.Dispose();
             }
-            LogMgr.Instance.Info($"关闭{OP60MainFunc.StationName}程序");
-        }
-
-        private void uiSwitch_Spot_ValueChanged(object sender, bool value)
-        {
-            if (value)
-            {
-                LogMgr.Instance.Info("启动点检");
-            }
-            else
-            {
-                LogMgr.Instance.Info("关闭点检");
-            }
-            OP60MainFunc.Instance.PLC.Write(OP60Address.SpotCheck, "bool", value);
-            OP60MainFunc.Instance.IsSpotCheck = value;
         }
 
         /// <summary>

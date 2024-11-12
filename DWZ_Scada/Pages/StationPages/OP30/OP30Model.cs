@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DWZ_Scada.Pages.StationPages.OP20
+namespace DWZ_Scada.Pages.StationPages.OP30
 {
     public class OP30Model:INotifyPropertyChanged
     {
