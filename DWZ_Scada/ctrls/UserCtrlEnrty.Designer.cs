@@ -35,7 +35,7 @@
             // uiLabel4
             // 
             uiLabel4.BackColor = System.Drawing.Color.Gray;
-            uiLabel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            uiLabel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             uiLabel4.Font = new System.Drawing.Font("微软雅黑", 50F);
             uiLabel4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel4.Location = new System.Drawing.Point(0, 0);
@@ -58,6 +58,7 @@
             lbl_Input.Size = new System.Drawing.Size(313, 36);
             lbl_Input.TabIndex = 3;
             lbl_Input.Text = "SN";
+            lbl_Input.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // UserCtrlEntry
             // 

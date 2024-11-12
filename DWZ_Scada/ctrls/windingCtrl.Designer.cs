@@ -45,8 +45,8 @@
             uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight1.Name = "uiLight1";
             uiLight1.OnColor = System.Drawing.Color.Gray;
-            uiLight1.Radius = 34;
-            uiLight1.Size = new System.Drawing.Size(35, 34);
+            uiLight1.Radius = 35;
+            uiLight1.Size = new System.Drawing.Size(35, 40);
             uiLight1.TabIndex = 0;
             uiLight1.Text = "uiLight1";
             // 
@@ -84,6 +84,7 @@
             // 
             // uiFlowLayoutPanel1
             // 
+            uiFlowLayoutPanel1.AutoScroll = false;
             uiFlowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             uiFlowLayoutPanel1.Controls.Add(uiLight1);
             uiFlowLayoutPanel1.Controls.Add(uiLabel1);
@@ -96,6 +97,7 @@
             uiFlowLayoutPanel1.Name = "uiFlowLayoutPanel1";
             uiFlowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             uiFlowLayoutPanel1.RectColor = System.Drawing.Color.Transparent;
+            uiFlowLayoutPanel1.ScrollBarHandleWidth = 0;
             uiFlowLayoutPanel1.ShowText = false;
             uiFlowLayoutPanel1.Size = new System.Drawing.Size(194, 45);
             uiFlowLayoutPanel1.TabIndex = 2;
@@ -116,6 +118,7 @@
             uiLabel1.TabIndex = 1;
             uiLabel1.Text = "绕线机01";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            uiLabel1.Click += uiLabel1_Click;
             // 
             // windingCtrl
             // 

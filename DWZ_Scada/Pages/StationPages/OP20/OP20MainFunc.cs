@@ -271,7 +271,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         //绕线机开始
                         LogMgr.Instance.Info("收到绕线开始...");
                         PLC.WriteInt16(OP20Address.WindingStartList[i], 0);
-
                         Task task = Task.Run(async () =>
                         {
                             //TODO 读取两次绕线的SN码
@@ -281,8 +280,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                             bool isFinish = false;
                             Stopwatch sw = Stopwatch.StartNew();
                             sw.Start();
-                            //TODO 增加一个超时
-
+                            //TODO 增加一个超
                             while (true) //300秒 60*5 5分钟
                             {
                                 ModbusTcpList[0].ReadUInt16(CoildAddress.CoilsState, out ushort state);

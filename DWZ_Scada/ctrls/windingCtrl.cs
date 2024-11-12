@@ -22,10 +22,7 @@ namespace DWZ_Scada.ctrls
                 WeldingTitle = weldingName;
             }*/
         [Browsable(true)]
-        [Category("标题")]
-        [DisplayName("绕线机名称")]
-        [DefaultValue("绕线机01")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DisplayName("绕线机名称"), Category("AAA自定义_绕线"), Description("请输入绕线机的名称")]
         public string WeldingTitle
         {
             get => uiLabel1.Text;
@@ -137,7 +134,12 @@ namespace DWZ_Scada.ctrls
 
         private void uiPanel1_Load(object sender, EventArgs e)
         {
-           
+
+        }
+
+        private void uiLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

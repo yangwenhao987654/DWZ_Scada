@@ -554,7 +554,6 @@ namespace DWZ_Scada.Pages.StationPages
                 }
                 // 处理设备状态
 
-
                 //这里判断设备是不是点检模式
 
 
