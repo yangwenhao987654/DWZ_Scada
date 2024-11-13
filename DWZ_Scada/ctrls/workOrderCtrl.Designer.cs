@@ -148,8 +148,7 @@
             // 
             // workOrderCtrl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.Transparent;
             Controls.Add(uiLabel5);
             Controls.Add(uiSwitch_Spot);

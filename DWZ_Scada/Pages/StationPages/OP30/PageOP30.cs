@@ -55,12 +55,12 @@ namespace DWZ_Scada.Pages.StationPages.OP30
 
         private void Instance_OP30VisionFinished(string sn, int result)
         {
-           MyUIControler.UpdateTestStateCtrl(userCtrlResult_OP30,sn,result);
+            MyUIControler.UpdateTestStateCtrl(userCtrlResult_OP30, sn, result);
         }
 
-        private void Instance_OP30EntryStateChanged(string sn, int result,string msg="")
+        private void Instance_OP30EntryStateChanged(string sn, int result, string msg = "")
         {
-            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP30,sn,result,msg);
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry_OP30, sn, result, msg);
         }
 
 
@@ -80,6 +80,11 @@ namespace DWZ_Scada.Pages.StationPages.OP30
             _instance = null;
         }
         private void PageOP30_Initialize(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiLabel6_Click(object sender, EventArgs e)
         {
 
         }

@@ -10,14 +10,12 @@ using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DWZ_Scada.ctrls
 {
     public partial class workOrderCtrl : UserControl
     {
-
         public int orderId;
         public List<OrderVo> Orders { get; set; }
 
@@ -41,7 +39,7 @@ namespace DWZ_Scada.ctrls
                 if (value != _isCheckPass)
                 {
                     _isCheckPass = value;
-                    ReflashStateColor(value);
+                    //ReflashStateColor(value);
                 }
             }
         }
@@ -277,9 +275,14 @@ namespace DWZ_Scada.ctrls
 
         private void cbx_Orders_DropDown(object sender, EventArgs e)
         {
+          /*  if (DesignMode)
+            {
+                UIMessageBox.ShowError("设计模式中");
+                return;
+            }
             cbx_Orders.SelectedIndexChanged -=cbx_Orders_SelectedIndexChanged;
             GetWorkOrders();
-            cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;
+            cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;*/
         }
     }
 }

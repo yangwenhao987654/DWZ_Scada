@@ -65,7 +65,7 @@
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
-            ctrlWindingS.Size = new System.Drawing.Size(829, 539);
+            ctrlWindingS.Size = new System.Drawing.Size(1199, 539);
             ctrlWindingS.TabIndex = 20;
             ctrlWindingS.TagString = null;
             // 
@@ -80,7 +80,7 @@
             uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel2.Name = "uiPanel2";
-            uiPanel2.Size = new System.Drawing.Size(609, 188);
+            uiPanel2.Size = new System.Drawing.Size(1187, 188);
             uiPanel2.TabIndex = 21;
             uiPanel2.Text = null;
             uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -89,7 +89,7 @@
             // 
             uiLabel3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel3.Location = new System.Drawing.Point(323, 5);
+            uiLabel3.Location = new System.Drawing.Point(777, 5);
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new System.Drawing.Size(124, 38);
             uiLabel3.TabIndex = 24;
@@ -98,7 +98,7 @@
             // 
             // op20CtrlEntry2
             // 
-            op20CtrlEntry2.Location = new System.Drawing.Point(323, 46);
+            op20CtrlEntry2.Location = new System.Drawing.Point(777, 46);
             op20CtrlEntry2.Margin = new System.Windows.Forms.Padding(4);
             op20CtrlEntry2.Name = "op20CtrlEntry2";
             op20CtrlEntry2.Size = new System.Drawing.Size(265, 138);
