@@ -28,6 +28,8 @@ namespace DWZ_Scada.ctrls
         private bool _isCheckPass = false;
 
         private List<string> BomList { get; set; }
+
+        public event Action<bool> CheckStateChanged; 
         public bool IsCheckPass
         {
             get
@@ -39,12 +41,12 @@ namespace DWZ_Scada.ctrls
                 if (value != _isCheckPass)
                 {
                     _isCheckPass = value;
-                    //ReflashStateColor(value);
+                    ReflashStateColor(value);
+                    CheckStateChanged?.Invoke(value);
+                    Global.IsWorkNoCheckPass = value;
                 }
             }
         }
-
-        ProductBomService ProductBomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
 
         private void ReflashStateColor(bool isOK)
         {
@@ -53,25 +55,15 @@ namespace DWZ_Scada.ctrls
                 //使用方法引用
                 this.Invoke(new Action<bool>(ReflashStateColor), isOK);
                 return;
-                /*   //使用Lambda表达式
-                   this.Invoke(new Action(()=>
-                   {
-                       ReflashStateColor(isOK);
-                   }));*/
-                /*     this.Invoke(
-                         new Action( ReflashStateColor),isOK
-                     );*/
             }
 
             if (isOK)
             {
                 userCtrlScanInput1.SetPassColor();
-                // userCtrlScanInput1.BackColor =Color.Green;   
             }
             else
             {
                 userCtrlScanInput1.SetErrColor();
-                //userCtrlScanInput1.BackColor = Color.Red; 
             }
         }
 
@@ -83,15 +75,11 @@ namespace DWZ_Scada.ctrls
         public workOrderCtrl()
         {
             InitializeComponent();
+
         }
 
         private async void GetWorkOrders()
         {
-       /*     test();
-            return;*/
-            //从Mes获取最新生产型号 
-            //list
-            //当前型号的物料Bom
             Orders = new List<OrderVo>();
             WorkOrderService service = Global.ServiceProvider.GetRequiredService<WorkOrderService>();
             RestResponse response = await service.GetWorkOrder();
@@ -128,7 +116,7 @@ namespace DWZ_Scada.ctrls
             //list
             //当前型号的物料Bom
             Orders = new List<OrderVo>();
-            for(int a =0;a<5;a++)
+            for (int a = 0; a < 5; a++)
             {
                 OrderVo vo = new OrderVo();
                 vo.WorkOrderCode = $"{orderId.ToString("D3")}-{a}";
@@ -142,6 +130,7 @@ namespace DWZ_Scada.ctrls
             cbx_Orders.DataSource = Orders;
             cbx_Orders.DisplayMember = nameof(OrderVo.WorkOrderCode);
         }
+
 
         private async void uiButton3_Click(object sender, EventArgs e)
         {
@@ -173,7 +162,7 @@ namespace DWZ_Scada.ctrls
 
         private void workOrderCtrl_Load(object sender, EventArgs e)
         {
-            //userCtrlScanInput1.InputFinishEvent += UserCtrlScanInput1_InputFinishEvent;
+            userCtrlScanInput1.InputFinishEvent += UserCtrlScanInput1_InputFinishEvent;
         }
 
         private void UserCtrlScanInput1_InputFinishEvent(string msg)
@@ -217,6 +206,7 @@ namespace DWZ_Scada.ctrls
 
         private async void GetBomList(string itemCode)
         {
+            ProductBomService ProductBomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
             (bool flag, string err, ProductDetailDto dto) = await ProductBomService.GetBomList(itemCode);
             if (flag)
             {
@@ -227,33 +217,6 @@ namespace DWZ_Scada.ctrls
                     {
                         BomList.Add(bomDto.BomItemCode);
                     }
-                }
-            }
-            else
-            {
-                UIMessageBox.ShowError("查询产品Bom错误:" + err);
-                LogMgr.Instance.Error("查询产品Bom错误:" + err);
-            }
-        }
-
-        private async void GetBomList()
-        {
-            (bool flag, string err, ProductDetailDto dto) = await ProductBomService.GetBomList(CurProductCode);
-            if (flag)
-            {
-                if (dto != null)
-                {
-                    LogMgr.Instance.Error("查询产品Bom 为null");
-                    foreach (var item in dto.ProductBomList)
-                    {
-                        if (CheckBomSN(item.BomItemCode, CurPartNo))
-                        {
-                            LogMgr.Instance.Info("工单物料匹配成功");
-                            IsCheckPass = true;
-                            return;
-                        }
-                    }
-                    return;
                 }
             }
             else
@@ -275,14 +238,19 @@ namespace DWZ_Scada.ctrls
 
         private void cbx_Orders_DropDown(object sender, EventArgs e)
         {
-          /*  if (DesignMode)
+            if (DesignMode)
             {
                 UIMessageBox.ShowError("设计模式中");
                 return;
             }
-            cbx_Orders.SelectedIndexChanged -=cbx_Orders_SelectedIndexChanged;
+            cbx_Orders.SelectedIndexChanged -= cbx_Orders_SelectedIndexChanged;
             GetWorkOrders();
-            cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;*/
+            cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;
+        }
+
+        private void uiSwitch_Spot_ValueChanged(object sender, bool value)
+        {
+
         }
     }
 }

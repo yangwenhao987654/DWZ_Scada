@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DWZ_Scada
 {
-    public class Global
+    public static class Global
     {
         // 定义一个静态的 ServiceProvider 变量
         public static ServiceProvider ServiceProvider { get;  set; }
@@ -33,7 +33,11 @@ namespace DWZ_Scada
 
         };
 
+        public static string WorkOrder { get; set; }
         public static bool isYWH { get; set; }
+        
+
+        public static bool IsWorkNoCheckPass { get; set; }
 
         public static List<PLCAlarmData> PlcAlarmList = new List<PLCAlarmData>();
         public static bool IsClose { get; set; }

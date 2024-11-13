@@ -181,7 +181,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// 焊接流程
         /// </summary>
         /// <param name="token"></param>
-        /// <exception cref="NotImplementedException"></exception>
         private void WeldingMonitor(CancellationToken token)
         {
             try

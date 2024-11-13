@@ -35,7 +35,8 @@ namespace DWZ_Scada.HttpRequest
             catch (Exception ex)
             {
                 LogMgr.Instance.AddMesError($"请求失败: {ex.Message}");
-                throw ;
+                //throw ;
+                return null;
             }
         }
 
@@ -84,6 +85,10 @@ namespace DWZ_Scada.HttpRequest
 
         public (bool,string) AnalyzeResponse(RestResponse response)
         {
+            if (response==null)
+            {
+                return (false,"请求错误");
+            }
             string msg = string.Empty;
             bool isSuccessful = response.IsSuccessful;
             bool result = false;

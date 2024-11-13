@@ -43,7 +43,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             ctrlResult_V1 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel2 = new UILabel();
-            testWorkOrderCtrl1 = new ctrls.TestWorkOrderCtrl();
+            workOrderCtrl1 = new ctrls.workOrderCtrl();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -73,7 +73,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(30, 381);
+            uiLabel8.Location = new System.Drawing.Point(30, 420);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new System.Drawing.Size(183, 42);
             uiLabel8.TabIndex = 25;
@@ -83,7 +83,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(642, 381);
+            uiLabel11.Location = new System.Drawing.Point(642, 420);
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new System.Drawing.Size(159, 42);
             uiLabel11.TabIndex = 26;
@@ -129,27 +129,27 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             // ctrlResult_V2
             // 
-            ctrlResult_V2.Location = new System.Drawing.Point(642, 426);
+            ctrlResult_V2.Location = new System.Drawing.Point(642, 466);
             ctrlResult_V2.Margin = new System.Windows.Forms.Padding(4);
             ctrlResult_V2.Name = "ctrlResult_V2";
-            ctrlResult_V2.Size = new System.Drawing.Size(455, 193);
+            ctrlResult_V2.Size = new System.Drawing.Size(455, 154);
             ctrlResult_V2.TabIndex = 35;
             ctrlResult_V2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             ctrlResult_V2.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // ctrlResult_V1
             // 
-            ctrlResult_V1.Location = new System.Drawing.Point(30, 427);
+            ctrlResult_V1.Location = new System.Drawing.Point(30, 466);
             ctrlResult_V1.Margin = new System.Windows.Forms.Padding(4);
             ctrlResult_V1.Name = "ctrlResult_V1";
-            ctrlResult_V1.Size = new System.Drawing.Size(455, 193);
+            ctrlResult_V1.Size = new System.Drawing.Size(455, 154);
             ctrlResult_V1.TabIndex = 36;
             ctrlResult_V1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             ctrlResult_V1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // userCtrlEntry1
             // 
-            userCtrlEntry1.Location = new System.Drawing.Point(30, 185);
+            userCtrlEntry1.Location = new System.Drawing.Point(39, 232);
             userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlEntry1.Name = "userCtrlEntry1";
             userCtrlEntry1.Size = new System.Drawing.Size(313, 168);
@@ -161,31 +161,31 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(30, 146);
+            uiLabel2.Location = new System.Drawing.Point(39, 188);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(131, 30);
             uiLabel2.TabIndex = 38;
             uiLabel2.Text = "产品进站:";
             // 
-            // testWorkOrderCtrl1
+            // workOrderCtrl1
             // 
-            testWorkOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
-            testWorkOrderCtrl1.CurPartNo = "";
-            testWorkOrderCtrl1.CurProductCode = "";
-            testWorkOrderCtrl1.CurProductName = "";
-            testWorkOrderCtrl1.CurWorkOrderNo = "";
-            testWorkOrderCtrl1.IsCheckPass = false;
-            testWorkOrderCtrl1.Location = new System.Drawing.Point(360, 127);
-            testWorkOrderCtrl1.Name = "testWorkOrderCtrl1";
-            testWorkOrderCtrl1.Orders = null;
-            testWorkOrderCtrl1.Size = new System.Drawing.Size(1175, 122);
-            testWorkOrderCtrl1.TabIndex = 39;
+            workOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrl1.CurPartNo = "";
+            workOrderCtrl1.CurProductCode = "";
+            workOrderCtrl1.CurProductName = "";
+            workOrderCtrl1.CurWorkOrderNo = "";
+            workOrderCtrl1.IsCheckPass = false;
+            workOrderCtrl1.Location = new System.Drawing.Point(12, 62);
+            workOrderCtrl1.Name = "workOrderCtrl1";
+            workOrderCtrl1.Orders = null;
+            workOrderCtrl1.Size = new System.Drawing.Size(1199, 101);
+            workOrderCtrl1.TabIndex = 39;
             // 
             // PageOP10
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1000);
-            Controls.Add(testWorkOrderCtrl1);
+            Controls.Add(workOrderCtrl1);
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlEntry1);
             Controls.Add(ctrlResult_V1);
@@ -218,6 +218,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private DIPTest.Ctrl.UserCtrlResult ctrlResult_V1;
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
         private UILabel uiLabel2;
-        private ctrls.TestWorkOrderCtrl testWorkOrderCtrl1;
+        private ctrls.workOrderCtrl workOrderCtrl1;
     }
 }

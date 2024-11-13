@@ -567,6 +567,24 @@ namespace DWZ_Scada.Pages.StationPages
 
         #endregion
 
+        #region 工单检查
+
+        protected bool CheckWorkOrderState(EntryStateChanged callback, string sn)
+        {
+            if (!Global.IsWorkNoCheckPass)
+            {
+                LogMgr.Instance.Info("物料校验失败");
+                callback?.Invoke(sn, 2, "物料错误");
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+
+
 
         public virtual void Dispose()
         {

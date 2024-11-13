@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using TouchSocket.Core;
+using static DWZ_Scada.Pages.StationPages.MainFuncBase;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
@@ -46,6 +48,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         public List<ModbusConnConfig> ModbusConnections = new List<ModbusConnConfig>();
 
         public event Action<int, int> OnWeldingStateChangedAction;
+
+        public event EntryStateChanged OnEntryStateChanged01;
+
+        public event EntryStateChanged OnEntryStateChanged02;
 
         public OP20MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
@@ -113,7 +119,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 {
                     if (modbusTcp.IsConnect)
                     {
-                        modbusTcp.ReadInt16("2000", out  state);
+                        modbusTcp.ReadInt16("2000", out state);
                         ReportDeviceState(index + 1, state);
                         /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
                         modbusTcp.ReadInt16("2041", out short tension1);*/
@@ -133,17 +139,17 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         }
                         else
                         {
-                            modbusTcp.ReadInt16("2000", out  state);
+                            modbusTcp.ReadInt16("2000", out state);
                             ReportDeviceState(index + 1, state);
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                   LogMgr.Instance.Error($"绕线机线程[{index+1}]错误, {e.Message}\n{e.StackTrace}");
+                    LogMgr.Instance.Error($"绕线机线程[{index + 1}]错误, {e.Message}\n{e.StackTrace}");
                 }
                 //TODO 更新界面绕线机状态
-                OnWeldingStateChangedAction?.Invoke(index , state);
+                OnWeldingStateChangedAction?.Invoke(index, state);
                 Thread.Sleep(1000);
             }
         }
@@ -196,12 +202,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             await DeviceStateService.AddDeviceState(dto);
         }
 
-        public  async void ReportDeviceState(int weldingMachineId ,short state)
+        public async void ReportDeviceState(int weldingMachineId, short state)
         {
             short currentState = -1;
             DeviceStateDTO dto = new DeviceStateDTO();
-            dto.DeviceName = "OP20绕线机"+ weldingMachineId.ToString("D2");
-            dto.DeviceCode = "OP20_"+ weldingMachineId.ToString("D2");
+            dto.DeviceName = "OP20绕线机" + weldingMachineId.ToString("D2");
+            dto.DeviceCode = "OP20_" + weldingMachineId.ToString("D2");
 
             switch (currentState)
             {
@@ -224,10 +230,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         public override async void PLCMainWork(CancellationToken token)
         {
             //进站信号
-            bool isEntry;
+    
             int state = -1;
-            DateTime dt;
-            OP20Model model = new OP20Model();
+            Thread t1 = new Thread(() => WindingMonitor(token));
+            t1.Start();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -242,13 +248,11 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     #endregion
 
                     // 处理进站信号
-                   // await ProcessEntrySignal();
+                     await ProcessEntrySignal01();
 
-                    //获取绕线完成位置
-                    //GetWindingPos();
+                     await ProcessEntrySignal02();
 
-                    //获取绕线开始信号
-                    WindingStart();
+
 
                 }
                 catch (Exception ex)
@@ -259,15 +263,44 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-        private  void WindingStart()
+        /// <summary>
+        /// 绕线检查流程
+        /// </summary>
+        /// <param name="token"></param>
+        private async void WindingMonitor(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (IsPlc_Connected)
+                    {
+                        //获取绕线完成位置
+                        //GetWindingPos();
+
+                        //获取绕线开始信号
+                        WindingStart();
+                        Thread.Sleep(500);
+                    }
+
+                    Thread.Sleep(100);
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error("PLC绕线检查监控线程错误:" + e.Message);
+                }
+            }
+        }
+
+        private void WindingStart()
         {
             //TODO 收到绕线开始信号  读取条码  采集绕线机测试数据
             //持续监控绕线机状态
-            if (PLC.ReadInt16(OP20Address.Winding01Start,12, out short[] startArr))
+            if (PLC.ReadInt16(OP20Address.Winding01Start, 12, out short[] startArr))
             {
                 for (var i = 0; i < startArr.Length; i++)
                 {
-                    if (startArr[i]==1)
+                    if (startArr[i] == 1)
                     {
                         //绕线机开始
                         LogMgr.Instance.Info("收到绕线开始...");
@@ -291,7 +324,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                     //停止
                                     LogMgr.Instance.Debug("读取到绕线停止..1");
                                     isFinish = true;
-                                
+
                                     CoildDataDto dto = new CoildDataDto();
                                     //运行中
                                     ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
@@ -354,7 +387,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 }
             }
 
-            if (PLC.ReadInt16(OP20Address.Winding01Start, out short isStart) && isStart==1)
+            if (PLC.ReadInt16(OP20Address.Winding01Start, out short isStart) && isStart == 1)
             {
                 LogMgr.Instance.Info("收到绕线开始...");
                 PLC.WriteInt16(OP20Address.Winding01Start, 0);
@@ -372,19 +405,19 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         {
                             //停止
                             LogMgr.Instance.Debug("读取到绕线停止..1");
-                       
+
                             CoildDataDto dto = new CoildDataDto();
                             //运行中
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
-                            dto.CoilsCurNum = coilsCurNum/100;
+                            dto.CoilsCurNum = coilsCurNum / 100;
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
-                            dto.CoilsTargetNum = coilsTargetNum/100;
+                            dto.CoilsTargetNum = coilsTargetNum / 100;
 
-                          /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
-                            dto.CoilsSpeed = coilsSpeed / 100;*/
+                            /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
+                              dto.CoilsSpeed = coilsSpeed / 100;*/
 
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTimes, out uint times);
-                            dto.CoilsTimes = times/100;
+                            dto.CoilsTimes = times / 100;
 
                             //采集张力值 TODO 需要区分是A/B哪个工位
                             ModbusTcpList[0].ReadInt16(CoildAddress.TensionValue01, out short tension01);
@@ -401,7 +434,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                 WorkOrder = "MO202410210001",
                                 PassStationData = dto
                             };
-                           await UploadStationData(passStationDto01);
+                            await UploadStationData(passStationDto01);
 
                             PassStationDTO passStationDto02 = new PassStationDTO()
                             {
@@ -411,7 +444,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                 WorkOrder = "MO202410210001",
                                 PassStationData = dto02
                             };
-                           await UploadStationData(passStationDto02);
+                            await UploadStationData(passStationDto02);
                             break;
                         }
                         else if (state == 12)
@@ -450,23 +483,65 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-        // 处理进站信号
-        private async Task ProcessEntrySignal()
+        private async Task ProcessEntrySignal01()
         {
-            if (PLC.ReadBool(OP20Address.EntrySignal, out bool isEntry) && isEntry)
+            if (PLC.ReadInt16(OP20Address.EntrySignal01, out short isEntry) && isEntry == 1)
             {
-                PLC.Read(OP20Address.EntrySn, "string-8", out string sn);
+                PLC.WriteInt16(OP20Address.EntrySignal01, 0);
+                PLC.Read(OP20Address.EntrySn01, "string-8", out string sn);
+                if (!CheckWorkOrderState(OnEntryStateChanged01, sn))
+                {
+                    LogMgr.Instance.Error($"OP20-01物料匹配失败，阻止进站 SN:[{sn}]");
+                    PLC.WriteInt16(OP20Address.EntryResult01, 2);
+                    return;
+                }
+
                 EntryRequestDTO requestDto = new()
                 {
                     SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = "MO202410210001"
+                    WorkOrder = Global.WorkOrder
                 };
-         
+
                 (bool flag, string msg) = await EntryRequest(requestDto);
                 //
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
-                PLC.Write(OP20Address.EntryResult, "Bool", flag);
+                short result = 2;
+                if (flag)
+                {
+                    result = 1;
+                }
+                PLC.WriteInt16(OP20Address.EntryResult01, result);
+            }
+        }
+
+        // 处理进站信号
+        private async Task ProcessEntrySignal02()
+        {
+            if (PLC.ReadInt16(OP20Address.EntrySignal02, out short isEntry) && isEntry==1)
+            {
+                PLC.WriteInt16(OP20Address.EntrySignal02, 0);
+                PLC.Read(OP20Address.EntrySn02, "string-8", out string sn);
+                if (!CheckWorkOrderState(OnEntryStateChanged02, sn))
+                {
+                    LogMgr.Instance.Error($"OP20-02物料匹配失败，阻止进站 SN:[{sn}]");
+                    PLC.WriteInt16(OP20Address.EntryResult02, 2);
+                    return;
+                }
+                EntryRequestDTO requestDto = new()
+                {
+                    SnTemp = sn,
+                    StationCode = StationCode,
+                    WorkOrder = Global.WorkOrder
+                };
+                (bool flag, string msg) = await EntryRequest(requestDto);
+                short result = 2;
+                if (flag)
+                {
+                    result = 1;
+                }
+                LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
+                PLC.WriteInt16(OP20Address.EntryResult02, result);
             }
         }
 

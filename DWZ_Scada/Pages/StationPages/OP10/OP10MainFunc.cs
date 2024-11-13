@@ -38,9 +38,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             _instance = new OP10MainFunc(plcConfig);
         }
 
-        public  event TestStateChanged OnVision1Finished;
+        public event TestStateChanged OnVision1Finished;
 
-        public  event TestStateChanged OnVision2Finished;
+        public event TestStateChanged OnVision2Finished;
 
         public event EntryStateChanged OnEntryStateChanged;
 
@@ -98,16 +98,17 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     dto.Message = message;
                 }
             }
-            //await DeviceStateService.AddDeviceState(dto);
+            await DeviceStateService.AddDeviceState(dto);
         }
 
         public override async void PLCMainWork(CancellationToken token)
         {
-            //进站信号
-            bool isEntry;
             int state = -1;
-            DateTime dt;
-            //myOp10Model.ExitSN = "79898";
+            Thread t1 = new Thread(() => VisionMonitor01(token));
+            t1.Start();
+
+            Thread t2 = new Thread(() => VisionMonitor02(token));
+            t2.Start();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -128,10 +129,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     // 处理进站信号
                     await ProcessEntrySignal();
 
-                    ProcessVision1();
-
-                    ProcessVision2();
-
                 }
                 catch (Exception ex)
                 {
@@ -142,7 +139,56 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
         }
 
-        private async void ProcessVision1()
+        /// <summary>
+        /// 画像检测流程
+        /// </summary>
+        /// <param name="token"></param>
+        private async void VisionMonitor01(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (IsPlc_Connected)
+                    {
+                        await ProcessVision1();
+                        Thread.Sleep(500);
+                    }
+
+                    Thread.Sleep(100);
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error("画像检测1线程错误:" + e.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 画像检测流程2
+        /// </summary>
+        /// <param name="token"></param>
+        private async void VisionMonitor02(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (IsPlc_Connected)
+                    {
+                        await ProcessVision2();
+                        Thread.Sleep(500);
+                    }
+                    Thread.Sleep(100);
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error("画像检测2线程错误:" + e.Message);
+                }
+            }
+        }
+
+        private async Task ProcessVision1()
         {
             if (PLC.ReadInt16(OP10Address.Vision1Start, out short isStart) && isStart == 1)
             {
@@ -213,7 +259,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
         }
 
-        private async void ProcessVision2()
+        private async Task ProcessVision2()
         {
             if (PLC.ReadInt16(OP10Address.Vision2Start, out short isStart) && isStart == 1)
             {
@@ -271,18 +317,25 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             {
                 //复位进站请求
                 PLC.WriteInt16(OP10Address.EntrySignal, 0);
+
                 LogMgr.Instance.Debug("收到进站请求信号");
                 PLC.Read(OP10Address.EntrySn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取进站条码内容:" + sn);
-                OnEntryStateChanged?.Invoke(sn,0);
+
+                if (!CheckWorkOrderState(OnEntryStateChanged, sn))
+                {
+                    LogMgr.Instance.Error($"OP10 物料匹配失败，阻止进站 SN:[{sn}]");
+                    return;
+                }
+                OnEntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {
                     SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = "MO202410210001"
+                    WorkOrder = Global.WorkOrder
                 };
                 (bool flag, string msg) = await EntryRequest(requestDto);
-               
+
                 LogMgr.Instance.Debug($"写进站结果{flag}");
                 short result = 2;
                 if (flag)
@@ -294,6 +347,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
         }
 
+     
         /// <summary>
         /// 读取PLC状态
         /// </summary>
