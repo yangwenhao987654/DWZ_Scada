@@ -43,6 +43,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             ctrlResult_V1 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel2 = new UILabel();
+            testWorkOrderCtrl1 = new ctrls.TestWorkOrderCtrl();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -166,10 +167,25 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiLabel2.TabIndex = 38;
             uiLabel2.Text = "产品进站:";
             // 
+            // testWorkOrderCtrl1
+            // 
+            testWorkOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
+            testWorkOrderCtrl1.CurPartNo = "";
+            testWorkOrderCtrl1.CurProductCode = "";
+            testWorkOrderCtrl1.CurProductName = "";
+            testWorkOrderCtrl1.CurWorkOrderNo = "";
+            testWorkOrderCtrl1.IsCheckPass = false;
+            testWorkOrderCtrl1.Location = new System.Drawing.Point(360, 127);
+            testWorkOrderCtrl1.Name = "testWorkOrderCtrl1";
+            testWorkOrderCtrl1.Orders = null;
+            testWorkOrderCtrl1.Size = new System.Drawing.Size(1175, 122);
+            testWorkOrderCtrl1.TabIndex = 39;
+            // 
             // PageOP10
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1000);
+            Controls.Add(testWorkOrderCtrl1);
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlEntry1);
             Controls.Add(ctrlResult_V1);
@@ -202,5 +218,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private DIPTest.Ctrl.UserCtrlResult ctrlResult_V1;
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
         private UILabel uiLabel2;
+        private ctrls.TestWorkOrderCtrl testWorkOrderCtrl1;
     }
 }
