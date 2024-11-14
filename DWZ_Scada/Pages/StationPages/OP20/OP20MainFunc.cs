@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using TouchSocket.Core;
-using static DWZ_Scada.Pages.StationPages.MainFuncBase;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
@@ -251,8 +249,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                      await ProcessEntrySignal01();
 
                      await ProcessEntrySignal02();
-
-
 
                 }
                 catch (Exception ex)
@@ -511,6 +507,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 {
                     result = 1;
                 }
+                OnEntryStateChanged01?.Invoke(sn,result,msg);
                 PLC.WriteInt16(OP20Address.EntryResult01, result);
             }
         }
@@ -540,6 +537,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 {
                     result = 1;
                 }
+                OnEntryStateChanged02?.Invoke(sn, result, msg);
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
                 PLC.WriteInt16(OP20Address.EntryResult02, result);
             }

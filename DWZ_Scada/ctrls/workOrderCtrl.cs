@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.HttpServices;
+﻿using DWZ_Scada.Forms;
+using DWZ_Scada.HttpServices;
 using DWZ_Scada.HttpServices.response;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.VO;
@@ -27,9 +28,10 @@ namespace DWZ_Scada.ctrls
 
         private bool _isCheckPass = false;
 
-        private List<string> BomList { get; set; }
+        private List<string> BomList { get; set; } = new List<string>();
+        public event Action<bool> CheckStateChanged;
 
-        public event Action<bool> CheckStateChanged; 
+        public List<ProductBomDTO> ProductBomList { get; set; }
         public bool IsCheckPass
         {
             get
@@ -156,7 +158,6 @@ namespace DWZ_Scada.ctrls
                 lbl_ProdModel.Text = orderVo.ProductCode;
                 CurProductCode = orderVo.ProductCode;
                 GetBomList(orderVo.ProductCode);
-
             }
         }
 
@@ -206,13 +207,14 @@ namespace DWZ_Scada.ctrls
 
         private async void GetBomList(string itemCode)
         {
+            BomList = new List<string>();
             ProductBomService ProductBomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
             (bool flag, string err, ProductDetailDto dto) = await ProductBomService.GetBomList(itemCode);
             if (flag)
             {
                 if (dto != null)
                 {
-                    BomList = new List<string>();
+                    ProductBomList = dto.ProductBomList;
                     foreach (ProductBomDTO bomDto in dto.ProductBomList)
                     {
                         BomList.Add(bomDto.BomItemCode);
@@ -238,17 +240,30 @@ namespace DWZ_Scada.ctrls
 
         private void cbx_Orders_DropDown(object sender, EventArgs e)
         {
-            if (DesignMode)
-            {
-                UIMessageBox.ShowError("设计模式中");
-                return;
-            }
-            cbx_Orders.SelectedIndexChanged -= cbx_Orders_SelectedIndexChanged;
-            GetWorkOrders();
-            cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;
+            /*         if (DesignMode)
+                     {
+                         UIMessageBox.ShowError("设计模式中");
+                         return;
+                     }
+                     cbx_Orders.SelectedIndexChanged -= cbx_Orders_SelectedIndexChanged;
+                     GetWorkOrders();
+                     cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;*/
         }
 
         private void uiSwitch_Spot_ValueChanged(object sender, bool value)
+        {
+            //物料编号维护
+            //可以自定义维护物料编码的匹配原则
+        }
+
+        private void uiLabel3_Click(object sender, EventArgs e)
+        {
+            //点击当前型号的时候 弹出型号对应的物料Bom
+            BomListForm form = new BomListForm(ProductBomList);
+            form.ShowDialog();
+        }
+
+        private void uiLabel2_Click(object sender, EventArgs e)
         {
 
         }
