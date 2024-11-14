@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.ctrls.LogCtrl;
+﻿using DWZ_Scada.ctrls;
+using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
@@ -48,7 +49,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         {
             StationName = "OP10";
             StationCode = "OP10";
+          
         }
+
+
 
         public override void Dispose()
         {

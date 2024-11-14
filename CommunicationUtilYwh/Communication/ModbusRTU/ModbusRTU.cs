@@ -37,6 +37,8 @@ namespace CommunicationUtilYwh.Communication.ModbusRTU
             {
                 LogMgr.Instance.Error($"打开ModbusRTU连接错误: 串口名称:[{PortName}] 错误信息:[{ex.Message}]");;
             }
+
+            IsConnect = client.IsOpen();
             return client.IsOpen();
         }
 

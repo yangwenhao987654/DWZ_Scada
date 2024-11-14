@@ -178,8 +178,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             workOrderCtrl1.Location = new System.Drawing.Point(12, 62);
             workOrderCtrl1.Name = "workOrderCtrl1";
             workOrderCtrl1.Orders = null;
+            workOrderCtrl1.ProductBomList = null;
             workOrderCtrl1.Size = new System.Drawing.Size(1199, 101);
             workOrderCtrl1.TabIndex = 39;
+            workOrderCtrl1.Load += workOrderCtrl1_Load;
             // 
             // PageOP10
             // 

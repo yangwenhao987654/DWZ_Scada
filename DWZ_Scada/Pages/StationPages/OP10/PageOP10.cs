@@ -79,7 +79,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         private void Instance_OnEntryStateChanged(string sn, int result, string msg = "")
         {
-            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry1,sn,result,msg);
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry1, sn, result, msg);
         }
 
         private void PageOP10_OnVision1Finished(string sn, int result)
@@ -118,6 +118,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             LogMgr.Instance.Info("关闭OP10程序");
             _instance = null;
             //调用 Close() 方法,先进入  FormClosing 事件 ，之后再调用Designer类的Dispose
+        }
+
+        private void workOrderCtrl1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

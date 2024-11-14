@@ -1,6 +1,7 @@
 ﻿using DWZ_Scada.Forms;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.HttpServices.response;
+using DWZ_Scada.Pages.StationPages;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.VO;
 using LogTool;
@@ -28,8 +29,36 @@ namespace DWZ_Scada.ctrls
 
         private bool _isCheckPass = false;
 
+
+        public bool SpotEnable
+        {
+            get
+            {
+                return uiSwitch_Spot.Enabled;
+            }
+            set
+            {
+                ChangeSpotEnableState(value);
+            }
+        }
+
+        private void ChangeSpotEnableState(bool value)
+        {
+            if (InvokeRequired)
+            {
+                uiSwitch_Spot.Invoke(new Action<bool>(ChangeSpotEnableState), value);
+                return;
+            }
+            uiSwitch_Spot.Enabled = value;
+        }
+
         private List<string> BomList { get; set; } = new List<string>();
         public event Action<bool> CheckStateChanged;
+
+        /// <summary>
+        /// 点检状态
+        /// </summary>
+        public static event Func<bool,bool> SpotStateChanged;
 
         public List<ProductBomDTO> ProductBomList { get; set; }
         public bool IsCheckPass
@@ -77,7 +106,13 @@ namespace DWZ_Scada.ctrls
         public workOrderCtrl()
         {
             InitializeComponent();
+            SpotEnable = false;
+            MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
+        }
 
+        private void MainFuncBase_PlcStateChanged(bool flag)
+        {
+            SpotEnable = flag;
         }
 
         private async void GetWorkOrders()
@@ -234,27 +269,14 @@ namespace DWZ_Scada.ctrls
             return inputSN == bomItemCode;
         }
 
-        private void userCtrlScanInput1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbx_Orders_DropDown(object sender, EventArgs e)
-        {
-            /*         if (DesignMode)
-                     {
-                         UIMessageBox.ShowError("设计模式中");
-                         return;
-                     }
-                     cbx_Orders.SelectedIndexChanged -= cbx_Orders_SelectedIndexChanged;
-                     GetWorkOrders();
-                     cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;*/
-        }
-
         private void uiSwitch_Spot_ValueChanged(object sender, bool value)
         {
-            //物料编号维护
-            //可以自定义维护物料编码的匹配原则
+            bool? flag = SpotStateChanged?.Invoke(value);
+            if (flag!=null && flag.Value)
+            {
+                //切换成功
+                //容易死循环 
+            }
         }
 
         private void uiLabel3_Click(object sender, EventArgs e)

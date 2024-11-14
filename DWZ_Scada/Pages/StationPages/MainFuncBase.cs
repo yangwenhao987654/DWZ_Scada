@@ -1,4 +1,5 @@
 ﻿using CommunicationUtilYwh.Communication.PLC;
+using DWZ_Scada.ctrls;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
@@ -130,7 +131,25 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         public bool IsSpotCheck { get; set; }
 
-        public bool IsPlc_Connected;
+        private bool isPlc_Connected;
+
+        public bool IsPlc_Connected
+        {
+            get
+            {
+                return isPlc_Connected;
+            }
+            set
+            {
+                if (value!=isPlc_Connected)
+                {
+                    isPlc_Connected =value;
+                    PlcStateChanged?.Invoke(value);
+                }
+            }
+        }
+
+        public static event Action<bool> PlcStateChanged; 
 
         public LogMgr Logger = LogMgr.Instance;
 
@@ -334,6 +353,39 @@ namespace DWZ_Scada.Pages.StationPages
             PLC = PLCConfig.MyPlc;
             PLC_IP = PLCConfig.IP;
             PLC_PORT = PLCConfig.Port;
+           // workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged1;
+            workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged;
+        }
+
+
+
+        private bool WorkOrderCtrl_SpotStateChanged(bool value)
+        {
+            if (!IsPlc_Connected)
+            {
+                Logger.Error("PLC未连接，点检切换错误");
+                return false;
+            }
+
+            try
+            {
+                if (value)
+                {
+                    //点检地址 DM3030 
+                    PLC.WriteInt16(OP10Address.SpotCheck, 1);
+                }
+                else
+                {
+                    PLC.WriteInt16(OP10Address.SpotCheck, 0);
+                }
+                IsSpotCheck = value;
+            }
+            catch (Exception e)
+            {
+                LogMgr.Instance.Error($"切换点检状态失败:{e.Message}");
+                return false;
+            }
+            return true;
         }
 
         //手持扫码枪 切换物料
