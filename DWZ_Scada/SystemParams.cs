@@ -262,6 +262,11 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_12_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
         public byte OP20_Winding12_StationNum { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("A.绕线机超时时间(s)"), Category("2.OP20工站"), Description("设置绕线机的超时时间,最低默认一分钟")]
+        public int OP20_WindingTimeOut { get; set; }
         #endregion
 
         #region OP30工站参数

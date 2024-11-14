@@ -67,6 +67,37 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             ""
         };
 
+        /// <summary>
+        /// SN-A地址集合
+        /// </summary>
+        public static readonly List<string> SNAddrList = new List<string>()
+        {
+            "D1200",
+            "D1210",
+            "D1220",
+            "D1230",
+            "D1240",
+            "D1250",
+            "D1260",
+            "D1270",
+            "D1280",
+            "D1290",
+            "D1300",
+            "D1310",
+            "D1320",
+            "D1330",
+            "D1340",
+            "D1350",
+            "D1360",
+            "D1370",
+            "D1380",
+            "D1390",
+            "D1400",
+            "D1410",
+            "D1420",
+            "D1430",
+        };
+
 
 
         /// <summary>

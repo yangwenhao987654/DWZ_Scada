@@ -16,7 +16,6 @@ namespace DWZ_Scada.ProcessControl.DTO
 
         public string WorkOrder { get; set; }
 
- 
 
         public object PassStationData { get; set; }
 

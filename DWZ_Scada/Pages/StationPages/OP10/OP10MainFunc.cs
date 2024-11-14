@@ -158,7 +158,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                         await ProcessVision1();
                         Thread.Sleep(500);
                     }
-
                     Thread.Sleep(100);
                 }
                 catch (Exception e)
@@ -217,14 +216,31 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 OnVision1Finished?.Invoke(sn, v1Result);
                 bool result = v1Result == 1 ? true : false;
                 //上传Mes测试数据
-
+                PassStationDTO dto = new PassStationDTO()
+                {
+                    StationCode = StationCode,
+                    SnTemp = sn,
+                    WorkOrder = Global.WorkOrder,
+                    PassStationData = new OP10Vision1Data()
+                    {
+                        Vision1Result = result,
+                        Good = result,
+                    },
+                    isLastStep = false
+                };
+                (bool res, string msg) = await UploadData(dto);
+                if (res == false)
+                {
+                    Mylog.Instance.Alarm("上传过站数据错误:" + msg);
+                }
+              /*  UploadData()
                 if (IsSpotCheck)
                 {
                     DeviceInspectDTO inspectDTO = new DeviceInspectDTO()
                     {
                         StationCode = StationCode,
                         SnTemp = sn,
-                        WorkOrder = "MO202410210001",
+                        WorkOrder = Global.WorkOrder,
                         PassStationData = new OP10Vision1Data()
                         {
                             Vision1Result = result,
@@ -244,7 +260,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     {
                         StationCode = StationCode,
                         SnTemp = sn,
-                        WorkOrder = "MO202410210001",
+                        WorkOrder = Global.WorkOrder,
                         PassStationData = new OP10Vision1Data()
                         {
                             Vision1Result = result,
@@ -257,9 +273,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     {
                         Mylog.Instance.Alarm("上传过站数据错误:" + msg);
                     }
-                }
+                }*/
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
-                PLC.Write(OP10Address.Vision1_Out, "Bool", result);
+                PLC.WriteInt16(OP10Address.Vision1_Out, v1Result);
             }
         }
 
@@ -283,17 +299,16 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
                 PLC.Read(OP10Address.Vision2_Sn, "string-8", out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-                PLC.ReadInt16(OP10Address.Vision2Result, out short v1Result);
+                PLC.ReadInt16(OP10Address.Vision2Result, out short v2Result);
 
                 //界面更新
-                OnVision2Finished?.Invoke(sn, v1Result);
-                bool result = v1Result == 1 ? true : false;
-                OnVision2Finished?.Invoke(sn, v1Result);
+                OnVision2Finished?.Invoke(sn, v2Result);
+                bool result = v2Result == 1 ? true : false;
                 //上传Mes测试数据
                 PassStationDTO dto = new PassStationDTO()
                 {
                     SnTemp = sn,
-                    WorkOrder = "MO202410210001",
+                    WorkOrder = Global.WorkOrder,
                     StationCode = StationCode,
                     PassStationData = new OP10Vision2Data()
                     {
@@ -302,14 +317,13 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadStationData(dto);
+                (bool res, string msg) = await UploadData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传视觉2数据错误:" + msg);
                 }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
-                PLC.Write(OP10Address.Vision2_Out, "Bool", result);
-
+                PLC.WriteInt16(OP10Address.Vision2_Out, v2Result);
             }
         }
 

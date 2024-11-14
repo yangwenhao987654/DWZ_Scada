@@ -28,34 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            uiLight1 = new Sunny.UI.UILight();
             uiPanel1 = new Sunny.UI.UIPanel();
-            uiLabel2 = new Sunny.UI.UILabel();
-            uiFlowLayoutPanel1 = new Sunny.UI.UIFlowLayoutPanel();
+            uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
             uiLabel1 = new Sunny.UI.UILabel();
+            uiLabel2 = new Sunny.UI.UILabel();
+            lbl_time = new Sunny.UI.UILabel();
             uiPanel1.SuspendLayout();
-            uiFlowLayoutPanel1.SuspendLayout();
+            uiTableLayoutPanel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // uiLight1
-            // 
-            uiLight1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLight1.Location = new System.Drawing.Point(0, 5);
-            uiLight1.Margin = new System.Windows.Forms.Padding(0);
-            uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
-            uiLight1.Name = "uiLight1";
-            uiLight1.OnColor = System.Drawing.Color.Gray;
-            uiLight1.Radius = 35;
-            uiLight1.Size = new System.Drawing.Size(35, 40);
-            uiLight1.TabIndex = 0;
-            uiLight1.Text = "uiLight1";
             // 
             // uiPanel1
             // 
-            uiPanel1.Controls.Add(uiLabel2);
-            uiPanel1.Controls.Add(uiFlowLayoutPanel1);
+            uiPanel1.Controls.Add(uiTableLayoutPanel1);
             uiPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiPanel1.FillColor = System.Drawing.Color.FromArgb(255, 192, 192);
+            uiPanel1.FillColor = System.Drawing.Color.Gray;
             uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiPanel1.Location = new System.Drawing.Point(0, 0);
             uiPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -70,40 +56,25 @@
             uiPanel1.Load += uiPanel1_Load;
             uiPanel1.Click += uiPanel1_Click;
             // 
-            // uiLabel2
+            // uiTableLayoutPanel1
             // 
-            uiLabel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(10, 45);
-            uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(194, 113);
-            uiLabel2.TabIndex = 3;
-            uiLabel2.Text = "等待中";
-            uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // uiFlowLayoutPanel1
-            // 
-            uiFlowLayoutPanel1.AutoScroll = false;
-            uiFlowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            uiFlowLayoutPanel1.Controls.Add(uiLight1);
-            uiFlowLayoutPanel1.Controls.Add(uiLabel1);
-            uiFlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            uiFlowLayoutPanel1.FillColor = System.Drawing.Color.Transparent;
-            uiFlowLayoutPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiFlowLayoutPanel1.Location = new System.Drawing.Point(10, 2);
-            uiFlowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            uiFlowLayoutPanel1.MinimumSize = new System.Drawing.Size(1, 1);
-            uiFlowLayoutPanel1.Name = "uiFlowLayoutPanel1";
-            uiFlowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            uiFlowLayoutPanel1.RectColor = System.Drawing.Color.Transparent;
-            uiFlowLayoutPanel1.ScrollBarHandleWidth = 0;
-            uiFlowLayoutPanel1.ShowText = false;
-            uiFlowLayoutPanel1.Size = new System.Drawing.Size(194, 45);
-            uiFlowLayoutPanel1.TabIndex = 2;
-            uiFlowLayoutPanel1.Text = "uiFlowLayoutPanel1";
-            uiFlowLayoutPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            uiFlowLayoutPanel1.WrapContents = false;
+            uiTableLayoutPanel1.ColumnCount = 1;
+            uiTableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            uiTableLayoutPanel1.Controls.Add(uiLabel1, 0, 0);
+            uiTableLayoutPanel1.Controls.Add(uiLabel2, 0, 1);
+            uiTableLayoutPanel1.Controls.Add(lbl_time, 0, 2);
+            uiTableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            uiTableLayoutPanel1.Location = new System.Drawing.Point(10, 2);
+            uiTableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            uiTableLayoutPanel1.Name = "uiTableLayoutPanel1";
+            uiTableLayoutPanel1.RowCount = 3;
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            uiTableLayoutPanel1.Size = new System.Drawing.Size(194, 156);
+            uiTableLayoutPanel1.TabIndex = 4;
+            uiTableLayoutPanel1.TagString = null;
             // 
             // uiLabel1
             // 
@@ -111,14 +82,38 @@
             uiLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             uiLabel1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new System.Drawing.Point(0, 5);
+            uiLabel1.Location = new System.Drawing.Point(0, 0);
             uiLabel1.Margin = new System.Windows.Forms.Padding(0);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(194, 40);
+            uiLabel1.Size = new System.Drawing.Size(194, 39);
             uiLabel1.TabIndex = 1;
             uiLabel1.Text = "绕线机01";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
+            // 
+            // uiLabel2
+            // 
+            uiLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel2.Location = new System.Drawing.Point(3, 39);
+            uiLabel2.Name = "uiLabel2";
+            uiLabel2.Size = new System.Drawing.Size(188, 85);
+            uiLabel2.TabIndex = 3;
+            uiLabel2.Text = "未连接";
+            uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_time
+            // 
+            lbl_time.Dock = System.Windows.Forms.DockStyle.Fill;
+            lbl_time.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_time.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_time.Location = new System.Drawing.Point(3, 124);
+            lbl_time.Name = "lbl_time";
+            lbl_time.Size = new System.Drawing.Size(188, 32);
+            lbl_time.TabIndex = 4;
+            lbl_time.Text = "00:00";
+            lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // windingCtrl
             // 
@@ -130,16 +125,15 @@
             Size = new System.Drawing.Size(214, 160);
             Load += windingCtrl_Load;
             uiPanel1.ResumeLayout(false);
-            uiFlowLayoutPanel1.ResumeLayout(false);
+            uiTableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Sunny.UI.UILight uiLight1;
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UIFlowLayoutPanel uiFlowLayoutPanel1;
         private Sunny.UI.UILabel uiLabel2;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
+        private Sunny.UI.UILabel lbl_time;
     }
 }

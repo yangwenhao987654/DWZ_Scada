@@ -275,6 +275,36 @@ namespace DWZ_Scada.Pages.StationPages
         /// <summary>
         /// 上传过站数据
         /// </summary>
+        protected async Task<(bool, string)> UploadData(PassStationDTO dto)
+        {
+            if (IsSpotCheck)
+            {
+                //封装点检数据
+                DeviceInspectDTO inspectDto = ParseDeviceInspectDto(dto);
+                return await UploadSpotCheckData(inspectDto);
+            }
+            else
+            {
+                return await UploadStationData(dto);
+            }
+        }
+
+        public DeviceInspectDTO ParseDeviceInspectDto(PassStationDTO passStationDto)
+        {
+            DeviceInspectDTO inspectDto = new DeviceInspectDTO();
+            inspectDto.WorkOrder = passStationDto.WorkOrder;
+            //inspectDto.Data = passStationDto.PassStationData;
+            inspectDto.DeviceCode = passStationDto.StationCode;
+            inspectDto.SnTemp = passStationDto.SnTemp;
+            inspectDto.isLastStep = passStationDto.isLastStep;
+            inspectDto.PassStationData = passStationDto.PassStationData;
+
+            return inspectDto;
+        }
+
+        /// <summary>
+        /// 上传过站数据
+        /// </summary>
         protected async Task<(bool, string)> UploadStationData(PassStationDTO dto)
         {
             return await UploadPassStationService.SendPassStationData(dto);

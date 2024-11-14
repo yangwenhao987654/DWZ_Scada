@@ -161,6 +161,7 @@ namespace DWZ_Scada.Pages
             uiLight1.Location = new System.Drawing.Point(232, 22);
             uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight1.Name = "uiLight1";
+            uiLight1.OffColor = System.Drawing.Color.Red;
             uiLight1.OnColor = System.Drawing.Color.LightGray;
             uiLight1.Radius = 59;
             uiLight1.Size = new System.Drawing.Size(59, 60);

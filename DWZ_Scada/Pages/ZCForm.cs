@@ -74,6 +74,7 @@ namespace DWZ_Scada.Pages
                 }
                 catch (Exception exception)
                 {
+
                 }
             }
         }

@@ -100,7 +100,7 @@ namespace DWZ_Scada.HttpRequest
                     ResultDTO resultDto = JsonConvert.DeserializeObject<ResultDTO>(content);
                     if (resultDto.code == 200)
                     {
-                        LogMgr.Instance.AddChargeInfo($"请求成功:{resultDto.msg}");
+                        LogMgr.Instance.AddMesDebug($"请求成功:{resultDto.msg}");
                         result = true;
                     }
                     else
