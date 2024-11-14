@@ -153,7 +153,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         }
 
         /// <summary>
-        /// 上报设备状态 1S 上报一次
+        /// 上报设备状态 1S 上报一次 
         /// </summary>
         /// <param name="state"></param>
         protected override async void ReportDeviceState(object state)

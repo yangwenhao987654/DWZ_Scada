@@ -35,6 +35,7 @@
             op20CtrlEntry2 = new DIPTest.Ctrl.UserCtrlEntry();
             op20CtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel2 = new Sunny.UI.UILabel();
+            workOrderCtrl1 = new ctrls.workOrderCtrl();
             uiPanel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -58,14 +59,14 @@
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.Location = new System.Drawing.Point(23, 288);
+            ctrlWindingS.Location = new System.Drawing.Point(340, 223);
             ctrlWindingS.Margin = new System.Windows.Forms.Padding(0);
             ctrlWindingS.Name = "ctrlWindingS";
             ctrlWindingS.RowCount = 3;
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
-            ctrlWindingS.Size = new System.Drawing.Size(1199, 539);
+            ctrlWindingS.Size = new System.Drawing.Size(882, 604);
             ctrlWindingS.TabIndex = 20;
             ctrlWindingS.TagString = null;
             // 
@@ -76,11 +77,11 @@
             uiPanel2.Controls.Add(op20CtrlEntry1);
             uiPanel2.Controls.Add(uiLabel2);
             uiPanel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel2.Location = new System.Drawing.Point(35, 82);
+            uiPanel2.Location = new System.Drawing.Point(27, 223);
             uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel2.Name = "uiPanel2";
-            uiPanel2.Size = new System.Drawing.Size(1187, 188);
+            uiPanel2.Size = new System.Drawing.Size(299, 603);
             uiPanel2.TabIndex = 21;
             uiPanel2.Text = null;
             uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -89,7 +90,7 @@
             // 
             uiLabel3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel3.Location = new System.Drawing.Point(777, 5);
+            uiLabel3.Location = new System.Drawing.Point(16, 340);
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new System.Drawing.Size(124, 38);
             uiLabel3.TabIndex = 24;
@@ -98,7 +99,7 @@
             // 
             // op20CtrlEntry2
             // 
-            op20CtrlEntry2.Location = new System.Drawing.Point(777, 46);
+            op20CtrlEntry2.Location = new System.Drawing.Point(16, 398);
             op20CtrlEntry2.Margin = new System.Windows.Forms.Padding(4);
             op20CtrlEntry2.Name = "op20CtrlEntry2";
             op20CtrlEntry2.Size = new System.Drawing.Size(265, 138);
@@ -108,7 +109,7 @@
             // 
             // op20CtrlEntry1
             // 
-            op20CtrlEntry1.Location = new System.Drawing.Point(16, 47);
+            op20CtrlEntry1.Location = new System.Drawing.Point(16, 108);
             op20CtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             op20CtrlEntry1.Name = "op20CtrlEntry1";
             op20CtrlEntry1.Size = new System.Drawing.Size(265, 137);
@@ -120,17 +121,35 @@
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(16, 5);
+            uiLabel2.Location = new System.Drawing.Point(16, 66);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(124, 38);
             uiLabel2.TabIndex = 2;
             uiLabel2.Text = "OP20进站1:";
             uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // workOrderCtrl1
+            // 
+            workOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrl1.CurPartNo = "";
+            workOrderCtrl1.CurProductCode = "";
+            workOrderCtrl1.CurProductName = "";
+            workOrderCtrl1.CurWorkOrderNo = "";
+            workOrderCtrl1.IsCheckPass = false;
+            workOrderCtrl1.Location = new System.Drawing.Point(27, 62);
+            workOrderCtrl1.Name = "workOrderCtrl1";
+            workOrderCtrl1.Orders = null;
+            workOrderCtrl1.ProductBomList = null;
+            workOrderCtrl1.Size = new System.Drawing.Size(1195, 125);
+            workOrderCtrl1.SpotEnable = false;
+            workOrderCtrl1.TabIndex = 22;
+            workOrderCtrl1.Load += workOrderCtrl1_Load;
+            // 
             // PageOP20
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(workOrderCtrl1);
             Controls.Add(uiPanel2);
             Controls.Add(ctrlWindingS);
             Controls.Add(uiLabel1);
@@ -158,5 +177,6 @@
         private DIPTest.Ctrl.UserCtrlEntry op20CtrlEntry1;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel3;
+        private ctrls.workOrderCtrl workOrderCtrl1;
     }
 }

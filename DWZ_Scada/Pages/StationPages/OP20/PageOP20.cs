@@ -35,7 +35,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-      
+
         public List<windingCtrl> WindingCtrlList = new List<windingCtrl>();
 
         private PageOP20()
@@ -68,15 +68,15 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             {
                 for (int j = 0; j < ctrlWindingS.ColumnCount; j++)
                 {
-                   /* if (i==2 && j>=2)
-                    {
-                        break;
-                    }*/
+                    /* if (i==2 && j>=2)
+                     {
+                         break;
+                     }*/
                     windingCtrl ctrlSingle = new windingCtrl();
                     ctrlSingle.WeldingTitle = $"绕线机{index++:D2}";
                     WindingCtrlList.Add(ctrlSingle);
                     ctrlSingle.Dock = DockStyle.Fill;
-                    ctrlWindingS.Controls.Add(ctrlSingle, j,i);//TODO 这里会调用Load方法
+                    ctrlWindingS.Controls.Add(ctrlSingle, j, i);//TODO 这里会调用Load方法
                 }
             }
         }
@@ -126,6 +126,11 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         private void PageOP20_Initialize(object sender, EventArgs e)
         {
             // 先进入Load  再进入 Initialize 
+        }
+
+        private void workOrderCtrl1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
