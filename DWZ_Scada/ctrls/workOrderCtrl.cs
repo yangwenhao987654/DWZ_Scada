@@ -158,6 +158,7 @@ namespace DWZ_Scada.ctrls
                 lbl_ProdModel.Text = orderVo.ProductCode;
                 CurProductCode = orderVo.ProductCode;
                 GetBomList(orderVo.ProductCode);
+                IsCheckPass = false;
             }
         }
 
@@ -266,6 +267,16 @@ namespace DWZ_Scada.ctrls
         private void uiLabel2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbx_Orders_DropDown_1(object sender, EventArgs e)
+        {
+            userCtrlScanInput1.IsForcedInput = false;
+        }
+
+        private void cbx_Orders_DropDownClosed(object sender, EventArgs e)
+        {
+            userCtrlScanInput1.IsForcedInput = true;
         }
     }
 }

@@ -32,8 +32,8 @@
             uiPanel2 = new Sunny.UI.UIPanel();
             uiTableLayoutPanel2 = new Sunny.UI.UITableLayoutPanel();
             userCtrlScanInput1 = new DIPTest.Ctrl.userCtrlScanInput();
-            cbx_Orders = new Sunny.UI.UIComboBox();
             uiButton3 = new Sunny.UI.UIButton();
+            cbx_Orders = new Sunny.UI.UIComboBox();
             uiPanel3 = new Sunny.UI.UIPanel();
             uiTableLayoutPanel3 = new Sunny.UI.UITableLayoutPanel();
             uiLabel3 = new Sunny.UI.UILabel();
@@ -88,11 +88,11 @@
             // uiTableLayoutPanel2
             // 
             uiTableLayoutPanel2.ColumnCount = 2;
-            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.4757118F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.5242844F));
             uiTableLayoutPanel2.Controls.Add(userCtrlScanInput1, 0, 0);
-            uiTableLayoutPanel2.Controls.Add(cbx_Orders, 1, 1);
             uiTableLayoutPanel2.Controls.Add(uiButton3, 0, 1);
+            uiTableLayoutPanel2.Controls.Add(cbx_Orders, 1, 1);
             uiTableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             uiTableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             uiTableLayoutPanel2.Name = "uiTableLayoutPanel2";
@@ -107,15 +107,30 @@
             // 
             userCtrlScanInput1.BackColor = System.Drawing.Color.IndianRed;
             uiTableLayoutPanel2.SetColumnSpan(userCtrlScanInput1, 2);
+            userCtrlScanInput1.Dock = System.Windows.Forms.DockStyle.Fill;
             userCtrlScanInput1.Font = new System.Drawing.Font("微软雅黑", 9F);
+            userCtrlScanInput1.IsForcedInput = false;
             userCtrlScanInput1.IsInputFinish = false;
             userCtrlScanInput1.Location = new System.Drawing.Point(3, 4);
             userCtrlScanInput1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             userCtrlScanInput1.Name = "userCtrlScanInput1";
-            userCtrlScanInput1.Size = new System.Drawing.Size(520, 51);
+            userCtrlScanInput1.Size = new System.Drawing.Size(591, 54);
             userCtrlScanInput1.TabIndex = 29;
             userCtrlScanInput1.TextFont = new System.Drawing.Font("微软雅黑", 15F);
             userCtrlScanInput1.TextMessage = "二维码:";
+            // 
+            // uiButton3
+            // 
+            uiButton3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Location = new System.Drawing.Point(5, 67);
+            uiButton3.Margin = new System.Windows.Forms.Padding(5, 5, 20, 5);
+            uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton3.Name = "uiButton3";
+            uiButton3.Size = new System.Drawing.Size(145, 53);
+            uiButton3.TabIndex = 27;
+            uiButton3.Text = "获取最新工单";
+            uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
             // 
             // cbx_Orders
             // 
@@ -126,30 +141,19 @@
             cbx_Orders.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             cbx_Orders.ItemHoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             cbx_Orders.ItemSelectForeColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            cbx_Orders.Location = new System.Drawing.Point(212, 67);
+            cbx_Orders.Location = new System.Drawing.Point(174, 67);
             cbx_Orders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             cbx_Orders.MinimumSize = new System.Drawing.Size(63, 0);
             cbx_Orders.Name = "cbx_Orders";
             cbx_Orders.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            cbx_Orders.Size = new System.Drawing.Size(229, 53);
+            cbx_Orders.Size = new System.Drawing.Size(273, 53);
             cbx_Orders.SymbolSize = 24;
             cbx_Orders.TabIndex = 28;
             cbx_Orders.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             cbx_Orders.Watermark = "获取Mes生产工单";
             cbx_Orders.SelectedIndexChanged += cbx_Orders_SelectedIndexChanged;
-            // 
-            // uiButton3
-            // 
-            uiButton3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Location = new System.Drawing.Point(5, 67);
-            uiButton3.Margin = new System.Windows.Forms.Padding(5, 5, 20, 5);
-            uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton3.Name = "uiButton3";
-            uiButton3.Size = new System.Drawing.Size(148, 53);
-            uiButton3.TabIndex = 27;
-            uiButton3.Text = "获取最新工单";
-            uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Click += uiButton3_Click;
+            cbx_Orders.DropDown += cbx_Orders_DropDown_1;
+            cbx_Orders.DropDownClosed += cbx_Orders_DropDownClosed;
             // 
             // uiPanel3
             // 
@@ -171,8 +175,8 @@
             // uiTableLayoutPanel3
             // 
             uiTableLayoutPanel3.ColumnCount = 3;
-            uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.5092354F));
-            uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.49077F));
+            uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.7404919F));
+            uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.25951F));
             uiTableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             uiTableLayoutPanel3.Controls.Add(uiLabel3, 0, 1);
             uiTableLayoutPanel3.Controls.Add(uiLabel2, 0, 0);
@@ -192,11 +196,12 @@
             // 
             // uiLabel3
             // 
+            uiLabel3.Dock = System.Windows.Forms.DockStyle.Fill;
             uiLabel3.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel3.Location = new System.Drawing.Point(3, 62);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new System.Drawing.Size(128, 52);
+            uiLabel3.Size = new System.Drawing.Size(118, 63);
             uiLabel3.TabIndex = 38;
             uiLabel3.Text = "型号:";
             uiLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -204,12 +209,12 @@
             // 
             // uiLabel2
             // 
-            uiLabel2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            uiLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new System.Drawing.Point(3, 0);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(140, 62);
+            uiLabel2.Size = new System.Drawing.Size(118, 62);
             uiLabel2.TabIndex = 37;
             uiLabel2.Text = "物料编码:";
             uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -221,41 +226,43 @@
             uiSwitch_Spot.Location = new System.Drawing.Point(450, 65);
             uiSwitch_Spot.MinimumSize = new System.Drawing.Size(1, 1);
             uiSwitch_Spot.Name = "uiSwitch_Spot";
-            uiSwitch_Spot.Size = new System.Drawing.Size(93, 46);
+            uiSwitch_Spot.Size = new System.Drawing.Size(104, 57);
             uiSwitch_Spot.TabIndex = 35;
             uiSwitch_Spot.Text = "uiSwitch1";
             uiSwitch_Spot.ValueChanged += uiSwitch_Spot_ValueChanged;
             // 
             // uiLabel5
             // 
+            uiLabel5.Dock = System.Windows.Forms.DockStyle.Fill;
             uiLabel5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel5.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel5.Location = new System.Drawing.Point(450, 0);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new System.Drawing.Size(131, 52);
+            uiLabel5.Size = new System.Drawing.Size(145, 62);
             uiLabel5.TabIndex = 36;
             uiLabel5.Text = "点检模式:";
             uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbl_ProdModel
             // 
+            lbl_ProdModel.Dock = System.Windows.Forms.DockStyle.Fill;
             lbl_ProdModel.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_ProdModel.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_ProdModel.Location = new System.Drawing.Point(153, 62);
+            lbl_ProdModel.Location = new System.Drawing.Point(127, 62);
             lbl_ProdModel.Name = "lbl_ProdModel";
-            lbl_ProdModel.Size = new System.Drawing.Size(246, 52);
+            lbl_ProdModel.Size = new System.Drawing.Size(317, 63);
             lbl_ProdModel.TabIndex = 31;
             lbl_ProdModel.Text = "型号";
             lbl_ProdModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbl_PartNo
             // 
-            lbl_PartNo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            lbl_PartNo.Dock = System.Windows.Forms.DockStyle.Fill;
             lbl_PartNo.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_PartNo.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_PartNo.Location = new System.Drawing.Point(153, 0);
+            lbl_PartNo.Location = new System.Drawing.Point(127, 0);
             lbl_PartNo.Name = "lbl_PartNo";
-            lbl_PartNo.Size = new System.Drawing.Size(246, 62);
+            lbl_PartNo.Size = new System.Drawing.Size(317, 62);
             lbl_PartNo.TabIndex = 33;
             lbl_PartNo.Text = "物料编码";
             lbl_PartNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

@@ -43,6 +43,19 @@ namespace DIPTest.Ctrl
         public string Value;
         Stopwatch Watch;
         public event Action<string> InputFinishEvent;
+
+        public bool IsForcedInput
+        {
+            get
+            {
+                return uiCheckBox12.Checked;
+            }
+            set
+            {
+                uiCheckBox12.Checked =value;
+            }
+        }
+
         public userCtrlScanInput()
         {
             InitializeComponent();
@@ -123,7 +136,7 @@ namespace DIPTest.Ctrl
         }
         private void uiCheckBox12_CheckedChanged(object sender, EventArgs e)
         {
-            uiCheckBox12.BackColor = uiCheckBox12.Checked ? Color.Lime : Color.Transparent;
+            uiCheckBox12.BackColor = uiCheckBox12.Checked ? Color.GreenYellow : Color.Transparent;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
