@@ -49,8 +49,6 @@ namespace DWZ_Scada.Forms.ProductFormula
             entity.ProductName = tbxName.Text;
             entity.ProductType = tbx_Type.Text;
 
-  
-
             bool flag = productFormulaDAL.Update(entity);
             if (flag)
             {

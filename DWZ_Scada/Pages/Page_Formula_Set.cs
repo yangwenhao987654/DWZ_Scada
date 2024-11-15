@@ -100,7 +100,7 @@ namespace DWZ_Scada.Pages
 
         private void SelectByProdCode(string code)
         {
-            List<ProductFormulaEntity> list = productFormulaDAL.SelectByProdCode(code);
+            List<ProductFormulaEntity> list = productFormulaDAL.SelectAllByProdCode(code);
             ReflashTable(list);
         }
 

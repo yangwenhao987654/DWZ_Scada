@@ -46,7 +46,7 @@ namespace DWZ_Scada.Forms.ProductFormula
             productFormula.ProductName = tbxName.Text;
             productFormula.ProductType = tbx_Type.Text;
 
-            List<ProductFormulaEntity> list = productFormulaDAL.SelectByProdCode(tbx_Code.Text);
+            List<ProductFormulaEntity> list = productFormulaDAL.SelectAllByProdCode(tbx_Code.Text);
             if (list.Any())
             {
                 UIMessageBox.Show($"产品编号配方已经存在,请勿重复添加:[{tbx_Code.Text}]");

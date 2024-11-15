@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RestSharp;
 using ScadaBase.DAL.BLL;
+using ScadaBase.DAL.DAL;
 
 namespace NUnitTest
 {
@@ -85,7 +86,7 @@ namespace NUnitTest
             services.AddSingleton<IDeviceAlarmDAL, DeviceAlarmDAL>();
             services.AddSingleton<IDeviceAlarmBLL, DeviceAlarmBLL>();
             #endregion
-
+            services.AddSingleton<IProductFormulaDAL, ProductFormulaDAL>();
         }
 
         /// <summary>

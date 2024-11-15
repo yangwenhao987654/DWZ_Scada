@@ -325,8 +325,7 @@ namespace DWZ_Scada.ctrls
                     return;
                 }
 
-                List<ProductFormulaEntity> list = _productFormulaDAL.SelectByProdCode(CurProductCode);
-                ProductFormulaEntity row = list.FirstOrDefault();
+                ProductFormulaEntity row = _productFormulaDAL.SelectSingleByProdCode(CurProductCode);
                 if (row != null)
                 {
                     int plcNo = row.ProductPLCNo;

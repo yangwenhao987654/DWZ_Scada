@@ -16,7 +16,9 @@ namespace ScadaBase.DAL.DAL
 
         List<ProductFormulaEntity> SelectByName(string name);
 
-        List<ProductFormulaEntity> SelectByProdCode(string code);
+        List<ProductFormulaEntity> SelectAllByProdCode(string code);
+
+        ProductFormulaEntity SelectSingleByProdCode(string code);
 
 
         List<ProductFormulaEntity> SelectByType(string type);
@@ -45,7 +47,7 @@ namespace ScadaBase.DAL.DAL
             return list;
         }
 
-        public List<ProductFormulaEntity> SelectByProdCode(string code)
+        public List<ProductFormulaEntity> SelectAllByProdCode(string code)
         {
             List<ProductFormulaEntity> list = new List<ProductFormulaEntity>();
             using (MyDbContext db = new MyDbContext())
@@ -54,6 +56,17 @@ namespace ScadaBase.DAL.DAL
                 list = db.tbProductFormula.Where(r=>r.ProductCode.Contains(code)).ToList();
             }
             return list;
+        }
+
+        public ProductFormulaEntity SelectSingleByProdCode(string code)
+        {
+            ProductFormulaEntity entity;
+            using (MyDbContext db = new MyDbContext())
+            {
+                //TODO 这里使用模糊查询 
+                entity = db.tbProductFormula.FirstOrDefault(r => r.ProductCode==(code));
+            }
+            return entity;
         }
 
         public List<ProductFormulaEntity> SelectByName(string name)

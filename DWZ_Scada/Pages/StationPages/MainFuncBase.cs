@@ -421,6 +421,7 @@ namespace DWZ_Scada.Pages.StationPages
             {
                 PLC.WriteInt16(OP10Address.Product, (short)no);
                 PLC.WriteInt16(OP10Address.ChangeProduct, 1);
+                UIMessageBox.Show("型号下发成功");
             }
             catch (Exception e)
             {
