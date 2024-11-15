@@ -493,10 +493,10 @@ namespace DWZ_Scada
 
         private static void AutoDeleteBackFile()
         {
-            int maxFiles = 100;
+            int maxFiles = 50;
             if (Directory.Exists(ParamsBackupDirectory))
             {
-                var files = Directory.GetFiles(ParamsBackupDirectory)
+                var files = Directory.GetFiles(ParamsBackupDirectory,"*Params.json")
                     .OrderByDescending(f => f)
                     .ToList();
 
