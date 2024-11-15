@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogTool;
 using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
 
@@ -66,9 +67,9 @@ namespace ScadaBase.DAL.BLL
        /// <returns></returns>
        List<DeviceAlarmEntity> SelectByDevice(string deviceName);
 
+       Task<bool> Insert(DeviceAlarmEntity entity);
 
-
-    }
+   }
 
    public class DeviceAlarmDAL: IDeviceAlarmDAL
     {
@@ -184,6 +185,25 @@ namespace ScadaBase.DAL.BLL
                     .ToList();
             }
             return list;
+        }
+
+        public async Task<bool> Insert(DeviceAlarmEntity entity)
+        {
+            try
+            {
+                using (MyDbContext db = new MyDbContext())
+                {
+                    db.tbDeviceAlarms.Add(entity);
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+               LogMgr.Instance.Error($"插入报警信息错误:{ex.Message}");
+               return false;
+            }
+
+            return true;
         }
     }
 }

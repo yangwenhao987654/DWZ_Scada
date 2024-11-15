@@ -8,6 +8,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
+using ScadaBase.DAL.BLL;
 using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
 using System;
@@ -189,6 +190,7 @@ namespace DWZ_Scada.Pages.StationPages
         public  string StationName;
 
         public  string StationCode;
+        private IDeviceAlarmDAL _deviceAlarmBLL;
 
         /// <summary>
         /// 当前的工单
@@ -225,10 +227,25 @@ namespace DWZ_Scada.Pages.StationPages
             {
                 while (!_cts.Token.IsCancellationRequested)
                 {
-                    using (var context = new MyDbContext())
+                    if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
+                    {
+                        bool flag = await _deviceAlarmBLL.Insert(alarmEntity);
+                        if (!flag)
+                        {
+                            //假如插入失败了，重新假如队列
+                            AlarmQueue.Enqueue(alarmEntity);
+                        }
+                    }
+                    else
+                    {
+                        await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
+                    }
+
+                 /*   using (var context = new MyDbContext())
                     {
                         if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
                         {
+                            _deviceAlarmBLL.Insert(alarmEntity);
                             context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
                                                                      //context.WriteConsole();
                             await context.SaveChangesAsync(); // 异步保存更改到数据库
@@ -237,7 +254,7 @@ namespace DWZ_Scada.Pages.StationPages
                         {
                             await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
                         }
-                    }
+                    }*/
                     Thread.Sleep(100);
                 }
             }
@@ -253,6 +270,8 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         public virtual void StartAsync()
         {
+            _deviceAlarmBLL = Global.ServiceProvider.GetRequiredService<IDeviceAlarmDAL>();
+
             Task.Run(() =>
             {
                 _cts = new CancellationTokenSource();

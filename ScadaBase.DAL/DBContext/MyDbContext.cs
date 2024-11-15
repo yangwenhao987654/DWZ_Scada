@@ -22,6 +22,8 @@ namespace ScadaBase.DAL.DBContext
 
         public DbSet<Role> Roles { get; set; }
 
+        public DbSet<ProductFormulaEntity> tbProductFormula { get; set; }
+
         public DbSet<DeviceAlarmEntity> tbDeviceAlarms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

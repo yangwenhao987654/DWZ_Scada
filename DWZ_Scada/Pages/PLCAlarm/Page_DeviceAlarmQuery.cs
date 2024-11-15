@@ -1,18 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CSharpFormApplication;
+using Microsoft.Extensions.DependencyInjection;
 using ScadaBase.DAL.BLL;
 using ScadaBase.DAL.Entity;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sunny.UI;
-using Sunny.UI.Win32;
-using CSharpFormApplication;
 
 namespace DWZ_Scada.Pages
 {
