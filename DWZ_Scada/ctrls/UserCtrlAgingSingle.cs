@@ -61,7 +61,7 @@ namespace DIPTest
             }
             else
             {
-                ChangeState(AgingStateEnum.Disable);
+                ChangeState(AgingStateEnum.SetDisable);
             }
             Watch = new Stopwatch();*/
         }

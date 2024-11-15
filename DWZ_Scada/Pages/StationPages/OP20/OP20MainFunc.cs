@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Windows.Forms.AxHost;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
@@ -99,7 +100,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     var connection = ModbusConnections[index];
                     //modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
                     ModbusTcpList.Add(modbusTcp);
-
+                    //假如绕线机启用了
+                    if (!SystemParams.Instance.OP20_WeldingEnableList[index])
+                    {
+                        OnWeldingStateChangedAction?.Invoke(index, 99);
+                    }
+               
                     Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token, modbusTcp, index));
                     thread.Start();
                 }
@@ -115,6 +121,18 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 short state = -1;
                 try
                 {
+                    //假如绕线机启用了
+                    if (SystemParams.Instance.OP20_WeldingEnableList[index])
+                    {
+
+                    }
+                    else
+                    {
+                        modbusTcp.IsConnect = false;
+                        modbusTcp.Close();
+                        Thread.Sleep(1000);
+                        continue;
+                    }
                     if (modbusTcp.IsConnect)
                     {
                         modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);

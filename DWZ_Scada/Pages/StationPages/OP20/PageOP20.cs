@@ -3,6 +3,7 @@ using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
+using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
 using Sunny.UI;
@@ -57,12 +58,14 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 SystemParams.Instance.OP20_PlcPort);
 
             OP20MainFunc.CreateInstance(plcConfig);
-            OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
+        
             OP20MainFunc.Instance.StartAsync();
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
             LogMgr.Instance.Debug($"打开{OP20MainFunc.Instance.StationName}工站");
             #endregion
-
+            OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
+            OP20MainFunc.Instance.OnEntryStateChanged01 += Instance_OnEntryStateChanged01;
+            OP20MainFunc.Instance.OnEntryStateChanged02 += Instance_OnEntryStateChanged02;
             int index = 1;
             for (int i = 0; i < ctrlWindingS.RowCount; i++)
             {
@@ -73,12 +76,23 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                          break;
                      }*/
                     windingCtrl ctrlSingle = new windingCtrl();
+                    ctrlSingle.Index = index - 1;
                     ctrlSingle.WeldingTitle = $"绕线机{index++:D2}";
                     WindingCtrlList.Add(ctrlSingle);
                     ctrlSingle.Dock = DockStyle.Fill;
                     ctrlWindingS.Controls.Add(ctrlSingle, j, i);//TODO 这里会调用Load方法
                 }
             }
+        }
+
+        private void Instance_OnEntryStateChanged02(string sn, int result, string msg = "")
+        {
+            MyUIControler.UpdateEntryStateCtrl(op20CtrlEntry2,sn,result,msg);
+        }
+
+        private void Instance_OnEntryStateChanged01(string sn, int result, string msg = "")
+        {
+            MyUIControler.UpdateEntryStateCtrl(op20CtrlEntry1, sn, result, msg);
         }
 
         private void Instance_OnWeldingStateChangedAction(int index, int state)

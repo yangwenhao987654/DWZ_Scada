@@ -47,6 +47,11 @@ public class ModbusTCP : MyPlc
     public bool IsConnect;
 
 
+    public void Close()
+    {
+        client?.ConnectClose();
+    }
+
     public (bool, string) Open(string IP, int port, byte station)
     {
         // 连接

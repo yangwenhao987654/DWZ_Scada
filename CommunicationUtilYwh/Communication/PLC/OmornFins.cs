@@ -18,10 +18,13 @@ namespace ZC_DataAcquisition
         object _lock = new object();
         public bool Connect(string ip, string port, string SA1, string DA1)
         {
+
             bool flag = true;
             try
             {
                 client = new OmronFinsNet(ip, Convert.ToInt32(port));
+                
+                OmronFinsUdp udp = new OmronFinsUdp();
                 client.SA1 = Convert.ToByte(SA1);//本地ip最后一位
                 client.DA1 = Convert.ToByte(DA1);//plc ip最后一位
                 OperateResult connect = client.ConnectServer();

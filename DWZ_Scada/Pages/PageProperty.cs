@@ -65,7 +65,7 @@ namespace AutoTF
                LogMgr.Instance.Debug($"{msg}");
            }
 
-           UIMessageTip.Show("PLC IP更改后需要重启软件生效",null,1500,true);
+            UIMessageTip.Show("PLC IP更改后需要重启软件生效",null,1500,true);
             LogMgr.Instance.Debug("关闭系统配置界面");
             SystemParams.Save();
         }

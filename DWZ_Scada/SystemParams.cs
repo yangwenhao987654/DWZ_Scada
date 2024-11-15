@@ -1,17 +1,11 @@
-﻿using LogTool;
+﻿using DWZ_Scada.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Design;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using Newtonsoft.Json;
 
 namespace DWZ_Scada
 {
@@ -85,6 +79,8 @@ namespace DWZ_Scada
         public static SystemParams Instance = new SystemParams();
         public static string Path = $@"{AppDomain.CurrentDomain.BaseDirectory}Params\Params.json";
         public static string PathBackup = $@"{AppDomain.CurrentDomain.BaseDirectory}Params\Params-backup.json";
+
+        public static string ParamsBackupDirectory =System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Params","BackUp");
 
         [field: NonSerialized]
         public event Action RefreshResultEvent;
@@ -267,6 +263,13 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("A.绕线机超时时间(s)"), Category("2.OP20工站"), Description("设置绕线机的超时时间,最低默认一分钟")]
         public int OP20_WindingTimeOut { get; set; }
+
+        [TypeConverter(typeof(BoolListConverter))]
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("B.绕线机禁用状态"), Category("2.OP20工站"), Description("设置绕线机禁用启用")]
+        public List<bool> OP20_WeldingEnableList {
+            get; 
+            set; }
         #endregion
 
         #region OP30工站参数
@@ -464,7 +467,11 @@ namespace DWZ_Scada
                 var fileInfo = new FileInfo(Path);
                 if (fileInfo.Exists)
                 {
-                    fileInfo.CopyTo(PathBackup, true);
+                    //fileInfo.CopyTo(PathBackup, true);
+                    Directory.CreateDirectory(ParamsBackupDirectory);
+                    string path = System.IO.Path.Combine(ParamsBackupDirectory,
+                        $"{DateTime.Now:yyyy-MM-dd-HH-mm-ss-fff-}Params.json");
+                    fileInfo.CopyTo(path, true);
                 }
 
                 string json = JsonConvert.SerializeObject(Instance, Formatting.Indented);//1. 序列化 //2.设置缩进

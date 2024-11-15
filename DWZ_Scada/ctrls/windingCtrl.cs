@@ -16,7 +16,7 @@ namespace DWZ_Scada.ctrls
             updateBackColor = new Action<Color>((color) =>
                 UpdateBackColor(color)
             );
-            
+
             updateWeldingTime = new Action(() =>
             {
                 ts = sw.Elapsed;
@@ -26,8 +26,12 @@ namespace DWZ_Scada.ctrls
             });
         }
 
+
+        public int  Index { get; set; }
+        public bool IsEnable { get; set; }
+
         private Timer timer;
-      
+
         private Action<Color> updateBackColor;
 
         private Action updateWeldingTime;
@@ -54,10 +58,6 @@ namespace DWZ_Scada.ctrls
         /*   [Browsable(true)]
            [DisplayName("绕线机名称"), Category("AAA自定义_绕线"), Description("请输入绕线机的名称")]*/
 
-        public void StartTest(string sn, int pos)
-        {
-            throw new NotImplementedException();
-        }
 
         private Stopwatch sw;
         private void windingCtrl_Load(object sender, EventArgs e)
@@ -72,10 +72,10 @@ namespace DWZ_Scada.ctrls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-       /*     if (InvokeRequired)
-            {
-               //lbl_timeTime.Invoke(new Action(update))
-            }*/
+            /*     if (InvokeRequired)
+                 {
+                    //lbl_timeTime.Invoke(new Action(update))
+                 }*/
             updateWeldingTime?.Invoke();
         }
 
@@ -105,21 +105,25 @@ namespace DWZ_Scada.ctrls
                     //uiLight1.OnColor = Color.Green;
                     OffLine();
                     break;
+                case 99:
+                    //uiLight1.OnColor = Color.Green;
+                    SetDisable();
+                    break;
                 default:
                     //uiLight1.OnColor = Color.Gray;
                     break;
             }
             //TODO 假如不是运行中 停止绕线时间监控显示
-          /*  if (state!=12)
+            /*  if (state!=12)
+              {
+                  sw.Stop();
+                  timer.Stop();
+              }*/
+            if (state != RunningState)
             {
                 sw.Stop();
                 timer.Stop();
-            }*/
-          if (state!=RunningState)
-          {
-              sw.Stop();
-              timer.Stop();
-          }
+            }
         }
 
         private void UpdateBackColor(Color color)
@@ -141,7 +145,7 @@ namespace DWZ_Scada.ctrls
             timer.ReStart();
             sw.Reset();
             sw.Start();
-           
+
         }
 
         public void StopTest()
@@ -191,6 +195,18 @@ namespace DWZ_Scada.ctrls
             uiLabel2.Text = "故障中";
         }
 
+        public void SetDisable()
+        {
+            Color color = Color.Beige;
+            if (InvokeRequired)
+            {
+                BeginInvoke(updateBackColor, color);
+                return;
+            }
+            updateBackColor(color);
+            uiLabel2.Text = "禁用中";
+        }
+
         private void uiPanel1_Click(object sender, EventArgs e)
         {
 
@@ -204,6 +220,20 @@ namespace DWZ_Scada.ctrls
         private void uiLabel1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void 禁用ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IsEnable = false;
+            SystemParams.Instance.OP20_WeldingEnableList[Index] = false;
+            SetDisable();
+        }
+
+        private void 启用ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IsEnable =true;
+            SystemParams.Instance.OP20_WeldingEnableList[Index] = true;
+            OffLine();
         }
     }
 }

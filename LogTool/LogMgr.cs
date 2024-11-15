@@ -174,16 +174,16 @@ namespace LogTool
 
         public void AddMesDebug(string line)
         {
-            AppendSQLLog(line, LogLvl.debug);
+            AppendMesLog(line, LogLvl.debug);
         }
         public void AddMesError(string line)
         {
-            AppendSQLLog(line, LogLvl.error);
+            AppendMesLog(line, LogLvl.error);
         }
 
         public void AddMesInfo(string line)
         {
-            AppendSQLLog(line, LogLvl.info);
+            AppendMesLog(line, LogLvl.info);
         }
 
         private void AppendMesLog(string line, LogLvl lvl)

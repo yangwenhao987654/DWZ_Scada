@@ -33,8 +33,12 @@
             uiLabel1 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
             lbl_time = new Sunny.UI.UILabel();
+            uiContextMenuStrip1 = new Sunny.UI.UIContextMenuStrip();
+            禁用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            启用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             uiPanel1.SuspendLayout();
             uiTableLayoutPanel1.SuspendLayout();
+            uiContextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // uiPanel1
@@ -115,6 +119,28 @@
             lbl_time.Text = "00:00";
             lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // uiContextMenuStrip1
+            // 
+            uiContextMenuStrip1.BackColor = System.Drawing.Color.FromArgb(243, 249, 255);
+            uiContextMenuStrip1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 禁用ToolStripMenuItem, 启用ToolStripMenuItem });
+            uiContextMenuStrip1.Name = "uiContextMenuStrip1";
+            uiContextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            // 
+            // 禁用ToolStripMenuItem
+            // 
+            禁用ToolStripMenuItem.Name = "禁用ToolStripMenuItem";
+            禁用ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            禁用ToolStripMenuItem.Text = "禁用";
+            禁用ToolStripMenuItem.Click += 禁用ToolStripMenuItem_Click;
+            // 
+            // 启用ToolStripMenuItem
+            // 
+            启用ToolStripMenuItem.Name = "启用ToolStripMenuItem";
+            启用ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            启用ToolStripMenuItem.Text = "启用";
+            启用ToolStripMenuItem.Click += 启用ToolStripMenuItem_Click;
+            // 
             // windingCtrl
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -126,6 +152,7 @@
             Load += windingCtrl_Load;
             uiPanel1.ResumeLayout(false);
             uiTableLayoutPanel1.ResumeLayout(false);
+            uiContextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -135,5 +162,8 @@
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
         private Sunny.UI.UILabel lbl_time;
+        private Sunny.UI.UIContextMenuStrip uiContextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 禁用ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 启用ToolStripMenuItem;
     }
 }
