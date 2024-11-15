@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ScadaBase.DAL.BLL;
 using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
+using Sunny.UI;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -190,7 +191,7 @@ namespace DWZ_Scada.Pages.StationPages
         public  string StationName;
 
         public  string StationCode;
-        private IDeviceAlarmDAL _deviceAlarmBLL;
+        private IDeviceAlarmDAL _deviceAlarmDAL;
 
         /// <summary>
         /// 当前的工单
@@ -229,7 +230,7 @@ namespace DWZ_Scada.Pages.StationPages
                 {
                     if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
                     {
-                        bool flag = await _deviceAlarmBLL.Insert(alarmEntity);
+                        bool flag = await _deviceAlarmDAL.Insert(alarmEntity);
                         if (!flag)
                         {
                             //假如插入失败了，重新假如队列
@@ -245,7 +246,7 @@ namespace DWZ_Scada.Pages.StationPages
                     {
                         if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
                         {
-                            _deviceAlarmBLL.Insert(alarmEntity);
+                            _deviceAlarmDAL.Insert(alarmEntity);
                             context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
                                                                      //context.WriteConsole();
                             await context.SaveChangesAsync(); // 异步保存更改到数据库
@@ -270,7 +271,7 @@ namespace DWZ_Scada.Pages.StationPages
         /// </summary>
         public virtual void StartAsync()
         {
-            _deviceAlarmBLL = Global.ServiceProvider.GetRequiredService<IDeviceAlarmDAL>();
+            _deviceAlarmDAL = Global.ServiceProvider.GetRequiredService<IDeviceAlarmDAL>();
 
             Task.Run(() =>
             {
@@ -404,9 +405,28 @@ namespace DWZ_Scada.Pages.StationPages
             PLC_PORT = PLCConfig.Port;
            // workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged1;
             workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged;
+
+
+            workOrderCtrl.ONSelectProductNoChanged += WorkOrderCtrl_ONSelectProductNoChanged;
         }
 
-
+        private void WorkOrderCtrl_ONSelectProductNoChanged(int no)
+        {
+            if (!IsPlc_Connected)
+            {
+                Logger.Error("PLC未连接，型号切换错误");
+                return ;
+            }
+            try
+            {
+                PLC.WriteInt16(OP10Address.Product, (short)no);
+                PLC.WriteInt16(OP10Address.ChangeProduct, 1);
+            }
+            catch (Exception e)
+            {
+               UIMessageBox.ShowError($"下发plc切换型号错误,型号[{no}] 异常:{e.Message}");
+            }
+        }
 
         private bool WorkOrderCtrl_SpotStateChanged(bool value)
         {

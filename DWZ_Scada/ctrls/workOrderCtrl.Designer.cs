@@ -45,6 +45,7 @@
             uiLabel1 = new Sunny.UI.UILabel();
             uiLabel4 = new Sunny.UI.UILabel();
             uiPanel1 = new Sunny.UI.UIPanel();
+            uiButton1 = new Sunny.UI.UIButton();
             uiTableLayoutPanel1.SuspendLayout();
             uiPanel2.SuspendLayout();
             uiTableLayoutPanel2.SuspendLayout();
@@ -87,18 +88,21 @@
             // 
             // uiTableLayoutPanel2
             // 
-            uiTableLayoutPanel2.ColumnCount = 2;
-            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.4757118F));
-            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.5242844F));
+            uiTableLayoutPanel2.ColumnCount = 3;
+            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.9543381F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0456619F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
             uiTableLayoutPanel2.Controls.Add(userCtrlScanInput1, 0, 0);
-            uiTableLayoutPanel2.Controls.Add(uiButton3, 0, 1);
             uiTableLayoutPanel2.Controls.Add(cbx_Orders, 1, 1);
+            uiTableLayoutPanel2.Controls.Add(uiButton1, 2, 1);
+            uiTableLayoutPanel2.Controls.Add(uiButton3, 0, 1);
             uiTableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             uiTableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             uiTableLayoutPanel2.Name = "uiTableLayoutPanel2";
             uiTableLayoutPanel2.RowCount = 2;
             uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            uiTableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             uiTableLayoutPanel2.Size = new System.Drawing.Size(597, 125);
             uiTableLayoutPanel2.TabIndex = 30;
             uiTableLayoutPanel2.TagString = null;
@@ -106,7 +110,7 @@
             // userCtrlScanInput1
             // 
             userCtrlScanInput1.BackColor = System.Drawing.Color.IndianRed;
-            uiTableLayoutPanel2.SetColumnSpan(userCtrlScanInput1, 2);
+            uiTableLayoutPanel2.SetColumnSpan(userCtrlScanInput1, 3);
             userCtrlScanInput1.Dock = System.Windows.Forms.DockStyle.Fill;
             userCtrlScanInput1.Font = new System.Drawing.Font("微软雅黑", 9F);
             userCtrlScanInput1.IsForcedInput = false;
@@ -123,7 +127,7 @@
             // 
             uiButton3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton3.Location = new System.Drawing.Point(5, 67);
-            uiButton3.Margin = new System.Windows.Forms.Padding(5, 5, 20, 5);
+            uiButton3.Margin = new System.Windows.Forms.Padding(5);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
             uiButton3.Size = new System.Drawing.Size(145, 53);
@@ -141,12 +145,12 @@
             cbx_Orders.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             cbx_Orders.ItemHoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             cbx_Orders.ItemSelectForeColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            cbx_Orders.Location = new System.Drawing.Point(174, 67);
+            cbx_Orders.Location = new System.Drawing.Point(186, 67);
             cbx_Orders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             cbx_Orders.MinimumSize = new System.Drawing.Size(63, 0);
             cbx_Orders.Name = "cbx_Orders";
             cbx_Orders.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            cbx_Orders.Size = new System.Drawing.Size(273, 53);
+            cbx_Orders.Size = new System.Drawing.Size(265, 53);
             cbx_Orders.SymbolSize = 24;
             cbx_Orders.TabIndex = 28;
             cbx_Orders.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -302,6 +306,19 @@
             uiPanel1.Text = null;
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // uiButton1
+            // 
+            uiButton1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Location = new System.Drawing.Point(460, 67);
+            uiButton1.Margin = new System.Windows.Forms.Padding(5);
+            uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton1.Name = "uiButton1";
+            uiButton1.Size = new System.Drawing.Size(100, 53);
+            uiButton1.TabIndex = 30;
+            uiButton1.Text = "下发型号";
+            uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Click += uiButton1_Click;
+            // 
             // workOrderCtrl
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -337,5 +354,6 @@
         private Sunny.UI.UILabel lbl_PartNo;
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UILabel uiLabel2;
+        private Sunny.UI.UIButton uiButton1;
     }
 }

@@ -33,37 +33,38 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            uiTextBox1 = new Sunny.UI.UITextBox();
+            tbx_input = new Sunny.UI.UITextBox();
             uiButton1 = new Sunny.UI.UIButton();
             uiButton2 = new Sunny.UI.UIButton();
             uiButton3 = new Sunny.UI.UIButton();
             uiButton4 = new Sunny.UI.UIButton();
-            dataGridView1 = new Sunny.UI.UIDataGridView();
+            dgv = new Sunny.UI.UIDataGridView();
             dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgv).BeginInit();
             SuspendLayout();
             // 
-            // uiTextBox1
+            // tbx_input
             // 
-            uiTextBox1.FillColor = System.Drawing.SystemColors.ButtonHighlight;
-            uiTextBox1.Font = new System.Drawing.Font("黑体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiTextBox1.ForeReadOnlyColor = System.Drawing.Color.FromArgb(255, 224, 192);
-            uiTextBox1.Location = new System.Drawing.Point(48, 28);
-            uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
-            uiTextBox1.Name = "uiTextBox1";
-            uiTextBox1.Padding = new System.Windows.Forms.Padding(5);
-            uiTextBox1.RectColor = System.Drawing.Color.Snow;
-            uiTextBox1.RectReadOnlyColor = System.Drawing.Color.FromArgb(255, 192, 192);
-            uiTextBox1.ShowText = false;
-            uiTextBox1.Size = new System.Drawing.Size(360, 50);
-            uiTextBox1.TabIndex = 45;
-            uiTextBox1.Text = "请输入配方名称";
-            uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            uiTextBox1.Watermark = "";
+            tbx_input.FillColor = System.Drawing.SystemColors.ButtonHighlight;
+            tbx_input.Font = new System.Drawing.Font("黑体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            tbx_input.ForeReadOnlyColor = System.Drawing.Color.FromArgb(255, 224, 192);
+            tbx_input.Location = new System.Drawing.Point(48, 28);
+            tbx_input.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbx_input.MinimumSize = new System.Drawing.Size(1, 16);
+            tbx_input.Name = "tbx_input";
+            tbx_input.Padding = new System.Windows.Forms.Padding(5);
+            tbx_input.RectColor = System.Drawing.Color.Snow;
+            tbx_input.RectReadOnlyColor = System.Drawing.Color.FromArgb(255, 192, 192);
+            tbx_input.ShowText = false;
+            tbx_input.Size = new System.Drawing.Size(360, 50);
+            tbx_input.TabIndex = 45;
+            tbx_input.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            tbx_input.Watermark = "请输入产品编号";
             // 
             // uiButton1
             // 
@@ -90,6 +91,7 @@
             uiButton1.TabIndex = 54;
             uiButton1.Text = "添加";
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Click += uiButton1_Click;
             // 
             // uiButton2
             // 
@@ -116,6 +118,7 @@
             uiButton2.TabIndex = 55;
             uiButton2.Text = "删除";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.Click += uiButton2_Click;
             // 
             // uiButton3
             // 
@@ -142,6 +145,7 @@
             uiButton3.TabIndex = 56;
             uiButton3.Text = "修改";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
             // 
             // uiButton4
             // 
@@ -168,16 +172,17 @@
             uiButton4.TabIndex = 57;
             uiButton4.Text = "查询";
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton4.Click += uiButton4_Click;
             // 
-            // dataGridView1
+            // dgv
             // 
-            dataGridView1.AllowUserToAddRows = false;
+            dgv.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dgv.BackgroundColor = System.Drawing.Color.White;
+            dgv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
@@ -186,10 +191,10 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.ColumnHeadersHeight = 50;
-            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, Column3, Column4 });
+            dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgv.ColumnHeadersHeight = 50;
+            dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { dataGridViewTextBoxColumn1, Column1, dataGridViewTextBoxColumn2, Column3, Column4, Column2 });
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -197,15 +202,15 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridView1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridView1.Location = new System.Drawing.Point(0, 134);
-            dataGridView1.Margin = new System.Windows.Forms.Padding(5);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RectColor = System.Drawing.SystemColors.ButtonHighlight;
+            dgv.DefaultCellStyle = dataGridViewCellStyle3;
+            dgv.Dock = System.Windows.Forms.DockStyle.Bottom;
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dgv.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            dgv.Location = new System.Drawing.Point(0, 134);
+            dgv.Margin = new System.Windows.Forms.Padding(5);
+            dgv.Name = "dgv";
+            dgv.RectColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -213,55 +218,74 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridView1.RowHeadersWidth = 51;
+            dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgv.RowHeadersWidth = 51;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2);
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkGray;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridView1.RowTemplate.Height = 35;
-            dataGridView1.SelectedIndex = -1;
-            dataGridView1.Size = new System.Drawing.Size(1280, 644);
-            dataGridView1.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            dataGridView1.TabIndex = 58;
+            dgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgv.RowTemplate.Height = 35;
+            dgv.SelectedIndex = -1;
+            dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dgv.Size = new System.Drawing.Size(1280, 644);
+            dgv.StripeOddColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            dgv.TabIndex = 58;
             // 
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.HeaderText = "序号";
-            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.MinimumWidth = 100;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // Column1
+            // 
+            Column1.FillWeight = 120F;
+            Column1.HeaderText = "类型";
+            Column1.MinimumWidth = 120;
+            Column1.Name = "Column1";
             // 
             // dataGridViewTextBoxColumn2
             // 
+            dataGridViewTextBoxColumn2.FillWeight = 200F;
             dataGridViewTextBoxColumn2.HeaderText = "名称";
-            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.MinimumWidth = 150;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // Column3
             // 
+            Column3.FillWeight = 353.962616F;
             Column3.HeaderText = "编号";
-            Column3.MinimumWidth = 6;
+            Column3.MinimumWidth = 200;
             Column3.Name = "Column3";
             // 
             // Column4
             // 
+            Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            Column4.FillWeight = 120F;
             Column4.HeaderText = "PLC地址";
-            Column4.MinimumWidth = 6;
+            Column4.MinimumWidth = 120;
             Column4.Name = "Column4";
+            Column4.Width = 120;
+            // 
+            // Column2
+            // 
+            Column2.HeaderText = "ID";
+            Column2.Name = "Column2";
+            Column2.Visible = false;
             // 
             // Page_Formula_Set
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.AliceBlue;
             ClientSize = new System.Drawing.Size(1280, 778);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgv);
             Controls.Add(uiButton4);
             Controls.Add(uiButton3);
             Controls.Add(uiButton2);
             Controls.Add(uiButton1);
-            Controls.Add(uiTextBox1);
+            Controls.Add(tbx_input);
             Name = "Page_Formula_Set";
             RectColor = System.Drawing.Color.Black;
             Text = "";
@@ -270,20 +294,22 @@
             FormClosing += Formula_set_FormClosing;
             Load += Page_Formula_Set_Load;
             SizeChanged += Page_Formula_Set_SizeChanged;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgv).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private Sunny.UI.UITextBox uiTextBox1;
+        private Sunny.UI.UITextBox tbx_input;
         private Sunny.UI.UIButton uiButton1;
         private Sunny.UI.UIButton uiButton2;
         private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UIButton uiButton4;
-        private Sunny.UI.UIDataGridView dataGridView1;
+        private Sunny.UI.UIDataGridView dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }

@@ -202,12 +202,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
         public async void ReportDeviceState(int weldingMachineId, short state)
         {
-            short currentState = -1;
+            //short currentState = -1;
             DeviceStateDTO dto = new DeviceStateDTO();
             dto.DeviceName = "OP20绕线机" + weldingMachineId.ToString("D2");
             dto.DeviceCode = "OP20_" + weldingMachineId.ToString("D2");
 
-            switch (currentState)
+            switch (state)
             {
                 case 1:
                     dto.Status = "stop";

@@ -7,6 +7,7 @@ using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using RestSharp;
 using ScadaBase.DAL.BLL;
+using ScadaBase.DAL.DAL;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -187,6 +188,9 @@ namespace DWZ_Scada
             #region 注册数据库访问接口
             services.AddSingleton<IDeviceAlarmDAL, DeviceAlarmDAL>();
             services.AddSingleton<IDeviceAlarmBLL, DeviceAlarmBLL>();
+
+            services.AddSingleton<IProductFormulaDAL, ProductFormulaDAL>();
+
             #endregion
 
         }

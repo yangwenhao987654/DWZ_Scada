@@ -48,6 +48,9 @@
     <Compile Update="Forms\BomListForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ProductFormula\FormProductFormulaUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="myForms\FormCustom.cs">
       <SubType>Form</SubType>
     </Compile>

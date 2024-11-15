@@ -8,6 +8,9 @@ using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RestSharp;
+using ScadaBase.DAL.BLL;
+using ScadaBase.DAL.DAL;
+using ScadaBase.DAL.Entity;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -56,11 +59,20 @@ namespace DWZ_Scada.ctrls
         public event Action<bool> CheckStateChanged;
 
         /// <summary>
+        /// 选中料号切换改变事件
+        /// </summary>
+        public static event Action<int> ONSelectProductNoChanged;
+
+        /// <summary>
         /// 点检状态
         /// </summary>
-        public static event Func<bool,bool> SpotStateChanged;
+        public static event Func<bool, bool> SpotStateChanged;
 
         public List<ProductBomDTO> ProductBomList { get; set; }
+
+
+        private IProductFormulaDAL _productFormulaDAL;
+
         public bool IsCheckPass
         {
             get
@@ -272,7 +284,7 @@ namespace DWZ_Scada.ctrls
         private void uiSwitch_Spot_ValueChanged(object sender, bool value)
         {
             bool? flag = SpotStateChanged?.Invoke(value);
-            if (flag!=null && flag.Value)
+            if (flag != null && flag.Value)
             {
                 //切换成功
                 //容易死循环 
@@ -299,6 +311,38 @@ namespace DWZ_Scada.ctrls
         private void cbx_Orders_DropDownClosed(object sender, EventArgs e)
         {
             userCtrlScanInput1.IsForcedInput = true;
+        }
+
+        private void uiButton1_Click(object sender, EventArgs e)
+        {
+            if (IsCheckPass)
+            {
+                //TODO 下发给PLC型号
+                //1. 获取到当前的型号Code
+                if (CurProductCode=="")
+                {
+                    UIMessageBox.ShowError("当前型号为空");
+                    return;
+                }
+
+                List<ProductFormulaEntity> list = _productFormulaDAL.SelectByProdCode(CurProductCode);
+                ProductFormulaEntity row = list.FirstOrDefault();
+                if (row != null)
+                {
+                    int plcNo = row.ProductPLCNo;
+                    ONSelectProductNoChanged?.Invoke(plcNo);
+                }
+                else
+                {
+                    UIMessageBox.ShowError($"查询产品配方失败 产品Code:[{CurProductCode}]，请先添加配方");
+                }
+                //2.根据型号Code查询配方表，获取到PLC对应型号
+                //3.写地址给PLC
+            }
+            else
+            {
+                UIMessageBox.ShowError("物料匹配失败 ，禁止切换型号");
+            }
         }
     }
 }
