@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -472,6 +473,7 @@ namespace DWZ_Scada
                     string path = System.IO.Path.Combine(ParamsBackupDirectory,
                         $"{DateTime.Now:yyyy-MM-dd-HH-mm-ss-fff-}Params.json");
                     fileInfo.CopyTo(path, true);
+                    AutoDeleteBackFile();
                 }
 
                 string json = JsonConvert.SerializeObject(Instance, Formatting.Indented);//1. 序列化 //2.设置缩进
@@ -488,6 +490,42 @@ namespace DWZ_Scada
             }
             return errMsg;
         }
+
+        private static void AutoDeleteBackFile()
+        {
+            int maxFiles = 100;
+            if (Directory.Exists(ParamsBackupDirectory))
+            {
+                var files = Directory.GetFiles(ParamsBackupDirectory)
+                    .OrderByDescending(f => f)
+                    .ToList();
+
+                if (files.Count > maxFiles)
+                {
+                    foreach (var file in files.Skip(maxFiles))
+                    {
+                        try
+                        {
+                            File.Delete(file);
+                            //Console.WriteLine($"Deleted: {file}");
+                        }
+                        catch (Exception ex)
+                        {
+                            //Console.WriteLine($"Error deleting file {file}: {ex.Message}");
+                        }
+                    }
+                }
+                else
+                {
+                    //Console.WriteLine("The number of files is within the limit.");
+                }
+            }
+            else
+            {
+                //Console.WriteLine("Directory does not exist.");
+            }
+        }
+
         public void Login(string name, int lvl, string rule)
         {
             if (name == Op && lvl == OpLvl && rule == OPRule)
