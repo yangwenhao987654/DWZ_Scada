@@ -265,8 +265,11 @@ namespace DWZ_Scada
         [DisplayName("A.绕线机超时时间(s)"), Category("2.OP20工站"), Description("设置绕线机的超时时间,最低默认一分钟")]
         public int OP20_WindingTimeOut { get; set; }
 
+
+        //设置属性只读，不可编辑
         [TypeConverter(typeof(BoolListConverter))]
-        [Permission(3), ReadOnly(false)]
+        [Permission(3), ReadOnly(true)]
+        [Browsable(false)]
         [DisplayName("B.绕线机禁用状态"), Category("2.OP20工站"), Description("设置绕线机禁用启用")]
         public List<bool> OP20_WeldingEnableList {
             get; 

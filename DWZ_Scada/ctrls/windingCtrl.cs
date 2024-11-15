@@ -224,16 +224,24 @@ namespace DWZ_Scada.ctrls
 
         private void 禁用ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!IsEnable)
+            {
+                return;
+            }
             IsEnable = false;
             SystemParams.Instance.OP20_WeldingEnableList[Index] = false;
-            SetDisable();
+            UpdateState(99);
         }
 
         private void 启用ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (IsEnable)
+            {
+                return;
+            }
             IsEnable =true;
             SystemParams.Instance.OP20_WeldingEnableList[Index] = true;
-            OffLine();
+            UpdateState(-1);
         }
     }
 }

@@ -56,6 +56,10 @@ public class ModbusTCP : MyPlc
     {
         // 连接
         IPAddress address;
+        if (station==0)
+        {
+            station =1;
+        }
         if (!IPAddress.TryParse(IP, out address)) return (false, "Ip地址输入不正确！");
         client?.ConnectClose();
         client = new ModbusTcpNet(IP, port, station);
@@ -281,7 +285,14 @@ public class ModbusTCP : MyPlc
     public override bool ReadInt16(string address, out short value)
     {
         var result = client.ReadInt16(address);
-        value = result.Content;
+        if (result.IsSuccess)
+        {
+            value = result.Content;
+        }
+        else
+        {
+            value = -1;
+        }
         return result.IsSuccess;
     }
 

@@ -43,6 +43,7 @@
             // 
             // uiPanel1
             // 
+            uiPanel1.ContextMenuStrip = uiContextMenuStrip1;
             uiPanel1.Controls.Add(uiTableLayoutPanel1);
             uiPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             uiPanel1.FillColor = System.Drawing.Color.Gray;
@@ -125,19 +126,19 @@
             uiContextMenuStrip1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { 禁用ToolStripMenuItem, 启用ToolStripMenuItem });
             uiContextMenuStrip1.Name = "uiContextMenuStrip1";
-            uiContextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            uiContextMenuStrip1.Size = new System.Drawing.Size(107, 48);
             // 
             // 禁用ToolStripMenuItem
             // 
             禁用ToolStripMenuItem.Name = "禁用ToolStripMenuItem";
-            禁用ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            禁用ToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             禁用ToolStripMenuItem.Text = "禁用";
             禁用ToolStripMenuItem.Click += 禁用ToolStripMenuItem_Click;
             // 
             // 启用ToolStripMenuItem
             // 
             启用ToolStripMenuItem.Name = "启用ToolStripMenuItem";
-            启用ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            启用ToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             启用ToolStripMenuItem.Text = "启用";
             启用ToolStripMenuItem.Click += 启用ToolStripMenuItem_Click;
             // 

@@ -76,6 +76,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                          break;
                      }*/
                     windingCtrl ctrlSingle = new windingCtrl();
+                    ctrlSingle.IsEnable = SystemParams.Instance.OP20_WeldingEnableList[index-1];
                     ctrlSingle.Index = index - 1;
                     ctrlSingle.WeldingTitle = $"绕线机{index++:D2}";
                     WindingCtrlList.Add(ctrlSingle);
@@ -103,8 +104,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         {
             if (InvokeRequired)
             {
+                //TODO 关闭软件 这里报错 好几次了
                 //this.Invoke(new Action(()=>UpdateWeldingStateLight(index, state)));
                 this.Invoke(new Action<int, int>(UpdateWeldingStateLight), index, state);
+                return;
             }
             WindingCtrlList[index].UpdateState(state);
         }

@@ -131,6 +131,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         modbusTcp.IsConnect = false;
                         modbusTcp.Close();
                         Thread.Sleep(1000);
+                        OnWeldingStateChangedAction?.Invoke(index, 99);
                         continue;
                     }
                     if (modbusTcp.IsConnect)
