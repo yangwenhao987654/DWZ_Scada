@@ -177,6 +177,7 @@
             // dgv
             // 
             dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -206,9 +207,10 @@
             dgv.Dock = System.Windows.Forms.DockStyle.Bottom;
             dgv.EnableHeadersVisualStyles = false;
             dgv.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dgv.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            dgv.GridColor = System.Drawing.Color.DimGray;
             dgv.Location = new System.Drawing.Point(0, 134);
-            dgv.Margin = new System.Windows.Forms.Padding(5);
+            dgv.Margin = new System.Windows.Forms.Padding(15, 5, 15, 5);
+            dgv.MultiSelect = false;
             dgv.Name = "dgv";
             dgv.RectColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -224,7 +226,7 @@
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.NavajoWhite;
             dgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgv.RowTemplate.Height = 35;
             dgv.SelectedIndex = -1;
@@ -257,17 +259,17 @@
             // 
             Column3.FillWeight = 353.962616F;
             Column3.HeaderText = "编号";
-            Column3.MinimumWidth = 200;
+            Column3.MinimumWidth = 350;
             Column3.Name = "Column3";
             // 
             // Column4
             // 
             Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            Column4.FillWeight = 120F;
+            Column4.FillWeight = 200F;
             Column4.HeaderText = "PLC地址";
-            Column4.MinimumWidth = 120;
+            Column4.MinimumWidth = 200;
             Column4.Name = "Column4";
-            Column4.Width = 120;
+            Column4.Width = 200;
             // 
             // Column2
             // 
