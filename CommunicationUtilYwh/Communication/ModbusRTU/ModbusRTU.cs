@@ -259,7 +259,7 @@ namespace CommunicationUtilYwh.Communication.ModbusRTU
 
         public override void Dispose()
         {
-            LogMgr.Instance.Debug("ModbusRtu连接");
+            LogMgr.Instance.Debug("释放ModbusRtu连接");
             client?.Close();
             client?.Dispose();
         }

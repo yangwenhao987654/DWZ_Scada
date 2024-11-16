@@ -35,7 +35,8 @@ namespace DWZ_Scada
 
         public static string WorkOrder { get; set; }
         public static bool isYWH { get; set; }
-        
+
+        public const string LogoFolder = "Logo";          // Logo 目录
 
         public static bool IsWorkNoCheckPass { get; set; }
 

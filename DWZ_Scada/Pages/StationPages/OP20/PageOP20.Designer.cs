@@ -90,7 +90,7 @@
             // 
             uiLabel3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel3.Location = new System.Drawing.Point(16, 340);
+            uiLabel3.Location = new System.Drawing.Point(16, 349);
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new System.Drawing.Size(124, 38);
             uiLabel3.TabIndex = 24;
@@ -102,7 +102,7 @@
             op20CtrlEntry2.Location = new System.Drawing.Point(16, 398);
             op20CtrlEntry2.Margin = new System.Windows.Forms.Padding(4);
             op20CtrlEntry2.Name = "op20CtrlEntry2";
-            op20CtrlEntry2.Size = new System.Drawing.Size(265, 138);
+            op20CtrlEntry2.Size = new System.Drawing.Size(265, 167);
             op20CtrlEntry2.TabIndex = 23;
             op20CtrlEntry2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             op20CtrlEntry2.TextFont = new System.Drawing.Font("微软雅黑", 35F);
@@ -112,7 +112,7 @@
             op20CtrlEntry1.Location = new System.Drawing.Point(16, 108);
             op20CtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             op20CtrlEntry1.Name = "op20CtrlEntry1";
-            op20CtrlEntry1.Size = new System.Drawing.Size(265, 137);
+            op20CtrlEntry1.Size = new System.Drawing.Size(265, 167);
             op20CtrlEntry1.TabIndex = 21;
             op20CtrlEntry1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             op20CtrlEntry1.TextFont = new System.Drawing.Font("微软雅黑", 35F);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PageLogin));
             uiPanel1 = new Sunny.UI.UIPanel();
             label1 = new System.Windows.Forms.Label();
             uiTextBox2 = new Sunny.UI.UITextBox();
@@ -54,14 +55,15 @@
             uiPanel1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiPanel1.ForeColor = System.Drawing.Color.FromArgb(192, 64, 0);
             uiPanel1.ForeDisableColor = System.Drawing.Color.FromArgb(255, 255, 128);
-            uiPanel1.Location = new System.Drawing.Point(0, 0);
+            uiPanel1.Location = new System.Drawing.Point(5, 5);
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel1.Name = "uiPanel1";
+            uiPanel1.Padding = new System.Windows.Forms.Padding(2);
             uiPanel1.Radius = 20;
             uiPanel1.RectSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.None;
             uiPanel1.RectSize = 2;
-            uiPanel1.Size = new System.Drawing.Size(708, 506);
+            uiPanel1.Size = new System.Drawing.Size(698, 496);
             uiPanel1.StyleCustomMode = true;
             uiPanel1.TabIndex = 0;
             uiPanel1.Text = null;
@@ -76,7 +78,7 @@
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(495, 78);
             label1.TabIndex = 13;
-            label1.Text = "缔微致上位机";
+            label1.Text = "上位机数采系统";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiTextBox2
@@ -210,9 +212,10 @@
             Controls.Add(uiPanel1);
             ExtendSymbol = 62144;
             Font = new System.Drawing.Font("宋体", 14F);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Name = "PageLogin";
-            Padding = new System.Windows.Forms.Padding(0);
-            RectColor = System.Drawing.Color.Transparent;
+            Padding = new System.Windows.Forms.Padding(5);
+            RectColor = System.Drawing.Color.DimGray;
             ShowTitle = false;
             Style = Sunny.UI.UIStyle.Custom;
             StyleCustomMode = true;

@@ -74,6 +74,7 @@
             userCtrlResult_Welding = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlEntry_OP40 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel8 = new Sunny.UI.UILabel();
+            workOrderCtrl1 = new ctrls.workOrderCtrl();
             SuspendLayout();
             // 
             // uiLabel1
@@ -105,10 +106,10 @@
             // 
             // userCtrlResult_Vision
             // 
-            userCtrlResult_Vision.Location = new System.Drawing.Point(882, 506);
+            userCtrlResult_Vision.Location = new System.Drawing.Point(864, 583);
             userCtrlResult_Vision.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult_Vision.Name = "userCtrlResult_Vision";
-            userCtrlResult_Vision.Size = new System.Drawing.Size(313, 168);
+            userCtrlResult_Vision.Size = new System.Drawing.Size(313, 135);
             userCtrlResult_Vision.TabIndex = 16;
             userCtrlResult_Vision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlResult_Vision.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
@@ -117,7 +118,7 @@
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(879, 471);
+            uiLabel2.Location = new System.Drawing.Point(858, 549);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(120, 30);
             uiLabel2.TabIndex = 17;
@@ -480,7 +481,7 @@
             // 
             uiLabel42.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel42.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel42.Location = new System.Drawing.Point(876, 216);
+            uiLabel42.Location = new System.Drawing.Point(864, 350);
             uiLabel42.Name = "uiLabel42";
             uiLabel42.Size = new System.Drawing.Size(120, 30);
             uiLabel42.TabIndex = 63;
@@ -488,20 +489,20 @@
             // 
             // userCtrlResult_Welding
             // 
-            userCtrlResult_Welding.Location = new System.Drawing.Point(879, 251);
+            userCtrlResult_Welding.Location = new System.Drawing.Point(864, 394);
             userCtrlResult_Welding.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult_Welding.Name = "userCtrlResult_Welding";
-            userCtrlResult_Welding.Size = new System.Drawing.Size(313, 168);
+            userCtrlResult_Welding.Size = new System.Drawing.Size(313, 139);
             userCtrlResult_Welding.TabIndex = 62;
             userCtrlResult_Welding.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlResult_Welding.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // userCtrlEntry_OP40
             // 
-            userCtrlEntry_OP40.Location = new System.Drawing.Point(436, 94);
+            userCtrlEntry_OP40.Location = new System.Drawing.Point(864, 234);
             userCtrlEntry_OP40.Margin = new System.Windows.Forms.Padding(4);
             userCtrlEntry_OP40.Name = "userCtrlEntry_OP40";
-            userCtrlEntry_OP40.Size = new System.Drawing.Size(354, 114);
+            userCtrlEntry_OP40.Size = new System.Drawing.Size(313, 114);
             userCtrlEntry_OP40.TabIndex = 65;
             userCtrlEntry_OP40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlEntry_OP40.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
@@ -510,17 +511,34 @@
             // 
             uiLabel8.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(240, 94);
+            uiLabel8.Location = new System.Drawing.Point(864, 192);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new System.Drawing.Size(176, 38);
+            uiLabel8.Size = new System.Drawing.Size(120, 38);
             uiLabel8.TabIndex = 64;
             uiLabel8.Text = "OP40进站:";
             uiLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // workOrderCtrl1
+            // 
+            workOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrl1.CurPartNo = "";
+            workOrderCtrl1.CurProductCode = "";
+            workOrderCtrl1.CurProductName = "";
+            workOrderCtrl1.CurWorkOrderNo = "";
+            workOrderCtrl1.IsCheckPass = false;
+            workOrderCtrl1.Location = new System.Drawing.Point(12, 62);
+            workOrderCtrl1.Name = "workOrderCtrl1";
+            workOrderCtrl1.Orders = null;
+            workOrderCtrl1.ProductBomList = null;
+            workOrderCtrl1.Size = new System.Drawing.Size(1195, 125);
+            workOrderCtrl1.SpotEnable = false;
+            workOrderCtrl1.TabIndex = 66;
             // 
             // PageOP40
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1024);
+            Controls.Add(workOrderCtrl1);
             Controls.Add(userCtrlEntry_OP40);
             Controls.Add(uiLabel8);
             Controls.Add(uiLabel42);
@@ -621,5 +639,6 @@
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Welding;
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP40;
         private Sunny.UI.UILabel uiLabel8;
+        private ctrls.workOrderCtrl workOrderCtrl1;
     }
 }

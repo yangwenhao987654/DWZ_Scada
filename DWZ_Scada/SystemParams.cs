@@ -113,6 +113,15 @@ namespace DWZ_Scada
             StationChanged?.Invoke();
         }
 
+        [Permission(3), ReadOnly(true)]
+        [DisplayName("A.Logo文件路径"), Category("A.其他配置"), Description("主页公司Logo图片路径")]
+        public string LogoFilePath { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("B.公司名称"), Category("A.其他配置"), Description("主页公司名称展示")]
+        public string CompanyName { get; set; }
+
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("0.Mes服务器 IP地址"), Category("0.Mes服务器"), Description("Mes服务器的IP地址")]
         public string MesIP { get; set; }

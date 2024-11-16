@@ -84,11 +84,13 @@ namespace DWZ_Scada
                     finalcode, codeType, result);
                 return;
             }
-            if (result) {
+            if (result)
+            {
                 lbl_CodeResult.Text = "OK";
-                lbl_CodeResult.ForeColor =Color.Green;
+                lbl_CodeResult.ForeColor = Color.Green;
             }
-            else {
+            else
+            {
                 lbl_CodeResult.Text = "NG";
                 lbl_CodeResult.ForeColor = Color.Red;
             }
@@ -130,10 +132,15 @@ namespace DWZ_Scada
                 LogMgr.Instance.Info($"关闭{OP70MainFunc.Instance.StationName}程序");
                 OP70MainFunc.Instance?.Dispose();
             }
-            _instance =null;
+            _instance = null;
         }
 
         private void uiLabel10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PageOP70_Initialize(object sender, EventArgs e)
         {
 
         }

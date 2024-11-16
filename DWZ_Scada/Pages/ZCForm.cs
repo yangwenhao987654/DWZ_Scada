@@ -9,6 +9,7 @@ using LogTool;
 using Sunny.UI;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using TouchSocket.Core;
@@ -99,6 +100,12 @@ namespace DWZ_Scada.Pages
             lblLoginUserName.Text = Global.LoginUser;
             lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            InitializeLogo();
+            if (!string.IsNullOrEmpty(SystemParams.Instance.CompanyName))
+            {
+                lbl_CompanyName.Text = SystemParams.Instance.CompanyName;
+            }
+            
         }
         public void StartServer()
         {
@@ -172,7 +179,7 @@ namespace DWZ_Scada.Pages
 
         private void SetMainPage(Form form)
         {
-            if (mainForm!=form)
+            if (mainForm != form)
             {
                 mainForm?.Close();
             }
@@ -182,7 +189,7 @@ namespace DWZ_Scada.Pages
             form.Show();
             uiPanel1.Controls.Add(form);
             mainForm = form;
-            this.Text = "数据采集系统-"+mainForm.Text;
+            this.Text = "数据采集系统-" + mainForm.Text;
         }
 
         public void SetAutoStart()
@@ -299,7 +306,7 @@ namespace DWZ_Scada.Pages
 
         public void UpdatePlcState(PlcState state)
         {
-            if (state.ToString()==uiLight1.Tag.ToString())
+            if (state.ToString() == uiLight1.Tag.ToString())
             {
                 return;
             }
@@ -338,6 +345,81 @@ namespace DWZ_Scada.Pages
 
         private void uiLight1_Click(object sender, EventArgs e)
         {
+        }
+
+        private void InitializeLogo()
+        {
+            try
+            {
+                string logoDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Global.LogoFolder);
+                if (!Directory.Exists(logoDirectory))
+                {
+                    Directory.CreateDirectory(logoDirectory);
+                }
+
+                // 检查配置文件中是否存储了路径
+                string imagePath = Path.Combine(logoDirectory, SystemParams.Instance.LogoFilePath);
+                if (File.Exists(imagePath))
+                {
+                    pictureBox1.ImageLocation = imagePath;
+                }
+            }
+            catch (Exception e)
+            {
+               LogMgr.Instance.Error($"加载Logo文件错误:{e.Message}");
+            }
+         
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            //1.点击之后弹出对话框 更换Logo 弹出文件选择器;
+            //2.获取到图片路径 把图片备份一份 放到当前程序集的Debug/Logo 下面
+            //3.保存图片的路径 下次启动的时候根据路径加载图片
+            //4.设置PictureBox显示当前选择路径下的图片
+            try
+            {
+                string sourcePath = "";
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.ico";
+
+                    if (openFileDialog.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                    sourcePath = openFileDialog.FileName;
+                }
+
+                if (sourcePath=="")
+                {
+                    return;
+                }
+                string logoDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Global.LogoFolder);
+                string destinationPath = Path.Combine(logoDirectory, Path.GetFileName(sourcePath));
+
+                // 复制图片到目标路径
+                if (sourcePath!=destinationPath)
+                {
+                    //如果路径相同 直接复制会被占用 报错
+                    File.Copy(sourcePath, destinationPath, overwrite: true);
+                }
+             
+
+                // 保存路径到配置文件
+                SystemParams.Instance.LogoFilePath = sourcePath;
+                // 更新 PictureBox 显示图片
+                pictureBox1.ImageLocation = destinationPath;
+
+                MessageBox.Show("Logo 已成功更换并保存！", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+         
         }
     }
 }

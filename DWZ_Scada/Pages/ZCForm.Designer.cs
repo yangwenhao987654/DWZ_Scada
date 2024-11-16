@@ -51,7 +51,7 @@ namespace DWZ_Scada.Pages
             uiLabel7 = new Sunny.UI.UILabel();
             uiTableLayoutPanel4 = new Sunny.UI.UITableLayoutPanel();
             panel2 = new System.Windows.Forms.Panel();
-            uiLabel2 = new Sunny.UI.UILabel();
+            lbl_CompanyName = new Sunny.UI.UILabel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             panel1 = new System.Windows.Forms.Panel();
             uiLabel13 = new Sunny.UI.UILabel();
@@ -322,24 +322,24 @@ namespace DWZ_Scada.Pages
             // panel2
             // 
             panel2.BackColor = System.Drawing.Color.Transparent;
-            panel2.Controls.Add(uiLabel2);
+            panel2.Controls.Add(lbl_CompanyName);
             panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             panel2.Location = new System.Drawing.Point(75, 3);
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(151, 103);
             panel2.TabIndex = 2;
             // 
-            // uiLabel2
+            // lbl_CompanyName
             // 
-            uiLabel2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(3, 20);
-            uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(151, 59);
-            uiLabel2.TabIndex = 0;
-            uiLabel2.Text = "中昌智能";
-            uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lbl_CompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
+            lbl_CompanyName.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_CompanyName.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_CompanyName.Location = new System.Drawing.Point(0, 0);
+            lbl_CompanyName.Name = "lbl_CompanyName";
+            lbl_CompanyName.Size = new System.Drawing.Size(151, 103);
+            lbl_CompanyName.TabIndex = 0;
+            lbl_CompanyName.Text = "中昌智能";
+            lbl_CompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
@@ -351,6 +351,7 @@ namespace DWZ_Scada.Pages
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // panel1
             // 
@@ -658,7 +659,7 @@ namespace DWZ_Scada.Pages
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private Sunny.UI.UILabel uiLabel2;
+        private Sunny.UI.UILabel lbl_CompanyName;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel uiLabel4;
         private Sunny.UI.UILabel uiLabel3;

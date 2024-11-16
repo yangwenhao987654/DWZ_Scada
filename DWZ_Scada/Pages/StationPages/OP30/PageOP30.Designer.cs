@@ -36,6 +36,7 @@
             Op30CtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
+            workOrderCtrl1 = new ctrls.workOrderCtrl();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -126,10 +127,27 @@
             uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel6.Click += uiLabel6_Click;
             // 
+            // workOrderCtrl1
+            // 
+            workOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrl1.CurPartNo = "";
+            workOrderCtrl1.CurProductCode = "";
+            workOrderCtrl1.CurProductName = "";
+            workOrderCtrl1.CurWorkOrderNo = "";
+            workOrderCtrl1.IsCheckPass = false;
+            workOrderCtrl1.Location = new System.Drawing.Point(27, 62);
+            workOrderCtrl1.Name = "workOrderCtrl1";
+            workOrderCtrl1.Orders = null;
+            workOrderCtrl1.ProductBomList = null;
+            workOrderCtrl1.Size = new System.Drawing.Size(1195, 125);
+            workOrderCtrl1.SpotEnable = false;
+            workOrderCtrl1.TabIndex = 2;
+            // 
             // PageOP30
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(workOrderCtrl1);
             Controls.Add(uiPanel1);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
@@ -154,5 +172,6 @@
         private DIPTest.Ctrl.UserCtrlEntry Op30CtrlEntry1;
         private DIPTest.Ctrl.UserCtrlResult op30CtrlResult_Vision1;
         private ctrls.MyLogCtrl myLogCtrl1;
+        private ctrls.workOrderCtrl workOrderCtrl1;
     }
 }

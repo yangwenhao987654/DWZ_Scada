@@ -63,6 +63,7 @@
             uiButton1.TabIndex = 51;
             uiButton1.Text = "停止";
             uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Visible = false;
             // 
             // uiListBox2
             // 
@@ -146,6 +147,7 @@
             uiButton4.TabIndex = 57;
             uiButton4.Text = "启动";
             uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton4.Visible = false;
             // 
             // uiButton2
             // 
@@ -172,6 +174,7 @@
             uiButton2.TabIndex = 58;
             uiButton2.Text = "复位";
             uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton2.Visible = false;
             uiButton2.Click += uiButton2_Click_1;
             // 
             // uiButton3
@@ -199,6 +202,7 @@
             uiButton3.TabIndex = 59;
             uiButton3.Text = "初始化";
             uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Visible = false;
             // 
             // DeviceControlPage
             // 

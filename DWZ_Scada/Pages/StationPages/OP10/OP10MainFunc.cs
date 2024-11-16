@@ -194,6 +194,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 }
                 Thread.Sleep(1000);
             }
+            controller.Dispose();
         }
 
         /// <summary>

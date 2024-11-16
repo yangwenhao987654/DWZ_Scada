@@ -39,6 +39,7 @@
             lbl_grade = new Sunny.UI.UILabel();
             lbl_CodeResult = new Sunny.UI.UILabel();
             uiLabel10 = new Sunny.UI.UILabel();
+            workOrderCtrl2 = new ctrls.workOrderCtrl();
             SuspendLayout();
             // 
             // uiLabel1
@@ -166,10 +167,27 @@
             uiLabel10.Text = "结   果:";
             uiLabel10.Click += uiLabel10_Click;
             // 
+            // workOrderCtrl2
+            // 
+            workOrderCtrl2.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrl2.CurPartNo = "";
+            workOrderCtrl2.CurProductCode = "";
+            workOrderCtrl2.CurProductName = "";
+            workOrderCtrl2.CurWorkOrderNo = "";
+            workOrderCtrl2.IsCheckPass = false;
+            workOrderCtrl2.Location = new System.Drawing.Point(38, 62);
+            workOrderCtrl2.Name = "workOrderCtrl2";
+            workOrderCtrl2.Orders = null;
+            workOrderCtrl2.ProductBomList = null;
+            workOrderCtrl2.Size = new System.Drawing.Size(1195, 125);
+            workOrderCtrl2.SpotEnable = false;
+            workOrderCtrl2.TabIndex = 80;
+            // 
             // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(workOrderCtrl2);
             Controls.Add(uiLabel10);
             Controls.Add(lbl_CodeResult);
             Controls.Add(lbl_grade);
@@ -186,6 +204,7 @@
             Text = "OP10";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;
+            Initialize += PageOP70_Initialize;
             FormClosing += PageOP10_FormClosing;
             Load += Page_Load;
             ResumeLayout(false);
@@ -204,5 +223,6 @@
         private Sunny.UI.UILabel lbl_CodeResult;
         private Sunny.UI.UILabel uiLabel10;
         private ctrls.workOrderCtrl workOrderCtrl1;
+        private ctrls.workOrderCtrl workOrderCtrl2;
     }
 }
