@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.ctrls;
+﻿using CommunicationUtilYwh.Device;
+using DWZ_Scada.ctrls;
 using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -44,6 +45,11 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         public event TestStateChanged OnVision2Finished;
 
         public event EntryStateChanged OnEntryStateChanged;
+
+
+        public event Action<double,double > OnTemperatureRecived;
+
+        private  object _lock = new object();
 
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
@@ -100,6 +106,16 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     dto.Message = message;
                 }
             }
+
+            //dto.Data = new OP10TempData() { Humidity = 75.54, Temperature = 23.54, };
+            OP10TempData tempData = new OP10TempData() { Humidity = CurHumidity, Temperature = CurTemperature, };
+            lock (_lock)
+            {
+               tempData.Humidity = CurHumidity;
+               tempData.Temperature = CurTemperature;
+            }
+
+            dto.Data = tempData;
             await DeviceStateService.AddDeviceState(dto);
         }
 
@@ -111,6 +127,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
             Thread t2 = new Thread(() => VisionMonitor02(token));
             t2.Start();
+
+            Thread t3 = new Thread(() => TemperatureMonitor(token));
+            t3.Start();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -140,6 +159,52 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 Thread.Sleep(1000);
             }
         }
+
+        private void TemperatureMonitor(CancellationToken token)
+        {
+            TemperatureController485 controller = new TemperatureController485();
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (controller.IsConnect)
+                    {
+                        //连接成功
+                        double humidity = controller.ReadHumidity();
+                        double temperature = controller.ReadTemperature();
+                        //获取到温度和湿度
+
+                        lock (_lock)
+                        {
+                            CurHumidity = humidity;
+                            CurTemperature = temperature;
+                        }
+                        //实时显示温度和湿度
+                        OnTemperatureRecived?.Invoke(temperature,humidity);
+                    }
+                    else
+                    {
+                        controller.Open(SystemParams.Instance.OP10_ComName);
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error($"温度采集线程出错:{e.Message}");
+                    //LogMgr.Instance.Error($"温度采集线程出错:{e.Message}");
+                }
+                Thread.Sleep(1000);
+            }
+        }
+
+        /// <summary>
+        /// 当前温度
+        /// </summary>
+        public double CurTemperature { get; set; }
+
+        /// <summary>
+        /// 当前湿度
+        /// </summary>
+        public double CurHumidity { get; set; }
 
         /// <summary>
         /// 画像检测流程

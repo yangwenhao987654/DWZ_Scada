@@ -118,6 +118,12 @@ namespace DWZ_Scada
         public string MesIP { get; set; }
 
         #region OP10工站参数
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.温度采集模块串口名称"), Category("1.OP10工站"), Description("温度控制模块的Com口")]
+        public string OP10_ComName{ get; set; }
+
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("1.PLC IP地址"), Category("1.OP10工站"), Description("PLC的IP地址")]
         public string OP10_PlcIP { get; set; }

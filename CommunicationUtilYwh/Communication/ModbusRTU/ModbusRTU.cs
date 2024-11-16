@@ -20,6 +20,10 @@ namespace CommunicationUtilYwh.Communication.ModbusRTU
             PortName = portName;
         }
 
+        public ModbusRTU()
+        {
+        }
+
         ModbusRtu client = new ModbusRtu();
         public override bool Connect(string ip, int port)
         {
@@ -30,12 +34,29 @@ namespace CommunicationUtilYwh.Communication.ModbusRTU
         {
             try
             {
+                
                 client.SerialPortInni(portName: PortName);
                 client.Open();
             }
             catch (Exception ex)
             {
                 LogMgr.Instance.Error($"打开ModbusRTU连接错误: 串口名称:[{PortName}] 错误信息:[{ex.Message}]");;
+            }
+
+            IsConnect = client.IsOpen();
+            return client.IsOpen();
+        }
+
+        public bool Open(string portName)
+        {
+            try
+            {
+                client.SerialPortInni(portName);
+                client.Open();
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"打开ModbusRTU连接错误: 串口名称:[{portName}] 错误信息:[{ex.Message}]"); ;
             }
 
             IsConnect = client.IsOpen();

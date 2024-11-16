@@ -123,7 +123,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     dto.Message = message;
                 }
             }
-            //await DeviceStateService.AddDeviceState(dto);
+            await DeviceStateService.AddDeviceState(dto);
         }
 
         public override async void PLCMainWork(CancellationToken token)
@@ -159,21 +159,24 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// 画像检测流程
         /// </summary>
         /// <param name="token"></param>
-        /// <exception cref="NotImplementedException"></exception>
         private async void VisionMonitor(CancellationToken token)
         {
-            try
+            while (!token.IsCancellationRequested)
             {
-                if (IsPlc_Connected)
+                try
                 {
-                   await  HandleVisionProcess();
-                    Thread.Sleep(500);
+                    if (IsPlc_Connected)
+                    {
+                        await HandleVisionProcess();
+                        Thread.Sleep(500);
+                    }
+
+                    Thread.Sleep(100);
                 }
-                Thread.Sleep(100);
-            }
-            catch (Exception e)
-            {
-                LogMgr.Instance.Error("画像检测线程错误:" + e.Message);
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error("画像检测线程错误:" + e.Message);
+                }
             }
         }
 
@@ -183,24 +186,28 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// <param name="token"></param>
         private void WeldingMonitor(CancellationToken token)
         {
-            try
+            while (!token.IsCancellationRequested)
             {
-                if (IsPlc_Connected)
+                try
                 {
-                    //TODO 读取大电流放电
-                    ReadCharge();
+                    if (IsPlc_Connected)
+                    {
+                        //TODO 读取大电流放电
+                        ReadCharge();
 
-                    //处理焊接流程 获取焊接数据
-                    HandleWelding();
+                        //处理焊接流程 获取焊接数据
+                        HandleWelding();
 
-                 
-                    Thread.Sleep(500);
+
+                        Thread.Sleep(500);
+                    }
+
+                    Thread.Sleep(100);
                 }
-                Thread.Sleep(100);
-            }
-            catch (Exception e)
-            {
-                LogMgr.Instance.Error("焊接流程线程错误:" + e.Message);
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error("焊接流程线程错误:" + e.Message);
+                }
             }
         }
 
@@ -320,7 +327,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 {
                     StationCode = StationCode,
                     SnTemp = sn,
-                    WorkOrder = "MO202409110002",
+                    WorkOrder = Global.WorkOrder,
                     PassStationData = new OP40WeldingData()
                     {
                         WeldingResult = isGood,
@@ -351,7 +358,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
                 DamageableRead();
 
-                (bool res, string msg) = await UploadStationData(dto);
+                (bool res, string msg) = await UploadData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传焊接数据错误:" + msg);
@@ -402,7 +409,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 {
                     StationCode = StationCode,
                     SnTemp = sn,
-                    WorkOrder = "MO202409110002",
+                    WorkOrder = Global.WorkOrder,
                     PassStationData = new OP10Vision1Data()
                     {
                         Vision1Result = visionResult,
@@ -410,13 +417,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadStationData(dto);
+                (bool res, string msg) = await UploadData(dto);
                 if (res == false)
                 {
                     Mylog.Instance.Alarm("上传视觉数据错误:" + msg);
                 }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
-                PLC.Write(OP40Address.VisionOut, "Bool", result);
+                PLC.WriteInt16(OP40Address.VisionOut,  result);
             }
         }
 
@@ -435,14 +442,14 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 {
                     SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = "MO202409110002"
+                    WorkOrder = Global.WorkOrder
                 };
 
-               /* (bool flag, string msg) = await EntryRequest(requestDto);
-                short result =(short)(flag ? 1 : 2);*/
-                short result =1;
+                (bool flag, string msg) = await EntryRequest(requestDto);
+                short result = (short)(flag ? 1 : 2);
+               /* short result =1;
                 bool flag = true;
-                string msg = "";
+                string msg = "";*/
                 OP40EntryStateChanged?.Invoke(sn, result,msg);
 
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");

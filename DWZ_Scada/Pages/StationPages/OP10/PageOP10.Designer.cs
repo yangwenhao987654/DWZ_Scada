@@ -44,6 +44,10 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel2 = new UILabel();
             workOrderCtrl1 = new ctrls.workOrderCtrl();
+            uiLabel3 = new UILabel();
+            uiLabel4 = new UILabel();
+            lbl_temperature = new UILabel();
+            lbl_humidity = new UILabel();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -180,13 +184,58 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             workOrderCtrl1.Orders = null;
             workOrderCtrl1.ProductBomList = null;
             workOrderCtrl1.Size = new System.Drawing.Size(1199, 101);
+            workOrderCtrl1.SpotEnable = false;
             workOrderCtrl1.TabIndex = 39;
             workOrderCtrl1.Load += workOrderCtrl1_Load;
+            // 
+            // uiLabel3
+            // 
+            uiLabel3.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel3.Location = new System.Drawing.Point(670, 188);
+            uiLabel3.Name = "uiLabel3";
+            uiLabel3.Size = new System.Drawing.Size(73, 30);
+            uiLabel3.TabIndex = 40;
+            uiLabel3.Text = "温度:";
+            // 
+            // uiLabel4
+            // 
+            uiLabel4.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel4.Location = new System.Drawing.Point(670, 247);
+            uiLabel4.Name = "uiLabel4";
+            uiLabel4.Size = new System.Drawing.Size(73, 30);
+            uiLabel4.TabIndex = 41;
+            uiLabel4.Text = "湿度:";
+            // 
+            // lbl_temperature
+            // 
+            lbl_temperature.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_temperature.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_temperature.Location = new System.Drawing.Point(749, 188);
+            lbl_temperature.Name = "lbl_temperature";
+            lbl_temperature.Size = new System.Drawing.Size(148, 30);
+            lbl_temperature.TabIndex = 42;
+            lbl_temperature.Text = "0";
+            // 
+            // lbl_humidity
+            // 
+            lbl_humidity.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_humidity.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_humidity.Location = new System.Drawing.Point(749, 247);
+            lbl_humidity.Name = "lbl_humidity";
+            lbl_humidity.Size = new System.Drawing.Size(148, 30);
+            lbl_humidity.TabIndex = 43;
+            lbl_humidity.Text = "0";
             // 
             // PageOP10
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 1000);
+            Controls.Add(lbl_humidity);
+            Controls.Add(lbl_temperature);
+            Controls.Add(uiLabel4);
+            Controls.Add(uiLabel3);
             Controls.Add(workOrderCtrl1);
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlEntry1);
@@ -221,5 +270,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
         private UILabel uiLabel2;
         private ctrls.workOrderCtrl workOrderCtrl1;
+        private UILabel uiLabel3;
+        private UILabel uiLabel4;
+        private UILabel lbl_temperature;
+        private UILabel lbl_humidity;
     }
 }

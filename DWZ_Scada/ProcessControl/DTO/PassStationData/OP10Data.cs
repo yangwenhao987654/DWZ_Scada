@@ -11,6 +11,21 @@ namespace DWZ_Scada.ProcessControl.DTO
 
     }
 
+    public class OP10TempData
+    {
+        /// <summary>
+        /// 湿度
+        /// </summary>
+        public double Humidity { get; set; }
+        
+        /// <summary>
+        /// 温度
+        /// </summary>
+        public double Temperature { get; set; }
+
+    }
+
+
     public class OP10Vision1Data
     {
         public bool Vision1Result { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using CommunicationUtilYwh.Communication.ModbusRTU;
 using LogTool;
 
@@ -15,14 +16,33 @@ namespace CommunicationUtilYwh.Device
     {
         private ModbusRTU client;
 
-        public TemperatureController485(string portName)
+        public bool IsConnect
         {
-            client = new ModbusRTU(portName);
+            get
+            {
+                return client != null && client.IsConnect;
+            }
+        }
+        public TemperatureController485( )
+        {
+            client = new ModbusRTU();
         }
 
-        public bool Open()
+        public bool Open(string portName)
+        {
+            return client.Open(portName);
+        }
+
+        private bool Open()
         {
             return client.Open();
+        }
+
+        private bool SendCmd()
+        {
+
+            //client.Read()
+            return true;
         }
 
         /// <summary>

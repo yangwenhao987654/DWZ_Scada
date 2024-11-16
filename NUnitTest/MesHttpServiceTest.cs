@@ -167,6 +167,30 @@ namespace NUnitTest
             (bool, string) value = await UploadPassStationService.SendPassStationData(dto);
         }
 
+
+        [Test]
+        public async Task UploadOP10_Temp_PassStationServiceTest()
+        {
+            UploadPassStationService UploadPassStationService = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
+            string stationCode = "OP10";
+            string sn = "24110201";
+            string workOrder = "MO202411020002";
+            PassStationDTO dto = new PassStationDTO()
+            {
+                StationCode = stationCode,
+                SnTemp = sn,
+                WorkOrder = workOrder,
+                PassStationData = new OP10Vision1Data()
+                {
+                    Vision1Result = true,
+                    BreachNo = "01000010",
+                    Good = true,
+                },
+                isLastStep = false
+            };
+            (bool, string) value = await UploadPassStationService.SendPassStationData(dto);
+        }
+
         [Test]
         public async Task UploadOP10_02_PassStationServiceTest()
         {

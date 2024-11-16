@@ -102,12 +102,14 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                     dto.Message = message;
                 }
             }
-            //await DeviceStateService.AddDeviceState(dto);
+            await DeviceStateService.AddDeviceState(dto);
         }
 
         public override async void PLCMainWork(CancellationToken token)
         {
             int state = -1;
+            Thread t1 = new Thread(() => VisionMonitor01(token));
+            t1.Start();
             while (!token.IsCancellationRequested)
             {
                 try
@@ -121,9 +123,6 @@ namespace DWZ_Scada.Pages.StationPages.OP30
 
                     await ProcessEntrySignal();
 
-
-                    //处理画像检测结果
-                    HandleVisionResult();
                 }
                 catch (Exception ex)
                 {
@@ -133,7 +132,33 @@ namespace DWZ_Scada.Pages.StationPages.OP30
             }
         }
 
-        private async void HandleVisionResult()
+        /// <summary>
+        /// 画像检测流程
+        /// </summary>
+        /// <param name="token"></param>
+        private async void VisionMonitor01(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (IsPlc_Connected)
+                    {
+                        //处理画像检测结果
+                        await HandleVisionResult();
+                        Thread.Sleep(500);
+                    }
+                    Thread.Sleep(100);
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error("画像检测1线程错误:" + e.Message);
+                }
+            }
+        }
+
+
+        private async Task HandleVisionResult()
         {
             if (PLC.ReadInt16(OP30Address.Vision1Start, out short isStart) && isStart == 1)
             {
@@ -141,7 +166,6 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 //复位视觉完成
                 PLC.WriteInt16(OP30Address.Vision1Start, 0);
                 PLC.Read(OP30Address.VisionSn, "string-8", out string sn);
-
                 //界面更新
                 OP30VisionFinished?.Invoke(sn, 0);
             }
@@ -164,7 +188,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 {
                     StationCode = StationCode,
                     SnTemp = SnTest,
-                    WorkOrder = "MO202409110002",
+                    WorkOrder = Global.WorkOrder,
                     PassStationData = new OP10Vision1Data()
                     {
                         Vision1Result = visionResult,
@@ -172,7 +196,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                     },
                     isLastStep = true
                 };
-                (bool res, string msg) = await UploadStationData(dto);
+                (bool res, string msg) = await UploadData(dto);
                 if (res == false)
                 {
                     LogMgr.Instance.Error("上传视觉过站数据错误:" + msg);

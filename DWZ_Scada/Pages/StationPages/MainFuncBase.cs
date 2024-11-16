@@ -488,7 +488,7 @@ namespace DWZ_Scada.Pages.StationPages
                         else
                         {
                             IsPlc_Connected = false;
-                            Logger.Error("PLC连接失败:");
+                            //Logger.Error("PLC连接失败:");
                         }
                     }
                     else

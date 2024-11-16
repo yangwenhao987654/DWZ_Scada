@@ -282,9 +282,9 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     StationCode = StationCode,
                     WorkOrder = CurWorkOrder,
                 };
-                //(bool flag, string msg) = await EntryRequest(requestDto);
-                bool flag = true;
-                string msg = "";
+                (bool flag, string msg) = await EntryRequest(requestDto);
+             /*   bool flag = true;
+                string msg = "";*/
                 short result = 2;
                 if (flag)
                 {
@@ -349,8 +349,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PassStationData = dto,
                 isLastStep = false,
             };
-            // (bool flag, string msg) = await UploadStationData(requestDto);
-            string msg = "屏蔽mes";
+           (bool flag, string msg) = await UploadStationData(requestDto);
+            //string msg = "屏蔽mes";
             LogMgr.Instance.Debug($"Device:[{device.Name}]传Mes安规测试结果:{result} :\n{msg}");
             /*if (flag)
             {
