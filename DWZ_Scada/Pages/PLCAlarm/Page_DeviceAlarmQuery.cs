@@ -35,7 +35,7 @@ namespace DWZ_Scada.Pages
             InitializeComponent();
             _deviceAlarmBLL = Global.ServiceProvider.GetRequiredService<IDeviceAlarmBLL>();
             dp_date.Value = DateTime.Today;
-            dp_AlarmStartTime.Value = DateTime.Now;
+            dp_AlarmStartTime.Value = DateTime.Today;
             dp_AlarmEndTime.Value = DateTime.Now;
         }
 

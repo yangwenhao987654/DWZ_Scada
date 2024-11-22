@@ -51,7 +51,7 @@
             uiButton1.ForeHoverColor = System.Drawing.Color.Black;
             uiButton1.ForePressColor = System.Drawing.Color.Black;
             uiButton1.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton1.Location = new System.Drawing.Point(692, 93);
+            uiButton1.Location = new System.Drawing.Point(318, 24);
             uiButton1.Margin = new System.Windows.Forms.Padding(2);
             uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton1.Name = "uiButton1";
@@ -72,7 +72,7 @@
             uiListBox2.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             uiListBox2.ItemSelectBackColor = System.Drawing.Color.Silver;
             uiListBox2.ItemSelectForeColor = System.Drawing.Color.White;
-            uiListBox2.Location = new System.Drawing.Point(68, 266);
+            uiListBox2.Location = new System.Drawing.Point(13, 156);
             uiListBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiListBox2.MinimumSize = new System.Drawing.Size(1, 1);
             uiListBox2.Name = "uiListBox2";
@@ -81,7 +81,7 @@
             uiListBox2.ScrollBarColor = System.Drawing.Color.Silver;
             uiListBox2.ScrollBarStyleInherited = false;
             uiListBox2.ShowText = false;
-            uiListBox2.Size = new System.Drawing.Size(811, 457);
+            uiListBox2.Size = new System.Drawing.Size(605, 567);
             uiListBox2.TabIndex = 54;
             uiListBox2.Text = "uiListBox1";
             // 
@@ -89,7 +89,7 @@
             // 
             uiLabel1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new System.Drawing.Point(99, 217);
+            uiLabel1.Location = new System.Drawing.Point(13, 117);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new System.Drawing.Size(172, 34);
             uiLabel1.TabIndex = 55;
@@ -100,14 +100,14 @@
             lbx_Alarm.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbx_Alarm.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
             lbx_Alarm.ItemSelectForeColor = System.Drawing.Color.White;
-            lbx_Alarm.Location = new System.Drawing.Point(1004, 266);
+            lbx_Alarm.Location = new System.Drawing.Point(649, 156);
             lbx_Alarm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             lbx_Alarm.MinimumSize = new System.Drawing.Size(1, 1);
             lbx_Alarm.Name = "lbx_Alarm";
             lbx_Alarm.Padding = new System.Windows.Forms.Padding(2);
             lbx_Alarm.RectColor = System.Drawing.Color.Silver;
             lbx_Alarm.ShowText = false;
-            lbx_Alarm.Size = new System.Drawing.Size(812, 457);
+            lbx_Alarm.Size = new System.Drawing.Size(605, 567);
             lbx_Alarm.TabIndex = 55;
             lbx_Alarm.Text = "uiListBox2";
             // 
@@ -115,7 +115,7 @@
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(1036, 217);
+            uiLabel2.Location = new System.Drawing.Point(649, 117);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(172, 34);
             uiLabel2.TabIndex = 56;
@@ -135,7 +135,7 @@
             uiButton4.ForeHoverColor = System.Drawing.Color.Black;
             uiButton4.ForePressColor = System.Drawing.Color.Black;
             uiButton4.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton4.Location = new System.Drawing.Point(435, 93);
+            uiButton4.Location = new System.Drawing.Point(61, 24);
             uiButton4.Margin = new System.Windows.Forms.Padding(2);
             uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton4.Name = "uiButton4";
@@ -162,7 +162,7 @@
             uiButton2.ForeHoverColor = System.Drawing.Color.Black;
             uiButton2.ForePressColor = System.Drawing.Color.Black;
             uiButton2.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton2.Location = new System.Drawing.Point(944, 93);
+            uiButton2.Location = new System.Drawing.Point(570, 24);
             uiButton2.Margin = new System.Windows.Forms.Padding(2);
             uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton2.Name = "uiButton2";
@@ -190,7 +190,7 @@
             uiButton3.ForeHoverColor = System.Drawing.Color.Black;
             uiButton3.ForePressColor = System.Drawing.Color.Black;
             uiButton3.ForeSelectedColor = System.Drawing.Color.Black;
-            uiButton3.Location = new System.Drawing.Point(1193, 93);
+            uiButton3.Location = new System.Drawing.Point(819, 24);
             uiButton3.Margin = new System.Windows.Forms.Padding(2);
             uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             uiButton3.Name = "uiButton3";
@@ -208,7 +208,7 @@
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.Color.AliceBlue;
-            ClientSize = new System.Drawing.Size(1912, 778);
+            ClientSize = new System.Drawing.Size(1266, 778);
             Controls.Add(uiButton3);
             Controls.Add(uiButton2);
             Controls.Add(uiButton4);

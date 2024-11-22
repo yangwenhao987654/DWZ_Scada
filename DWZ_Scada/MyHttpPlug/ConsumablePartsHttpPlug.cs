@@ -61,12 +61,7 @@ namespace DWZ_Scada.MyHttpPlug
                     DamageStrategyBase damageStrategy;
                     switch (SystemParams.Instance.Station)
                     {
-                        case SystemParams.StationEnum.无:
-                            //selectHandle = new DefaultSelectionStrategy();
-                            break;
-                        case SystemParams.StationEnum.所有:
-                            //selectHandle = new DefaultSelectionStrategy();
-                            break;
+
                         case SystemParams.StationEnum.OP10上料打码工站:
                             //selectHandle = new OP10SelectionStrategy();
                             break;

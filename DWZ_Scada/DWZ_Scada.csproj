@@ -13,6 +13,8 @@
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <BaseOutputPath></BaseOutputPath>
     <ApplicationIcon>ZCLogo_12.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommunicationUtilYwh\CommunicationUtilYwh.csproj" />
@@ -52,6 +54,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="myForms\FormCustom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Pages\PageTabMenu_Debug.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Pages\PLCAlarm\Page_DeviceAlarmQuery.cs">

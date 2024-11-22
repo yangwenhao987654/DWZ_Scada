@@ -187,7 +187,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 PassStationDTO dto = new PassStationDTO()
                 {
                     StationCode = StationCode,
-                    SnTemp = SnTest,
+                    SnTemp = sn,
                     WorkOrder = Global.WorkOrder,
                     PassStationData = new OP10Vision1Data()
                     {
@@ -220,7 +220,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                     {
                         SnTemp = sn,
                         StationCode = StationCode,
-                        WorkOrder = "MO202409110002"
+                        WorkOrder = Global.WorkOrder,
                     };
                     (bool flag, string msg) = await EntryRequest(requestDto);
                     short result = (short)(flag ? 1 : 2);

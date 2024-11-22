@@ -242,6 +242,7 @@ namespace DWZ_Scada.ctrls
             }
             else
             {
+                //TODO 根据输入内容 解析出批次 物料码等
                 foreach (var bomCode in BomList)
                 {
                     if (CheckBomSN(itemCode, bomCode))

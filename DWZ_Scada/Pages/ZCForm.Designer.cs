@@ -54,9 +54,9 @@ namespace DWZ_Scada.Pages
             lbl_CompanyName = new Sunny.UI.UILabel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             panel1 = new System.Windows.Forms.Panel();
-            uiLabel13 = new Sunny.UI.UILabel();
-            uiLabel12 = new Sunny.UI.UILabel();
-            uiLabel11 = new Sunny.UI.UILabel();
+            lbl_Version = new Sunny.UI.UILabel();
+            lbl_DeviceName = new Sunny.UI.UILabel();
+            lbl_DeviceCompany = new Sunny.UI.UILabel();
             uiLabel4 = new Sunny.UI.UILabel();
             uiLabel3 = new Sunny.UI.UILabel();
             uiLabel1 = new Sunny.UI.UILabel();
@@ -356,9 +356,9 @@ namespace DWZ_Scada.Pages
             // panel1
             // 
             panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Controls.Add(uiLabel13);
-            panel1.Controls.Add(uiLabel12);
-            panel1.Controls.Add(uiLabel11);
+            panel1.Controls.Add(lbl_Version);
+            panel1.Controls.Add(lbl_DeviceName);
+            panel1.Controls.Add(lbl_DeviceCompany);
             panel1.Controls.Add(uiLabel4);
             panel1.Controls.Add(uiLabel3);
             panel1.Controls.Add(uiLabel1);
@@ -368,35 +368,35 @@ namespace DWZ_Scada.Pages
             panel1.Size = new System.Drawing.Size(229, 109);
             panel1.TabIndex = 1;
             // 
-            // uiLabel13
+            // lbl_Version
             // 
-            uiLabel13.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel13.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel13.Location = new System.Drawing.Point(103, 60);
-            uiLabel13.Name = "uiLabel13";
-            uiLabel13.Size = new System.Drawing.Size(130, 28);
-            uiLabel13.TabIndex = 5;
-            uiLabel13.Text = "1.0.0.1";
+            lbl_Version.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_Version.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_Version.Location = new System.Drawing.Point(103, 60);
+            lbl_Version.Name = "lbl_Version";
+            lbl_Version.Size = new System.Drawing.Size(130, 28);
+            lbl_Version.TabIndex = 5;
+            lbl_Version.Text = "1.0.0.1";
             // 
-            // uiLabel12
+            // lbl_DeviceName
             // 
-            uiLabel12.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel12.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel12.Location = new System.Drawing.Point(103, 30);
-            uiLabel12.Name = "uiLabel12";
-            uiLabel12.Size = new System.Drawing.Size(130, 28);
-            uiLabel12.TabIndex = 4;
-            uiLabel12.Text = "测试机";
+            lbl_DeviceName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_DeviceName.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_DeviceName.Location = new System.Drawing.Point(103, 30);
+            lbl_DeviceName.Name = "lbl_DeviceName";
+            lbl_DeviceName.Size = new System.Drawing.Size(130, 28);
+            lbl_DeviceName.TabIndex = 4;
+            lbl_DeviceName.Text = "测试机";
             // 
-            // uiLabel11
+            // lbl_DeviceCompany
             // 
-            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(103, 0);
-            uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new System.Drawing.Size(130, 28);
-            uiLabel11.TabIndex = 3;
-            uiLabel11.Text = "苏州中昌";
+            lbl_DeviceCompany.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_DeviceCompany.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_DeviceCompany.Location = new System.Drawing.Point(103, 0);
+            lbl_DeviceCompany.Name = "lbl_DeviceCompany";
+            lbl_DeviceCompany.Size = new System.Drawing.Size(130, 28);
+            lbl_DeviceCompany.TabIndex = 3;
+            lbl_DeviceCompany.Text = "苏州中昌";
             // 
             // uiLabel4
             // 
@@ -539,7 +539,7 @@ namespace DWZ_Scada.Pages
             uiButton5.RectColor = System.Drawing.Color.SlateGray;
             uiButton5.Size = new System.Drawing.Size(159, 43);
             uiButton5.TabIndex = 5;
-            uiButton5.Text = "实时日志(F10)";
+            uiButton5.Text = "用户管理(F10)";
             uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiButton5.Click += uiButton5_Click;
             // 
@@ -671,9 +671,9 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UILabel uiLabel9;
         private Sunny.UI.UILabel uiLabel10;
-        private Sunny.UI.UILabel uiLabel11;
-        private Sunny.UI.UILabel uiLabel12;
-        private Sunny.UI.UILabel uiLabel13;
+        private Sunny.UI.UILabel lbl_DeviceCompany;
+        private Sunny.UI.UILabel lbl_DeviceName;
+        private Sunny.UI.UILabel lbl_Version;
         private Sunny.UI.UILabel lblLoginTime;
         private Sunny.UI.UILabel lblTime;
         private Sunny.UI.UILabel lblLoginUserName;

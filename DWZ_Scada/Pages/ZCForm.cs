@@ -1,4 +1,5 @@
 ﻿using AutoTF;
+using AutoTF.Pages.Query;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
@@ -10,6 +11,7 @@ using Sunny.UI;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using TouchSocket.Core;
@@ -26,7 +28,7 @@ namespace DWZ_Scada.Pages
 
         public HttpService MyHttpService;
 
-        private ListViewEx_Log listViewExLog;
+        public ListViewEx_Log listViewExLog;
         private Timer timer;
 
         private ZCForm()
@@ -90,12 +92,7 @@ namespace DWZ_Scada.Pages
 
             SetAutoStart();
             //StartServer();
-            listViewExLog = new ListViewEx_Log();
-
-            //设置关闭弹窗后返回的位置
-            listViewExLog.BindingControl = uiPanel1;
-
-            LogMgr.Instance.SetCtrl(listViewExLog);
+   
 
             lblLoginUserName.Text = Global.LoginUser;
             lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -105,7 +102,13 @@ namespace DWZ_Scada.Pages
             {
                 lbl_CompanyName.Text = SystemParams.Instance.CompanyName;
             }
-            
+
+            lbl_DeviceCompany.Text = SystemParams.Instance.DeviceCompany;
+            lbl_DeviceName.Text = SystemParams.Instance.DeviceName;
+           
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Version version = assembly.GetName().Version;
+            lbl_Version.Text = version.ToString();
         }
         public void StartServer()
         {
@@ -198,11 +201,6 @@ namespace DWZ_Scada.Pages
             UIPage page = null;
             switch (SystemParams.Instance.Station)
             {
-                case SystemParams.StationEnum.无:
-                    SetMainPage(PageOPTest.Instance);
-                    break;
-                case SystemParams.StationEnum.所有:
-                    break;
                 case SystemParams.StationEnum.OP10上料打码工站:
                     SetMainPage(PageOP10.Instance);
                     break;
@@ -276,7 +274,7 @@ namespace DWZ_Scada.Pages
 
         private void uiButton5_Click(object sender, EventArgs e)
         {
-            AddFormTopanel(listViewExLog);
+            AddFormTopanel(PageUserQuery.Instance);
         }
 
         private void uiButton3_Click(object sender, EventArgs e)
@@ -286,7 +284,7 @@ namespace DWZ_Scada.Pages
 
         private void uiButton4_Click(object sender, EventArgs e)
         {
-            AddFormTopanel(DeviceControlPage.Instance);
+            AddFormTopanel(PageTabMenu_Debug.Instance);
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -407,10 +405,10 @@ namespace DWZ_Scada.Pages
              
 
                 // 保存路径到配置文件
-                SystemParams.Instance.LogoFilePath = sourcePath;
+                SystemParams.Instance.LogoFilePath =Path.GetFileName(sourcePath);
                 // 更新 PictureBox 显示图片
                 pictureBox1.ImageLocation = destinationPath;
-
+                SystemParams.Save();
                 MessageBox.Show("Logo 已成功更换并保存！", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
             }

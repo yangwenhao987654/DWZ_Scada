@@ -1,22 +1,36 @@
-﻿
-using LogTool;
+﻿using ScadaBase.DAL.DBContext;
+using ScadaBase.DAL.Entity;
+using SJTU_UI.Pages.User;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SJTU_UI.Pages.User;
-using Sunny.UI.Win32;
-using ScadaBase.DAL.Entity;
-using ScadaBase.DAL.DBContext;
 
 namespace AutoTF.Pages.Query
 {
     public partial class PageUserQuery : UIPage
     {
+        private static PageUserQuery _instance;
+        public static PageUserQuery Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(PageUserQuery))
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new PageUserQuery();
+                        }
+                    }
+                }
+                return _instance;
+            }
+        }
+
         public PageUserQuery()
         {
             InitializeComponent();
@@ -26,7 +40,7 @@ namespace AutoTF.Pages.Query
             //初始化显示
             InitTable();
             //取消datagridView的默认选中状态
-            uiDataGridView1.SelectedIndex = -1;
+            uiDataGridView1.ClearSelection();
 
         }
 
@@ -215,6 +229,11 @@ namespace AutoTF.Pages.Query
             FormUserEditor editor = new FormUserEditor(ID);
             DialogResult dialogResult = editor.ShowDialog();
             InitTable();
+        }
+
+        private void PageUserQuery_Initialize(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -174,10 +174,6 @@ namespace AutoStation
             UIPage page = null;
             switch (SystemParams.Instance.Station)
             {
-                case SystemParams.StationEnum.无:
-                    break;
-                case SystemParams.StationEnum.所有:
-                    break;
                 case SystemParams.StationEnum.OP10上料打码工站:
                     ps = PageList.First(r => r.PageName == "OP10工站");
                     page = ps.ShowPage(uiTabControl1, 5000);

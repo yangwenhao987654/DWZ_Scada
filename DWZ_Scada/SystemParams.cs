@@ -67,8 +67,6 @@ namespace DWZ_Scada
         //用json格式保存,方便在程序未启动时手动修改配置
         public enum StationEnum
         {
-            无,
-            所有,
             OP10上料打码工站,
             OP20机械手绕线工站,
             OP30绕线检查工站,
@@ -112,6 +110,14 @@ namespace DWZ_Scada
         {
             StationChanged?.Invoke();
         }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.设备厂商"), Category("A.其他配置"), Description("设备厂商名称展示")]
+        public string DeviceCompany { get; set; }
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("2.设备名称"), Category("A.其他配置"), Description("设备名称展示")]
+        public string DeviceName { get; set; }
 
         [Permission(3), ReadOnly(true)]
         [DisplayName("A.Logo文件路径"), Category("A.其他配置"), Description("主页公司Logo图片路径")]
