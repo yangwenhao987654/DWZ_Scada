@@ -47,11 +47,17 @@ namespace AutoTF
                         uiComboBox1.SelectedIndex = 0;
                     }
 
-                    EventHelper.ExecuteWithEventUnSubScribed(uiComboBox1, () =>
+                    //传入具体事件 ,以及处理程序
+                    uiComboBox1.ExecuteWithEventUnSubScribed(nameof(uiComboBox1.SelectedIndexChanged), uiComboBox1_SelectedIndexChanged, () =>
                     {
                         uiComboBox1.DisplayMember = "UserName";
-                    }, nameof(uiComboBox1.SelectedIndexChanged));
+                    });
 
+                 /*   EventHelper.ExecuteWithEventUnSubScribed(uiComboBox1, () =>
+                    {
+                        uiComboBox1.DisplayMember = "UserName";
+                    }, nameof(uiComboBox1.SelectedIndexChanged));*/
+                    //uiComboBox1.SelectedIndexChanged;
                 }
             }
             catch (Exception e)

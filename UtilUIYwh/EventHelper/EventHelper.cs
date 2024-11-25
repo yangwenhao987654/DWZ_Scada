@@ -4,10 +4,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Sunny.UI;
 
 namespace UtilUIYwh.EventHelper
 {
-    public class EventHelper
+    public static class EventHelper
     {
         public static void ExecuteWithEventUnSubScribed<TControl>(TControl ctrl, Action action, string eventName)where TControl :class
         {
@@ -61,6 +63,43 @@ namespace UtilUIYwh.EventHelper
                         eventInfo.AddEventHandler(ctrl,d);
                     }
                 }
+            }
+        }
+
+
+        public static void ExecuteWithEventUnSubScribed( this Control ctrl,string eventName, EventHandler eventHandler,Action action)
+        {
+            if (ctrl == null)
+            {
+                throw new ArgumentNullException(nameof(ctrl));
+            }
+            if (string.IsNullOrEmpty(eventName)) throw new ArgumentNullException(nameof(eventName));
+
+            if (eventHandler == null)
+            {
+                throw new ArgumentException(nameof(eventHandler));
+            }
+
+            if (action == null)
+            {
+                throw new ArgumentException(nameof(action));
+            }
+
+            EventInfo eventInfo = ctrl.GetType().GetEvent(eventName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            if (eventInfo==null)
+            {
+                throw new ArgumentException($"Event '{eventName}' not found on type '{ctrl.GetType().Name}'.");
+            }
+            try
+            {
+                eventInfo.RemoveEventHandler(ctrl, eventHandler);
+                action();
+            }
+            finally
+            {
+                // 重新订阅事件
+                eventInfo?.AddEventHandler(ctrl, eventHandler);
             }
         }
     }
