@@ -9,6 +9,7 @@ using DWZ_Scada;
 using ScadaBase.DAL.Entity;
 using ScadaBase.DAL.DBContext;
 using LogTool;
+using UtilUIYwh.EventHelper;
 
 namespace AutoTF
 {
@@ -35,7 +36,7 @@ namespace AutoTF
                 using (MyDbContext db = new MyDbContext())
                 {
                     uiComboBox1.Items.Clear();
-                    uiComboBox1.DisplayMember = "UserName";
+
                     foreach (var item in db.OpUsers)
                     {
                         uiComboBox1.Items.Add(item);
@@ -43,16 +44,20 @@ namespace AutoTF
                     if (uiComboBox1.Items.Count > 0)
                     {
                         //先调用 DisplayMember 再调用SelectIndex 这样只查一遍
-                    
                         uiComboBox1.SelectedIndex = 0;
                     }
-                  
+
+                    EventHelper.ExecuteWithEventUnSubScribed(uiComboBox1, () =>
+                    {
+                        uiComboBox1.DisplayMember = "UserName";
+                    }, nameof(uiComboBox1.SelectedIndexChanged));
+
                 }
             }
             catch (Exception e)
             {
-                LogMgr.Instance.Error("数据库连接失败:"+e.Message);
-                CustomMessageBox.ShowDialog("警告", "初始化用户失败,请检查数据库连接,"+e.Message);
+                LogMgr.Instance.Error("数据库连接失败:" + e.Message);
+                CustomMessageBox.ShowDialog("警告", "初始化用户失败,请检查数据库连接," + e.Message);
                 //this.Close();
                 return;
             }
@@ -121,10 +126,10 @@ namespace AutoTF
                     return;
                 }
 
-                 /*   if (query.Any())
-                {
-                  
-                }*/
+                /*   if (query.Any())
+               {
+
+               }*/
             }
         }
 
