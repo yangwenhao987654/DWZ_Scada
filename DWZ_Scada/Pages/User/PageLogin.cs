@@ -35,15 +35,18 @@ namespace AutoTF
                 using (MyDbContext db = new MyDbContext())
                 {
                     uiComboBox1.Items.Clear();
+                    uiComboBox1.DisplayMember = "UserName";
                     foreach (var item in db.OpUsers)
                     {
                         uiComboBox1.Items.Add(item);
                     }
                     if (uiComboBox1.Items.Count > 0)
                     {
+                        //先调用 DisplayMember 再调用SelectIndex 这样只查一遍
+                    
                         uiComboBox1.SelectedIndex = 0;
                     }
-                    uiComboBox1.DisplayMember = "UserName";
+                  
                 }
             }
             catch (Exception e)
@@ -110,12 +113,18 @@ namespace AutoTF
                 var query = from r in db.OpUsers
                             where r.UserName == user.UserName
                             select r;
-                if (query.Any())
+                OpUser opUser = query.FirstOrDefault();
+                if (opUser != null)
                 {
-                    uiTextBox2.Text = $@"[{query.First().UserName}]-[{query.First().OpType}]";
+                    uiTextBox2.Text = $@"[{opUser.UserName}]-[{opUser.OpType}]";
                     //Close();
                     return;
                 }
+
+                 /*   if (query.Any())
+                {
+                  
+                }*/
             }
         }
 
