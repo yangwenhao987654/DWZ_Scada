@@ -241,21 +241,6 @@ namespace DWZ_Scada.Pages.StationPages
                     {
                         await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
                     }
-
-                 /*   using (var context = new MyDbContext())
-                    {
-                        if (AlarmQueue.TryDequeue(out var alarmEntity)) // 从队列中取出一个报警信息
-                        {
-                            _deviceAlarmDAL.Insert(alarmEntity);
-                            context.tbDeviceAlarms.Add(alarmEntity); // 将报警信息添加到DbSet
-                                                                     //context.WriteConsole();
-                            await context.SaveChangesAsync(); // 异步保存更改到数据库
-                        }
-                        else
-                        {
-                            await Task.Delay(500); // 如果队列为空，等待一段时间后再重试
-                        }
-                    }*/
                     Thread.Sleep(100);
                 }
             }
@@ -399,13 +384,12 @@ namespace DWZ_Scada.Pages.StationPages
 
         protected MainFuncBase(PLCConfig PLCConfig)
         {
-            //this.PLCConfig = PLCConfig;
+            this.PLCConfig = PLCConfig;
             PLC = PLCConfig.MyPlc;
             PLC_IP = PLCConfig.IP;
             PLC_PORT = PLCConfig.Port;
            // workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged1;
             workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged;
-
 
             workOrderCtrl.ONSelectProductNoChanged += WorkOrderCtrl_ONSelectProductNoChanged;
         }
@@ -478,7 +462,8 @@ namespace DWZ_Scada.Pages.StationPages
                     {
                         PlcState = PlcState.OffLine;
                         //全局PLC连接配置
-                        Logger.Info("PLC连接中");
+                        PLC_IP = GetPLCIP();
+                        PLC_PORT = GetPLCPort();
                         bool flag = PLC.Connect(PLC_IP, PLC_PORT);
                         if (flag)
                         {
@@ -505,6 +490,9 @@ namespace DWZ_Scada.Pages.StationPages
                 Thread.Sleep(1000);
             }
         }
+
+       protected abstract string GetPLCIP();
+       protected abstract int GetPLCPort();
 
         #endregion
 

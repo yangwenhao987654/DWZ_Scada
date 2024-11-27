@@ -63,6 +63,17 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //Logger.AddChargeInfo("执行大电流放电");
         }
 
+
+        protected override string GetPLCIP()
+        {
+            return SystemParams.Instance.OP40_PlcIP;
+        }
+
+        protected override int GetPLCPort()
+        {
+            return SystemParams.Instance.OP40_PlcPort;
+        }
+
         public override void Dispose()
         {
             //释放PLC监控线程 所有后台线程

@@ -58,6 +58,16 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             StationCode = "OP20";
         }
 
+        protected override string GetPLCIP()
+        {
+            return SystemParams.Instance.OP20_PlcIP;
+        }
+
+        protected override int GetPLCPort()
+        {
+            return SystemParams.Instance.OP20_PlcPort;
+        }
+
         public override void Dispose()
         {
             //释放PLC监控线程 所有后台线程
@@ -79,19 +89,20 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             {
                 ModbusConnections = new List<ModbusConnConfig>
             {
-                new (SystemParams.Instance.OP20_Winding1_IP, SystemParams.Instance.OP20_Winding1_Port, SystemParams.Instance.OP20_Winding1_StationNum),
-                new (SystemParams.Instance.OP20_Winding2_IP, SystemParams.Instance.OP20_Winding2_Port, SystemParams.Instance.OP20_Winding2_StationNum),
-                new (SystemParams.Instance.OP20_Winding3_IP, SystemParams.Instance.OP20_Winding3_Port, SystemParams.Instance.OP20_Winding3_StationNum),
-                new (SystemParams.Instance.OP20_Winding4_IP, SystemParams.Instance.OP20_Winding4_Port, SystemParams.Instance.OP20_Winding4_StationNum),
-                new (SystemParams.Instance.OP20_Winding5_IP, SystemParams.Instance.OP20_Winding5_Port, SystemParams.Instance.OP20_Winding5_StationNum),
-                new (SystemParams.Instance.OP20_Winding6_IP, SystemParams.Instance.OP20_Winding6_Port, SystemParams.Instance.OP20_Winding6_StationNum),
-                new (SystemParams.Instance.OP20_Winding7_IP, SystemParams.Instance.OP20_Winding7_Port, SystemParams.Instance.OP20_Winding7_StationNum),
-                new (SystemParams.Instance.OP20_Winding8_IP, SystemParams.Instance.OP20_Winding8_Port, SystemParams.Instance.OP20_Winding8_StationNum),
-                new (SystemParams.Instance.OP20_Winding9_IP, SystemParams.Instance.OP20_Winding9_Port, SystemParams.Instance.OP20_Winding9_StationNum),
-                new (SystemParams.Instance.OP20_Winding10_IP, SystemParams.Instance.OP20_Winding10_Port, SystemParams.Instance.OP20_Winding10_StationNum),
-                new (SystemParams.Instance.OP20_Winding11_IP, SystemParams.Instance.OP20_Winding11_Port, SystemParams.Instance.OP20_Winding11_StationNum),
-                new(SystemParams.Instance.OP20_Winding12_IP, SystemParams.Instance.OP20_Winding12_Port, SystemParams.Instance.OP20_Winding12_StationNum)
+                new (1,SystemParams.Instance.OP20_Winding1_IP, SystemParams.Instance.OP20_Winding1_Port, SystemParams.Instance.OP20_Winding1_StationNum),
+                new (2,SystemParams.Instance.OP20_Winding2_IP, SystemParams.Instance.OP20_Winding2_Port, SystemParams.Instance.OP20_Winding2_StationNum),
+                new (3,SystemParams.Instance.OP20_Winding3_IP, SystemParams.Instance.OP20_Winding3_Port, SystemParams.Instance.OP20_Winding3_StationNum),
+                new (4,SystemParams.Instance.OP20_Winding4_IP, SystemParams.Instance.OP20_Winding4_Port, SystemParams.Instance.OP20_Winding4_StationNum),
+                new (5,SystemParams.Instance.OP20_Winding5_IP, SystemParams.Instance.OP20_Winding5_Port, SystemParams.Instance.OP20_Winding5_StationNum),
+                new (6,SystemParams.Instance.OP20_Winding6_IP, SystemParams.Instance.OP20_Winding6_Port, SystemParams.Instance.OP20_Winding6_StationNum),
+                new (7,SystemParams.Instance.OP20_Winding7_IP, SystemParams.Instance.OP20_Winding7_Port, SystemParams.Instance.OP20_Winding7_StationNum),
+                new (8,SystemParams.Instance.OP20_Winding8_IP, SystemParams.Instance.OP20_Winding8_Port, SystemParams.Instance.OP20_Winding8_StationNum),
+                new (9,SystemParams.Instance.OP20_Winding9_IP, SystemParams.Instance.OP20_Winding9_Port, SystemParams.Instance.OP20_Winding9_StationNum),
+                new (10,SystemParams.Instance.OP20_Winding10_IP, SystemParams.Instance.OP20_Winding10_Port, SystemParams.Instance.OP20_Winding10_StationNum),
+                new (11,SystemParams.Instance.OP20_Winding11_IP, SystemParams.Instance.OP20_Winding11_Port, SystemParams.Instance.OP20_Winding11_StationNum),
+                new(12,SystemParams.Instance.OP20_Winding12_IP, SystemParams.Instance.OP20_Winding12_Port, SystemParams.Instance.OP20_Winding12_StationNum)
             };
+                SystemParams.Instance.PropertyChanged += Instance_PropertyChanged;
                 int a = 0;
                 for (int i = 0; i < ModbusConnections.Count; i++)
                 {
@@ -110,6 +121,31 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     thread.Start();
                 }
             });
+        }
+
+        private void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var pre = $"OP20_Winding";
+            if (!e.PropertyName.StartsWith(pre))
+            {
+                return;
+            }
+            for (int i = 0; i < ModbusConnections.Count; i++)
+            {
+                var prefix = $"OP20_Winding{i+1}_";
+                if (e.PropertyName.StartsWith(prefix))
+                {
+                    var property = e.PropertyName.Replace(prefix, "");
+                    var modbusProperty = typeof(ModbusConnConfig).GetProperty(property);
+                    if (modbusProperty!=null)
+                    {
+                        var modbusConnection = ModbusConnections[i];
+                        var value = typeof(SystemParams).GetProperty(e.PropertyName)?.GetValue(SystemParams.Instance);
+                        modbusProperty.SetValue(modbusConnection,value);
+                    }
+                    break;
+                }
+            }
         }
 
 
@@ -152,7 +188,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         {
                             //state = 0;
                             ReportDeviceState(index + 1, state);
-                            // LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
+                      
+                            LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
+                            LogMgr.Instance.Error($"Winding machine {index} IP:{ModbusConnections[index].IP} Port:{ModbusConnections[index].Port}");
                         }
                         else
                         {

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace DWZ_Scada
@@ -39,7 +40,7 @@ namespace DWZ_Scada
     #endregion
 
     [Serializable]
-    public class SystemParams
+    public class SystemParams :INotifyPropertyChanged
     {
         //用json格式保存,方便在程序未启动时手动修改配置
 
@@ -111,6 +112,7 @@ namespace DWZ_Scada
             StationChanged?.Invoke();
         }
 
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("1.设备厂商"), Category("A.其他配置"), Description("设备厂商名称展示")]
         public string DeviceCompany { get; set; }
@@ -139,12 +141,43 @@ namespace DWZ_Scada
         public string OP10_ComName{ get; set; }
 
 
+        [field: NonSerialized]
+        private string _op10_PlcIP;
+
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("1.PLC IP地址"), Category("1.OP10工站"), Description("PLC的IP地址")]
-        public string OP10_PlcIP { get; set; }
+        public string OP10_PlcIP
+        {
+            get => _op10_PlcIP;
+            set
+            {
+                if (_op10_PlcIP != value) // 检查是否有变化
+                {
+                    _op10_PlcIP = value;
+                    OnPropertyChanged(); // 触发事件
+                }
+            }
+        }
+
+        [field: NonSerialized]
+        private int _op10_PlcPort;
+
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("2.PLC 端口号"), Category("1.OP10工站"), Description("PLC的端口号")]
-        public int OP10_PlcPort { get; set; }
+        public int OP10_PlcPort
+        {
+            get => _op10_PlcPort;
+            set
+            {
+                if (_op10_PlcPort != value) // 检查是否有变化
+                {
+                    _op10_PlcPort = value;
+                    OnPropertyChanged(); // 触发事件
+                }
+            }
+        }
         #endregion
 
         #region OP20工站参数
@@ -155,131 +188,771 @@ namespace DWZ_Scada
         [DisplayName("2.PLC 端口号"), Category("2.OP20工站"), Description("PLC的端口号")]
         public int OP20_PlcPort { get; set; }
 
+
+        [field: NonSerialized]
+        private string _op20_Winding1_IP;
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机1 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding1_IP { get; set; }
+        public string OP20_Winding1_IP
+        {
+            get
+            {
+                return _op20_Winding1_IP;
+            }
+            set
+            {
+                if (_op20_Winding1_IP!=value)
+                {
+                    _op20_Winding1_IP =value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        [field: NonSerialized]
+        private int _op20_Winding1_Port;
+
+
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机1_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding1_Port { get; set; }
+        public int OP20_Winding1_Port
+        {
+            get
+            {
+                return _op20_Winding1_Port;
+            }
+            set
+            {
+                if (_op20_Winding1_Port!=value)
+                {
+                    _op20_Winding1_Port =value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        [field: NonSerialized]
+        private byte _op20_Winding1_StationNum;
+
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机1_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding1_StationNum { get; set; }
+        public byte OP20_Winding1_StationNum
+        {
+            get
+            {
+                return _op20_Winding1_StationNum;
+            }
+            set
+            {
+                if (value!=_op20_Winding1_StationNum)
+                {
+                    _op20_Winding1_StationNum =value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        [field: NonSerialized]
+        private string _op20_Winding2_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding2_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding2_StationNum;
+
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机2 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding2_IP { get; set; }
+        public string OP20_Winding2_IP
+        {
+            get
+            {
+                return _op20_Winding2_IP;
+            }
+            set
+            {
+                if (_op20_Winding2_IP != value)
+                {
+                    _op20_Winding2_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机2_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding2_Port { get; set; }
+        public int OP20_Winding2_Port
+        {
+            get
+            {
+                return _op20_Winding2_Port;
+            }
+            set
+            {
+                if (_op20_Winding2_Port != value)
+                {
+                    _op20_Winding2_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机2_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding2_StationNum { get; set; }
+        public byte OP20_Winding2_StationNum
+        {
+            get
+            {
+                return _op20_Winding2_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding2_StationNum != value)
+                {
+                    _op20_Winding2_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        [field: NonSerialized]
+        private string _op20_Winding3_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding3_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding3_StationNum;
+
 
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机3 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding3_IP { get; set; }
+        public string OP20_Winding3_IP
+        {
+            get
+            {
+                return _op20_Winding3_IP;
+            }
+            set
+            {
+                if (_op20_Winding3_IP != value)
+                {
+                    _op20_Winding3_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机3_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding3_Port { get; set; }
+        public int OP20_Winding3_Port
+        {
+            get
+            {
+                return _op20_Winding3_Port;
+            }
+            set
+            {
+                if (_op20_Winding3_Port != value)
+                {
+                    _op20_Winding3_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机3_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding3_StationNum { get; set; }
+        public byte OP20_Winding3_StationNum
+        {
+            get
+            {
+                return _op20_Winding3_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding3_StationNum != value)
+                {
+                    _op20_Winding3_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+        [field: NonSerialized]
+        private string _op20_Winding4_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding4_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding4_StationNum;
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机4 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding4_IP { get; set; }
+        public string OP20_Winding4_IP
+        {
+            get
+            {
+                return _op20_Winding4_IP;
+            }
+            set
+            {
+                if (_op20_Winding4_IP != value)
+                {
+                    _op20_Winding4_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机4_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding4_Port { get; set; }
+        public int OP20_Winding4_Port
+        {
+            get
+            {
+                return _op20_Winding4_Port;
+            }
+            set
+            {
+                if (_op20_Winding4_Port != value)
+                {
+                    _op20_Winding4_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机4_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding4_StationNum { get; set; }
+        public byte OP20_Winding4_StationNum
+        {
+            get
+            {
+                return _op20_Winding4_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding4_StationNum != value)
+                {
+                    _op20_Winding4_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        [field: NonSerialized]
+        private string _op20_Winding5_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding5_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding5_StationNum;
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机5 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding5_IP { get; set; }
+        public string OP20_Winding5_IP
+        {
+            get
+            {
+                return _op20_Winding5_IP;
+            }
+            set
+            {
+                if (_op20_Winding5_IP != value)
+                {
+                    _op20_Winding5_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机5_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding5_Port { get; set; }
+        public int OP20_Winding5_Port
+        {
+            get
+            {
+                return _op20_Winding5_Port;
+            }
+            set
+            {
+                if (_op20_Winding5_Port != value)
+                {
+                    _op20_Winding5_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机5_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding5_StationNum { get; set; }
+        public byte OP20_Winding5_StationNum
+        {
+            get
+            {
+                return _op20_Winding5_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding5_StationNum != value)
+                {
+                    _op20_Winding5_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        [field: NonSerialized]
+        private string _op20_Winding6_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding6_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding6_StationNum;
 
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机6 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding6_IP { get; set; }
+        public string OP20_Winding6_IP
+        {
+            get
+            {
+                return _op20_Winding6_IP;
+            }
+            set
+            {
+                if (_op20_Winding6_IP != value)
+                {
+                    _op20_Winding6_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机6_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding6_Port { get; set; }
+        public int OP20_Winding6_Port
+        {
+            get
+            {
+                return _op20_Winding6_Port;
+            }
+            set
+            {
+                if (_op20_Winding6_Port != value)
+                {
+                    _op20_Winding6_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机6_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding6_StationNum { get; set; }
+        public byte OP20_Winding6_StationNum
+        {
+            get
+            {
+                return _op20_Winding6_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding6_StationNum != value)
+                {
+                    _op20_Winding6_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        [field: NonSerialized]
+        private string _op20_Winding7_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding7_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding7_StationNum;
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机7 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding7_IP { get; set; }
+        public string OP20_Winding7_IP
+        {
+            get
+            {
+                return _op20_Winding7_IP;
+            }
+            set
+            {
+                if (_op20_Winding7_IP != value)
+                {
+                    _op20_Winding7_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机7_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding7_Port { get; set; }
+        public int OP20_Winding7_Port
+        {
+            get
+            {
+                return _op20_Winding7_Port;
+            }
+            set
+            {
+                if (_op20_Winding7_Port != value)
+                {
+                    _op20_Winding7_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机7_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding7_StationNum { get; set; }
+        public byte OP20_Winding7_StationNum
+        {
+            get
+            {
+                return _op20_Winding7_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding7_StationNum != value)
+                {
+                    _op20_Winding7_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+
+        [field: NonSerialized]
+        private string _op20_Winding8_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding8_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding8_StationNum;
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机8 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding8_IP { get; set; }
+        public string OP20_Winding8_IP
+        {
+            get
+            {
+                return _op20_Winding8_IP;
+            }
+            set
+            {
+                if (_op20_Winding8_IP != value)
+                {
+                    _op20_Winding8_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机8_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding8_Port { get; set; }
+        public int OP20_Winding8_Port
+        {
+            get
+            {
+                return _op20_Winding8_Port;
+            }
+            set
+            {
+                if (_op20_Winding8_Port != value)
+                {
+                    _op20_Winding8_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机8_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding8_StationNum { get; set; }
+        public byte OP20_Winding8_StationNum
+        {
+            get
+            {
+                return _op20_Winding8_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding8_StationNum != value)
+                {
+                    _op20_Winding8_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        [field: NonSerialized]
+        private string _op20_Winding9_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding9_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding9_StationNum;
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机9 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding9_IP { get; set; }
+        public string OP20_Winding9_IP
+        {
+            get
+            {
+                return _op20_Winding9_IP;
+            }
+            set
+            {
+                if (_op20_Winding9_IP != value)
+                {
+                    _op20_Winding9_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机9_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding9_Port { get; set; }
+        public int OP20_Winding9_Port
+        {
+            get
+            {
+                return _op20_Winding9_Port;
+            }
+            set
+            {
+                if (_op20_Winding9_Port != value)
+                {
+                    _op20_Winding9_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机9_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding9_StationNum { get; set; }
+        public byte OP20_Winding9_StationNum
+        {
+            get
+            {
+                return _op20_Winding9_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding9_StationNum != value)
+                {
+                    _op20_Winding9_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
+        [field: NonSerialized]
+        private string _op20_Winding10_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding10_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding10_StationNum;
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机@10 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding10_IP { get; set; }
+        public string OP20_Winding10_IP
+        {
+            get
+            {
+                return _op20_Winding10_IP;
+            }
+            set
+            {
+                if (_op20_Winding10_IP != value)
+                {
+                    _op20_Winding10_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机@10_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding10_Port { get; set; }
+        public int OP20_Winding10_Port
+        {
+            get
+            {
+                return _op20_Winding10_Port;
+            }
+            set
+            {
+                if (_op20_Winding10_Port != value)
+                {
+                    _op20_Winding10_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机@10_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding10_StationNum { get; set; }
+        public byte OP20_Winding10_StationNum
+        {
+            get
+            {
+                return _op20_Winding10_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding10_StationNum != value)
+                {
+                    _op20_Winding10_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+
+        [field: NonSerialized]
+        private string _op20_Winding11_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding11_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding11_StationNum;
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_11 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding11_IP { get; set; }
+        public string OP20_Winding11_IP
+        {
+            get
+            {
+                return _op20_Winding11_IP;
+            }
+            set
+            {
+                if (_op20_Winding11_IP != value)
+                {
+                    _op20_Winding11_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_11_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding11_Port { get; set; }
+        public int OP20_Winding11_Port
+        {
+            get
+            {
+                return _op20_Winding11_Port;
+            }
+            set
+            {
+                if (_op20_Winding11_Port != value)
+                {
+                    _op20_Winding11_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_11_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding11_StationNum { get; set; }
+        public byte OP20_Winding11_StationNum
+        {
+            get
+            {
+                return _op20_Winding11_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding11_StationNum != value)
+                {
+                    _op20_Winding11_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+
+        [field: NonSerialized]
+        private string _op20_Winding12_IP;
+
+
+        [field: NonSerialized]
+        private int _op20_Winding12_Port;
+
+        [field: NonSerialized]
+        private byte _op20_Winding12_StationNum;
 
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_12 IP地址"), Category("2.OP20工站"), Description("PLC的IP地址")]
-        public string OP20_Winding12_IP { get; set; }
+        public string OP20_Winding12_IP
+        {
+            get
+            {
+                return _op20_Winding12_IP;
+            }
+            set
+            {
+                if (_op20_Winding12_IP != value)
+                {
+                    _op20_Winding12_IP = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_12_端口"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public int OP20_Winding12_Port { get; set; }
+        public int OP20_Winding12_Port
+        {
+            get
+            {
+                return _op20_Winding12_Port;
+            }
+            set
+            {
+                if (_op20_Winding12_Port != value)
+                {
+                    _op20_Winding12_Port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         [Permission(3), ReadOnly(false)]
         [DisplayName("3.绕线机_12_站号"), Category("2.OP20工站"), Description("PLC的端口号")]
-        public byte OP20_Winding12_StationNum { get; set; }
+        public byte OP20_Winding12_StationNum
+        {
+            get
+            {
+                return _op20_Winding12_StationNum;
+            }
+            set
+            {
+                if (_op20_Winding12_StationNum != value)
+                {
+                    _op20_Winding12_StationNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
         [Permission(3), ReadOnly(false)]
@@ -591,6 +1264,23 @@ namespace DWZ_Scada
             }
 
             return (T)newObject;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+      
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
         }
     }
 }

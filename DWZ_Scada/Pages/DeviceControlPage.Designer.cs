@@ -91,7 +91,7 @@
             uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel1.Location = new System.Drawing.Point(13, 117);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(172, 34);
+            uiLabel1.Size = new System.Drawing.Size(193, 34);
             uiLabel1.TabIndex = 55;
             uiLabel1.Text = "运行日志";
             // 
@@ -117,7 +117,7 @@
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new System.Drawing.Point(649, 117);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(172, 34);
+            uiLabel2.Size = new System.Drawing.Size(265, 34);
             uiLabel2.TabIndex = 56;
             uiLabel2.Text = "实时报警信息";
             // 

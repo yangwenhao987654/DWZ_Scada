@@ -5,6 +5,7 @@ using HslCommunication.ModBus;
 using LogTool;
 using System;
 using System.Net;
+using System.Windows.Forms;
 
 namespace CommonUtilYwh.Communication.ModbusTCP;
 
@@ -25,12 +26,15 @@ public enum DataType
 //主构造函数
 public class ModbusConnConfig
 {
-    public ModbusConnConfig(string ip, int port, byte stationNum)
+    public ModbusConnConfig(int id ,string ip, int port, byte stationNum)
     {
+        ID = id;
         IP = ip;
         Port = port;
         StationNum = stationNum;
     }
+
+    public int ID { get; set; }
 
     public string IP { get; set; }
     public int Port { get; set; }
@@ -56,7 +60,7 @@ public class ModbusTCP : MyPlc
     {
         // 连接
         IPAddress address;
-        if (station==0)
+        if (station<=0)
         {
             station =1;
         }

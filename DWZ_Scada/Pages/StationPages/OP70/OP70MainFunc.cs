@@ -56,6 +56,16 @@ namespace DWZ_Scada.Pages.StationPages.OP70
             StationCode = "OP70";
         }
 
+        protected override string GetPLCIP()
+        {
+            return SystemParams.Instance.OP70_PlcIP;
+        }
+
+        protected override int GetPLCPort()
+        {
+            return SystemParams.Instance.OP70_PlcPort;
+        }
+
         public override  void Dispose()
         {
             //释放PLC监控线程 所有后台线程

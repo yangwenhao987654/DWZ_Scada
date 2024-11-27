@@ -160,6 +160,16 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             }
         }
 
+        protected override string GetPLCIP()
+        {
+            return SystemParams.Instance.OP10_PlcIP;
+        }
+
+        protected override int GetPLCPort()
+        {
+            return SystemParams.Instance.OP10_PlcPort;
+        }
+
         private void TemperatureMonitor(CancellationToken token)
         {
             TemperatureController485 controller = new TemperatureController485();
@@ -297,47 +307,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 {
                     Mylog.Instance.Alarm("上传过站数据错误:" + msg);
                 }
-              /*  UploadData()
-                if (IsSpotCheck)
-                {
-                    DeviceInspectDTO inspectDTO = new DeviceInspectDTO()
-                    {
-                        StationCode = StationCode,
-                        SnTemp = sn,
-                        WorkOrder = Global.WorkOrder,
-                        PassStationData = new OP10Vision1Data()
-                        {
-                            Vision1Result = result,
-                            Good = result,
-                        },
-                        isLastStep = false
-                    };
-                    (bool res, string msg) = await UploadSpotCheckData(inspectDTO);
-                    if (res == false)
-                    {
-                        Mylog.Instance.Alarm("点检上传错误:" + msg);
-                    }
-                }
-                else
-                {
-                    PassStationDTO dto = new PassStationDTO()
-                    {
-                        StationCode = StationCode,
-                        SnTemp = sn,
-                        WorkOrder = Global.WorkOrder,
-                        PassStationData = new OP10Vision1Data()
-                        {
-                            Vision1Result = result,
-                            Good = result,
-                        },
-                        isLastStep = false
-                    };
-                    (bool res, string msg) = await UploadStationData(dto);
-                    if (res == false)
-                    {
-                        Mylog.Instance.Alarm("上传过站数据错误:" + msg);
-                    }
-                }*/
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
                 PLC.WriteInt16(OP10Address.Vision1_Out, v1Result);
             }

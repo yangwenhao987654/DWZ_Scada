@@ -71,6 +71,17 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             DeviceMap.Add(4, AtlBrxDevice2);
         }
 
+        protected override string GetPLCIP()
+        {
+            return SystemParams.Instance.OP60_PlcIP;
+        }
+
+        protected override int GetPLCPort()
+        {
+            return SystemParams.Instance.OP60_PlcPort;
+        }
+
+
         public override void Dispose()
         {
             //释放PLC监控线程 所有后台线程
@@ -654,7 +665,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                         PlcState = PlcState.OffLine;
                         //全局PLC连接配置
                         Logger.Info("PLC连接中");
-                        bool flag = PLC.Connect(PLC_IP, PLC_PORT);
+                        bool flag = PLC.Connect(GetPLCIP(), GetPLCPort());
                         if (flag)
                         {
                             IsPlc_Connected = true;
@@ -686,7 +697,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                         AtlBrxDevice1?.Disconnect();
                         AtlBrxDevice2?.Disconnect();
                     }
-
 
                     ZCForm.Instance.UpdatePlcState(PlcState);
                 }
