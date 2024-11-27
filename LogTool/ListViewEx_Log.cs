@@ -41,7 +41,7 @@ namespace LogTool
         {
             if (IsHandleCreated && _unShownLogQueue.Count > 0)
             {
-                if (this.Items.Count > 1000)
+                if (this.Items.Count > 500)
                 {
                     this.Items.Clear();
                 }

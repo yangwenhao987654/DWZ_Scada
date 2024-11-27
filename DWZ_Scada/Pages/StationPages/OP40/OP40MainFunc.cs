@@ -81,60 +81,19 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             base.Dispose();
             PLC?.Dispose();
         }
-        /// <summary>
-        /// 上报设备状态 1S 上报一次
-        /// </summary>
-        /// <param name="state"></param>
-        protected override async void ReportDeviceState(object state)
-        {
-            int currentState = -1;
-            lock (stateLock)
-            {
-                currentState = DeviceState;
-            }
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = StationCode,
-                DeviceName = StationName,
-            };
-            switch (currentState)
-            {
-                case -1:
-                    dto.Status = "stop";
-                    break;
-                case 1:
-                    dto.Status = "run";
-                    break;
-                case 2:
-                    dto.Status = "run";
-                    break;
-                default:
-                    dto.Status = "breakdown";
-                    break;
-            }
 
+        protected override DeviceStateDTO WrapDeviceStateInner(DeviceStateDTO dto)
+        {
             if (dto.Status == "run")
             {
                 //运行状态下 读取大电流放电的使用次数
-                //TODO 记录设备状态数据
-                OP40StateData data= new OP40StateData();
+                OP40StateData data = new OP40StateData();
                 PLC.ReadInt32(OP40Address.DisChargeCount, out int count);
                 data.DisChargeCount = count;
                 dto.Data = data;
 
             }
-            //TODO 如果有报警 封装所有的报警信息给Mes
-
-            //如果有报警的话 需要带着报警信息
-            lock (alarmLock)
-            {
-                if (AlarmInfoList.Count > 0)
-                {
-                    string message = string.Join(";", AlarmInfoList);
-                    dto.Message = message;
-                }
-            }
-            await DeviceStateService.AddDeviceState(dto);
+            return dto;
         }
 
         public override async void PLCMainWork(CancellationToken token)

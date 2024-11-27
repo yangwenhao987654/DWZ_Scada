@@ -150,7 +150,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
 
         // Generic method to monitor each winding machine
-        private void MonitorWindingMachine(CancellationToken token, ModbusTCP modbusTcp, int index)
+        private async Task MonitorWindingMachine(CancellationToken token, ModbusTCP modbusTcp, int index)
         {
             while (!token.IsCancellationRequested)
             {
@@ -173,7 +173,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     if (modbusTcp.IsConnect)
                     {
                         modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
-                        ReportDeviceState(index + 1, state);
+                        await ReportDeviceState(index + 1, state);
                         /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
                         modbusTcp.ReadInt16("2041", out short tension1);*/
                     }
@@ -187,7 +187,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         if (!flag)
                         {
                             //state = 0;
-                            ReportDeviceState(index + 1, state);
+                           await ReportDeviceState(index + 1, state);
                       
                             LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
                             LogMgr.Instance.Error($"Winding machine {index} IP:{ModbusConnections[index].IP} Port:{ModbusConnections[index].Port}");
@@ -195,7 +195,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         else
                         {
                             modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
-                            ReportDeviceState(index + 1, state);
+                           await ReportDeviceState(index + 1, state);
                         }
                     }
                 }
@@ -209,55 +209,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-        /// <summary>
-        /// 上报设备状态 1S 上报一次 
-        /// </summary>
-        /// <param name="state"></param>
-        protected override async void ReportDeviceState(object state)
-        {
-            int currentState = -1;
-            lock (stateLock)
-            {
-                currentState = DeviceState;
-            }
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = StationCode,
-                DeviceName = StationName,
-            };
-            switch (currentState)
-            {
-                case -1:
-                    dto.Status = "stop";
-                    break;
-                case 0:
-                    dto.Status = "stop";
-                    break;
-                case 1:
-                    dto.Status = "run";
-                    break;
-                case 2:
-                    dto.Status = "breakdown";
-                    break;
-                default:
-                    dto.Status = "stop";
-                    break;
-            }
-            //TODO 如果有报警 封装所有的报警信息给Mes
-
-            //如果有报警的话 需要带着报警信息
-            lock (alarmLock)
-            {
-                if (AlarmInfoList.Count > 0)
-                {
-                    string message = string.Join(";", AlarmInfoList);
-                    dto.Message = message;
-                }
-            }
-            await DeviceStateService.AddDeviceState(dto);
-        }
-
-        public async void ReportDeviceState(int weldingMachineId, short state)
+        public async Task ReportDeviceState(int weldingMachineId, short state)
         {
             //short currentState = -1;
             DeviceStateDTO dto = new DeviceStateDTO();

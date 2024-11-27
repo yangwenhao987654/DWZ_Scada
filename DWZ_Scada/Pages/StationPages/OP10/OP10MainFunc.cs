@@ -63,60 +63,17 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             base.Dispose();
             PLC?.Dispose();
         }
-        /// <summary>
-        /// 上报设备状态 1S 上报一次
-        /// </summary>
-        /// <param name="state"></param>
-        protected override async void ReportDeviceState(object state)
+
+        protected override DeviceStateDTO WrapDeviceStateInner(DeviceStateDTO dto)
         {
-            int currentState = -1;
-            lock (stateLock)
-            {
-                currentState = DeviceState;
-            }
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = StationCode,
-                DeviceName = "OP10工站",
-            };
-            switch (currentState)
-            {
-                case -1:
-                    dto.Status = "stop";
-                    break;
-                case 1:
-                    dto.Status = "run";
-                    break;
-                case 2:
-                    dto.Status = "run";
-                    break;
-                default:
-                    dto.Status = "breakdown";
-                    break;
-            }
-
-            //TODO 如果有报警 封装所有的报警信息给Mes
-
-            //如果有报警的话 需要带着报警信息
-            lock (alarmLock)
-            {
-                if (AlarmInfoList.Count > 0)
-                {
-                    string message = string.Join(";", AlarmInfoList);
-                    dto.Message = message;
-                }
-            }
-
-            //dto.Data = new OP10TempData() { Humidity = 75.54, Temperature = 23.54, };
             OP10TempData tempData = new OP10TempData() { Humidity = CurHumidity, Temperature = CurTemperature, };
             lock (_lock)
             {
-               tempData.Humidity = CurHumidity;
-               tempData.Temperature = CurTemperature;
+                tempData.Humidity = CurHumidity;
+                tempData.Temperature = CurTemperature;
             }
-
             dto.Data = tempData;
-            await DeviceStateService.AddDeviceState(dto);
+            return dto;
         }
 
         public override async void PLCMainWork(CancellationToken token)

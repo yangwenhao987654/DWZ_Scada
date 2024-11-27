@@ -270,8 +270,9 @@ namespace DWZ_Scada.Pages.StationPages
                 //Thread.Sleep(5200);
                 Thread t2 = new Thread(() => PLCMainWork(_cts.Token));
                 t2.Start();
-                reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
-
+                //reportTimer = new Timer(ReportDeviceState, null, 0, 1000);
+                Thread t0 = new Thread(() => ReportDeviceState(_cts.Token));
+                t0.Start();
                 // 启动后台任务来处理队列中的报警信息
                 Task.Run(() => SaveAlarmsToDatabaseAsync());
             });
@@ -334,52 +335,68 @@ namespace DWZ_Scada.Pages.StationPages
         /// 上报设备状态 1S 上报一次
         /// </summary>
         /// <param name="state"></param>
-        protected virtual async void ReportDeviceState(object state)
+        protected virtual async void ReportDeviceState(CancellationToken cts)
         {
-            int currentState = -1;
-            lock (stateLock)
+            while (!cts.IsCancellationRequested)
             {
-                currentState = DeviceState;
-            }
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = StationCode,
-                DeviceName = StationName,
-            };
-            switch (currentState)
-            {
-                case -1:
-                    dto.Status = "stop";
-                    break;
-                case 0:
-                    dto.Status = "stop";
-                    break;
-                case 1:
-                    dto.Status = "run";
-                    break;
-                case 3:
-                    dto.Status = "breakdown";
-                    break;
-                case 2:
-                    dto.Status = "stop";
-                    break;
-                default:
-                    dto.Status = "stop";
-                    break;
-            }
-
-            //如果有报警的话 需要带着报警信息
-            lock (alarmLock)
-            {
-                if (AlarmInfoList.Count > 0)
+                try
                 {
-                    string message = string.Join(";", AlarmInfoList);
-                    dto.Message = message;
+                    int currentState = -1;
+                    lock (stateLock)
+                    {
+                        currentState = DeviceState;
+                    }
+
+                    DeviceStateDTO dto = new DeviceStateDTO() { DeviceCode = StationCode, DeviceName = StationName, };
+                    switch (currentState)
+                    {
+                        case -1:
+                            dto.Status = "stop";
+                            break;
+                        case 0:
+                            dto.Status = "stop";
+                            break;
+                        case 1:
+                            dto.Status = "run";
+                            break;
+                        case 3:
+                            dto.Status = "breakdown";
+                            break;
+                        case 2:
+                            dto.Status = "stop";
+                            break;
+                        default:
+                            dto.Status = "stop";
+                            break;
+                    }
+
+                    //如果有报警的话 需要带着报警信息
+                    lock (alarmLock)
+                    {
+                        if (AlarmInfoList.Count > 0)
+                        {
+                            string message = string.Join(";", AlarmInfoList);
+                            dto.Message = message;
+                        }
+                    }
+                    dto = WrapDeviceStateInner(dto);
+
+                    await DeviceStateService.AddDeviceState(dto);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error($"上报设备状态异常:{e.Message}:{e.StackTrace}");
+                }
+                finally
+                {
+                    Thread.Sleep(1000);
                 }
             }
-            //记录报警信息
+        }
 
-            //await DeviceStateService.AddDeviceState(dto);
+        protected virtual DeviceStateDTO WrapDeviceStateInner(DeviceStateDTO dto)
+        {
+            return dto;
         }
 
         protected MainFuncBase(PLCConfig PLCConfig)
@@ -692,9 +709,6 @@ namespace DWZ_Scada.Pages.StationPages
         }
 
         #endregion
-
-
-
 
         public virtual void Dispose()
         {

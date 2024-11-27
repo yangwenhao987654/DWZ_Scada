@@ -69,51 +69,6 @@ namespace DWZ_Scada.Pages.StationPages.OP30
             _cts?.Cancel();
             PLC?.Dispose();
         }
-        /// <summary>
-        /// 上报设备状态 1S 上报一次
-        /// </summary>
-        /// <param name="state"></param>
-        protected override async void ReportDeviceState(object state)
-        {
-            int currentState = -1;
-            lock (stateLock)
-            {
-                currentState = DeviceState;
-            }
-            DeviceStateDTO dto = new DeviceStateDTO()
-            {
-                DeviceCode = StationCode,
-                DeviceName = StationName,
-            };
-            switch (currentState)
-            {
-                case -1:
-                    dto.Status = "stop";
-                    break;
-                case 1:
-                    dto.Status = "run";
-                    break;
-                case 2:
-                    dto.Status = "run";
-                    break;
-                default:
-                    dto.Status = "breakdown";
-                    break;
-            }
-
-            //TODO 如果有报警 封装所有的报警信息给Mes
-
-            //如果有报警的话 需要带着报警信息
-            lock (alarmLock)
-            {
-                if (AlarmInfoList.Count > 0)
-                {
-                    string message = string.Join(";", AlarmInfoList);
-                    dto.Message = message;
-                }
-            }
-            await DeviceStateService.AddDeviceState(dto);
-        }
 
         public override async void PLCMainWork(CancellationToken token)
         {
