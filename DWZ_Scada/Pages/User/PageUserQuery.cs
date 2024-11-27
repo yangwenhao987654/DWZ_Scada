@@ -31,12 +31,18 @@ namespace AutoTF.Pages.Query
             }
         }
 
+        private List<Role> roles;
+
         public PageUserQuery()
         {
             InitializeComponent();
         }
         private void PageUserQuery_Load(object sender, EventArgs e)
         {
+            using (MyDbContext db = new MyDbContext())
+            {
+                 roles = db.Roles.ToList();
+            }
             //初始化显示
             InitTable();
             //取消datagridView的默认选中状态
@@ -65,8 +71,14 @@ namespace AutoTF.Pages.Query
                     row.Cells[1].Value = tbOpUsers[i].UserName;
                     row.Cells[2].Value = tbOpUsers[i].UserCode;
                     //解析OpType
-                    UserPermissionControl.OpMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
-                    row.Cells[3].Value = opValue;
+                    //UserPermissionControl.OpMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
+                    Role role = roles.FirstOrDefault(r => r.RoleType == tbOpUsers[i].OpType);
+                    if (role != null)
+                    {
+                        row.Cells[3].Value = role.RoleName;
+                    }
+
+                  
                     row.Cells[5].Value = tbOpUsers[i].Id;
                     //row.Cells[4].Value = "修改";
                     uiDataGridView1.Rows.Add(row);
@@ -146,9 +158,12 @@ namespace AutoTF.Pages.Query
                         row.Cells[0].Value = index;
                         row.Cells[1].Value = tbOpUsers[i].UserName;
                         row.Cells[2].Value = tbOpUsers[i].UserCode;
-                        //解析OpType
-                        UserPermissionControl.OpMap.TryGetValue(tbOpUsers[i].OpType, out string opValue);
-                        row.Cells[3].Value = opValue;
+
+                        Role role = roles.FirstOrDefault(r => r.RoleType == tbOpUsers[i].OpType);
+                        if (role != null)
+                        {
+                            row.Cells[3].Value = role.RoleName;
+                        }
                         DataGridViewButtonCell button = new DataGridViewButtonCell();
 
                         button.UseColumnTextForButtonValue = true;

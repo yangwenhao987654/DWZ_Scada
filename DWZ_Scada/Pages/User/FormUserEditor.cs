@@ -22,6 +22,8 @@ namespace SJTU_UI.Pages.User
         private int ID;
 
         private bool isInsert = false;
+
+        List<Role> roles;
         public FormUserEditor(OpUser opUser)
         {
             InitializeComponent();
@@ -42,10 +44,14 @@ namespace SJTU_UI.Pages.User
 
         private void FormUserEditor_Load(object sender, EventArgs e)
         {
-            uiComboBox1.DataSource = new BindingSource(UserPermissionControl.OpMap, null);
+            using (MyDbContext db = new MyDbContext())
+            {
+                 roles = db.Roles.ToList();
+            }
+            uiComboBox1.DataSource = roles;
             //实际显示的信息
-            uiComboBox1.DisplayMember = "Value";
-            uiComboBox1.ValueMember = "Key";
+            uiComboBox1.DisplayMember = "RoleName";
+            uiComboBox1.ValueMember = "RoleType";
 
             if (isInsert)
             {
@@ -92,7 +98,7 @@ namespace SJTU_UI.Pages.User
             tbxUserCode.Text = user.UserCode;
             tbxUserName.Text = user.UserName;
             int opType = user.OpType;
-            uiComboBox1.Text = UserPermissionControl.OpMap[opType];
+            uiComboBox1.Text = roles.FirstOrDefault(r=>r.RoleType==user.OpType).RoleName;
         }
 
         /// <summary>

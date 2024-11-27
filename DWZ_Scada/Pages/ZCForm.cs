@@ -7,6 +7,7 @@ using DWZ_Scada.Pages.StationPages.OP20;
 using DWZ_Scada.Pages.StationPages.OP30;
 using DWZ_Scada.Pages.StationPages.OP40;
 using LogTool;
+using SJTU_UI.Pages.User;
 using Sunny.UI;
 using System;
 using System.Drawing;
@@ -256,13 +257,12 @@ namespace DWZ_Scada.Pages
 
         private void OpenPageProperty()
         {
-            bool flag = SystemParams.Instance.OpLvl == 0;
+            bool flag = SystemParams.Instance.OpLvl == UserPermissionControl.SuperLvl;
             if (!flag)
             {
                 UIMessageBox.ShowError("当前登录账号权限不足！");
                 return;
             }
-
             PageProperty form = new(SystemParams.Instance);
             form.ShowDialog();
             /*FormCustom form = new(pageProperty, "系统配置参数");
@@ -363,6 +363,10 @@ namespace DWZ_Scada.Pages
                     Directory.CreateDirectory(logoDirectory);
                 }
 
+                if (string.IsNullOrEmpty(SystemParams.Instance.LogoFilePath))
+                {
+                    return;
+                }
                 // 检查配置文件中是否存储了路径
                 string imagePath = Path.Combine(logoDirectory, SystemParams.Instance.LogoFilePath);
                 if (File.Exists(imagePath))
@@ -374,7 +378,6 @@ namespace DWZ_Scada.Pages
             {
                LogMgr.Instance.Error($"加载Logo文件错误:{e.Message}");
             }
-         
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -422,10 +425,9 @@ namespace DWZ_Scada.Pages
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                throw;
+                UIMessageBox.ShowError($"替换错误:{exception.Message}");
+                LogMgr.Instance.Error($"替换Logo错误,{exception.Message},\n{exception.StackTrace}");
             }
-         
         }
     }
 }
