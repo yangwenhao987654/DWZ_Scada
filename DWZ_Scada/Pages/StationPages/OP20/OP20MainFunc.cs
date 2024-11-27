@@ -157,7 +157,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             }
         }
 
-
         // Generic method to monitor each winding machine
         private async Task MonitorWindingMachine(CancellationToken token, ModbusTCP modbusTcp, int index)
         {
@@ -169,50 +168,47 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     //假如绕线机启用了
                     if (SystemParams.Instance.OP20_WeldingEnableList[index])
                     {
+                        if (modbusTcp.IsConnect)
+                        {
+                            modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
+                            await ReportDeviceState(index + 1, state);
+                            /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
+                            modbusTcp.ReadInt16("2041", out short tension1);*/
+                        }
+                        else
+                        {
+                            (bool flag, string err) = modbusTcp.Open(
+                                ModbusConnections[index].IP,
+                                ModbusConnections[index].Port,
+                                ModbusConnections[index].StationNum
+                            );
+                            if (!flag)
+                            {
+                                //state = 0;
+                                await ReportDeviceState(index + 1, state);
 
+                                LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
+                                LogMgr.Instance.Error($"Winding machine {index} IP:{ModbusConnections[index].IP} Port:{ModbusConnections[index].Port}");
+                            }
+                            else
+                            {
+                                modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
+                                await ReportDeviceState(index + 1, state);
+                            }
+                        }
                     }
                     else
                     {
                         modbusTcp.IsConnect = false;
                         modbusTcp.Close();
-                        Thread.Sleep(1000);
-                        OnWeldingStateChangedAction?.Invoke(index, 99);
-                        continue;
-                    }
-                    if (modbusTcp.IsConnect)
-                    {
-                        modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
-                        await ReportDeviceState(index + 1, state);
-                        /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
-                        modbusTcp.ReadInt16("2041", out short tension1);*/
-                    }
-                    else
-                    {
-                        (bool flag, string err) = modbusTcp.Open(
-                            ModbusConnections[index].IP,
-                            ModbusConnections[index].Port,
-                            ModbusConnections[index].StationNum
-                        );
-                        if (!flag)
-                        {
-                            //state = 0;
-                           await ReportDeviceState(index + 1, state);
-                      
-                            LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
-                            LogMgr.Instance.Error($"Winding machine {index} IP:{ModbusConnections[index].IP} Port:{ModbusConnections[index].Port}");
-                        }
-                        else
-                        {
-                            modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
-                           await ReportDeviceState(index + 1, state);
-                        }
+                        //Thread.Sleep(1000);
+                        state = 99;
                     }
                 }
                 catch (Exception e)
                 {
                     LogMgr.Instance.Error($"绕线机线程[{index + 1}]错误, {e.Message}\n{e.StackTrace}");
                 }
-                //TODO 更新界面绕线机状态
                 OnWeldingStateChangedAction?.Invoke(index, state);
                 Thread.Sleep(1000);
             }

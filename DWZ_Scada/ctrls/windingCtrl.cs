@@ -150,7 +150,6 @@ namespace DWZ_Scada.ctrls
             timer.ReStart();
             sw.Reset();
             sw.Start();
-
         }
 
         public void StopTest()
