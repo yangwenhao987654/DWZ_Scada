@@ -94,8 +94,8 @@ namespace AutoTF
                         UIMessageBox.ShowError("查询用户信息失败!");
                         return;
                     }
-                    SystemParams.Instance.Login(user.UserName, query.First().OpType, query.First().UserName + query.First().UserCode);
                     Global.LoginUser = user.UserName;
+                    SystemParams.Instance.Login(user.UserName, query.First().OpType, query.First().UserName + query.First().UserCode);
                     Close();
                     Global.IsLogin = true;
                     return;

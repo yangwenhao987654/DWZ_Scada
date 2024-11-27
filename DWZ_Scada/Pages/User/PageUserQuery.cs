@@ -235,5 +235,11 @@ namespace AutoTF.Pages.Query
         {
 
         }
+
+        private void uiImageButton1_Click(object sender, EventArgs e)
+        {
+            PageLogin page = new PageLogin();
+            page.ShowDialog();
+        }
     }
 }

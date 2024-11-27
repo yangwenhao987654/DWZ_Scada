@@ -100,6 +100,9 @@
     <None Update="Config\OP40TIG电焊工站-PLC参数设置.XML">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <None Update="Icon\UserLogin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Params\Params-backup.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -109,6 +112,9 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\UserLogin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

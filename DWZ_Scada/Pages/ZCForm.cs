@@ -109,7 +109,15 @@ namespace DWZ_Scada.Pages
             Assembly assembly = Assembly.GetExecutingAssembly();
             Version version = assembly.GetName().Version;
             lbl_Version.Text = version.ToString();
+
+            SystemParams.OPChangeEvent += SystemParams_OPChangeEvent;
         }
+
+        private void SystemParams_OPChangeEvent()
+        {
+            lblLoginUserName.Text = Global.LoginUser;
+        }
+
         public void StartServer()
         {
             MyHttpService = new HttpService();
