@@ -4,6 +4,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.DTO.OP20;
 using DWZ_Scada.Services;
 using LogTool;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -87,7 +88,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             //TODO 增加Modbus TCP 的连接
             Task.Run(() =>
             {
-                ModbusConnections = new List<ModbusConnConfig>
+                try
+                {
+                    ModbusConnections = new List<ModbusConnConfig>
             {
                 new (1,SystemParams.Instance.OP20_Winding1_IP, SystemParams.Instance.OP20_Winding1_Port, SystemParams.Instance.OP20_Winding1_StationNum),
                 new (2,SystemParams.Instance.OP20_Winding2_IP, SystemParams.Instance.OP20_Winding2_Port, SystemParams.Instance.OP20_Winding2_StationNum),
@@ -102,23 +105,29 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 new (11,SystemParams.Instance.OP20_Winding11_IP, SystemParams.Instance.OP20_Winding11_Port, SystemParams.Instance.OP20_Winding11_StationNum),
                 new(12,SystemParams.Instance.OP20_Winding12_IP, SystemParams.Instance.OP20_Winding12_Port, SystemParams.Instance.OP20_Winding12_StationNum)
             };
-                SystemParams.Instance.PropertyChanged += Instance_PropertyChanged;
-                int a = 0;
-                for (int i = 0; i < ModbusConnections.Count; i++)
-                {
-                    int index = i;
-                    var modbusTcp = new ModbusTCP();
-                    var connection = ModbusConnections[index];
-                    //modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
-                    ModbusTcpList.Add(modbusTcp);
-                    //假如绕线机启用了
-                    if (!SystemParams.Instance.OP20_WeldingEnableList[index])
+                    SystemParams.Instance.PropertyChanged += Instance_PropertyChanged;
+                    int a = 0;
+                    for (int i = 0; i < ModbusConnections.Count; i++)
                     {
-                        OnWeldingStateChangedAction?.Invoke(index, 99);
+                        int index = i;
+                        var modbusTcp = new ModbusTCP();
+                        var connection = ModbusConnections[index];
+                        //modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
+                        ModbusTcpList.Add(modbusTcp);
+                        //假如绕线机启用了
+                        if (!SystemParams.Instance.OP20_WeldingEnableList[index])
+                        {
+                            OnWeldingStateChangedAction?.Invoke(index, 99);
+                        }
+
+                        Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token, modbusTcp, index));
+                        thread.Start();
                     }
-               
-                    Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token, modbusTcp, index));
-                    thread.Start();
+                }
+                catch (Exception e)
+                {
+                   UIMessageBox.ShowError($"启动绕线机连接错误:{e.Message},:异常堆栈:{e.StackTrace}");
+                   LogMgr.Instance.Error($"启动绕线机连接错误:{e.Message},:异常堆栈:{e.StackTrace}");
                 }
             });
         }

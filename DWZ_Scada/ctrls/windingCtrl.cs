@@ -86,6 +86,11 @@ namespace DWZ_Scada.ctrls
                 return;
             }
 
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action(() => UpdateState(state)));
+                return;
+            }
             CurState = state;
             switch (state)
             {

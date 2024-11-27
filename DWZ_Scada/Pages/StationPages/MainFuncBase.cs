@@ -713,10 +713,10 @@ namespace DWZ_Scada.Pages.StationPages
         public virtual void Dispose()
         {
             //释放PLC监控线程 所有后台线程
-            _cts.Cancel();
+            _cts?.Cancel();
             //释放PLC连接
             PLC?.Dispose();
-            reportTimer.Dispose();
+            reportTimer?.Dispose();
         }
     }
 }

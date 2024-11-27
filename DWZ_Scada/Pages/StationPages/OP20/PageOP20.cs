@@ -52,20 +52,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
 
-            #region OP20工站
 
-            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
-                SystemParams.Instance.OP20_PlcPort);
-
-            OP20MainFunc.CreateInstance(plcConfig);
-        
-            OP20MainFunc.Instance.StartAsync();
-            //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-            LogMgr.Instance.Debug($"打开{OP20MainFunc.Instance.StationName}工站");
-            #endregion
-            OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
-            OP20MainFunc.Instance.OnEntryStateChanged01 += Instance_OnEntryStateChanged01;
-            OP20MainFunc.Instance.OnEntryStateChanged02 += Instance_OnEntryStateChanged02;
+            #region 界面加载
             int index = 1;
             for (int i = 0; i < ctrlWindingS.RowCount; i++)
             {
@@ -76,7 +64,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                          break;
                      }*/
                     windingCtrl ctrlSingle = new windingCtrl();
-                    ctrlSingle.IsEnable = SystemParams.Instance.OP20_WeldingEnableList[index-1];
+                    ctrlSingle.IsEnable = SystemParams.Instance.OP20_WeldingEnableList[index - 1];
                     ctrlSingle.Index = index - 1;
                     ctrlSingle.WeldingTitle = $"绕线机{index++:D2}";
                     WindingCtrlList.Add(ctrlSingle);
@@ -84,6 +72,25 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     ctrlWindingS.Controls.Add(ctrlSingle, j, i);//TODO 这里会调用Load方法
                 }
             }
+
+
+            #endregion
+
+            #region OP20工站逻辑
+
+            PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP20_PlcIP,
+                SystemParams.Instance.OP20_PlcPort);
+
+            OP20MainFunc.CreateInstance(plcConfig);
+        
+            OP20MainFunc.Instance.StartAsync();
+
+            LogMgr.Instance.Debug($"打开{OP20MainFunc.Instance.StationName}工站");
+            #endregion
+            OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
+            OP20MainFunc.Instance.OnEntryStateChanged01 += Instance_OnEntryStateChanged01;
+            OP20MainFunc.Instance.OnEntryStateChanged02 += Instance_OnEntryStateChanged02;
+         
         }
 
         private void Instance_OnEntryStateChanged02(string sn, int result, string msg = "")
@@ -102,13 +109,13 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         }
         private void UpdateWeldingStateLight(int index, int state)
         {
-            if (InvokeRequired)
+         /*   if (InvokeRequired)
             {
                 //TODO 关闭软件 这里报错 好几次了
-                //this.Invoke(new Action(()=>UpdateWeldingStateLight(index, state)));
-                this.Invoke(new Action<int, int>(UpdateWeldingStateLight), index, state);
+                this.Invoke(new Action(()=>UpdateWeldingStateLight(index, state)));
+                //this.Invoke(new Action<int, int>(UpdateWeldingStateLight), index, state);
                 return;
-            }
+            }*/
             WindingCtrlList[index].UpdateState(state);
         }
 
