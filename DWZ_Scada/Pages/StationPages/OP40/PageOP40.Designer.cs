@@ -526,21 +526,21 @@
             // 
             // lbl_humidity
             // 
-            lbl_humidity.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_humidity.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_humidity.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             lbl_humidity.Location = new System.Drawing.Point(97, 772);
             lbl_humidity.Name = "lbl_humidity";
-            lbl_humidity.Size = new System.Drawing.Size(148, 30);
+            lbl_humidity.Size = new System.Drawing.Size(148, 42);
             lbl_humidity.TabIndex = 70;
             lbl_humidity.Text = "0";
             // 
             // lbl_temperature
             // 
-            lbl_temperature.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_temperature.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_temperature.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             lbl_temperature.Location = new System.Drawing.Point(97, 713);
             lbl_temperature.Name = "lbl_temperature";
-            lbl_temperature.Size = new System.Drawing.Size(148, 30);
+            lbl_temperature.Size = new System.Drawing.Size(156, 42);
             lbl_temperature.TabIndex = 69;
             lbl_temperature.Text = "0";
             // 

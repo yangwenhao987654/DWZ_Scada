@@ -46,11 +46,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
         public event EntryStateChanged OnEntryStateChanged;
 
-
-
-
-
-
         public OP10MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
             StationName = "OP10";
@@ -62,8 +57,6 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             base.Dispose();
             PLC?.Dispose();
         }
-
-      
 
         public override async void PLCMainWork(CancellationToken token)
         {

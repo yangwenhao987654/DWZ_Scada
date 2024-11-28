@@ -2,6 +2,7 @@
 using HslCommunication.Profinet.Keyence;
 using LogTool;
 using System;
+using HslCommunication.Core;
 
 namespace CommunicationUtilYwh.Communication.PLC
 {
@@ -19,6 +20,7 @@ namespace CommunicationUtilYwh.Communication.PLC
             {
                 client = new KeyenceMcNet(ip, port);
                 OperateResult connect = client.ConnectServer();
+                //client.ByteTransform.DataFormat = DataFormat.BADC;
                 if (!connect.IsSuccess)
                 {
                     flag = false;

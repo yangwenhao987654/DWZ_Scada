@@ -206,6 +206,7 @@ namespace DWZ_Scada.ctrls
                 CurProductCode = orderVo.ProductCode;
                 GetBomList(orderVo.ProductCode);
                 IsCheckPass = false;
+                Global.WorkOrder = orderVo.WorkOrderCode;
             }
         }
 
