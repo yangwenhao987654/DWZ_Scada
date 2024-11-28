@@ -121,6 +121,7 @@ namespace CommunicationUtilYwh.Communication.PLC
                         {
                             OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
                             value = operate.Content.ToString();
+                            //字符串反转
                             value = RemoveAllCharactersAfterBackslashOrNull(value);
                             flag = operate.IsSuccess;
                             break;

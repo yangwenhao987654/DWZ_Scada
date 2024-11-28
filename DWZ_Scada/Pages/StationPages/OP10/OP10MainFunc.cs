@@ -192,6 +192,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                     PassStationData = new OP10Vision1Data()
                     {
                         Vision1Result = result,
+                        BreachNo = Global.BreachNo,
                         Good = result,
                     },
                     isLastStep = false

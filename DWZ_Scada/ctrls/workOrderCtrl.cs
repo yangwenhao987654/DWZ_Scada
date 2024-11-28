@@ -224,6 +224,7 @@ namespace DWZ_Scada.ctrls
             }
             IsCheckPass = false;
             CurPartNo = msg;
+            Global.BreachNo = GetBreachNo(msg);
             lbl_PartNo.Text = msg;
             //检查物料和工单的匹配关系
             if (CurProductCode == "")
@@ -233,6 +234,11 @@ namespace DWZ_Scada.ctrls
             }
             // "IF20241030002"
             IsCheckPass = CheckBomMatch(msg);
+        }
+
+        private string GetBreachNo(string msg)
+        {
+            return msg;
         }
 
         private bool CheckBomMatch(string itemCode)

@@ -33,6 +33,7 @@ namespace DWZ_Scada
 
         };
 
+        public static string BreachNo { get; set; }
         public static string WorkOrder { get; set; }
         public static bool isYWH { get; set; }
 
