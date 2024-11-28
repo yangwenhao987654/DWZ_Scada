@@ -40,7 +40,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// <summary>
         /// 绕线放置完成位置 1-12 写0表示清空
         /// </summary>
-        public static readonly string WindingPos = "";
+        public static readonly string WindingPos = "D3102";
 
         /// <summary>
         /// 绕线开始信号 上位机收到复位

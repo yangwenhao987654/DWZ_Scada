@@ -73,28 +73,13 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
             OP10MainFunc.Instance.OnEntryStateChanged += Instance_OnEntryStateChanged;
 
-            OP10MainFunc.Instance.OnTemperatureRecived += Instance_OnTemperatureRecived;
+         
 
             myLogCtrl1.BindingControl = uiPanel1;
             Mylog.Instance.Init(myLogCtrl1);
         }
 
-        private void Instance_OnTemperatureRecived(double temperature, double humidity)
-        {
-            UpdateTemperature(temperature, humidity);
-        }
-
-        private void UpdateTemperature(double temperature, double humidity)
-        {
-            if (InvokeRequired)
-            {
-                this.Invoke(new Action<double,double>(UpdateTemperature),temperature,humidity);
-                return;
-            }
-            lbl_temperature.Text = $"{temperature}℃";
-            lbl_humidity.Text = $"{humidity}%RH";
-
-        }
+       
 
         private void Instance_OnEntryStateChanged(string sn, int result, string msg = "")
         {

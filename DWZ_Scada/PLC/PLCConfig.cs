@@ -36,16 +36,6 @@ namespace DWZ_Scada.PLC
             }
             IP = iP;
             Port = port;
-
-            SystemParams.Instance.PropertyChanged += Instance_PropertyChanged;
-        }
-
-        private void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName==nameof(SystemParams.Instance.OP10_PlcIP))
-            {
-               //
-            }
         }
     }
 

@@ -987,6 +987,15 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("2.PLC 端口号"), Category("4.OP40工站"), Description("PLC的端口号")]
         public int OP40_PlcPort { get; set; }
+
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.ModbusTCP IP地址"), Category("4.OP40工站"), Description("ModbusTCP的IP地址")]
+        public string OP40_ModbusIP { get; set; }
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("4.ModbusTCP 端口号"), Category("4.OP40工站"), Description("ModbusTCP的端口号")]
+        public int OP40_ModbusPort { get; set; }
         #endregion
 
 

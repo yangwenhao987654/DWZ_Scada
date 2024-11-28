@@ -295,6 +295,7 @@ public class ModbusTCP : MyPlc
         }
         else
         {
+            LogMgr.Instance.Error($"ModbusTCP读取地址:[{address}] 错误,{result.Message}");
             value = -1;
         }
         return result.IsSuccess;

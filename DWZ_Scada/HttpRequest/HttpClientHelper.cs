@@ -23,13 +23,13 @@ namespace DWZ_Scada.HttpRequest
 
         public async Task<RestResponse> SendPostRequestAsync<T>(string url, T dto)where T:class
         {
-            LogMgr.Instance.AddMesDebug($"请求路径:{url}");
+            //LogMgr.Instance.AddMesDebug($"请求路径:{url}");
             var request = new RestRequest(url, Method.Post);
             request.AddJsonBody(dto);
             try
             {
                 RestResponse response  = await _client.ExecuteAsync(request);
-                LogMgr.Instance.AddMesDebug($"请求完成");
+                //LogMgr.Instance.AddMesDebug($"请求完成");
                 return response;
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace DWZ_Scada.HttpRequest
         // 通用GET请求
         public async Task<RestResponse> SendGetRequestAsync(string url, Dictionary<string, object> parameters = null)
         {
-            LogMgr.Instance.AddMesDebug($"请求路径: {url}");
+            //LogMgr.Instance.AddMesDebug($"请求路径: {url}");
             var request = new RestRequest(url, Method.Get);
             //request.AddParameter<>("code", "tempSN");
             if (parameters != null)
@@ -57,7 +57,7 @@ namespace DWZ_Scada.HttpRequest
             try
             {
                 RestResponse response = await _client.ExecuteAsync(request);
-                LogMgr.Instance.AddMesInfo("请求完成");
+                //LogMgr.Instance.AddMesInfo("请求完成");
                 return response;
             }
             catch (Exception ex)
@@ -100,7 +100,7 @@ namespace DWZ_Scada.HttpRequest
                     ResultDTO resultDto = JsonConvert.DeserializeObject<ResultDTO>(content);
                     if (resultDto.code == 200)
                     {
-                        LogMgr.Instance.AddMesDebug($"请求成功:{resultDto.msg}");
+                        //LogMgr.Instance.AddMesDebug($"请求成功:{resultDto.msg}");
                         result = true;
                     }
                     else

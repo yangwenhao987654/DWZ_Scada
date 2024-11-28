@@ -37,7 +37,9 @@
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             workOrderCtrl1 = new ctrls.workOrderCtrl();
+            uiPanel2 = new Sunny.UI.UIPanel();
             uiPanel1.SuspendLayout();
+            uiPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // uiLabel1
@@ -55,7 +57,7 @@
             // 
             // uiPanel1
             // 
-            uiPanel1.Controls.Add(myLogCtrl1);
+            uiPanel1.Controls.Add(uiPanel2);
             uiPanel1.Controls.Add(op30CtrlResult_Vision1);
             uiPanel1.Controls.Add(Op30CtrlEntry1);
             uiPanel1.Controls.Add(uiLabel7);
@@ -73,13 +75,14 @@
             // myLogCtrl1
             // 
             myLogCtrl1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            myLogCtrl1.Dock = System.Windows.Forms.DockStyle.Fill;
             myLogCtrl1.Font = new System.Drawing.Font("微软雅黑", 12F);
             myLogCtrl1.FullRowSelect = true;
             myLogCtrl1.HideSelection = true;
             myLogCtrl1.LabelWrap = false;
-            myLogCtrl1.Location = new System.Drawing.Point(51, 303);
+            myLogCtrl1.Location = new System.Drawing.Point(0, 0);
             myLogCtrl1.Name = "myLogCtrl1";
-            myLogCtrl1.Size = new System.Drawing.Size(1082, 299);
+            myLogCtrl1.Size = new System.Drawing.Size(1075, 285);
             myLogCtrl1.TabIndex = 23;
             myLogCtrl1.UseCompatibleStateImageBehavior = false;
             myLogCtrl1.View = System.Windows.Forms.View.Details;
@@ -143,6 +146,19 @@
             workOrderCtrl1.SpotEnable = false;
             workOrderCtrl1.TabIndex = 2;
             // 
+            // uiPanel2
+            // 
+            uiPanel2.Controls.Add(myLogCtrl1);
+            uiPanel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiPanel2.Location = new System.Drawing.Point(58, 295);
+            uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
+            uiPanel2.Name = "uiPanel2";
+            uiPanel2.Size = new System.Drawing.Size(1075, 285);
+            uiPanel2.TabIndex = 24;
+            uiPanel2.Text = "uiPanel2";
+            uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PageOP30
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -159,6 +175,7 @@
             FormClosing += PageOP30_FormClosing;
             Load += Page_Load;
             uiPanel1.ResumeLayout(false);
+            uiPanel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -173,5 +190,6 @@
         private DIPTest.Ctrl.UserCtrlResult op30CtrlResult_Vision1;
         private ctrls.MyLogCtrl myLogCtrl1;
         private ctrls.workOrderCtrl workOrderCtrl1;
+        private Sunny.UI.UIPanel uiPanel2;
     }
 }

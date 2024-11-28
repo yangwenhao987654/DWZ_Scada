@@ -23,29 +23,29 @@
         /// <summary>
         /// 视觉开始信号
         /// </summary>
-        public static readonly string VisionStart = "D302";
+        public static readonly string VisionStart = "D3104";
 
         /// <summary>
         /// 视觉完成信号
         /// </summary>
-        public static readonly string VisionFinish = "D303";
+        public static readonly string VisionFinish = "D3105";
 
         /// <summary>
         /// 视觉SN
         /// </summary>
-        public static readonly string VisionSn = "D100";
+        public static readonly string VisionSn = "D1130";
 
         /// <summary>
         /// 视觉出站复位
         /// </summary>
-        public static readonly string VisionOut = "D300";
+        public static readonly string VisionOut = "D3207";
         #endregion
 
         #region 焊接测试
         /// <summary>
         /// 绕线视觉检测结果
         /// </summary>
-        public static readonly string VisionResult = "D200";
+        public static readonly string VisionResult = "D1139";
 
         /// <summary>
         /// 大电流放电次数
@@ -81,13 +81,13 @@
         /// <summary>
         /// 探针使用次数
         /// </summary>
-        public static readonly string ProbeUseCount = "D316";
+        public static readonly string ProbeUseCount = "D4010";
 
 
         /// <summary>
         /// 电极使用次数
         /// </summary>
-        public static readonly string ElecUseCount = "D318";
+        public static readonly string ElecUseCount = "D4004";
 
 
         /// <summary>

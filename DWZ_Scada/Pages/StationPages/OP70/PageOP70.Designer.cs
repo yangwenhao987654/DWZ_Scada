@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
@@ -40,6 +41,7 @@
             lbl_CodeResult = new Sunny.UI.UILabel();
             uiLabel10 = new Sunny.UI.UILabel();
             workOrderCtrl2 = new ctrls.workOrderCtrl();
+            myLogCtrl1 = new ctrls.MyLogCtrl();
             SuspendLayout();
             // 
             // uiLabel1
@@ -78,7 +80,7 @@
             // 
             // userCtrlVisionResult
             // 
-            userCtrlVisionResult.Location = new System.Drawing.Point(62, 555);
+            userCtrlVisionResult.Location = new System.Drawing.Point(438, 276);
             userCtrlVisionResult.Margin = new System.Windows.Forms.Padding(4);
             userCtrlVisionResult.Name = "userCtrlVisionResult";
             userCtrlVisionResult.Size = new System.Drawing.Size(313, 168);
@@ -90,7 +92,7 @@
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(47, 509);
+            uiLabel11.Location = new System.Drawing.Point(423, 230);
             uiLabel11.Margin = new System.Windows.Forms.Padding(0);
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new System.Drawing.Size(121, 42);
@@ -102,7 +104,7 @@
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(464, 230);
+            uiLabel7.Location = new System.Drawing.Point(791, 229);
             uiLabel7.Margin = new System.Windows.Forms.Padding(0);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(97, 42);
@@ -113,7 +115,7 @@
             // 
             lbl_FinalCode.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_FinalCode.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_FinalCode.Location = new System.Drawing.Point(561, 230);
+            lbl_FinalCode.Location = new System.Drawing.Point(888, 229);
             lbl_FinalCode.Margin = new System.Windows.Forms.Padding(0);
             lbl_FinalCode.Name = "lbl_FinalCode";
             lbl_FinalCode.Size = new System.Drawing.Size(329, 42);
@@ -124,7 +126,7 @@
             // 
             uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel9.Location = new System.Drawing.Point(464, 292);
+            uiLabel9.Location = new System.Drawing.Point(791, 291);
             uiLabel9.Margin = new System.Windows.Forms.Padding(0);
             uiLabel9.Name = "uiLabel9";
             uiLabel9.Size = new System.Drawing.Size(97, 42);
@@ -135,7 +137,7 @@
             // 
             lbl_grade.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_grade.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_grade.Location = new System.Drawing.Point(551, 276);
+            lbl_grade.Location = new System.Drawing.Point(878, 275);
             lbl_grade.Margin = new System.Windows.Forms.Padding(0);
             lbl_grade.Name = "lbl_grade";
             lbl_grade.Size = new System.Drawing.Size(112, 61);
@@ -147,7 +149,7 @@
             // 
             lbl_CodeResult.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_CodeResult.ForeColor = System.Drawing.Color.Green;
-            lbl_CodeResult.Location = new System.Drawing.Point(584, 337);
+            lbl_CodeResult.Location = new System.Drawing.Point(911, 336);
             lbl_CodeResult.Margin = new System.Windows.Forms.Padding(0);
             lbl_CodeResult.Name = "lbl_CodeResult";
             lbl_CodeResult.Size = new System.Drawing.Size(160, 81);
@@ -159,7 +161,7 @@
             // 
             uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new System.Drawing.Point(464, 337);
+            uiLabel10.Location = new System.Drawing.Point(791, 336);
             uiLabel10.Margin = new System.Windows.Forms.Padding(0);
             uiLabel10.Name = "uiLabel10";
             uiLabel10.Size = new System.Drawing.Size(97, 42);
@@ -183,10 +185,26 @@
             workOrderCtrl2.SpotEnable = false;
             workOrderCtrl2.TabIndex = 80;
             // 
+            // myLogCtrl1
+            // 
+            myLogCtrl1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            myLogCtrl1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            myLogCtrl1.FullRowSelect = true;
+            myLogCtrl1.HideSelection = true;
+            myLogCtrl1.LabelWrap = false;
+            myLogCtrl1.Location = new System.Drawing.Point(38, 483);
+            myLogCtrl1.MultiSelect = false;
+            myLogCtrl1.Name = "myLogCtrl1";
+            myLogCtrl1.Size = new System.Drawing.Size(1211, 345);
+            myLogCtrl1.TabIndex = 81;
+            myLogCtrl1.UseCompatibleStateImageBehavior = false;
+            myLogCtrl1.View = System.Windows.Forms.View.Details;
+            // 
             // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
+            Controls.Add(myLogCtrl1);
             Controls.Add(workOrderCtrl2);
             Controls.Add(uiLabel10);
             Controls.Add(lbl_CodeResult);
@@ -224,5 +242,6 @@
         private Sunny.UI.UILabel uiLabel10;
         private ctrls.workOrderCtrl workOrderCtrl1;
         private ctrls.workOrderCtrl workOrderCtrl2;
+        private ctrls.MyLogCtrl myLogCtrl1;
     }
 }

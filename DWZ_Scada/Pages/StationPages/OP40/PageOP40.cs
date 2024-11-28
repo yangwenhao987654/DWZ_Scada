@@ -1,4 +1,5 @@
 ﻿using DWZ_Scada.Pages.PLCAlarm;
+using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.RequestSelectModel;
@@ -60,21 +61,57 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
             OP40MainFunc.Instance.OnWeldDataRevived += Instance_OnWeldDataRevived;
 
+            OP40MainFunc.Instance.OnTemperatureRecived += Instance_OnTemperatureRecived;
+
+            OP40MainFunc.Instance.OnPressureRecived += Instance_OnPressureRecived;
+
             //OP40DamageStrategy op40DamageStrategy = new OP40DamageStrategy();
             //op40DamageStrategy.OnDamageableEvent += Op40DamageStrategy_OnSelectionEvent;
 
         }
 
-        private void Instance_OnWeldDataRevived(short[] arr,string type)
+        private void Instance_OnPressureRecived(short value)
+        {
+            UpdatePressure(value);
+        }
+
+        private void UpdatePressure(short value)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<short>(UpdatePressure), value);
+                return;
+            }
+            lbl_Pressure.Text = value.ToString();
+        }
+
+        private void Instance_OnTemperatureRecived(double temperature, double humidity)
+        {
+            UpdateTemperature(temperature, humidity);
+        }
+
+        private void UpdateTemperature(double temperature, double humidity)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<double, double>(UpdateTemperature), temperature, humidity);
+                return;
+            }
+            lbl_temperature.Text = $"{temperature}℃";
+            lbl_humidity.Text = $"{humidity}%RH";
+
+        }
+
+        private void Instance_OnWeldDataRevived(short[] arr, string type)
         {
             UpdateWeldingData(arr, type);
         }
 
-        public void UpdateWeldingData(short[] arr,string type)
+        public void UpdateWeldingData(short[] arr, string type)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(() => UpdateWeldingData(arr,type)));
+                Invoke(new Action(() => UpdateWeldingData(arr, type)));
                 return;
             }
             switch (type)
@@ -87,13 +124,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     lbl_5_A.Text = arr[4].ToString();
                     lbl_6_A.Text = arr[5].ToString();
 
-          /*          lbl_2_A.Text = arr[3].ToString();
-                    lbl_2_B.Text = arr[4].ToString();
-                    lbl_2_C.Text = arr[5].ToString();*/
+                    /*          lbl_2_A.Text = arr[3].ToString();
+                              lbl_2_B.Text = arr[4].ToString();
+                              lbl_2_C.Text = arr[5].ToString();*/
                     break;
-                  
+
                 case "B":
-       
+
                     lbl_1_B.Text = arr[0].ToString();
                     lbl_2_B.Text = arr[1].ToString();
                     lbl_3_B.Text = arr[2].ToString();
@@ -111,29 +148,29 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     break;
 
             }
-/*            lbl_1_A.Text = arr[0].ToString();
-            lbl_1_B.Text = arr[1].ToString();
-            lbl_1_C.Text = arr[2].ToString();
+            /*            lbl_1_A.Text = arr[0].ToString();
+                        lbl_1_B.Text = arr[1].ToString();
+                        lbl_1_C.Text = arr[2].ToString();
 
-            lbl_2_A.Text = arr[3].ToString();
-            lbl_2_B.Text = arr[4].ToString();
-            lbl_2_C.Text = arr[5].ToString();
+                        lbl_2_A.Text = arr[3].ToString();
+                        lbl_2_B.Text = arr[4].ToString();
+                        lbl_2_C.Text = arr[5].ToString();
 
-            lbl_3_A.Text = arr[6].ToString();
-            lbl_3_B.Text = arr[7].ToString();
-            lbl_3_C.Text = arr[8].ToString();
+                        lbl_3_A.Text = arr[6].ToString();
+                        lbl_3_B.Text = arr[7].ToString();
+                        lbl_3_C.Text = arr[8].ToString();
 
-            lbl_4_A.Text = arr[9].ToString();
-            lbl_4_B.Text = arr[10].ToString();
-            lbl_4_C.Text = arr[11].ToString();
+                        lbl_4_A.Text = arr[9].ToString();
+                        lbl_4_B.Text = arr[10].ToString();
+                        lbl_4_C.Text = arr[11].ToString();
 
-            lbl_5_A.Text = arr[12].ToString();
-            lbl_5_B.Text = arr[13].ToString();
-            lbl_5_C.Text = arr[14].ToString();
+                        lbl_5_A.Text = arr[12].ToString();
+                        lbl_5_B.Text = arr[13].ToString();
+                        lbl_5_C.Text = arr[14].ToString();
 
-            lbl_6_A.Text = arr[15].ToString();
-            lbl_6_B.Text = arr[16].ToString();
-            lbl_6_C.Text = arr[17].ToString();*/
+                        lbl_6_A.Text = arr[15].ToString();
+                        lbl_6_B.Text = arr[16].ToString();
+                        lbl_6_C.Text = arr[17].ToString();*/
         }
 
         private void Instance_OnWeldingFinished(string sn, int result)
@@ -178,6 +215,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         }
 
         private void lbl_3_B_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiLabel11_Click(object sender, EventArgs e)
         {
 
         }

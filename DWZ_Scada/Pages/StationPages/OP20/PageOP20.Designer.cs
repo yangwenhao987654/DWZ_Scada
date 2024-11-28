@@ -59,7 +59,7 @@
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.Location = new System.Drawing.Point(340, 223);
+            ctrlWindingS.Location = new System.Drawing.Point(340, 210);
             ctrlWindingS.Margin = new System.Windows.Forms.Padding(0);
             ctrlWindingS.Name = "ctrlWindingS";
             ctrlWindingS.RowCount = 3;
@@ -77,7 +77,7 @@
             uiPanel2.Controls.Add(op20CtrlEntry1);
             uiPanel2.Controls.Add(uiLabel2);
             uiPanel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel2.Location = new System.Drawing.Point(27, 223);
+            uiPanel2.Location = new System.Drawing.Point(27, 210);
             uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel2.Name = "uiPanel2";

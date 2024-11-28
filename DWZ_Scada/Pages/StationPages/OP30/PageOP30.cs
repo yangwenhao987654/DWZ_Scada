@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.PLC;
+﻿using DWZ_Scada.ctrls.LogCtrl;
+using DWZ_Scada.PLC;
 using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
@@ -51,6 +52,9 @@ namespace DWZ_Scada.Pages.StationPages.OP30
             OP30MainFunc.Instance.OP30VisionFinished += Instance_OP30VisionFinished;
             LogMgr.Instance.Debug($"打开{OP30MainFunc.Instance.StationCode}工站");
             #endregion
+
+            myLogCtrl1.BindingControl = uiPanel2;
+            Mylog.Instance.Init(myLogCtrl1);
         }
 
         private void Instance_OP30VisionFinished(string sn, int result)

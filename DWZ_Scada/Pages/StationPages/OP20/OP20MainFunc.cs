@@ -442,7 +442,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 }
             }
 
-            if (PLC.ReadInt16(OP20Address.Winding01Start, out short isStart) && isStart == 1)
+          /*  if (PLC.ReadInt16(OP20Address.Winding01Start, out short isStart) && isStart == 1)
             {
                 LogMgr.Instance.Info("收到绕线开始...");
                 PLC.WriteInt16(OP20Address.Winding01Start, 0);
@@ -468,8 +468,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
                             dto.CoilsTargetNum = coilsTargetNum / 100;
 
-                            /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
-                              dto.CoilsSpeed = coilsSpeed / 100;*/
+                            *//*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
+                              dto.CoilsSpeed = coilsSpeed / 100;*//*
 
                             ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsTimes, out uint times);
                             dto.CoilsTimes = times / 100;
@@ -520,7 +520,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 });
                 task.Wait();
                 //TODO 获取到对应的位置 开始监控 
-            }
+            }*/
         }
 
 

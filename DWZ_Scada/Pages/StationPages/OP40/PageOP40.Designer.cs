@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
-            myLogCtrl1 = new ctrls.MyLogCtrl();
             userCtrlResult_Vision = new DIPTest.Ctrl.UserCtrlResult();
             uiLabel2 = new Sunny.UI.UILabel();
             uiLabel3 = new Sunny.UI.UILabel();
@@ -75,6 +73,12 @@
             userCtrlEntry_OP40 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel8 = new Sunny.UI.UILabel();
             workOrderCtrl1 = new ctrls.workOrderCtrl();
+            lbl_humidity = new Sunny.UI.UILabel();
+            lbl_temperature = new Sunny.UI.UILabel();
+            uiLabel4 = new Sunny.UI.UILabel();
+            uiLabel9 = new Sunny.UI.UILabel();
+            lbl_Pressure = new Sunny.UI.UILabel();
+            uiLabel11 = new Sunny.UI.UILabel();
             SuspendLayout();
             // 
             // uiLabel1
@@ -90,23 +94,9 @@
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
             // 
-            // myLogCtrl1
-            // 
-            myLogCtrl1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
-            myLogCtrl1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            myLogCtrl1.FullRowSelect = true;
-            myLogCtrl1.HideSelection = true;
-            myLogCtrl1.LabelWrap = false;
-            myLogCtrl1.Location = new System.Drawing.Point(11, 734);
-            myLogCtrl1.Name = "myLogCtrl1";
-            myLogCtrl1.Size = new System.Drawing.Size(1196, 274);
-            myLogCtrl1.TabIndex = 15;
-            myLogCtrl1.UseCompatibleStateImageBehavior = false;
-            myLogCtrl1.View = System.Windows.Forms.View.Details;
-            // 
             // userCtrlResult_Vision
             // 
-            userCtrlResult_Vision.Location = new System.Drawing.Point(864, 583);
+            userCtrlResult_Vision.Location = new System.Drawing.Point(864, 568);
             userCtrlResult_Vision.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult_Vision.Name = "userCtrlResult_Vision";
             userCtrlResult_Vision.Size = new System.Drawing.Size(313, 135);
@@ -118,7 +108,7 @@
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(858, 549);
+            uiLabel2.Location = new System.Drawing.Point(858, 534);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(120, 30);
             uiLabel2.TabIndex = 17;
@@ -481,7 +471,7 @@
             // 
             uiLabel42.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel42.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel42.Location = new System.Drawing.Point(864, 350);
+            uiLabel42.Location = new System.Drawing.Point(864, 335);
             uiLabel42.Name = "uiLabel42";
             uiLabel42.Size = new System.Drawing.Size(120, 30);
             uiLabel42.TabIndex = 63;
@@ -489,7 +479,7 @@
             // 
             // userCtrlResult_Welding
             // 
-            userCtrlResult_Welding.Location = new System.Drawing.Point(864, 394);
+            userCtrlResult_Welding.Location = new System.Drawing.Point(864, 379);
             userCtrlResult_Welding.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult_Welding.Name = "userCtrlResult_Welding";
             userCtrlResult_Welding.Size = new System.Drawing.Size(313, 139);
@@ -499,7 +489,7 @@
             // 
             // userCtrlEntry_OP40
             // 
-            userCtrlEntry_OP40.Location = new System.Drawing.Point(864, 234);
+            userCtrlEntry_OP40.Location = new System.Drawing.Point(864, 219);
             userCtrlEntry_OP40.Margin = new System.Windows.Forms.Padding(4);
             userCtrlEntry_OP40.Name = "userCtrlEntry_OP40";
             userCtrlEntry_OP40.Size = new System.Drawing.Size(313, 114);
@@ -511,7 +501,7 @@
             // 
             uiLabel8.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(864, 192);
+            uiLabel8.Location = new System.Drawing.Point(864, 177);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new System.Drawing.Size(120, 38);
             uiLabel8.TabIndex = 64;
@@ -530,14 +520,81 @@
             workOrderCtrl1.Name = "workOrderCtrl1";
             workOrderCtrl1.Orders = null;
             workOrderCtrl1.ProductBomList = null;
-            workOrderCtrl1.Size = new System.Drawing.Size(1195, 125);
+            workOrderCtrl1.Size = new System.Drawing.Size(1195, 113);
             workOrderCtrl1.SpotEnable = false;
             workOrderCtrl1.TabIndex = 66;
+            // 
+            // lbl_humidity
+            // 
+            lbl_humidity.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_humidity.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_humidity.Location = new System.Drawing.Point(97, 772);
+            lbl_humidity.Name = "lbl_humidity";
+            lbl_humidity.Size = new System.Drawing.Size(148, 30);
+            lbl_humidity.TabIndex = 70;
+            lbl_humidity.Text = "0";
+            // 
+            // lbl_temperature
+            // 
+            lbl_temperature.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_temperature.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_temperature.Location = new System.Drawing.Point(97, 713);
+            lbl_temperature.Name = "lbl_temperature";
+            lbl_temperature.Size = new System.Drawing.Size(148, 30);
+            lbl_temperature.TabIndex = 69;
+            lbl_temperature.Text = "0";
+            // 
+            // uiLabel4
+            // 
+            uiLabel4.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel4.Location = new System.Drawing.Point(18, 772);
+            uiLabel4.Name = "uiLabel4";
+            uiLabel4.Size = new System.Drawing.Size(73, 30);
+            uiLabel4.TabIndex = 68;
+            uiLabel4.Text = "湿度:";
+            // 
+            // uiLabel9
+            // 
+            uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel9.Location = new System.Drawing.Point(18, 713);
+            uiLabel9.Name = "uiLabel9";
+            uiLabel9.Size = new System.Drawing.Size(73, 30);
+            uiLabel9.TabIndex = 67;
+            uiLabel9.Text = "温度:";
+            // 
+            // lbl_Pressure
+            // 
+            lbl_Pressure.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_Pressure.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_Pressure.Location = new System.Drawing.Point(616, 713);
+            lbl_Pressure.Name = "lbl_Pressure";
+            lbl_Pressure.Size = new System.Drawing.Size(148, 30);
+            lbl_Pressure.TabIndex = 72;
+            lbl_Pressure.Text = "0";
+            // 
+            // uiLabel11
+            // 
+            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel11.Location = new System.Drawing.Point(442, 713);
+            uiLabel11.Name = "uiLabel11";
+            uiLabel11.Size = new System.Drawing.Size(154, 30);
+            uiLabel11.TabIndex = 71;
+            uiLabel11.Text = "氩气瓶压力:";
+            uiLabel11.Click += uiLabel11_Click;
             // 
             // PageOP40
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            ClientSize = new System.Drawing.Size(1223, 1024);
+            ClientSize = new System.Drawing.Size(1223, 840);
+            Controls.Add(lbl_Pressure);
+            Controls.Add(uiLabel11);
+            Controls.Add(lbl_humidity);
+            Controls.Add(lbl_temperature);
+            Controls.Add(uiLabel4);
+            Controls.Add(uiLabel9);
             Controls.Add(workOrderCtrl1);
             Controls.Add(userCtrlEntry_OP40);
             Controls.Add(uiLabel8);
@@ -582,7 +639,6 @@
             Controls.Add(uiLabel3);
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlResult_Vision);
-            Controls.Add(myLogCtrl1);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP40";
@@ -595,7 +651,6 @@
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private ctrls.MyLogCtrl myLogCtrl1;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Vision;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel3;
@@ -640,5 +695,11 @@
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP40;
         private Sunny.UI.UILabel uiLabel8;
         private ctrls.workOrderCtrl workOrderCtrl1;
+        private Sunny.UI.UILabel lbl_humidity;
+        private Sunny.UI.UILabel lbl_temperature;
+        private Sunny.UI.UILabel uiLabel4;
+        private Sunny.UI.UILabel uiLabel9;
+        private Sunny.UI.UILabel lbl_Pressure;
+        private Sunny.UI.UILabel uiLabel11;
     }
 }

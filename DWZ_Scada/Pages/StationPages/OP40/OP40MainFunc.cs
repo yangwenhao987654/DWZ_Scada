@@ -1,4 +1,6 @@
-﻿using DWZ_Scada.ctrls.LogCtrl;
+﻿using CommonUtilYwh.Communication.ModbusTCP;
+using CommunicationUtilYwh.Device;
+using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
@@ -45,6 +47,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         public event EntryStateChanged OP40EntryStateChanged;
 
+        public event Action<double, double> OnTemperatureRecived;
+
+        /// <summary>
+        /// 氦气瓶压力
+        /// </summary>
+        public event Action<short> OnPressureRecived;
+
         /// <summary>
         /// 视觉检测完成
         /// </summary>
@@ -56,6 +65,9 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         public event TestStateChanged OnWeldingFinished;
 
 
+        private object _lock = new object();
+
+
         public OP40MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
         {
             StationName = "OP40";
@@ -63,7 +75,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //Logger.AddChargeInfo("执行大电流放电");
         }
 
-
+        ModbusTCP modbusTcp02 = new ModbusTCP();
         protected override string GetPLCIP()
         {
             return SystemParams.Instance.OP40_PlcIP;
@@ -80,11 +92,116 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //释放PLC连接
             base.Dispose();
             PLC?.Dispose();
+            modbusTcp02?.Dispose();
         }
 
+
+        private void TemperatureMonitor(CancellationToken token)
+        {
+
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (modbusTcp02.IsConnect)
+                    {
+                        //连接成功
+                        double humidity = ReadHumidity(modbusTcp02);
+                        double temperature =ReadTemperature(modbusTcp02);
+                        //获取到温度和湿度
+
+                        lock (_lock)
+                        {
+                            CurHumidity = humidity;
+                            CurTemperature = temperature;
+                        }
+                        //实时显示温度和湿度
+                        OnTemperatureRecived?.Invoke(temperature, humidity);
+
+                        //连接成功
+                        modbusTcp02.ReadInt16("4", out short pressure);
+                        //获取到温度和湿度
+
+                        //实时显示温度和湿度
+                        //数值给PLC
+                        OnPressureRecived?.Invoke(pressure);
+                    }
+                    else
+                    {
+                        modbusTcp02.Open(SystemParams.Instance.OP40_ModbusIP,SystemParams.Instance.OP40_ModbusPort,2);
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error($"ModbusTCP-温度采集线程出错:{e.Message},{e.StackTrace}");
+                    //LogMgr.Instance.Error($"温度采集线程出错:{e.Message}");
+                }
+                Thread.Sleep(1000);
+            }
+            modbusTcp02?.Dispose();
+        }
+
+        /// <summary>
+        /// 读取温度
+        /// </summary>
+        public double ReadTemperature(ModbusTCP client)
+        {
+            double result = 0;
+            string address = "0";
+            bool f = client.ReadInt16(address, out short value);
+            if (f)
+            {
+                if (value >= 10000)
+                {
+                    //假如大于10000  表示温度是负
+                    result = (-1 * (value - 10000) * 0.1);
+                }
+                else
+                {
+                    result = value * 0.1;
+                }
+            }
+            else
+            {
+                LogMgr.Instance.Error("读取温度失败");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 读取湿度
+        /// </summary>
+        public double ReadHumidity(ModbusTCP client)
+        {
+            double result = 0;
+            string address = "1";
+            bool f = client.ReadInt16(address, out short value);
+            if (f)
+            {
+                result = value * 0.1;
+            }
+            else
+            {
+                LogMgr.Instance.Error("读取湿度失败");
+            }
+            return result;
+        }
+
+     
+
+        /// <summary>
+        /// 当前温度
+        /// </summary>
+        public double CurTemperature { get; set; }
+
+        /// <summary>
+        /// 当前湿度
+        /// </summary>
+        public double CurHumidity { get; set; }
         protected override DeviceStateDTO WrapDeviceStateInner(DeviceStateDTO dto)
         {
-            if (dto.Status == "run")
+       /*     if (dto.Status == "run")
             {
                 //运行状态下 读取大电流放电的使用次数
                 OP40StateData data = new OP40StateData();
@@ -92,7 +209,15 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 data.DisChargeCount = count;
                 dto.Data = data;
 
+            }*/
+            OP10TempData tempData = new OP10TempData() { Humidity = CurHumidity, Temperature = CurTemperature, };
+            lock (_lock)
+            {
+                tempData.Humidity = CurHumidity;
+                tempData.Temperature = CurTemperature;
             }
+            dto.Data = tempData;
+            return dto;
             return dto;
         }
 
@@ -103,6 +228,12 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
             Thread t2 = new Thread(() => VisionMonitor(token));
             t2.Start();
+
+            Thread t3 = new Thread(() => TemperatureMonitor(token));
+            t3.Start();
+
+        /*    Thread t4 = new Thread(() => ModbusTCP_PressureMonitor(token));
+            t4.Start();*/
             while (!token.IsCancellationRequested)
             {
                 try
