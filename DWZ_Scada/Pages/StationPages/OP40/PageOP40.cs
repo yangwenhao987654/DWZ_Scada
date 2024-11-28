@@ -97,8 +97,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 this.Invoke(new Action<double, double>(UpdateTemperature), temperature, humidity);
                 return;
             }
-            lbl_temperature.Text = $"{temperature}℃";
-            lbl_humidity.Text = $"{humidity}%RH";
+            lbl_temperature.Text = $"{temperature:F1}℃";
+            lbl_humidity.Text = $"{humidity:F1}%RH";
 
         }
 
