@@ -460,7 +460,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         LogMgr.Instance.Info($"读取到绕线状态位:{state}");
                                                     }
 
-                                                    if (sw.ElapsedMilliseconds > timeout)
+                                                    if (sw.Elapsed.TotalSeconds > timeout)
                                                     {
                                                         LogMgr.Instance.Info($"绕线机采集超时");
                                                         if (!isSendOver)
