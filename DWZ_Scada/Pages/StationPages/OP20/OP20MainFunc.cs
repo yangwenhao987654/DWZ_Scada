@@ -382,6 +382,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         break;
                                                     }
                                                     modbusTcp.ReadUInt16(CoildAddress.CoilsState, out ushort state);
+                                                    LogMgr.Instance.Info($"读取到绕线状态位:{state}");
 
                                                     if (state == 1 && isStart)
                                                     {
@@ -390,6 +391,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         isFinish = true;
 
                                                         CoildDataDto dto = new CoildDataDto();
+                                                        dto.BreachNo = Global.BreachNo;
                                                         //运行中
                                                         modbusTcp.ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
                                                         dto.CoilsCurNum = coilsCurNum / 100;
@@ -455,10 +457,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                                                         }
                                                     }
-                                                    else
-                                                    {
-                                                        LogMgr.Instance.Info($"读取到绕线状态位:{state}");
-                                                    }
 
                                                     if (sw.Elapsed.TotalSeconds > timeout)
                                                     {
@@ -466,7 +464,55 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         if (!isSendOver)
                                                         {
                                                             //TODO 假如数据没有上传完 这里需不需要上传
+                                                            CoildDataDto dto = new CoildDataDto();
+                                                            dto.BreachNo = Global.BreachNo;
+                                                            //运行中
+                                                            modbusTcp.ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
+                                                            dto.CoilsCurNum = coilsCurNum / 100;
+                                                            modbusTcp.ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
+                                                            dto.CoilsTargetNum = coilsTargetNum / 100;
 
+                                                            /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
+                                                              dto.CoilsSpeed = coilsSpeed / 100;*/
+
+                                                            modbusTcp.ReadUInt32(CoildAddress.CoilsTimes, out uint times);
+                                                            dto.CoilsTimes = times / 100;
+
+                                                            //采集张力值 TODO 需要区分是A/B哪个工位
+                                                            modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
+                                                            //dto.TensionValueList=new List<double> { tension01/100 };
+                                                            CoildDataDto dto02 = new CoildDataDto(dto);
+                                                            //dto.TensionValue
+                                                            tensionList_A.Add(tension01);
+                                                            modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
+
+                                                            tensionList_B.Add(tension02);
+                                                            string tensionStr_A = string.Join(',', tensionList_A);
+                                                            dto.TensionValue = tensionStr_A;
+                                                            string tensionStr_B = string.Join(',', tensionList_B);
+                                                            dto02.TensionValue = tensionStr_B;
+                                                            //dto02.TensionValueList = new List<double> { tension02/100 };
+                                                            PassStationDTO passStationDto01 = new PassStationDTO()
+                                                            {
+                                                                isLastStep = true,
+                                                                SnTemp = sn1,
+                                                                StationCode = StationCode,
+                                                                WorkOrder = Global.WorkOrder,
+                                                                PassStationData = dto
+                                                            };
+                                                            await UploadData(passStationDto01);
+
+                                                            PassStationDTO passStationDto02 = new PassStationDTO()
+                                                            {
+                                                                isLastStep = true,
+                                                                SnTemp = sn2,
+                                                                StationCode = StationCode,
+                                                                WorkOrder = Global.WorkOrder,
+                                                                PassStationData = dto02
+                                                            };
+                                                            await UploadData(passStationDto02);
+                                                            isSendOver = true;
+                                                            break;
                                                         }
                                                         break;
                                                     }

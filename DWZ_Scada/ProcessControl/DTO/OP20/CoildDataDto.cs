@@ -15,6 +15,7 @@ namespace DWZ_Scada.ProcessControl.DTO.OP20
             CoilsTargetNum = dto.CoilsTargetNum;
             //CoilsSpeed = dto.CoilsSpeed;
             CoilsTimes = dto.CoilsTimes;
+            BreachNo = dto.BreachNo;
             //TensionValueList = new();
         }
 
