@@ -292,6 +292,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                         //获取绕线开始信号
                         WindingStart();
+                        WindingFinish();
                         Thread.Sleep(500);
                     }
 
@@ -300,6 +301,24 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 catch (Exception e)
                 {
                     LogMgr.Instance.Error("PLC绕线检查监控线程错误:" + e.Message);
+                }
+            }
+        }
+
+        private void WindingFinish()
+        {
+            //TODO 收到绕线开始信号  读取条码  采集绕线机测试数据
+            //持续监控绕线机状态
+            if (PLC.ReadInt16(OP20Address.Winding01Finish, 12, out short[] startArr))
+            {
+                for (var i = 0; i < startArr.Length; i++)
+                {
+                    if (startArr[i] == 1)
+                    {
+                        //绕线机开始
+                        LogMgr.Instance.Info($"收到绕线[{i + 1}]完成...");
+                        PLC.WriteInt16(OP20Address.WindingFinishList[i], 0);
+                    }
                 }
             }
         }
@@ -315,133 +334,142 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     if (startArr[i] == 1)
                     {
                         //绕线机开始
-                        LogMgr.Instance.Info("收到绕线开始...");
+                        LogMgr.Instance.Info($"收到绕线[{i+1}]开始...");
                         PLC.WriteInt16(OP20Address.WindingStartList[i], 0);
 
                         Task task = Task.Run(async () =>
                                         {
-                                            //TODO 读取两次绕线的SN码
-                                            int index = i;
-                                            PLC.Read(OP20Address.SNAddrList[index * 2], "string-8", out string sn1);
-                                            PLC.Read(OP20Address.SNAddrList[(index * 2) + 1], "string-8", out string sn2);
-
-                                            OnWeldingStart?.Invoke(index, sn1, sn2);
-                                            //string sn2 = "TestCode002";
-                                            bool isStart = false;
-                                            bool isFinish = false;
-                                            Stopwatch sw = Stopwatch.StartNew();
-                                            sw.Start();
-                                            int timeout = SystemParams.Instance.OP20_WindingTimeOut;
-                                            if (timeout < (60 * 1))
+                                            try
                                             {
-                                                timeout = 60 * 1;
-                                            }
-                                            bool isSendOver = false;
-                                            ModbusTCP modbusTcp = ModbusTcpList[i];
-                                            List<short> tensionList_A = new List<short>();
-                                            List<short> tensionList_B = new List<short>();
-                                            //string str = string.Join(",", doubles);
-                                            //TODO 增加一个超
-                                            while (true) //300秒 60*5 5分钟
-                                            {
-                                                if (!modbusTcp.IsConnect)
-                                                {
-                                                    LogMgr.Instance.Error($"绕线机[{i + 1}]未连接");
+                                                //TODO 读取两次绕线的SN码
+                                                int index = i;
+                                                PLC.Read(OP20Address.SNAddrList[index * 2], "string-8", out string sn1);
+                                                PLC.Read(OP20Address.SNAddrList[(index * 2) + 1], "string-8", out string sn2);
 
-                                                    break;
+                                                Logger.Debug($"读取SN1:[{sn1}]");
+                                                Logger.Debug($"读取SN2:[{sn2}]");
+                                                OnWeldingStart?.Invoke(index, sn1, sn2);
+                                                //string sn2 = "TestCode002";
+                                                bool isStart = false;
+                                                bool isFinish = false;
+                                                Stopwatch sw = Stopwatch.StartNew();
+                                                sw.Start();
+                                                int timeout = SystemParams.Instance.OP20_WindingTimeOut;
+                                                if (timeout < (60 * 1))
+                                                {
+                                                    timeout = 60 * 1;
                                                 }
-                                                modbusTcp.ReadUInt16(CoildAddress.CoilsState, out ushort state);
-
-                                                if (state == 1 && isStart)
+                                                bool isSendOver = false;
+                                                ModbusTCP modbusTcp = ModbusTcpList[i];
+                                                List<short> tensionList_A = new List<short>();
+                                                List<short> tensionList_B = new List<short>();
+                                                //string str = string.Join(",", doubles);
+                                                //TODO 增加一个超
+                                                while (true) //300秒 60*5 5分钟
                                                 {
-                                                    //停止
-                                                    LogMgr.Instance.Debug("读取到绕线停止..1");
-                                                    isFinish = true;
-
-                                                    CoildDataDto dto = new CoildDataDto();
-                                                    //运行中
-                                                    modbusTcp.ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
-                                                    dto.CoilsCurNum = coilsCurNum / 100;
-                                                    modbusTcp.ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
-                                                    dto.CoilsTargetNum = coilsTargetNum / 100;
-
-                                                    /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
-                                                      dto.CoilsSpeed = coilsSpeed / 100;*/
-
-                                                    modbusTcp.ReadUInt32(CoildAddress.CoilsTimes, out uint times);
-                                                    dto.CoilsTimes = times / 100;
-
-                                                    //采集张力值 TODO 需要区分是A/B哪个工位
-                                                    modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
-                                                    //dto.TensionValueList=new List<double> { tension01/100 };
-                                                    CoildDataDto dto02 = new CoildDataDto(dto);
-                                                    //dto.TensionValue
-                                                    tensionList_A.Add(tension01);
-                                                    modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
-
-                                                    tensionList_B.Add(tension02);
-                                                    string tensionStr_A = string.Join(',', tensionList_A);
-                                                    dto.TensionValue = tensionStr_A;
-                                                    string tensionStr_B = string.Join(',', tensionList_B);
-                                                    dto02.TensionValue = tensionStr_B;
-                                                    //dto02.TensionValueList = new List<double> { tension02/100 };
-                                                    PassStationDTO passStationDto01 = new PassStationDTO()
+                                                    if (!modbusTcp.IsConnect)
                                                     {
-                                                        isLastStep = true,
-                                                        SnTemp = sn1,
-                                                        StationCode = StationCode,
-                                                        WorkOrder = Global.WorkOrder,
-                                                        PassStationData = dto
-                                                    };
-                                                    await UploadData(passStationDto01);
+                                                        LogMgr.Instance.Error($"绕线机[{i + 1}]未连接");
 
-                                                    PassStationDTO passStationDto02 = new PassStationDTO()
+                                                        break;
+                                                    }
+                                                    modbusTcp.ReadUInt16(CoildAddress.CoilsState, out ushort state);
+
+                                                    if (state == 1 && isStart)
                                                     {
-                                                        isLastStep = true,
-                                                        SnTemp = sn2,
-                                                        StationCode = StationCode,
-                                                        WorkOrder = Global.WorkOrder,
-                                                        PassStationData = dto02
-                                                    };
-                                                    await UploadData(passStationDto02);
-                                                    isSendOver = true;
-                                                    break;
-                                                }
-                                                else if (state == 12)
-                                                {
-                                                    isStart = true;
-                                                    if (!isStart)
-                                                    {
-                                                        LogMgr.Instance.Debug("读取到绕线开始..State:12");
-                                                        //TODO 一直读取当前绕线张力值
+                                                        //停止
+                                                        LogMgr.Instance.Debug("读取到绕线停止..1");
+                                                        isFinish = true;
+
+                                                        CoildDataDto dto = new CoildDataDto();
+                                                        //运行中
+                                                        modbusTcp.ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
+                                                        dto.CoilsCurNum = coilsCurNum / 100;
+                                                        modbusTcp.ReadUInt32(CoildAddress.CoilsTargetNum, out uint coilsTargetNum);
+                                                        dto.CoilsTargetNum = coilsTargetNum / 100;
+
+                                                        /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
+                                                          dto.CoilsSpeed = coilsSpeed / 100;*/
+
+                                                        modbusTcp.ReadUInt32(CoildAddress.CoilsTimes, out uint times);
+                                                        dto.CoilsTimes = times / 100;
+
+                                                        //采集张力值 TODO 需要区分是A/B哪个工位
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
-
+                                                        //dto.TensionValueList=new List<double> { tension01/100 };
+                                                        CoildDataDto dto02 = new CoildDataDto(dto);
+                                                        //dto.TensionValue
                                                         tensionList_A.Add(tension01);
-
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
 
                                                         tensionList_B.Add(tension02);
+                                                        string tensionStr_A = string.Join(',', tensionList_A);
+                                                        dto.TensionValue = tensionStr_A;
+                                                        string tensionStr_B = string.Join(',', tensionList_B);
+                                                        dto02.TensionValue = tensionStr_B;
+                                                        //dto02.TensionValueList = new List<double> { tension02/100 };
+                                                        PassStationDTO passStationDto01 = new PassStationDTO()
+                                                        {
+                                                            isLastStep = true,
+                                                            SnTemp = sn1,
+                                                            StationCode = StationCode,
+                                                            WorkOrder = Global.WorkOrder,
+                                                            PassStationData = dto
+                                                        };
+                                                        await UploadData(passStationDto01);
 
+                                                        PassStationDTO passStationDto02 = new PassStationDTO()
+                                                        {
+                                                            isLastStep = true,
+                                                            SnTemp = sn2,
+                                                            StationCode = StationCode,
+                                                            WorkOrder = Global.WorkOrder,
+                                                            PassStationData = dto02
+                                                        };
+                                                        await UploadData(passStationDto02);
+                                                        isSendOver = true;
+                                                        break;
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    LogMgr.Instance.Info($"读取到绕线状态位:{state}");
-                                                }
-
-                                                if (sw.ElapsedMilliseconds > timeout)
-                                                {
-                                                    LogMgr.Instance.Info($"绕线机采集超时");
-                                                    if (!isSendOver)
+                                                    else if (state == 12)
                                                     {
-                                                        //TODO 假如数据没有上传完 这里需不需要上传
+                                                        isStart = true;
+                                                        if (!isStart)
+                                                        {
+                                                            LogMgr.Instance.Debug("读取到绕线开始..State:12");
+                                                            //TODO 一直读取当前绕线张力值
+                                                            modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
 
+                                                            tensionList_A.Add(tension01);
+
+                                                            modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
+
+                                                            tensionList_B.Add(tension02);
+
+                                                        }
                                                     }
-                                                    break;
+                                                    else
+                                                    {
+                                                        LogMgr.Instance.Info($"读取到绕线状态位:{state}");
+                                                    }
+
+                                                    if (sw.ElapsedMilliseconds > timeout)
+                                                    {
+                                                        LogMgr.Instance.Info($"绕线机采集超时");
+                                                        if (!isSendOver)
+                                                        {
+                                                            //TODO 假如数据没有上传完 这里需不需要上传
+
+                                                        }
+                                                        break;
+                                                    }
+                                                    Thread.Sleep(1000);
                                                 }
-                                                Thread.Sleep(1000);
+                                                LogMgr.Instance.Debug("绕线完成..");
                                             }
-                                            LogMgr.Instance.Debug("绕线完成..");
+                                            catch (Exception e)
+                                            {
+                                                LogMgr.Instance.Error($"绕线监控任务异常:{e.Message},{e.StackTrace}");
+                                            }
                                         });
                     }
                 }

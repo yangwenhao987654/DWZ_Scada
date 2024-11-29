@@ -45,7 +45,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// <summary>
         /// 绕线开始信号 上位机收到复位
         /// </summary>
-        public static readonly string Winding01Start = "M101";
+        public static readonly string Winding01Start = "D3110";
+
+        /// <summary>
+        /// 绕线开始信号 上位机收到复位
+        /// </summary>
+        public static readonly string Winding01Finish = "D3130";
 
 
         /// <summary>
@@ -53,18 +58,37 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// </summary>
         public static readonly List<string> WindingStartList = new List<string>()
         {
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
+            "D3110",
+            "D3111",
+            "D3112",
+            "D3113",
+            "D3114",
+            "D3115",
+            "D3116",
+            "D3117",
+            "D3118",
+            "D3119",
+            "D3120",
+            "D3121"
+        };
+
+        /// <summary>
+        /// 绕线开始信号 上位机收到复位
+        /// </summary>
+        public static readonly List<string> WindingFinishList = new List<string>()
+        {
+            "D3130",
+            "D3131",
+            "D3132",
+            "D3133",
+            "D3134",
+            "D3135",
+            "D3136",
+            "D3137",
+            "D3138",
+            "D3139",
+            "D3140",
+            "D3141"
         };
 
         /// <summary>
