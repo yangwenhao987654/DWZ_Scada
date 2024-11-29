@@ -148,29 +148,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     break;
 
             }
-            /*            lbl_1_A.Text = arr[0].ToString();
-                        lbl_1_B.Text = arr[1].ToString();
-                        lbl_1_C.Text = arr[2].ToString();
-
-                        lbl_2_A.Text = arr[3].ToString();
-                        lbl_2_B.Text = arr[4].ToString();
-                        lbl_2_C.Text = arr[5].ToString();
-
-                        lbl_3_A.Text = arr[6].ToString();
-                        lbl_3_B.Text = arr[7].ToString();
-                        lbl_3_C.Text = arr[8].ToString();
-
-                        lbl_4_A.Text = arr[9].ToString();
-                        lbl_4_B.Text = arr[10].ToString();
-                        lbl_4_C.Text = arr[11].ToString();
-
-                        lbl_5_A.Text = arr[12].ToString();
-                        lbl_5_B.Text = arr[13].ToString();
-                        lbl_5_C.Text = arr[14].ToString();
-
-                        lbl_6_A.Text = arr[15].ToString();
-                        lbl_6_B.Text = arr[16].ToString();
-                        lbl_6_C.Text = arr[17].ToString();*/
         }
 
         private void Instance_OnWeldingFinished(string sn, int result)

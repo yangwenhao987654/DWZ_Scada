@@ -180,7 +180,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 {
                     PLC.WriteInt16(OP30Address.EntrySignal, 0);
                     PLC.Read(OP30Address.EntrySn, "string-8", out string sn);
-                    OP30EntryStateChanged?.Invoke(sn, 0);
+                    OP30EntryStateChanged?.Invoke(sn, 0,"");
                     EntryRequestDTO requestDto = new()
                     {
                         SnTemp = sn,

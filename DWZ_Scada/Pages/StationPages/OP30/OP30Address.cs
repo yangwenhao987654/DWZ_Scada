@@ -31,7 +31,7 @@
         /// <summary>
         /// 视觉SN
         /// </summary>
-        public static readonly string VisionSn = "D1110";
+        public static readonly string VisionSn = "D1100";
 
         /// <summary>
         /// 绕线视觉检测结果
@@ -52,16 +52,5 @@
         /// </summary>
         public static string State = "D3000";
 
-        /// <summary>
-        /// 点检模式地址
-        /// </summary>
-        public static string SpotCheck = "D3030";
-
-
-      
-
-
-
-        public static string HeartBeat = "D3010";
     }
 }

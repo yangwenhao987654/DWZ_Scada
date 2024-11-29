@@ -276,7 +276,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 }
                 catch (Exception e)
                 {
-                    LogMgr.Instance.Error("画像检测线程错误:" + e.Message);
+                    LogMgr.Instance.Error($"画像检测线程错误: [{ e.Message}] \n异常堆栈:{e.StackTrace}");
                 }
             }
         }

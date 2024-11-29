@@ -31,13 +31,13 @@
             components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
             uiPanel1 = new Sunny.UI.UIPanel();
+            uiPanel2 = new Sunny.UI.UIPanel();
             myLogCtrl1 = new ctrls.MyLogCtrl();
             op30CtrlResult_Vision1 = new DIPTest.Ctrl.UserCtrlResult();
             Op30CtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             workOrderCtrl1 = new ctrls.workOrderCtrl();
-            uiPanel2 = new Sunny.UI.UIPanel();
             uiPanel1.SuspendLayout();
             uiPanel2.SuspendLayout();
             SuspendLayout();
@@ -71,6 +71,19 @@
             uiPanel1.TabIndex = 1;
             uiPanel1.Text = null;
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiPanel2
+            // 
+            uiPanel2.Controls.Add(myLogCtrl1);
+            uiPanel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiPanel2.Location = new System.Drawing.Point(58, 295);
+            uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
+            uiPanel2.Name = "uiPanel2";
+            uiPanel2.Size = new System.Drawing.Size(1075, 285);
+            uiPanel2.TabIndex = 24;
+            uiPanel2.Text = "uiPanel2";
+            uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // myLogCtrl1
             // 
@@ -146,19 +159,6 @@
             workOrderCtrl1.SpotEnable = false;
             workOrderCtrl1.TabIndex = 2;
             // 
-            // uiPanel2
-            // 
-            uiPanel2.Controls.Add(myLogCtrl1);
-            uiPanel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel2.Location = new System.Drawing.Point(58, 295);
-            uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
-            uiPanel2.Name = "uiPanel2";
-            uiPanel2.Size = new System.Drawing.Size(1075, 285);
-            uiPanel2.TabIndex = 24;
-            uiPanel2.Text = "uiPanel2";
-            uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // PageOP30
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -181,11 +181,9 @@
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private DIPTest.Ctrl.UserCtrlResult userCtrlResult_OP30;
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
-        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP30;
         private DIPTest.Ctrl.UserCtrlEntry Op30CtrlEntry1;
         private DIPTest.Ctrl.UserCtrlResult op30CtrlResult_Vision1;
         private ctrls.MyLogCtrl myLogCtrl1;
