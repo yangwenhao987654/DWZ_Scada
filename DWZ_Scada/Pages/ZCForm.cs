@@ -99,10 +99,10 @@ namespace DWZ_Scada.Pages
             lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             InitializeLogo();
-            if (!string.IsNullOrEmpty(SystemParams.Instance.CompanyName))
+         /*   if (!string.IsNullOrEmpty(SystemParams.Instance.CompanyName))
             {
                 lbl_CompanyName.Text = SystemParams.Instance.CompanyName;
-            }
+            }*/
 
             lbl_DeviceCompany.Text = SystemParams.Instance.DeviceCompany;
             lbl_DeviceName.Text = SystemParams.Instance.DeviceName;

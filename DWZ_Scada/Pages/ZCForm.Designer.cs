@@ -51,7 +51,6 @@ namespace DWZ_Scada.Pages
             uiLabel7 = new Sunny.UI.UILabel();
             uiTableLayoutPanel4 = new Sunny.UI.UITableLayoutPanel();
             panel2 = new System.Windows.Forms.Panel();
-            lbl_CompanyName = new Sunny.UI.UILabel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             panel1 = new System.Windows.Forms.Panel();
             lbl_Version = new Sunny.UI.UILabel();
@@ -305,16 +304,15 @@ namespace DWZ_Scada.Pages
             // uiTableLayoutPanel4
             // 
             uiTableLayoutPanel4.BackColor = System.Drawing.Color.Transparent;
-            uiTableLayoutPanel4.ColumnCount = 2;
-            uiTableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.7220535F));
-            uiTableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.27795F));
-            uiTableLayoutPanel4.Controls.Add(panel2, 1, 0);
-            uiTableLayoutPanel4.Controls.Add(pictureBox1, 0, 0);
-            uiTableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            uiTableLayoutPanel4.ColumnCount = 1;
+            uiTableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            uiTableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            uiTableLayoutPanel4.Controls.Add(panel2, 0, 0);
+            uiTableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             uiTableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             uiTableLayoutPanel4.Name = "uiTableLayoutPanel4";
             uiTableLayoutPanel4.RowCount = 1;
-            uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            uiTableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             uiTableLayoutPanel4.Size = new System.Drawing.Size(229, 109);
             uiTableLayoutPanel4.TabIndex = 0;
             uiTableLayoutPanel4.TagString = null;
@@ -322,32 +320,20 @@ namespace DWZ_Scada.Pages
             // panel2
             // 
             panel2.BackColor = System.Drawing.Color.Transparent;
-            panel2.Controls.Add(lbl_CompanyName);
+            panel2.Controls.Add(pictureBox1);
             panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(75, 3);
+            panel2.Location = new System.Drawing.Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(151, 103);
+            panel2.Size = new System.Drawing.Size(223, 103);
             panel2.TabIndex = 2;
-            // 
-            // lbl_CompanyName
-            // 
-            lbl_CompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
-            lbl_CompanyName.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            lbl_CompanyName.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_CompanyName.Location = new System.Drawing.Point(0, 0);
-            lbl_CompanyName.Name = "lbl_CompanyName";
-            lbl_CompanyName.Size = new System.Drawing.Size(151, 103);
-            lbl_CompanyName.TabIndex = 0;
-            lbl_CompanyName.Text = "中昌智能";
-            lbl_CompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
             pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(3, 15);
+            pictureBox1.Location = new System.Drawing.Point(3, 6);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(66, 79);
+            pictureBox1.Size = new System.Drawing.Size(217, 79);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -659,7 +645,6 @@ namespace DWZ_Scada.Pages
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private Sunny.UI.UILabel lbl_CompanyName;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel uiLabel4;
         private Sunny.UI.UILabel uiLabel3;

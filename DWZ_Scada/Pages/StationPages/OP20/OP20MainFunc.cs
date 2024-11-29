@@ -335,14 +335,22 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     {
                         //绕线机开始
                         LogMgr.Instance.Info($"收到绕线[{i+1}]开始...");
+
+                        if (ModbusTcpList[i] == null)
+                        {
+                            Logger.Error("绕线机未连接");
+                            return;
+                        }
                         PLC.WriteInt16(OP20Address.WindingStartList[i], 0);
 
+
+                        int index = i;
                         Task task = Task.Run(async () =>
                                         {
                                             try
                                             {
                                                 //TODO 读取两次绕线的SN码
-                                                int index = i;
+                                               
                                                 PLC.Read(OP20Address.SNAddrList[index * 2], "string-8", out string sn1);
                                                 PLC.Read(OP20Address.SNAddrList[(index * 2) + 1], "string-8", out string sn2);
 
@@ -360,7 +368,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                     timeout = 60 * 1;
                                                 }
                                                 bool isSendOver = false;
-                                                ModbusTCP modbusTcp = ModbusTcpList[i];
+                                                ModbusTCP modbusTcp = ModbusTcpList[index];
                                                 List<short> tensionList_A = new List<short>();
                                                 List<short> tensionList_B = new List<short>();
                                                 //string str = string.Join(",", doubles);
@@ -369,7 +377,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                 {
                                                     if (!modbusTcp.IsConnect)
                                                     {
-                                                        LogMgr.Instance.Error($"绕线机[{i + 1}]未连接");
+                                                        LogMgr.Instance.Error($"绕线机[{index + 1}]未连接");
 
                                                         break;
                                                     }

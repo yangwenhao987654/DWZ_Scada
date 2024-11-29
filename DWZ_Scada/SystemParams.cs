@@ -125,6 +125,8 @@ namespace DWZ_Scada
         [DisplayName("A.Logo文件路径"), Category("A.其他配置"), Description("主页公司Logo图片路径")]
         public string LogoFilePath { get; set; }
 
+
+        [Browsable(false)]
         [Permission(3), ReadOnly(false)]
         [DisplayName("B.公司名称"), Category("A.其他配置"), Description("主页公司名称展示")]
         public string CompanyName { get; set; }
