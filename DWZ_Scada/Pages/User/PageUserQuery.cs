@@ -1,4 +1,5 @@
-﻿using ScadaBase.DAL.DBContext;
+﻿using DWZ_Scada;
+using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
 using SJTU_UI.Pages.User;
 using Sunny.UI;
@@ -183,6 +184,13 @@ namespace AutoTF.Pages.Query
         private void uiButton2_Click(object sender, EventArgs e)
         {
             //新建用户
+
+            bool flag = SystemParams.Instance.OpLvl == UserPermissionControl.SuperLvl;
+            if (!flag)
+            {
+                UIMessageBox.ShowError("当前登录账号权限不足！");
+                return;
+            }
             FormUserEditor userEditor = new FormUserEditor();
             userEditor.ShowDialog();
             InitTable();
@@ -194,6 +202,12 @@ namespace AutoTF.Pages.Query
             if (selectedIndex < 0)
             {
                 UIMessageBox.Show("请先选中要操作的数据行");
+                return;
+            }
+            bool flag = SystemParams.Instance.OpLvl == UserPermissionControl.SuperLvl;
+            if (!flag)
+            {
+                UIMessageBox.ShowError("当前登录账号权限不足！");
                 return;
             }
             int userId = (int)uiDataGridView1.Rows[selectedIndex].Cells[5].Value;
@@ -237,6 +251,12 @@ namespace AutoTF.Pages.Query
             if (selectedIndex < 0)
             {
                 UIMessageBox.Show("请先选中要操作的数据行");
+                return;
+            }
+            bool flag = SystemParams.Instance.OpLvl == UserPermissionControl.SuperLvl;
+            if (!flag)
+            {
+                UIMessageBox.ShowError("当前登录账号权限不足！");
                 return;
             }
             int ID = (int)uiDataGridView1.Rows[selectedIndex].Cells[5].Value;
