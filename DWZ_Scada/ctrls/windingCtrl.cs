@@ -27,7 +27,7 @@ namespace DWZ_Scada.ctrls
         }
 
 
-        public int  Index { get; set; }
+        public int Index { get; set; }
         public bool IsEnable { get; set; }
 
         private Timer timer;
@@ -139,7 +139,7 @@ namespace DWZ_Scada.ctrls
         public void Running()
         {
             //这里已经保证切换到UI线程了
-            Color color = Color.Yellow;
+            Color color = Color.Green;
             if (InvokeRequired)
             {
                 BeginInvoke(updateBackColor, color);
@@ -152,6 +152,19 @@ namespace DWZ_Scada.ctrls
             sw.Start();
         }
 
+
+        public void SetSN(string sn1,string sn2)
+        {
+            //这里已经保证切换到UI线程了
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(SetSN, sn1,sn2);
+                return;
+            }
+            lblSN1.Text = sn1;
+            lblSN2.Text = sn2;
+        }
         public void StopTest()
         {
             Color color = Color.Aqua;
@@ -165,7 +178,7 @@ namespace DWZ_Scada.ctrls
 
         public void Wait()
         {
-            Color color = Color.Green;
+            Color color = Color.DarkGray;
             if (InvokeRequired)
             {
                 BeginInvoke(updateBackColor, color);
@@ -243,7 +256,7 @@ namespace DWZ_Scada.ctrls
             {
                 return;
             }
-            IsEnable =true;
+            IsEnable = true;
             SystemParams.Instance.OP20_WeldingEnableList[Index] = true;
             UpdateState(-1);
         }

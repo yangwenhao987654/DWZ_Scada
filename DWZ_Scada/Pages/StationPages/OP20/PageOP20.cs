@@ -6,10 +6,12 @@ using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
@@ -90,7 +92,25 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             OP20MainFunc.Instance.OnWeldingStateChangedAction += Instance_OnWeldingStateChangedAction;
             OP20MainFunc.Instance.OnEntryStateChanged01 += Instance_OnEntryStateChanged01;
             OP20MainFunc.Instance.OnEntryStateChanged02 += Instance_OnEntryStateChanged02;
-         
+
+            OP20MainFunc.Instance.OnWeldingStart += Instance_OnWeldingStart;
+        }
+
+        private void Instance_OnWeldingStart(int index, string sn1, string sn2)
+        {
+            UpdateWeldingSn(index, sn1,sn2);
+        }
+
+        private void UpdateWeldingSn(int index, string sn1 ,string sn2)
+        {
+            /*   if (InvokeRequired)
+               {
+                   //TODO 关闭软件 这里报错 好几次了
+                   this.Invoke(new Action(()=>UpdateWeldingStateLight(index, state)));
+                   //this.Invoke(new Action<int, int>(UpdateWeldingStateLight), index, state);
+                   return;
+               }*/
+            WindingCtrlList[index].SetSN(sn1,sn2);
         }
 
         private void Instance_OnEntryStateChanged02(string sn, int result, string msg = "")
