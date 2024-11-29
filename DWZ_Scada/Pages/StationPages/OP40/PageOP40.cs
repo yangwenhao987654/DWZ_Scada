@@ -1,4 +1,5 @@
-﻿using DWZ_Scada.Pages.PLCAlarm;
+﻿using DWZ_Scada.ctrls.LogCtrl;
+using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
@@ -6,6 +7,7 @@ using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
+using Newtonsoft.Json.Linq;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -45,6 +47,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
+
             LogMgr.Instance.Debug($"打开OP40工站");
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
@@ -114,6 +117,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 Invoke(new Action(() => UpdateWeldingData(arr, type)));
                 return;
             }
+            string values = string.Join(",", arr);
+            LogMgr.Instance.Debug($"气体[{type}]:{values}");
             switch (type)
             {
                 case "A":

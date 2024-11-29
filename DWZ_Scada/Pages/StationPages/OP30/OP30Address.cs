@@ -44,9 +44,6 @@
         /// </summary>
         public static readonly string VisionOut = "D3201";
 
-     
-
-
         /// <summary>
         /// 读取PLC状态地址
         /// </summary>

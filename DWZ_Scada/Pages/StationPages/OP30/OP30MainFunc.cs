@@ -154,7 +154,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                     StationCode = StationCode,
                     SnTemp = sn,
                     WorkOrder = Global.WorkOrder,
-                    PassStationData = new OP10Vision1Data()
+                    PassStationData = new OP30Vision1Data()
                     {
                         Vision1Result = visionResult,
                         Good = visionResult,
@@ -180,6 +180,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 {
                     PLC.WriteInt16(OP30Address.EntrySignal, 0);
                     PLC.Read(OP30Address.EntrySn, "string-8", out string sn);
+                    Logger.Debug($"读取进站二维码:[{sn}]");
                     OP30EntryStateChanged?.Invoke(sn, 0,"");
                     EntryRequestDTO requestDto = new()
                     {

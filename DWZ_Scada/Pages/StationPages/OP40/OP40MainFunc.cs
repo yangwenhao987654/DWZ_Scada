@@ -462,7 +462,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 (bool res, string msg) = await UploadData(dto);
                 if (res == false)
                 {
-                    Mylog.Instance.Alarm("上传焊接数据错误:" + msg);
+                    Logger.Error("上传焊接数据错误:" + msg);
                 }
             }
         }
