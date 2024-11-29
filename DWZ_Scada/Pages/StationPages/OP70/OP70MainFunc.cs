@@ -48,6 +48,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
         }
 
 
+        private string curEntrySN;
+
         public  event TestStateChanged OnVision1Finished;
 
         public OP70MainFunc(PLCConfig PLCConfig) : base(PLCConfig)
@@ -139,7 +141,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 {
                     StationCode = StationCode,
                     SnTemp = sn,
-                    WorkOrder = CurWorkOrder,
+                    WorkOrder = Global.WorkOrder,
                     PassStationData = new OP10Vision1Data()
                     {
                         Vision1Result = visionResult,
@@ -164,12 +166,12 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 LogMgr.Instance.Debug("收到[OP70]最终码打印完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP70Address.FinalCodeFinish,  0);
-                PLC.Read(OP70Address.FinalCodeInfo, "string-8", out string sn);
-                LogMgr.Instance.Debug("读取最终码内容:" + sn);
+                PLC.Read(OP70Address.FinalCodeInfo, "string-30", out string finalCode);
+                LogMgr.Instance.Debug("读取最终码内容:" + finalCode);
                 //最终码内容
-                PLC.Read(OP70Address.FinalCodeInfo, "string-20",out string finalCode);
+                //PLC.Read(OP70Address.FinalCodeInfo, "string-20",out string finalCode);
                 //最终码等级
-                PLC.Read(OP70Address.FinalCodeType, "string-10", out string finalCodeType);
+                PLC.Read(OP70Address.FinalCodeType, "string-1", out string finalCodeType);
                 //显示最终码和等级 结果
                
                 bool finalResult = CheckFinalCodeType(finalCodeType);
@@ -179,8 +181,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 PassStationDTO dto = new PassStationDTO()
                 {
                     StationCode = StationCode,
-                    SnTemp = sn,
-                    WorkOrder = CurWorkOrder,
+                    SnTemp = curEntrySN,
+                    WorkOrder = Global.WorkOrder,
                     PassStationData = new FinalCodeData()
                     {
                         Good = finalResult,
@@ -229,8 +231,11 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 OP70EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {
-                    SnTemp = sn, StationCode = StationCode, WorkOrder = CurWorkOrder
+                    SnTemp = sn, 
+                    StationCode = StationCode, 
+                    WorkOrder = Global.WorkOrder
                 };
+                curEntrySN = sn;
                 EntryRequestService entryRequestService =
                     Global.ServiceProvider.GetRequiredService<EntryRequestService>();
                 (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);

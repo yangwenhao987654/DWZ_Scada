@@ -245,7 +245,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 {
                     SnTemp = sn,
                     StationCode = StationCode,
-                    WorkOrder = CurWorkOrder,
+                    WorkOrder = Global.WorkOrder,
                 };
                 (bool flag, string msg) = await EntryRequest(requestDto);
              /*   bool flag = true;
@@ -310,7 +310,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 SnTemp = sn,
                 StationCode = StationCode,
-                WorkOrder = CurWorkOrder,
+                WorkOrder = Global.WorkOrder,
                 PassStationData = dto,
                 isLastStep = false,
             };
@@ -353,7 +353,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 SnTemp = sn,
                 StationCode = StationCode,
-                WorkOrder = CurWorkOrder,
+                WorkOrder = Global.WorkOrder,
                 PassStationData = dto,
                 isLastStep = true,
             };
