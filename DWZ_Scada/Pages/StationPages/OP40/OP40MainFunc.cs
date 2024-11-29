@@ -511,7 +511,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     StationCode = StationCode,
                     SnTemp = sn,
                     WorkOrder = Global.WorkOrder,
-                    PassStationData = new OP10Vision1Data()
+                    PassStationData = new OP40Vision1Data()
                     {
                         Vision1Result = visionResult,
                         Good = visionResult,
@@ -521,7 +521,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 (bool res, string msg) = await UploadData(dto);
                 if (res == false)
                 {
-                    Mylog.Instance.Alarm("上传视觉数据错误:" + msg);
+                    Logger.Error("上传视觉数据错误:" + msg);
                 }
                 LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result == 1 ? "OK" : "NG")}");
                 PLC.WriteInt16(OP40Address.VisionOut,  result);
