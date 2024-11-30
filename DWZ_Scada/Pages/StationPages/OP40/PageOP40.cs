@@ -93,8 +93,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             else
             {
                 //换算压力
-                double v = value / 10000 * (20 - 0) + 0;
-                lbl_Pressure.Text = $"{v:F1}Mpa";
+                double v = (double)((double)value / 10000 )* 20;
+                lbl_Pressure.Text = $"{v:F4}Mpa";
             }
         }
 

@@ -554,7 +554,7 @@
             lbl_Pressure.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             lbl_Pressure.Location = new System.Drawing.Point(616, 713);
             lbl_Pressure.Name = "lbl_Pressure";
-            lbl_Pressure.Size = new System.Drawing.Size(148, 30);
+            lbl_Pressure.Size = new System.Drawing.Size(209, 30);
             lbl_Pressure.TabIndex = 72;
             lbl_Pressure.Text = "0";
             // 

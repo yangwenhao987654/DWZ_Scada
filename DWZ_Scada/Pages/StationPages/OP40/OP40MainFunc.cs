@@ -98,7 +98,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         private void TemperatureMonitor(CancellationToken token)
         {
-            modbusTcp02?.SetRecivedTimeout(300);
+            modbusTcp02?.SetRecivedTimeout(1000);
             while (!token.IsCancellationRequested)
             {
                 try
@@ -125,6 +125,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
                         modbusTcp02.SetStation(1);
                         modbusTcp02.ReadInt16("4", out short pressure);
+                        LogMgr.Instance.Debug($"ModbusTCP-读取压力结果:{pressure}");
                         OnPressureRecived?.Invoke(pressure);
                     }
                     else
