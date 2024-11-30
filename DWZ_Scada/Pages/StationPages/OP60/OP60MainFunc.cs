@@ -97,9 +97,9 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         public override async void PLCMainWork(CancellationToken token)
         {
-            //进站信号
-            bool isEntry;
-            OP60Model model = new OP60Model();
+
+            Thread t0 = new Thread(() => TestDeviceMonitor(token));
+            t0.Start();
 
             Thread t1 = new Thread(() => SafetyTestMonitor(token));
             t1.Start();
@@ -524,7 +524,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     PageOP60.Instance.StartTestUI(3, sn1);
                     Task task1 = Task.Run(async () =>
                     {
-
                         try
                         {
 
@@ -559,7 +558,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     Mylog.Instance.Error("异步执行电性能测试1错误:" + ex.Message);
                     Logger.Error("错误堆栈:" + ex.StackTrace);
                 }
-
             }
         }
 
@@ -622,33 +620,12 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             return readFlag ? state : -1;
         }
 
-        protected override void ConnStatusMonitor(CancellationToken token)
+        private  void TestDeviceMonitor(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
                 try
                 {
-                    if (!IsPlc_Connected)
-                    {
-                        PlcState = PlcState.OffLine;
-                        //全局PLC连接配置
-                        Logger.Info("PLC连接中");
-                        bool flag = PLC.Connect(GetPLCIP(), GetPLCPort());
-                        if (flag)
-                        {
-                            IsPlc_Connected = true;
-                            Logger.Debug("PLC连接成功");
-                        }
-                        else
-                        {
-                            IsPlc_Connected = false;
-                            Logger.Error("PLC连接失败:");
-                        }
-                    }
-                    else
-                    {
-                        PLC.Write(OP60Address.HeartBeat, "int", 1);
-                    }
                     if (!GlobalOP60.IsOpenDebugTCPDevice)
                     {
                         CheckDeviceConnState(SafetyDevice1, SystemParams.Instance.OP60_Safety_01_IP, SystemParams.Instance.OP60_Safety_01_Port);
@@ -665,12 +642,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                         AtlBrxDevice1?.Disconnect();
                         AtlBrxDevice2?.Disconnect();
                     }
-
-                    ZCForm.Instance.UpdatePlcState(PlcState);
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("PLC监控线程错误:" + ex.Message);
+                    Logger.Error("电控设备监控线程错误:" + ex.Message);
                 }
                 Thread.Sleep(1000);
             }

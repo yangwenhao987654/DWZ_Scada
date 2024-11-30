@@ -548,7 +548,8 @@ namespace DWZ_Scada.Pages.StationPages
                     }
                     else
                     {
-                        PLC.Write(OP10Address.HeartBeat, "int", 1);
+                        bool f = PLC.Write(OP10Address.HeartBeat, "int", 1);
+                        //Logger.Debug($"写心跳1:[{f}]");
                     }
 
                     ZCForm.Instance.UpdatePlcState(PlcState);
