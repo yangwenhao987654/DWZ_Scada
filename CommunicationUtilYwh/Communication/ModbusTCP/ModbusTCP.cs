@@ -56,6 +56,21 @@ public class ModbusTCP : MyPlc
         client?.ConnectClose();
     }
 
+    public void SetRecivedTimeout(int milltime)
+    {
+        if (client!=null)
+        {
+            client.ReceiveTimeOut = milltime;
+        }
+    }
+    public void SetStation(byte station)
+    {
+        if (client != null)
+        {
+            client.Station = station;
+        }
+    }
+
     public (bool, string) Open(string IP, int port, byte station)
     {
         // 连接
@@ -70,6 +85,7 @@ public class ModbusTCP : MyPlc
         client.AddressStartWithZero = true;
         client.DataFormat = DataFormat.CDAB;
         client.IsStringReverse = false;
+        client.ReceiveTimeOut = 300;
         try
         {
             var connect = client.ConnectServer();

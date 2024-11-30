@@ -85,7 +85,17 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 this.Invoke(new Action<short>(UpdatePressure), value);
                 return;
             }
-            lbl_Pressure.Text = value.ToString();
+
+            if (value <= 0)
+            {
+                lbl_Pressure.Text = $"{value}Mpa";
+            }
+            else
+            {
+                //换算压力
+                double v = value / 10000 * (20 - 0) + 0;
+                lbl_Pressure.Text = $"{v:F1}Mpa";
+            }
         }
 
         private void Instance_OnTemperatureRecived(double temperature, double humidity)

@@ -74,7 +74,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             StationCode = "OP40";
             //Logger.AddChargeInfo("执行大电流放电");
         }
-
+        //ModbusTCP modbusTcp01 = new ModbusTCP();
         ModbusTCP modbusTcp02 = new ModbusTCP();
         protected override string GetPLCIP()
         {
@@ -98,7 +98,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         private void TemperatureMonitor(CancellationToken token)
         {
-
+            modbusTcp02?.SetRecivedTimeout(300);
             while (!token.IsCancellationRequested)
             {
                 try
@@ -106,6 +106,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     if (modbusTcp02.IsConnect)
                     {
                         //连接成功
+                        modbusTcp02.SetStation(2);
                         double humidity = ReadHumidity(modbusTcp02);
                         double temperature =ReadTemperature(modbusTcp02);
                         //获取到温度和湿度
@@ -118,12 +119,12 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                         //实时显示温度和湿度
                         OnTemperatureRecived?.Invoke(temperature, humidity);
 
-                        //连接成功
-                        modbusTcp02.ReadInt16("4", out short pressure);
-                        //获取到温度和湿度
-
                         //实时显示温度和湿度
                         //数值给PLC
+                        //OnPressureRecived?.Invoke(pressure);
+
+                        modbusTcp02.SetStation(1);
+                        modbusTcp02.ReadInt16("4", out short pressure);
                         OnPressureRecived?.Invoke(pressure);
                     }
                     else
@@ -139,6 +140,35 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 Thread.Sleep(1000);
             }
             modbusTcp02?.Dispose();
+        }
+
+
+        private void PressureMonitor(CancellationToken token)
+        {
+
+           /* while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (modbusTcp01.IsConnect)
+                    {
+                        modbusTcp01.ReadInt16("4", out short pressure);
+
+                        OnPressureRecived?.Invoke(pressure);
+                    }
+                    else
+                    {
+                        modbusTcp01.Open(SystemParams.Instance.OP40_ModbusIP, SystemParams.Instance.OP40_ModbusPort, 1);
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error($"ModbusTCP-温度采集线程出错:{e.Message},{e.StackTrace}");
+                    //LogMgr.Instance.Error($"温度采集线程出错:{e.Message}");
+                }
+                Thread.Sleep(1000);
+            }
+            modbusTcp02?.Dispose();*/
         }
 
         /// <summary>
@@ -232,8 +262,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             Thread t3 = new Thread(() => TemperatureMonitor(token));
             t3.Start();
 
-        /*    Thread t4 = new Thread(() => ModbusTCP_PressureMonitor(token));
-            t4.Start();*/
+            Thread t4 = new Thread(() => PressureMonitor(token));
+            t4.Start();
             while (!token.IsCancellationRequested)
             {
                 try
