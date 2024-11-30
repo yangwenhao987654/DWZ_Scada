@@ -38,8 +38,8 @@
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel9 = new Sunny.UI.UILabel();
             userCtrlResult1 = new DIPTest.Ctrl.UserCtrlResult();
-            userCtrlResult2 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlResult3 = new DIPTest.Ctrl.UserCtrlResult();
+            userCtrlResult2 = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlResult4 = new DIPTest.Ctrl.UserCtrlResult();
             uiLight1 = new Sunny.UI.UILight();
             uiLight2 = new Sunny.UI.UILight();
@@ -47,7 +47,7 @@
             uiLight4 = new Sunny.UI.UILight();
             userCtrlEntry1 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel2 = new Sunny.UI.UILabel();
-            workOrderCtrl1 = new ctrls.workOrderCtrl();
+            workOrderCtrlWithoutPart1 = new ctrls.workOrderCtrlWithoutPart();
             uiPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             // btn_Test
             // 
             btn_Test.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Location = new System.Drawing.Point(1113, 112);
+            btn_Test.Location = new System.Drawing.Point(1042, 193);
             btn_Test.MinimumSize = new System.Drawing.Size(1, 1);
             btn_Test.Name = "btn_Test";
             btn_Test.Size = new System.Drawing.Size(111, 52);
@@ -164,25 +164,25 @@
             userCtrlResult1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             userCtrlResult1.Load += userCtrlResult1_Load;
             // 
-            // userCtrlResult2
-            // 
-            userCtrlResult2.Location = new System.Drawing.Point(635, 456);
-            userCtrlResult2.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlResult2.Name = "userCtrlResult2";
-            userCtrlResult2.Size = new System.Drawing.Size(276, 168);
-            userCtrlResult2.TabIndex = 61;
-            userCtrlResult2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlResult2.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
-            // 
             // userCtrlResult3
             // 
-            userCtrlResult3.Location = new System.Drawing.Point(315, 456);
+            userCtrlResult3.Location = new System.Drawing.Point(635, 456);
             userCtrlResult3.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult3.Name = "userCtrlResult3";
             userCtrlResult3.Size = new System.Drawing.Size(276, 168);
-            userCtrlResult3.TabIndex = 62;
+            userCtrlResult3.TabIndex = 61;
             userCtrlResult3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlResult3.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            // 
+            // userCtrlResult2
+            // 
+            userCtrlResult2.Location = new System.Drawing.Point(315, 456);
+            userCtrlResult2.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlResult2.Name = "userCtrlResult2";
+            userCtrlResult2.Size = new System.Drawing.Size(276, 168);
+            userCtrlResult2.TabIndex = 62;
+            userCtrlResult2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlResult2.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // userCtrlResult4
             // 
@@ -263,27 +263,26 @@
             uiLabel2.TabIndex = 69;
             uiLabel2.Text = "产品进站:";
             // 
-            // workOrderCtrl1
+            // workOrderCtrlWithoutPart1
             // 
-            workOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
-            workOrderCtrl1.CurPartNo = "";
-            workOrderCtrl1.CurProductCode = "";
-            workOrderCtrl1.CurProductName = "";
-            workOrderCtrl1.CurWorkOrderNo = "";
-            workOrderCtrl1.IsCheckPass = false;
-            workOrderCtrl1.Location = new System.Drawing.Point(22, 62);
-            workOrderCtrl1.Name = "workOrderCtrl1";
-            workOrderCtrl1.Orders = null;
-            workOrderCtrl1.ProductBomList = null;
-            workOrderCtrl1.Size = new System.Drawing.Size(1065, 113);
-            workOrderCtrl1.SpotEnable = false;
-            workOrderCtrl1.TabIndex = 70;
+            workOrderCtrlWithoutPart1.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrlWithoutPart1.CurPartNo = "";
+            workOrderCtrlWithoutPart1.CurProductCode = "";
+            workOrderCtrlWithoutPart1.CurProductName = "";
+            workOrderCtrlWithoutPart1.CurWorkOrderNo = "";
+            workOrderCtrlWithoutPart1.IsCheckPass = false;
+            workOrderCtrlWithoutPart1.Location = new System.Drawing.Point(24, 79);
+            workOrderCtrlWithoutPart1.Name = "workOrderCtrlWithoutPart1";
+            workOrderCtrlWithoutPart1.Orders = null;
+            workOrderCtrlWithoutPart1.Size = new System.Drawing.Size(1164, 75);
+            workOrderCtrlWithoutPart1.SpotEnable = false;
+            workOrderCtrlWithoutPart1.TabIndex = 70;
             // 
             // PageOP60
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
-            Controls.Add(workOrderCtrl1);
+            Controls.Add(workOrderCtrlWithoutPart1);
             Controls.Add(uiLabel2);
             Controls.Add(userCtrlEntry1);
             Controls.Add(uiLight4);
@@ -291,8 +290,8 @@
             Controls.Add(uiLight2);
             Controls.Add(uiLight1);
             Controls.Add(userCtrlResult4);
-            Controls.Add(userCtrlResult3);
             Controls.Add(userCtrlResult2);
+            Controls.Add(userCtrlResult3);
             Controls.Add(userCtrlResult1);
             Controls.Add(uiPanel1);
             Controls.Add(uiLabel11);
@@ -322,8 +321,8 @@
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UILabel uiLabel9;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult1;
-        private DIPTest.Ctrl.UserCtrlResult userCtrlResult2;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult3;
+        private DIPTest.Ctrl.UserCtrlResult userCtrlResult2;
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult4;
         private Sunny.UI.UILight uiLight1;
         private Sunny.UI.UILight uiLight2;
@@ -331,6 +330,6 @@
         private Sunny.UI.UILight uiLight4;
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry1;
         private Sunny.UI.UILabel uiLabel2;
-        private ctrls.workOrderCtrl workOrderCtrl1;
+        private ctrls.workOrderCtrlWithoutPart workOrderCtrlWithoutPart1;
     }
 }

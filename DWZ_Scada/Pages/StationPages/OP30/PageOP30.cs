@@ -92,5 +92,10 @@ namespace DWZ_Scada.Pages.StationPages.OP30
         {
 
         }
+
+        private void workOrderCtrl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

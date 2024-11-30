@@ -8,6 +8,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using ScadaBase.DAL.BLL;
 using ScadaBase.DAL.DBContext;
 using ScadaBase.DAL.Entity;
@@ -409,6 +410,58 @@ namespace DWZ_Scada.Pages.StationPages
             workOrderCtrl.SpotStateChanged += WorkOrderCtrl_SpotStateChanged;
 
             workOrderCtrl.ONSelectProductNoChanged += WorkOrderCtrl_ONSelectProductNoChanged;
+
+            workOrderCtrlWithoutPart.SpotStateChanged += WorkOrderCtrlWithoutPart_SpotStateChanged;
+
+            workOrderCtrlWithoutPart.ONSelectProductNoChanged += WorkOrderCtrlWithoutPart_ONSelectProductNoChanged;
+        }
+
+        private void WorkOrderCtrlWithoutPart_ONSelectProductNoChanged(int no)
+        {
+            if (!IsPlc_Connected)
+            {
+                Logger.Error("PLC未连接，型号切换错误");
+                return;
+            }
+            try
+            {
+                PLC.WriteInt16(OP10Address.Product, (short)no);
+                PLC.WriteInt16(OP10Address.ChangeProduct, 1);
+                UIMessageBox.Show("型号下发成功");
+            }
+            catch (Exception e)
+            {
+                UIMessageBox.ShowError($"下发plc切换型号错误,型号[{no}] 异常:{e.Message}");
+            }
+        }
+
+        private bool WorkOrderCtrlWithoutPart_SpotStateChanged(bool value)
+        {
+            if (!IsPlc_Connected)
+            {
+                Logger.Error("PLC未连接，点检切换错误");
+                return false;
+            }
+
+            try
+            {
+                if (value)
+                {
+                    //点检地址 DM3030 
+                    PLC.WriteInt16(OP10Address.SpotCheck, 1);
+                }
+                else
+                {
+                    PLC.WriteInt16(OP10Address.SpotCheck, 0);
+                }
+                IsSpotCheck = value;
+            }
+            catch (Exception e)
+            {
+                LogMgr.Instance.Error($"切换点检状态失败:{e.Message}");
+                return false;
+            }
+            return true;
         }
 
         private void WorkOrderCtrl_ONSelectProductNoChanged(int no)

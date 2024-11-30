@@ -72,13 +72,13 @@
             userCtrlResult_Welding = new DIPTest.Ctrl.UserCtrlResult();
             userCtrlEntry_OP40 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel8 = new Sunny.UI.UILabel();
-            workOrderCtrl1 = new ctrls.workOrderCtrl();
             lbl_humidity = new Sunny.UI.UILabel();
             lbl_temperature = new Sunny.UI.UILabel();
             uiLabel4 = new Sunny.UI.UILabel();
             uiLabel9 = new Sunny.UI.UILabel();
             lbl_Pressure = new Sunny.UI.UILabel();
             uiLabel11 = new Sunny.UI.UILabel();
+            workOrderCtrlWithoutPart1 = new ctrls.workOrderCtrlWithoutPart();
             SuspendLayout();
             // 
             // uiLabel1
@@ -508,22 +508,6 @@
             uiLabel8.Text = "OP40进站:";
             uiLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // workOrderCtrl1
-            // 
-            workOrderCtrl1.BackColor = System.Drawing.Color.Transparent;
-            workOrderCtrl1.CurPartNo = "";
-            workOrderCtrl1.CurProductCode = "";
-            workOrderCtrl1.CurProductName = "";
-            workOrderCtrl1.CurWorkOrderNo = "";
-            workOrderCtrl1.IsCheckPass = false;
-            workOrderCtrl1.Location = new System.Drawing.Point(12, 62);
-            workOrderCtrl1.Name = "workOrderCtrl1";
-            workOrderCtrl1.Orders = null;
-            workOrderCtrl1.ProductBomList = null;
-            workOrderCtrl1.Size = new System.Drawing.Size(1195, 113);
-            workOrderCtrl1.SpotEnable = false;
-            workOrderCtrl1.TabIndex = 66;
-            // 
             // lbl_humidity
             // 
             lbl_humidity.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
@@ -585,17 +569,32 @@
             uiLabel11.Text = "氩气瓶压力:";
             uiLabel11.Click += uiLabel11_Click;
             // 
+            // workOrderCtrlWithoutPart1
+            // 
+            workOrderCtrlWithoutPart1.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrlWithoutPart1.CurPartNo = "";
+            workOrderCtrlWithoutPart1.CurProductCode = "";
+            workOrderCtrlWithoutPart1.CurProductName = "";
+            workOrderCtrlWithoutPart1.CurWorkOrderNo = "";
+            workOrderCtrlWithoutPart1.IsCheckPass = false;
+            workOrderCtrlWithoutPart1.Location = new System.Drawing.Point(18, 62);
+            workOrderCtrlWithoutPart1.Name = "workOrderCtrlWithoutPart1";
+            workOrderCtrlWithoutPart1.Orders = null;
+            workOrderCtrlWithoutPart1.Size = new System.Drawing.Size(1168, 72);
+            workOrderCtrlWithoutPart1.SpotEnable = false;
+            workOrderCtrlWithoutPart1.TabIndex = 73;
+            // 
             // PageOP40
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 840);
+            Controls.Add(workOrderCtrlWithoutPart1);
             Controls.Add(lbl_Pressure);
             Controls.Add(uiLabel11);
             Controls.Add(lbl_humidity);
             Controls.Add(lbl_temperature);
             Controls.Add(uiLabel4);
             Controls.Add(uiLabel9);
-            Controls.Add(workOrderCtrl1);
             Controls.Add(userCtrlEntry_OP40);
             Controls.Add(uiLabel8);
             Controls.Add(uiLabel42);
@@ -694,12 +693,12 @@
         private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Welding;
         private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP40;
         private Sunny.UI.UILabel uiLabel8;
-        private ctrls.workOrderCtrl workOrderCtrl1;
         private Sunny.UI.UILabel lbl_humidity;
         private Sunny.UI.UILabel lbl_temperature;
         private Sunny.UI.UILabel uiLabel4;
         private Sunny.UI.UILabel uiLabel9;
         private Sunny.UI.UILabel lbl_Pressure;
         private Sunny.UI.UILabel uiLabel11;
+        private ctrls.workOrderCtrlWithoutPart workOrderCtrlWithoutPart1;
     }
 }

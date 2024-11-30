@@ -47,6 +47,9 @@
     <Compile Update="ctrls\TestWorkOrderCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="ctrls\workOrderCtrlWithoutPart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\BomListForm.cs">
       <SubType>Form</SubType>
     </Compile>

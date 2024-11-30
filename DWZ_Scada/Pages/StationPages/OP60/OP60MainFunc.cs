@@ -289,7 +289,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             if (state == 2)
             {
                 //表示正常测试完成 可以读取结果
-                string output = SafetyDevice1.QueryDetailsWorkResult();
+                string output = device.QueryDetailsWorkResult();
                 dto = SafetyTestDto.ParseDto(output);
                 if (dto.SafetyTestResult == "Y")
                 {
@@ -305,6 +305,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 //返回10 表示超时
                 result = 10;
+            }
+
+            if (string.IsNullOrEmpty(sn))
+            {
+                sn = "2222";
             }
             PassStationDTO requestDto = new()
             {
@@ -327,13 +332,13 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<short> HandleAtlBrxTestAndResult(TcpDevice1 device, string sn)
         {
-            int state = await TriggerDeviceTest(device, sn, SystemParams.Instance.OP60_AtlBrx_TimeOut * 60);
+            int state = await TriggerDeviceTest(device, sn, SystemParams.Instance.OP60_AtlBrx_TimeOut * 1000);
             AtlBrxTestDto dto = new AtlBrxTestDto();
             short result = 2; //结果2 表示NG
             if (state == 2)
             {
                 //表示正常测试完成 可以读取结果
-                string output = SafetyDevice1.QueryDetailsWorkResult();
+                string output = device.QueryDetailsWorkResult();
                 dto = AtlBrxTestDto.ParseDto(output);
                 if (dto.AtlBrxTestResult == "Y")
                 {
@@ -348,6 +353,10 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             else if( state == 10) {
             
                 result = 10;
+            }
+            if (string.IsNullOrEmpty(sn))
+            {
+                sn = "2222";
             }
             PassStationDTO requestDto = new()
             {
@@ -461,6 +470,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             device.ClearData();
             //Thread.Sleep(200);
             Mylog.Instance.Debug($"更新产品ID");
+            if (string.IsNullOrEmpty(sn))
+            {
+                Mylog.Instance.Debug($"sn为空，强制更新为1111");
+                sn = "1111";
+            }
             device.UpdateProduct(sn);
             //Thread.Sleep(200);
             Mylog.Instance.Debug($"触发测试命令");

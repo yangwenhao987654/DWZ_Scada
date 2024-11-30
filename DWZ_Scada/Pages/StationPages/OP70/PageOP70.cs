@@ -144,5 +144,10 @@ namespace DWZ_Scada
         {
 
         }
+
+        private void workOrderCtrlWithoutPart1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

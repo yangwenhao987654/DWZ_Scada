@@ -107,6 +107,8 @@ namespace DWZ_Scada
             OnDeviceStateChangedEvent?.Invoke(this, new DeviceStateEventArgs(id,isConnect));
         }
 
+
+
         private void PageOP60_OnDeviceStateChangedEvent(object sender, DeviceStateEventArgs e)
         {
             updateDeviceStateLight(e.DeviceId, e.isConnect);
