@@ -41,7 +41,7 @@
             lbl_CodeResult = new Sunny.UI.UILabel();
             uiLabel10 = new Sunny.UI.UILabel();
             myLogCtrl1 = new ctrls.MyLogCtrl();
-            workOrderCtrlWithoutPart1 = new ctrls.workOrderCtrlWithoutPart();
+            workOrderCtrlWithoutPart2 = new ctrls.workOrderCtrlWithoutPart();
             SuspendLayout();
             // 
             // uiLabel1
@@ -120,7 +120,7 @@
             lbl_FinalCode.Name = "lbl_FinalCode";
             lbl_FinalCode.Size = new System.Drawing.Size(329, 42);
             lbl_FinalCode.TabIndex = 75;
-            lbl_FinalCode.Text = "最终码:";
+            lbl_FinalCode.Text = "最终码";
             // 
             // uiLabel9
             // 
@@ -184,27 +184,26 @@
             myLogCtrl1.UseCompatibleStateImageBehavior = false;
             myLogCtrl1.View = System.Windows.Forms.View.Details;
             // 
-            // workOrderCtrlWithoutPart1
+            // workOrderCtrlWithoutPart2
             // 
-            workOrderCtrlWithoutPart1.BackColor = System.Drawing.Color.Transparent;
-            workOrderCtrlWithoutPart1.CurPartNo = "";
-            workOrderCtrlWithoutPart1.CurProductCode = "";
-            workOrderCtrlWithoutPart1.CurProductName = "";
-            workOrderCtrlWithoutPart1.CurWorkOrderNo = "";
-            workOrderCtrlWithoutPart1.IsCheckPass = false;
-            workOrderCtrlWithoutPart1.Location = new System.Drawing.Point(54, 62);
-            workOrderCtrlWithoutPart1.Name = "workOrderCtrlWithoutPart1";
-            workOrderCtrlWithoutPart1.Orders = null;
-            workOrderCtrlWithoutPart1.Size = new System.Drawing.Size(1195, 75);
-            workOrderCtrlWithoutPart1.SpotEnable = false;
-            workOrderCtrlWithoutPart1.TabIndex = 82;
-            workOrderCtrlWithoutPart1.Load += workOrderCtrlWithoutPart1_Load;
+            workOrderCtrlWithoutPart2.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrlWithoutPart2.CurPartNo = "";
+            workOrderCtrlWithoutPart2.CurProductCode = "";
+            workOrderCtrlWithoutPart2.CurProductName = "";
+            workOrderCtrlWithoutPart2.CurWorkOrderNo = "";
+            workOrderCtrlWithoutPart2.IsCheckPass = true;
+            workOrderCtrlWithoutPart2.Location = new System.Drawing.Point(22, 62);
+            workOrderCtrlWithoutPart2.Name = "workOrderCtrlWithoutPart2";
+            workOrderCtrlWithoutPart2.Orders = null;
+            workOrderCtrlWithoutPart2.Size = new System.Drawing.Size(1195, 75);
+            workOrderCtrlWithoutPart2.SpotEnable = false;
+            workOrderCtrlWithoutPart2.TabIndex = 82;
             // 
             // PageOP70
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
-            Controls.Add(workOrderCtrlWithoutPart1);
+            Controls.Add(workOrderCtrlWithoutPart2);
             Controls.Add(myLogCtrl1);
             Controls.Add(uiLabel10);
             Controls.Add(lbl_CodeResult);
@@ -243,5 +242,6 @@
         private ctrls.workOrderCtrl workOrderCtrl1;
         private ctrls.MyLogCtrl myLogCtrl1;
         private ctrls.workOrderCtrlWithoutPart workOrderCtrlWithoutPart1;
+        private ctrls.workOrderCtrlWithoutPart workOrderCtrlWithoutPart2;
     }
 }

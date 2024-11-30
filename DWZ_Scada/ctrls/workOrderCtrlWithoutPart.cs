@@ -69,8 +69,6 @@ namespace DWZ_Scada.ctrls
         public static event Func<bool, bool> SpotStateChanged;
 
 
-        private IProductFormulaDAL _productFormulaDAL;
-
         public bool IsCheckPass
         {
             get
@@ -102,7 +100,7 @@ namespace DWZ_Scada.ctrls
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
 
             IsCheckPass = true;
-            _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
+           
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)
@@ -189,7 +187,7 @@ namespace DWZ_Scada.ctrls
                         UIMessageBox.ShowError("当前型号为空");
                         return;
                     }
-
+                    IProductFormulaDAL _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
                     ProductFormulaEntity row = _productFormulaDAL.SelectSingleByProdCode(CurProductCode);
                     if (row != null)
                     {

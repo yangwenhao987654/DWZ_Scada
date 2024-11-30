@@ -71,7 +71,7 @@ namespace DWZ_Scada.ctrls
         public List<ProductBomDTO> ProductBomList { get; set; }
 
 
-        private IProductFormulaDAL _productFormulaDAL;
+  
 
         public bool IsCheckPass
         {
@@ -102,11 +102,11 @@ namespace DWZ_Scada.ctrls
 
             if (isOK)
             {
-                userCtrlScanInput1.SetPassColor();
+                userCtrlScanInput2.SetPassColor();
             }
             else
             {
-                userCtrlScanInput1.SetErrColor();
+                userCtrlScanInput2.SetErrColor();
             }
         }
 
@@ -120,7 +120,8 @@ namespace DWZ_Scada.ctrls
             InitializeComponent();
             SpotEnable = false;
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
-            _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
+          
+           
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)
@@ -160,27 +161,6 @@ namespace DWZ_Scada.ctrls
             cbx_Orders.DisplayMember = nameof(OrderVo.WorkOrderCode);
         }
 
-        private void test()
-        {
-            //从Mes获取最新生产型号 
-            //list
-            //当前型号的物料Bom
-            Orders = new List<OrderVo>();
-            for (int a = 0; a < 5; a++)
-            {
-                OrderVo vo = new OrderVo();
-                vo.WorkOrderCode = $"{orderId.ToString("D3")}-{a}";
-                vo.WorkOrderName = $"{orderId}-{a}";
-                vo.ProductCode = $"{a}";
-                vo.ProductName = $"{a}";
-                Orders.Add(vo);
-            }
-
-            orderId++;
-            cbx_Orders.DataSource = Orders;
-            cbx_Orders.DisplayMember = nameof(OrderVo.WorkOrderCode);
-        }
-
 
         private async void uiButton3_Click(object sender, EventArgs e)
         {
@@ -213,7 +193,7 @@ namespace DWZ_Scada.ctrls
 
         private void workOrderCtrl_Load(object sender, EventArgs e)
         {
-            userCtrlScanInput1.InputFinishEvent += UserCtrlScanInput1_InputFinishEvent;
+            userCtrlScanInput2.InputFinishEvent += UserCtrlScanInput1_InputFinishEvent;
         }
 
         private void UserCtrlScanInput1_InputFinishEvent(string msg)
@@ -314,12 +294,12 @@ namespace DWZ_Scada.ctrls
 
         private void cbx_Orders_DropDown_1(object sender, EventArgs e)
         {
-            userCtrlScanInput1.IsForcedInput = false;
+            userCtrlScanInput2.IsForcedInput = false;
         }
 
         private void cbx_Orders_DropDownClosed(object sender, EventArgs e)
         {
-            userCtrlScanInput1.IsForcedInput = true;
+            userCtrlScanInput2.IsForcedInput = true;
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -332,8 +312,8 @@ namespace DWZ_Scada.ctrls
                 {
                     UIMessageBox.ShowError("当前型号为空");
                     return;
-                }
-
+                } 
+                IProductFormulaDAL _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
                 ProductFormulaEntity row = _productFormulaDAL.SelectSingleByProdCode(CurProductCode);
                 if (row != null)
                 {

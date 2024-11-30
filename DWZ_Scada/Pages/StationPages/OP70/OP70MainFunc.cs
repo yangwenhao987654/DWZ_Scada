@@ -142,7 +142,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                     StationCode = StationCode,
                     SnTemp = sn,
                     WorkOrder = Global.WorkOrder,
-                    PassStationData = new OP10Vision1Data()
+                    PassStationData = new OP70Vision1Data()
                     {
                         Vision1Result = visionResult,
                         Good = visionResult,

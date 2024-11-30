@@ -31,9 +31,10 @@
             uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
             uiPanel2 = new Sunny.UI.UIPanel();
             uiTableLayoutPanel2 = new Sunny.UI.UITableLayoutPanel();
-            userCtrlScanInput1 = new DIPTest.Ctrl.userCtrlScanInput();
-            uiButton3 = new Sunny.UI.UIButton();
             cbx_Orders = new Sunny.UI.UIComboBox();
+            uiButton1 = new Sunny.UI.UIButton();
+            uiButton3 = new Sunny.UI.UIButton();
+            userCtrlScanInput2 = new DIPTest.Ctrl.userCtrlScanInput();
             uiPanel3 = new Sunny.UI.UIPanel();
             uiTableLayoutPanel3 = new Sunny.UI.UITableLayoutPanel();
             uiLabel3 = new Sunny.UI.UILabel();
@@ -42,10 +43,7 @@
             uiLabel5 = new Sunny.UI.UILabel();
             lbl_ProdModel = new Sunny.UI.UILabel();
             lbl_PartNo = new Sunny.UI.UILabel();
-            uiLabel1 = new Sunny.UI.UILabel();
-            uiLabel4 = new Sunny.UI.UILabel();
             uiPanel1 = new Sunny.UI.UIPanel();
-            uiButton1 = new Sunny.UI.UIButton();
             uiTableLayoutPanel1.SuspendLayout();
             uiPanel2.SuspendLayout();
             uiTableLayoutPanel2.SuspendLayout();
@@ -92,10 +90,10 @@
             uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.9543381F));
             uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0456619F));
             uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
-            uiTableLayoutPanel2.Controls.Add(userCtrlScanInput1, 0, 0);
             uiTableLayoutPanel2.Controls.Add(cbx_Orders, 1, 1);
             uiTableLayoutPanel2.Controls.Add(uiButton1, 2, 1);
             uiTableLayoutPanel2.Controls.Add(uiButton3, 0, 1);
+            uiTableLayoutPanel2.Controls.Add(userCtrlScanInput2, 0, 0);
             uiTableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             uiTableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             uiTableLayoutPanel2.Name = "uiTableLayoutPanel2";
@@ -106,35 +104,6 @@
             uiTableLayoutPanel2.Size = new System.Drawing.Size(597, 125);
             uiTableLayoutPanel2.TabIndex = 30;
             uiTableLayoutPanel2.TagString = null;
-            // 
-            // userCtrlScanInput1
-            // 
-            userCtrlScanInput1.BackColor = System.Drawing.Color.IndianRed;
-            uiTableLayoutPanel2.SetColumnSpan(userCtrlScanInput1, 3);
-            userCtrlScanInput1.Dock = System.Windows.Forms.DockStyle.Fill;
-            userCtrlScanInput1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            userCtrlScanInput1.IsForcedInput = false;
-            userCtrlScanInput1.IsInputFinish = false;
-            userCtrlScanInput1.Location = new System.Drawing.Point(3, 4);
-            userCtrlScanInput1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            userCtrlScanInput1.Name = "userCtrlScanInput1";
-            userCtrlScanInput1.Size = new System.Drawing.Size(591, 54);
-            userCtrlScanInput1.TabIndex = 29;
-            userCtrlScanInput1.TextFont = new System.Drawing.Font("微软雅黑", 15F);
-            userCtrlScanInput1.TextMessage = "二维码:";
-            // 
-            // uiButton3
-            // 
-            uiButton3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Location = new System.Drawing.Point(5, 67);
-            uiButton3.Margin = new System.Windows.Forms.Padding(5);
-            uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton3.Name = "uiButton3";
-            uiButton3.Size = new System.Drawing.Size(145, 53);
-            uiButton3.TabIndex = 27;
-            uiButton3.Text = "获取最新工单";
-            uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton3.Click += uiButton3_Click;
             // 
             // cbx_Orders
             // 
@@ -159,11 +128,50 @@
             cbx_Orders.DropDown += cbx_Orders_DropDown_1;
             cbx_Orders.DropDownClosed += cbx_Orders_DropDownClosed;
             // 
+            // uiButton1
+            // 
+            uiButton1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Location = new System.Drawing.Point(460, 67);
+            uiButton1.Margin = new System.Windows.Forms.Padding(5);
+            uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton1.Name = "uiButton1";
+            uiButton1.Size = new System.Drawing.Size(100, 53);
+            uiButton1.TabIndex = 30;
+            uiButton1.Text = "下发型号";
+            uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton1.Click += uiButton1_Click;
+            // 
+            // uiButton3
+            // 
+            uiButton3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Location = new System.Drawing.Point(5, 67);
+            uiButton3.Margin = new System.Windows.Forms.Padding(5);
+            uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
+            uiButton3.Name = "uiButton3";
+            uiButton3.Size = new System.Drawing.Size(145, 53);
+            uiButton3.TabIndex = 27;
+            uiButton3.Text = "获取最新工单";
+            uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiButton3.Click += uiButton3_Click;
+            // 
+            // userCtrlScanInput2
+            // 
+            userCtrlScanInput2.BackColor = System.Drawing.Color.IndianRed;
+            uiTableLayoutPanel2.SetColumnSpan(userCtrlScanInput2, 3);
+            userCtrlScanInput2.Dock = System.Windows.Forms.DockStyle.Fill;
+            userCtrlScanInput2.IsForcedInput = false;
+            userCtrlScanInput2.IsInputFinish = false;
+            userCtrlScanInput2.Location = new System.Drawing.Point(3, 4);
+            userCtrlScanInput2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            userCtrlScanInput2.Name = "userCtrlScanInput2";
+            userCtrlScanInput2.Size = new System.Drawing.Size(591, 54);
+            userCtrlScanInput2.TabIndex = 31;
+            userCtrlScanInput2.TextFont = new System.Drawing.Font("幼圆", 15F);
+            userCtrlScanInput2.TextMessage = "二维码:";
+            // 
             // uiPanel3
             // 
             uiPanel3.Controls.Add(uiTableLayoutPanel3);
-            uiPanel3.Controls.Add(uiLabel1);
-            uiPanel3.Controls.Add(uiLabel4);
             uiPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             uiPanel3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiPanel3.Location = new System.Drawing.Point(597, 0);
@@ -271,26 +279,6 @@
             lbl_PartNo.Text = "物料编码";
             lbl_PartNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // uiLabel1
-            // 
-            uiLabel1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel1.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new System.Drawing.Point(-107, 61);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(118, 35);
-            uiLabel1.TabIndex = 34;
-            uiLabel1.Text = "当前型号:";
-            // 
-            // uiLabel4
-            // 
-            uiLabel4.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel4.Location = new System.Drawing.Point(-107, 9);
-            uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new System.Drawing.Size(118, 36);
-            uiLabel4.TabIndex = 32;
-            uiLabel4.Text = "当前物料:";
-            // 
             // uiPanel1
             // 
             uiPanel1.Controls.Add(uiTableLayoutPanel1);
@@ -305,19 +293,6 @@
             uiPanel1.TabIndex = 32;
             uiPanel1.Text = null;
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // uiButton1
-            // 
-            uiButton1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton1.Location = new System.Drawing.Point(460, 67);
-            uiButton1.Margin = new System.Windows.Forms.Padding(5);
-            uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            uiButton1.Name = "uiButton1";
-            uiButton1.Size = new System.Drawing.Size(100, 53);
-            uiButton1.TabIndex = 30;
-            uiButton1.Text = "下发型号";
-            uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiButton1.Click += uiButton1_Click;
             // 
             // workOrderCtrl
             // 
@@ -341,9 +316,6 @@
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UIPanel uiPanel2;
         private Sunny.UI.UIPanel uiPanel3;
-        private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UILabel uiLabel4;
-        private DIPTest.Ctrl.userCtrlScanInput userCtrlScanInput1;
         private Sunny.UI.UIComboBox cbx_Orders;
         private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel2;
@@ -355,5 +327,6 @@
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UIButton uiButton1;
+        private DIPTest.Ctrl.userCtrlScanInput userCtrlScanInput2;
     }
 }

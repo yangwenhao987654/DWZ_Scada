@@ -1,4 +1,5 @@
 ﻿using DIPTest;
+using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.HttpServices;
 using DWZ_Scada.HttpServices.response;
 using DWZ_Scada.Pages.PLCAlarm;
@@ -24,7 +25,6 @@ namespace DWZ_Scada
 {
     public partial class PageOP70 : UIPage
     {
-        public List<OrderVo> Orders { get; set; }
 
         private static PageOP70 _instance;
         public static PageOP70 Instance
@@ -55,13 +55,14 @@ namespace DWZ_Scada
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
 
-
+            Mylog.Instance.Init(myLogCtrl1);
             ISelectionStrategyEvent OP60Strategy = new OP70SelectionStrategy();
             OP60Strategy.OnSelectionEvent += OP70SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP70工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP70_PlcIP,
                 SystemParams.Instance.OP70_PlcPort);
+    
 
             OP70MainFunc.CreateInstance(plcConfig);
             OP70MainFunc.Instance.StartAsync();

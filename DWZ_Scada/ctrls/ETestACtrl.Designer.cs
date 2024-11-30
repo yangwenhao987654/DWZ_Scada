@@ -30,7 +30,6 @@
         {
             uiGroupBox1 = new Sunny.UI.UIGroupBox();
             uiTableLayoutPanel2 = new Sunny.UI.UITableLayoutPanel();
-            tbx_SN_A = new Sunny.UI.UITextBox();
             uiLedStopwatch1 = new Sunny.UI.UILedStopwatch();
             btn_A = new Sunny.UI.UIButton();
             uiGroupBox1.SuspendLayout();
@@ -59,7 +58,6 @@
             // 
             uiTableLayoutPanel2.ColumnCount = 1;
             uiTableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            uiTableLayoutPanel2.Controls.Add(tbx_SN_A, 0, 0);
             uiTableLayoutPanel2.Controls.Add(uiLedStopwatch1, 0, 1);
             uiTableLayoutPanel2.Controls.Add(btn_A, 0, 2);
             uiTableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -72,22 +70,6 @@
             uiTableLayoutPanel2.Size = new System.Drawing.Size(282, 222);
             uiTableLayoutPanel2.TabIndex = 15;
             uiTableLayoutPanel2.TagString = null;
-            // 
-            // tbx_SN_A
-            // 
-            tbx_SN_A.Cursor = System.Windows.Forms.Cursors.IBeam;
-            tbx_SN_A.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, 134);
-            tbx_SN_A.Location = new System.Drawing.Point(4, 5);
-            tbx_SN_A.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tbx_SN_A.MinimumSize = new System.Drawing.Size(1, 16);
-            tbx_SN_A.Name = "tbx_SN_A";
-            tbx_SN_A.Padding = new System.Windows.Forms.Padding(5);
-            tbx_SN_A.ShowText = false;
-            tbx_SN_A.Size = new System.Drawing.Size(182, 38);
-            tbx_SN_A.Style = Sunny.UI.UIStyle.Custom;
-            tbx_SN_A.TabIndex = 0;
-            tbx_SN_A.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            tbx_SN_A.Watermark = "请输入SN";
             // 
             // uiLedStopwatch1
             // 
@@ -118,12 +100,12 @@
             btn_A.Text = "开始";
             btn_A.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             // 
-            // WindingCtrl
+            // ETestACtrl
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(uiGroupBox1);
-            Name = "WindingCtrl";
+            Name = "ETestACtrl";
             Size = new System.Drawing.Size(282, 254);
             uiGroupBox1.ResumeLayout(false);
             uiTableLayoutPanel2.ResumeLayout(false);
@@ -134,7 +116,6 @@
 
         public Sunny.UI.UIGroupBox uiGroupBox1;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel2;
-        public Sunny.UI.UITextBox tbx_SN_A;
         private Sunny.UI.UILedStopwatch uiLedStopwatch1;
         public Sunny.UI.UIButton btn_A;
     }
