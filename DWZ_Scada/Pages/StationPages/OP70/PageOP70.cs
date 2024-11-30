@@ -96,7 +96,7 @@ namespace DWZ_Scada
                 lbl_CodeResult.ForeColor = Color.Red;
             }
             lbl_FinalCode.Text = finalcode;
-            lbl_grade.Text = finalcode;
+            lbl_grade.Text = codeType;
         }
 
         private void Instance_OP70EntryStateChanged(string sn, int result, string msg = "")

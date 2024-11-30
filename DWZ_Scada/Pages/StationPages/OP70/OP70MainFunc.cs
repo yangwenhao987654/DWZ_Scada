@@ -134,8 +134,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 OnVision1Finished?.Invoke(sn, result);
                 bool visionResult = result == 1 ? true : false;
                 //界面更新
-               
-                //string snTest = "QWER123456";
+
                 //上传Mes测试数据
                 PassStationDTO dto = new PassStationDTO()
                 {
@@ -236,9 +235,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                     WorkOrder = Global.WorkOrder
                 };
                 curEntrySN = sn;
-                EntryRequestService entryRequestService =
-                    Global.ServiceProvider.GetRequiredService<EntryRequestService>();
-                (bool flag, string msg) = await entryRequestService.CheckIn(requestDto);
+                (bool flag, string msg) = await EntryRequest(requestDto);
+
                 short result = 2;
                 if (flag)
                 {
