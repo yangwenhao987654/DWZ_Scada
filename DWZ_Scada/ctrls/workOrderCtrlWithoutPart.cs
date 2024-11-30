@@ -102,6 +102,7 @@ namespace DWZ_Scada.ctrls
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
 
             IsCheckPass = true;
+            _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)
@@ -177,33 +178,42 @@ namespace DWZ_Scada.ctrls
 
         private void uiButton1_Click(object sender, EventArgs e)
         {
-            if (IsCheckPass)
+            try
             {
-                //TODO 下发给PLC型号
-                //1. 获取到当前的型号Code
-                if (CurProductCode=="")
+                if (IsCheckPass)
                 {
-                    UIMessageBox.ShowError("当前型号为空");
-                    return;
-                }
+                    //TODO 下发给PLC型号
+                    //1. 获取到当前的型号Code
+                    if (CurProductCode == "")
+                    {
+                        UIMessageBox.ShowError("当前型号为空");
+                        return;
+                    }
 
-                ProductFormulaEntity row = _productFormulaDAL.SelectSingleByProdCode(CurProductCode);
-                if (row != null)
-                {
-                    int plcNo = row.ProductPLCNo;
-                    ONSelectProductNoChanged?.Invoke(plcNo);
+                    ProductFormulaEntity row = _productFormulaDAL.SelectSingleByProdCode(CurProductCode);
+                    if (row != null)
+                    {
+                        int plcNo = row.ProductPLCNo;
+                        ONSelectProductNoChanged?.Invoke(plcNo);
+                    }
+                    else
+                    {
+                        UIMessageBox.ShowError($"查询产品配方失败 产品Code:[{CurProductCode}]，请先添加配方");
+                    }
+                    //2.根据型号Code查询配方表，获取到PLC对应型号
+                    //3.写地址给PLC
                 }
                 else
                 {
-                    UIMessageBox.ShowError($"查询产品配方失败 产品Code:[{CurProductCode}]，请先添加配方");
+                    UIMessageBox.ShowError("物料匹配失败 ，禁止切换型号");
                 }
-                //2.根据型号Code查询配方表，获取到PLC对应型号
-                //3.写地址给PLC
             }
-            else
+            catch (Exception exception)
             {
-                UIMessageBox.ShowError("物料匹配失败 ，禁止切换型号");
+               UIMessageBox.ShowError($"下发型号错误:{exception.Message },{exception.StackTrace}");
+               LogMgr.Instance.Error($"下发型号错误:{exception.Message}\n{exception.StackTrace}");
             }
+        
         }
     }
 }

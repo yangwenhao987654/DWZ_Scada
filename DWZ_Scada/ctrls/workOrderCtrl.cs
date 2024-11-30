@@ -120,6 +120,7 @@ namespace DWZ_Scada.ctrls
             InitializeComponent();
             SpotEnable = false;
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
+            _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)
