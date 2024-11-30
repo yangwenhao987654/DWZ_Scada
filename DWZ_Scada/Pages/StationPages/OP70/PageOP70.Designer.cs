@@ -80,7 +80,7 @@
             // 
             // userCtrlVisionResult
             // 
-            userCtrlVisionResult.Location = new System.Drawing.Point(438, 276);
+            userCtrlVisionResult.Location = new System.Drawing.Point(408, 275);
             userCtrlVisionResult.Margin = new System.Windows.Forms.Padding(4);
             userCtrlVisionResult.Name = "userCtrlVisionResult";
             userCtrlVisionResult.Size = new System.Drawing.Size(313, 168);
@@ -92,7 +92,7 @@
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(423, 230);
+            uiLabel11.Location = new System.Drawing.Point(393, 229);
             uiLabel11.Margin = new System.Windows.Forms.Padding(0);
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new System.Drawing.Size(121, 42);
@@ -104,7 +104,7 @@
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(791, 229);
+            uiLabel7.Location = new System.Drawing.Point(747, 229);
             uiLabel7.Margin = new System.Windows.Forms.Padding(0);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(97, 42);
@@ -115,18 +115,17 @@
             // 
             lbl_FinalCode.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_FinalCode.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_FinalCode.Location = new System.Drawing.Point(888, 229);
+            lbl_FinalCode.Location = new System.Drawing.Point(844, 229);
             lbl_FinalCode.Margin = new System.Windows.Forms.Padding(0);
             lbl_FinalCode.Name = "lbl_FinalCode";
-            lbl_FinalCode.Size = new System.Drawing.Size(329, 42);
+            lbl_FinalCode.Size = new System.Drawing.Size(427, 80);
             lbl_FinalCode.TabIndex = 75;
-            lbl_FinalCode.Text = "最终码";
             // 
             // uiLabel9
             // 
             uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel9.Location = new System.Drawing.Point(791, 291);
+            uiLabel9.Location = new System.Drawing.Point(745, 337);
             uiLabel9.Margin = new System.Windows.Forms.Padding(0);
             uiLabel9.Name = "uiLabel9";
             uiLabel9.Size = new System.Drawing.Size(97, 42);
@@ -137,31 +136,29 @@
             // 
             lbl_grade.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_grade.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_grade.Location = new System.Drawing.Point(878, 275);
+            lbl_grade.Location = new System.Drawing.Point(832, 321);
             lbl_grade.Margin = new System.Windows.Forms.Padding(0);
             lbl_grade.Name = "lbl_grade";
-            lbl_grade.Size = new System.Drawing.Size(112, 61);
+            lbl_grade.Size = new System.Drawing.Size(208, 61);
             lbl_grade.TabIndex = 77;
-            lbl_grade.Text = "A";
             lbl_grade.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_CodeResult
             // 
             lbl_CodeResult.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_CodeResult.ForeColor = System.Drawing.Color.Green;
-            lbl_CodeResult.Location = new System.Drawing.Point(911, 336);
+            lbl_CodeResult.Location = new System.Drawing.Point(865, 382);
             lbl_CodeResult.Margin = new System.Windows.Forms.Padding(0);
             lbl_CodeResult.Name = "lbl_CodeResult";
             lbl_CodeResult.Size = new System.Drawing.Size(160, 81);
             lbl_CodeResult.TabIndex = 78;
-            lbl_CodeResult.Text = "OK";
             lbl_CodeResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiLabel10
             // 
             uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new System.Drawing.Point(791, 336);
+            uiLabel10.Location = new System.Drawing.Point(745, 382);
             uiLabel10.Margin = new System.Windows.Forms.Padding(0);
             uiLabel10.Name = "uiLabel10";
             uiLabel10.Size = new System.Drawing.Size(97, 42);

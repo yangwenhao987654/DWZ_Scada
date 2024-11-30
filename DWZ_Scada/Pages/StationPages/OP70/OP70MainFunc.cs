@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TouchSocket.Core;
 
 namespace DWZ_Scada.Pages.StationPages.OP70
 {
@@ -170,9 +171,10 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 //最终码内容
                 //PLC.Read(OP70Address.FinalCodeInfo, "string-20",out string finalCode);
                 //最终码等级
-                PLC.Read(OP70Address.FinalCodeType, "string-1", out string finalCodeType);
+                //解析最终码等级：
+                //PLC.Read(OP70Address.FinalCodeType, "string-1", out string finalCodeType);
                 //显示最终码和等级 结果
-               
+                string finalCodeType = AnalizeFinalType(finalCode);
                 bool finalResult = CheckFinalCodeType(finalCodeType);
                 OP70FinalCodeFinished?.Invoke(finalCode, finalCodeType,finalResult);
                 //string snTest = "QWER123456";
@@ -196,7 +198,26 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                     Mylog.Instance.Alarm("上传最终码数据错误:" + msg);
                 }
                 LogMgr.Instance.Debug($"最终码等级:{finalCodeType} 结果:{finalResult}:");
-                PLC.Write(OP70Address.FinalCodeResult, "Bool", finalResult);
+                short result = (short)(finalResult ? 1 : 2);
+                PLC.WriteInt16(OP70Address.FinalCodeResult, result);
+            }
+        }
+
+        /// <summary>
+        /// 解析最终码等级
+        /// </summary>
+        /// <param name="finalCode"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private string AnalizeFinalType(string finalCode)
+        {
+            string[] strings = finalCode.Split(":");
+            if (strings.Length==2)
+            {
+                return strings[1];
+            }
+            else
+            {
+                return "ERR";
             }
         }
 

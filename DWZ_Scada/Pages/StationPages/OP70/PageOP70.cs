@@ -62,7 +62,6 @@ namespace DWZ_Scada
             //OP70工站 PLC配置
             PLCConfig plcConfig = new PLCConfig(MyPLCType.KeynecePLC, SystemParams.Instance.OP70_PlcIP,
                 SystemParams.Instance.OP70_PlcPort);
-    
 
             OP70MainFunc.CreateInstance(plcConfig);
             OP70MainFunc.Instance.StartAsync();
