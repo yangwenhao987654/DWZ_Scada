@@ -112,7 +112,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             }
             lbl_temperature.Text = $"{temperature:F1}℃";
             lbl_humidity.Text = $"{humidity:F1}%RH";
-
         }
 
         private void Instance_OnWeldDataRevived(short[] arr, string type)

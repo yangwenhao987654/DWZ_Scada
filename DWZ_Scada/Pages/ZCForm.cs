@@ -331,8 +331,8 @@ namespace DWZ_Scada.Pages
                     break;
 
                 case PlcState.Online:
-                    lbl_PLCState.Text = "在线";
-                    uiLight1.OnColor = Color.Green;
+                    lbl_PLCState.Text = "待机";
+                    uiLight1.OnColor = Color.Yellow;
                     break;
                 case PlcState.Alarm:
                     lbl_PLCState.Text = "报警";
@@ -340,11 +340,11 @@ namespace DWZ_Scada.Pages
                     break;
                 case PlcState.Stop:
                     lbl_PLCState.Text = "停止";
-                    uiLight1.OnColor = Color.DimGray;
+                    uiLight1.OnColor = Color.Yellow;
                     break;
                 case PlcState.Running:
                     lbl_PLCState.Text = "运行中";
-                    uiLight1.OnColor = Color.GreenYellow;
+                    uiLight1.OnColor = Color.MediumSeaGreen;
                     break;
             }
         }
