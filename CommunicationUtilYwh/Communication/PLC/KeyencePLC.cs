@@ -221,6 +221,10 @@ namespace CommunicationUtilYwh.Communication.PLC
                 OperateResult<bool[]> operate = client.ReadBool(adr, (ushort)length);
                 value = operate.Content;
                 flag = operate.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"读取报警失败:{operate.Message} 地址:{adr} 长度:{length}");
+                }
             }
             catch (Exception ex)
             {

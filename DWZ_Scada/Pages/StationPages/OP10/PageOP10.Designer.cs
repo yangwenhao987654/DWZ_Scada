@@ -63,7 +63,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(760, 388);
+            uiLabel8.Location = new System.Drawing.Point(452, 229);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new System.Drawing.Size(183, 42);
             uiLabel8.TabIndex = 25;
@@ -73,7 +73,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(39, 381);
+            uiLabel11.Location = new System.Drawing.Point(70, 229);
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new System.Drawing.Size(159, 42);
             uiLabel11.TabIndex = 26;
@@ -99,7 +99,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             myLogCtrl1.Location = new System.Drawing.Point(0, 0);
             myLogCtrl1.MultiSelect = false;
             myLogCtrl1.Name = "myLogCtrl1";
-            myLogCtrl1.Size = new System.Drawing.Size(1189, 191);
+            myLogCtrl1.Size = new System.Drawing.Size(1189, 269);
             myLogCtrl1.TabIndex = 33;
             myLogCtrl1.UseCompatibleStateImageBehavior = false;
             myLogCtrl1.View = System.Windows.Forms.View.Details;
@@ -108,41 +108,41 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiPanel1.Controls.Add(myLogCtrl1);
             uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel1.Location = new System.Drawing.Point(39, 615);
+            uiPanel1.Location = new System.Drawing.Point(39, 537);
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel1.Name = "uiPanel1";
-            uiPanel1.Size = new System.Drawing.Size(1189, 191);
+            uiPanel1.Size = new System.Drawing.Size(1189, 269);
             uiPanel1.TabIndex = 34;
             uiPanel1.Text = "uiPanel1";
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ctrlResult_V2
             // 
-            ctrlResult_V2.Location = new System.Drawing.Point(39, 427);
+            ctrlResult_V2.Location = new System.Drawing.Point(70, 275);
             ctrlResult_V2.Margin = new System.Windows.Forms.Padding(4);
             ctrlResult_V2.Name = "ctrlResult_V2";
-            ctrlResult_V2.Size = new System.Drawing.Size(455, 161);
+            ctrlResult_V2.Size = new System.Drawing.Size(313, 204);
             ctrlResult_V2.TabIndex = 35;
             ctrlResult_V2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             ctrlResult_V2.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // ctrlResult_V1
             // 
-            ctrlResult_V1.Location = new System.Drawing.Point(760, 434);
+            ctrlResult_V1.Location = new System.Drawing.Point(452, 275);
             ctrlResult_V1.Margin = new System.Windows.Forms.Padding(4);
             ctrlResult_V1.Name = "ctrlResult_V1";
-            ctrlResult_V1.Size = new System.Drawing.Size(455, 161);
+            ctrlResult_V1.Size = new System.Drawing.Size(313, 204);
             ctrlResult_V1.TabIndex = 36;
             ctrlResult_V1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             ctrlResult_V1.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // userCtrlEntry1
             // 
-            userCtrlEntry1.Location = new System.Drawing.Point(760, 221);
+            userCtrlEntry1.Location = new System.Drawing.Point(867, 275);
             userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlEntry1.Name = "userCtrlEntry1";
-            userCtrlEntry1.Size = new System.Drawing.Size(313, 149);
+            userCtrlEntry1.Size = new System.Drawing.Size(313, 204);
             userCtrlEntry1.TabIndex = 37;
             userCtrlEntry1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             userCtrlEntry1.TextFont = new System.Drawing.Font("微软雅黑", 50F);
@@ -151,7 +151,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(760, 177);
+            uiLabel2.Location = new System.Drawing.Point(867, 229);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(131, 30);
             uiLabel2.TabIndex = 38;
