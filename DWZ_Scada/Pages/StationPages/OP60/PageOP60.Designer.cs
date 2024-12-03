@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             uiLabel1 = new Sunny.UI.UILabel();
-            btn_Test = new Sunny.UI.UIButton();
             uiPanel1 = new Sunny.UI.UIPanel();
             myLogCtrl1 = new ctrls.MyLogCtrl();
             uiLabel11 = new Sunny.UI.UILabel();
@@ -64,18 +63,6 @@
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
             // 
-            // btn_Test
-            // 
-            btn_Test.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Location = new System.Drawing.Point(1042, 193);
-            btn_Test.MinimumSize = new System.Drawing.Size(1, 1);
-            btn_Test.Name = "btn_Test";
-            btn_Test.Size = new System.Drawing.Size(111, 52);
-            btn_Test.TabIndex = 22;
-            btn_Test.Text = "AtlBrx调试";
-            btn_Test.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            btn_Test.Click += btn_Test_Click;
-            // 
             // uiPanel1
             // 
             uiPanel1.Controls.Add(myLogCtrl1);
@@ -84,7 +71,7 @@
             uiPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel1.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel1.Name = "uiPanel1";
-            uiPanel1.Size = new System.Drawing.Size(1211, 179);
+            uiPanel1.Size = new System.Drawing.Size(1244, 179);
             uiPanel1.TabIndex = 48;
             uiPanel1.Text = "uiPanel1";
             uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -100,7 +87,7 @@
             myLogCtrl1.Location = new System.Drawing.Point(0, 0);
             myLogCtrl1.MultiSelect = false;
             myLogCtrl1.Name = "myLogCtrl1";
-            myLogCtrl1.Size = new System.Drawing.Size(1211, 179);
+            myLogCtrl1.Size = new System.Drawing.Size(1244, 179);
             myLogCtrl1.TabIndex = 33;
             myLogCtrl1.UseCompatibleStateImageBehavior = false;
             myLogCtrl1.View = System.Windows.Forms.View.Details;
@@ -109,34 +96,34 @@
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(328, 404);
+            uiLabel11.Location = new System.Drawing.Point(648, 427);
             uiLabel11.Margin = new System.Windows.Forms.Padding(0);
             uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new System.Drawing.Size(135, 42);
+            uiLabel11.Size = new System.Drawing.Size(130, 36);
             uiLabel11.TabIndex = 42;
-            uiLabel11.Text = "导通耐压2:";
+            uiLabel11.Text = "安规测试2:";
             uiLabel11.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // uiLabel6
             // 
             uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new System.Drawing.Point(13, 404);
+            uiLabel6.Location = new System.Drawing.Point(981, 426);
             uiLabel6.Margin = new System.Windows.Forms.Padding(0);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new System.Drawing.Size(133, 42);
+            uiLabel6.Size = new System.Drawing.Size(130, 36);
             uiLabel6.TabIndex = 41;
-            uiLabel6.Text = "导通耐压1:";
+            uiLabel6.Text = "安规测试1:";
             uiLabel6.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // uiLabel7
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(944, 404);
+            uiLabel7.Location = new System.Drawing.Point(24, 430);
             uiLabel7.Margin = new System.Windows.Forms.Padding(0);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new System.Drawing.Size(156, 42);
+            uiLabel7.Size = new System.Drawing.Size(160, 36);
             uiLabel7.TabIndex = 40;
             uiLabel7.Text = "电性能测试2:";
             uiLabel7.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -145,17 +132,17 @@
             // 
             uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel9.Location = new System.Drawing.Point(635, 404);
+            uiLabel9.Location = new System.Drawing.Point(336, 430);
             uiLabel9.Margin = new System.Windows.Forms.Padding(0);
             uiLabel9.Name = "uiLabel9";
-            uiLabel9.Size = new System.Drawing.Size(160, 42);
+            uiLabel9.Size = new System.Drawing.Size(160, 36);
             uiLabel9.TabIndex = 39;
             uiLabel9.Text = "电性能测试1:";
             uiLabel9.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // userCtrlResult1
             // 
-            userCtrlResult1.Location = new System.Drawing.Point(13, 456);
+            userCtrlResult1.Location = new System.Drawing.Point(981, 472);
             userCtrlResult1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult1.Name = "userCtrlResult1";
             userCtrlResult1.Size = new System.Drawing.Size(276, 168);
@@ -166,7 +153,7 @@
             // 
             // userCtrlResult3
             // 
-            userCtrlResult3.Location = new System.Drawing.Point(635, 456);
+            userCtrlResult3.Location = new System.Drawing.Point(336, 470);
             userCtrlResult3.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult3.Name = "userCtrlResult3";
             userCtrlResult3.Size = new System.Drawing.Size(276, 168);
@@ -176,7 +163,7 @@
             // 
             // userCtrlResult2
             // 
-            userCtrlResult2.Location = new System.Drawing.Point(315, 456);
+            userCtrlResult2.Location = new System.Drawing.Point(648, 470);
             userCtrlResult2.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult2.Name = "userCtrlResult2";
             userCtrlResult2.Size = new System.Drawing.Size(276, 168);
@@ -186,7 +173,7 @@
             // 
             // userCtrlResult4
             // 
-            userCtrlResult4.Location = new System.Drawing.Point(944, 456);
+            userCtrlResult4.Location = new System.Drawing.Point(24, 470);
             userCtrlResult4.Margin = new System.Windows.Forms.Padding(4);
             userCtrlResult4.Name = "userCtrlResult4";
             userCtrlResult4.Size = new System.Drawing.Size(276, 168);
@@ -197,7 +184,7 @@
             // uiLight1
             // 
             uiLight1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLight1.Location = new System.Drawing.Point(254, 404);
+            uiLight1.Location = new System.Drawing.Point(1222, 427);
             uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight1.Name = "uiLight1";
             uiLight1.OnColor = System.Drawing.Color.DimGray;
@@ -209,7 +196,7 @@
             // uiLight2
             // 
             uiLight2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLight2.Location = new System.Drawing.Point(556, 404);
+            uiLight2.Location = new System.Drawing.Point(889, 427);
             uiLight2.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight2.Name = "uiLight2";
             uiLight2.OnColor = System.Drawing.Color.DimGray;
@@ -221,7 +208,7 @@
             // uiLight3
             // 
             uiLight3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLight3.Location = new System.Drawing.Point(876, 404);
+            uiLight3.Location = new System.Drawing.Point(577, 430);
             uiLight3.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight3.Name = "uiLight3";
             uiLight3.OnColor = System.Drawing.Color.DimGray;
@@ -233,7 +220,7 @@
             // uiLight4
             // 
             uiLight4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLight4.Location = new System.Drawing.Point(1185, 404);
+            uiLight4.Location = new System.Drawing.Point(249, 428);
             uiLight4.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight4.Name = "uiLight4";
             uiLight4.OnColor = System.Drawing.Color.DimGray;
@@ -244,7 +231,7 @@
             // 
             // userCtrlEntry1
             // 
-            userCtrlEntry1.Location = new System.Drawing.Point(13, 219);
+            userCtrlEntry1.Location = new System.Drawing.Point(944, 219);
             userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlEntry1.Name = "userCtrlEntry1";
             userCtrlEntry1.Size = new System.Drawing.Size(313, 168);
@@ -256,7 +243,7 @@
             // 
             uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(13, 179);
+            uiLabel2.Location = new System.Drawing.Point(944, 179);
             uiLabel2.Margin = new System.Windows.Forms.Padding(0);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new System.Drawing.Size(133, 36);
@@ -271,10 +258,10 @@
             workOrderCtrlWithoutPart1.CurProductName = "";
             workOrderCtrlWithoutPart1.CurWorkOrderNo = "";
             workOrderCtrlWithoutPart1.IsCheckPass = false;
-            workOrderCtrlWithoutPart1.Location = new System.Drawing.Point(24, 79);
+            workOrderCtrlWithoutPart1.Location = new System.Drawing.Point(13, 62);
             workOrderCtrlWithoutPart1.Name = "workOrderCtrlWithoutPart1";
             workOrderCtrlWithoutPart1.Orders = null;
-            workOrderCtrlWithoutPart1.Size = new System.Drawing.Size(1164, 75);
+            workOrderCtrlWithoutPart1.Size = new System.Drawing.Size(1244, 75);
             workOrderCtrlWithoutPart1.SpotEnable = false;
             workOrderCtrlWithoutPart1.TabIndex = 70;
             // 
@@ -298,7 +285,6 @@
             Controls.Add(uiLabel6);
             Controls.Add(uiLabel7);
             Controls.Add(uiLabel9);
-            Controls.Add(btn_Test);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP60";
@@ -313,7 +299,6 @@
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UIButton btn_Test;
         private Sunny.UI.UIPanel uiPanel1;
         private ctrls.MyLogCtrl myLogCtrl1;
         private Sunny.UI.UILabel uiLabel11;

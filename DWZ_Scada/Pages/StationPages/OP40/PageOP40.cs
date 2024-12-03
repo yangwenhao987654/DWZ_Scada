@@ -73,16 +73,16 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         }
 
-        private void Instance_OnPressureRecived(short value)
+        private void Instance_OnPressureRecived(ushort value)
         {
             UpdatePressure(value);
         }
 
-        private void UpdatePressure(short value)
+        private void UpdatePressure(ushort value)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new Action<short>(UpdatePressure), value);
+                this.Invoke(new Action<ushort>(UpdatePressure), value);
                 return;
             }
 

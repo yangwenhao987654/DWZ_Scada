@@ -178,14 +178,14 @@ namespace DWZ_Scada.ctrls
 
         public void Wait()
         {
-            Color color = Color.DarkGray;
+            Color color = Color.Orange;
             if (InvokeRequired)
             {
                 BeginInvoke(updateBackColor, color);
                 return;
             }
             updateBackColor(color);
-            uiLabel2.Text = "等待中";
+            uiLabel2.Text = "停止";
         }
 
         public void OffLine()
@@ -202,7 +202,7 @@ namespace DWZ_Scada.ctrls
 
         public void Err()
         {
-            Color color = Color.FromArgb(255, 192, 192);
+            Color color = Color.Red;
             if (InvokeRequired)
             {
                 BeginInvoke(updateBackColor, color);
@@ -214,7 +214,7 @@ namespace DWZ_Scada.ctrls
 
         public void SetDisable()
         {
-            Color color = Color.Beige;
+            Color color = Color.White;
             if (InvokeRequired)
             {
                 BeginInvoke(updateBackColor, color);

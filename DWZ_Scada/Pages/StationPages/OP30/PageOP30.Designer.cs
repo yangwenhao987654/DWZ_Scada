@@ -102,7 +102,7 @@
             // 
             // op30CtrlResult_Vision1
             // 
-            op30CtrlResult_Vision1.Location = new System.Drawing.Point(645, 68);
+            op30CtrlResult_Vision1.Location = new System.Drawing.Point(58, 66);
             op30CtrlResult_Vision1.Margin = new System.Windows.Forms.Padding(4);
             op30CtrlResult_Vision1.Name = "op30CtrlResult_Vision1";
             op30CtrlResult_Vision1.Size = new System.Drawing.Size(400, 200);
@@ -112,7 +112,7 @@
             // 
             // Op30CtrlEntry1
             // 
-            Op30CtrlEntry1.Location = new System.Drawing.Point(58, 68);
+            Op30CtrlEntry1.Location = new System.Drawing.Point(728, 62);
             Op30CtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             Op30CtrlEntry1.Name = "Op30CtrlEntry1";
             Op30CtrlEntry1.Size = new System.Drawing.Size(400, 200);
@@ -124,7 +124,7 @@
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(58, 26);
+            uiLabel7.Location = new System.Drawing.Point(728, 20);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(176, 38);
             uiLabel7.TabIndex = 2;
@@ -135,7 +135,7 @@
             // 
             uiLabel6.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new System.Drawing.Point(645, 26);
+            uiLabel6.Location = new System.Drawing.Point(58, 24);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new System.Drawing.Size(160, 34);
             uiLabel6.TabIndex = 1;

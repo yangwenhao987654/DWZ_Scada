@@ -65,20 +65,10 @@
         /// </summary>
         public static readonly string FinalCodeResult = "D3220";
 
-
-   
-
-
         /// <summary>
         /// 读取PLC状态地址
         /// </summary>
         public static string State = "D3000";
-
-
-
-
-
-
 
     }
 }

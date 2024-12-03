@@ -59,14 +59,14 @@
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             ctrlWindingS.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            ctrlWindingS.Location = new System.Drawing.Point(340, 210);
+            ctrlWindingS.Location = new System.Drawing.Point(27, 200);
             ctrlWindingS.Margin = new System.Windows.Forms.Padding(0);
             ctrlWindingS.Name = "ctrlWindingS";
             ctrlWindingS.RowCount = 3;
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
             ctrlWindingS.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.3333359F));
-            ctrlWindingS.Size = new System.Drawing.Size(882, 604);
+            ctrlWindingS.Size = new System.Drawing.Size(919, 616);
             ctrlWindingS.TabIndex = 20;
             ctrlWindingS.TagString = null;
             // 
@@ -77,11 +77,11 @@
             uiPanel2.Controls.Add(op20CtrlEntry1);
             uiPanel2.Controls.Add(uiLabel2);
             uiPanel2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiPanel2.Location = new System.Drawing.Point(27, 210);
+            uiPanel2.Location = new System.Drawing.Point(950, 200);
             uiPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             uiPanel2.MinimumSize = new System.Drawing.Size(1, 1);
             uiPanel2.Name = "uiPanel2";
-            uiPanel2.Size = new System.Drawing.Size(299, 603);
+            uiPanel2.Size = new System.Drawing.Size(305, 616);
             uiPanel2.TabIndex = 21;
             uiPanel2.Text = null;
             uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -140,7 +140,7 @@
             workOrderCtrl1.Name = "workOrderCtrl1";
             workOrderCtrl1.Orders = null;
             workOrderCtrl1.ProductBomList = null;
-            workOrderCtrl1.Size = new System.Drawing.Size(1195, 125);
+            workOrderCtrl1.Size = new System.Drawing.Size(1228, 125);
             workOrderCtrl1.SpotEnable = false;
             workOrderCtrl1.TabIndex = 22;
             workOrderCtrl1.Load += workOrderCtrl1_Load;
@@ -149,8 +149,8 @@
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1280, 840);
-            Controls.Add(workOrderCtrl1);
             Controls.Add(uiPanel2);
+            Controls.Add(workOrderCtrl1);
             Controls.Add(ctrlWindingS);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);

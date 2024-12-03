@@ -343,7 +343,6 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         }
                         PLC.WriteInt16(OP20Address.WindingStartList[i], 0);
 
-
                         int index = i;
                         Task task = Task.Run(async () =>
                                         {
@@ -621,6 +620,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 {
                     LogMgr.Instance.Error($"OP20-01物料匹配失败，阻止进站 SN:[{sn}]");
                     PLC.WriteInt16(OP20Address.EntryResult01, 2);
+                    OnEntryStateChanged01?.Invoke(sn, 2, "物料不匹配");
                     return;
                 }
 

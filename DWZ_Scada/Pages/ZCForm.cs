@@ -331,15 +331,15 @@ namespace DWZ_Scada.Pages
                     break;
 
                 case PlcState.Online:
-                    lbl_PLCState.Text = "待机";
+                    lbl_PLCState.Text = "停止中";
                     uiLight1.OnColor = Color.Yellow;
                     break;
                 case PlcState.Alarm:
-                    lbl_PLCState.Text = "报警";
+                    lbl_PLCState.Text = "故障中";
                     uiLight1.OnColor = Color.Red;
                     break;
                 case PlcState.Stop:
-                    lbl_PLCState.Text = "停止";
+                    lbl_PLCState.Text = "停止中";
                     uiLight1.OnColor = Color.Yellow;
                     break;
                 case PlcState.Running:

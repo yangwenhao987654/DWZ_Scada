@@ -61,16 +61,17 @@
             // 
             uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel6.Location = new System.Drawing.Point(62, 230);
+            uiLabel6.Location = new System.Drawing.Point(938, 200);
             uiLabel6.Margin = new System.Windows.Forms.Padding(0);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new System.Drawing.Size(133, 42);
+            uiLabel6.Size = new System.Drawing.Size(130, 36);
             uiLabel6.TabIndex = 71;
             uiLabel6.Text = "产品进站:";
+            uiLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // userCtrlEntry1
             // 
-            userCtrlEntry1.Location = new System.Drawing.Point(62, 276);
+            userCtrlEntry1.Location = new System.Drawing.Point(941, 239);
             userCtrlEntry1.Margin = new System.Windows.Forms.Padding(4);
             userCtrlEntry1.Name = "userCtrlEntry1";
             userCtrlEntry1.Size = new System.Drawing.Size(313, 168);
@@ -80,7 +81,7 @@
             // 
             // userCtrlVisionResult
             // 
-            userCtrlVisionResult.Location = new System.Drawing.Point(408, 275);
+            userCtrlVisionResult.Location = new System.Drawing.Point(583, 239);
             userCtrlVisionResult.Margin = new System.Windows.Forms.Padding(4);
             userCtrlVisionResult.Name = "userCtrlVisionResult";
             userCtrlVisionResult.Size = new System.Drawing.Size(313, 168);
@@ -92,19 +93,19 @@
             // 
             uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel11.Location = new System.Drawing.Point(393, 229);
+            uiLabel11.Location = new System.Drawing.Point(580, 200);
             uiLabel11.Margin = new System.Windows.Forms.Padding(0);
             uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new System.Drawing.Size(121, 42);
+            uiLabel11.Size = new System.Drawing.Size(120, 36);
             uiLabel11.TabIndex = 72;
             uiLabel11.Text = "画像检测:";
-            uiLabel11.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            uiLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiLabel7
             // 
             uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel7.Location = new System.Drawing.Point(747, 229);
+            uiLabel7.Location = new System.Drawing.Point(20, 210);
             uiLabel7.Margin = new System.Windows.Forms.Padding(0);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(97, 42);
@@ -115,7 +116,7 @@
             // 
             lbl_FinalCode.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_FinalCode.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_FinalCode.Location = new System.Drawing.Point(844, 229);
+            lbl_FinalCode.Location = new System.Drawing.Point(125, 210);
             lbl_FinalCode.Margin = new System.Windows.Forms.Padding(0);
             lbl_FinalCode.Name = "lbl_FinalCode";
             lbl_FinalCode.Size = new System.Drawing.Size(427, 80);
@@ -125,7 +126,7 @@
             // 
             uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel9.Location = new System.Drawing.Point(745, 337);
+            uiLabel9.Location = new System.Drawing.Point(22, 318);
             uiLabel9.Margin = new System.Windows.Forms.Padding(0);
             uiLabel9.Name = "uiLabel9";
             uiLabel9.Size = new System.Drawing.Size(97, 42);
@@ -136,7 +137,7 @@
             // 
             lbl_grade.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_grade.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_grade.Location = new System.Drawing.Point(832, 321);
+            lbl_grade.Location = new System.Drawing.Point(125, 302);
             lbl_grade.Margin = new System.Windows.Forms.Padding(0);
             lbl_grade.Name = "lbl_grade";
             lbl_grade.Size = new System.Drawing.Size(208, 61);
@@ -147,10 +148,10 @@
             // 
             lbl_CodeResult.Font = new System.Drawing.Font("微软雅黑", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             lbl_CodeResult.ForeColor = System.Drawing.Color.Green;
-            lbl_CodeResult.Location = new System.Drawing.Point(865, 382);
+            lbl_CodeResult.Location = new System.Drawing.Point(144, 363);
             lbl_CodeResult.Margin = new System.Windows.Forms.Padding(0);
             lbl_CodeResult.Name = "lbl_CodeResult";
-            lbl_CodeResult.Size = new System.Drawing.Size(160, 81);
+            lbl_CodeResult.Size = new System.Drawing.Size(160, 106);
             lbl_CodeResult.TabIndex = 78;
             lbl_CodeResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -158,7 +159,7 @@
             // 
             uiLabel10.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel10.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel10.Location = new System.Drawing.Point(745, 382);
+            uiLabel10.Location = new System.Drawing.Point(22, 396);
             uiLabel10.Margin = new System.Windows.Forms.Padding(0);
             uiLabel10.Name = "uiLabel10";
             uiLabel10.Size = new System.Drawing.Size(97, 42);
@@ -215,7 +216,7 @@
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP70";
-            Text = "OP10";
+            Text = "OP70";
             TitleFillColor = System.Drawing.Color.Transparent;
             TitleHeight = 19;
             Initialize += PageOP70_Initialize;

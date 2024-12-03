@@ -1,4 +1,5 @@
 ﻿using CommonUtilYwh.Communication.ModbusTCP;
+using CommunicationUtilYwh.Communication.ModbusTCP;
 using CommunicationUtilYwh.Device;
 using DWZ_Scada.ctrls.LogCtrl;
 using DWZ_Scada.PLC;
@@ -52,7 +53,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// <summary>
         /// 氦气瓶压力
         /// </summary>
-        public event Action<short> OnPressureRecived;
+        public event Action<ushort> OnPressureRecived;
 
         /// <summary>
         /// 视觉检测完成
@@ -75,7 +76,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             //Logger.AddChargeInfo("执行大电流放电");
         }
         //ModbusTCP modbusTcp01 = new ModbusTCP();
-        ModbusTCP modbusTcp02 = new ModbusTCP();
+        MyModbus modbusTcp02 = new MyModbus();
         protected override string GetPLCIP()
         {
             return SystemParams.Instance.OP40_PlcIP;
@@ -98,7 +99,10 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
         private void TemperatureMonitor(CancellationToken token)
         {
-            modbusTcp02?.SetRecivedTimeout(1000);
+            if (modbusTcp02!=null)
+            {
+                modbusTcp02.ReviceTimeOut=1000;
+            }
             while (!token.IsCancellationRequested)
             {
                 try
@@ -106,7 +110,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     if (modbusTcp02.IsConnect)
                     {
                         //连接成功
-                        modbusTcp02.SetStation(2);
+                        modbusTcp02.StationNum=2;
                         double humidity = ReadHumidity(modbusTcp02);
                         double temperature =ReadTemperature(modbusTcp02);
                         //获取到温度和湿度
@@ -123,14 +127,14 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                         //数值给PLC
                         //OnPressureRecived?.Invoke(pressure);
 
-                        modbusTcp02.SetStation(1);
-                        modbusTcp02.ReadInt16("4", out short pressure);
+                        modbusTcp02.StationNum = 1;
+                        ushort pressure =modbusTcp02.ReadHoldingRegister(4);
                         LogMgr.Instance.Debug($"ModbusTCP-读取压力结果:{pressure}");
                         OnPressureRecived?.Invoke(pressure);
                     }
                     else
                     {
-                        modbusTcp02.Open(SystemParams.Instance.OP40_ModbusIP,SystemParams.Instance.OP40_ModbusPort,2);
+                        modbusTcp02.Connect(SystemParams.Instance.OP40_ModbusIP,SystemParams.Instance.OP40_ModbusPort);
                     }
                 }
                 catch (Exception e)
@@ -219,7 +223,45 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             return result;
         }
 
-     
+        /// <summary>
+        /// 读取湿度
+        /// </summary>
+        public double ReadHumidity(MyModbus client)
+        {
+            double result = 0;
+            ushort startAddress = 1;
+            ushort value = client.ReadHoldingRegister(startAddress);
+            if (value!=0)
+            {
+                result = value * 0.1;
+            }
+            else
+            {
+                //LogMgr.Instance.Error("读取湿度失败");
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 读取温度
+        /// </summary>
+        public double ReadTemperature(MyModbus client)
+        {
+            double result = 0;
+            ushort startAddress = 0;
+            ushort value = client.ReadHoldingRegister(startAddress);
+            if (value >= 10000)
+            {
+                result = (-1 * (value - 10000) * 0.1);
+            }
+            else
+            {
+                result = value * 0.1;
+            }
+            return result;
+        }
+
+
 
         /// <summary>
         /// 当前温度
