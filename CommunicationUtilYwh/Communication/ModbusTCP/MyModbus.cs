@@ -47,27 +47,26 @@ namespace CommunicationUtilYwh.Communication.ModbusTCP
         {
             IP =ip;
             Port = port;
-            master = ModbusIpMaster.CreateIp(tcpClient);
         }
 
         public MyModbus()
         {
-            master = ModbusIpMaster.CreateIp(tcpClient);
+            //master = ModbusIpMaster.CreateIp(tcpClient);
         }
 
         private bool Connect()
         {
-            if (tcpClient == null)
+            if (tcpClient != null)
             {
-                tcpClient = new TcpClient();
+                if (tcpClient.Connected)
+                {
+                    return true;
+                }
+              
             }
-
-            if (tcpClient.Connected)
-            {
-                return true;
-            }
-
-            tcpClient?.Connect(IP, Port);
+            tcpClient = new TcpClient();
+            master = ModbusIpMaster.CreateIp(tcpClient);
+            tcpClient.Connect(IP, Port);
             if (IsConnect)
             {
                 master.Transport.ReadTimeout = _reviceTimeOut;
@@ -75,7 +74,7 @@ namespace CommunicationUtilYwh.Communication.ModbusTCP
                 tcpClient.SendTimeout =_reviceTimeOut;
                 master.Transport.WriteTimeout = _reviceTimeOut;
             }
-            return tcpClient != null && tcpClient.Connected;
+            return tcpClient.Connected;
         }
 
 

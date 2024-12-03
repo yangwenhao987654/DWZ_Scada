@@ -47,8 +47,10 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-
+            
             LogMgr.Instance.Debug($"打开OP40工站");
+
+            InitTable();
             ISelectionStrategyEvent op10Strategy = new OP10SelectionStrategy();
             op10Strategy.OnSelectionEvent += OP10SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -68,10 +70,81 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
             OP40MainFunc.Instance.OnPressureRecived += Instance_OnPressureRecived;
 
+            OP40MainFunc.Instance.OnWeldStart += Instance_OnWeldStart;
+
             //OP40DamageStrategy op40DamageStrategy = new OP40DamageStrategy();
             //op40DamageStrategy.OnDamageableEvent += Op40DamageStrategy_OnSelectionEvent;
 
         }
+
+        private void Instance_OnWeldStart()
+        {
+            //
+            ClaerWeldTableDada();
+        }
+
+        private void ClaerWeldTableDada()
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action(ClaerWeldTableDada));
+                return;
+            }
+
+            dgv.Rows[0].Cells[1].Value = "";
+            dgv.Rows[1].Cells[1].Value ="";
+            dgv.Rows[2].Cells[1].Value = "";
+            dgv.Rows[3].Cells[1].Value = "";
+            dgv.Rows[4].Cells[1].Value = "";
+            dgv.Rows[5].Cells[1].Value = "";
+
+            dgv.Rows[0].Cells[3].Value = "";
+            dgv.Rows[1].Cells[3].Value = "";
+            dgv.Rows[2].Cells[3].Value = "";
+            dgv.Rows[3].Cells[3].Value = "";
+            dgv.Rows[4].Cells[3].Value = "";
+            dgv.Rows[5].Cells[3].Value = "";
+
+
+            dgv.Rows[0].Cells[5].Value = "";
+            dgv.Rows[1].Cells[5].Value = "";
+            dgv.Rows[2].Cells[5].Value = "";
+            dgv.Rows[3].Cells[5].Value = "";
+            dgv.Rows[4].Cells[5].Value = "";
+            dgv.Rows[5].Cells[5].Value = "";
+        }
+
+        private void InitTable()
+        {
+            dgv.Rows.Add();
+            dgv.Rows.Add();
+            dgv.Rows.Add();
+            dgv.Rows.Add();
+            dgv.Rows.Add();
+            dgv.Rows.Add();
+
+            dgv.Rows[0].Cells[0].Value = "氩气-1";
+            dgv.Rows[1].Cells[0].Value = "氩气-2";
+            dgv.Rows[2].Cells[0].Value = "氩气-3";
+            dgv.Rows[3].Cells[0].Value = "氩气-4";
+            dgv.Rows[4].Cells[0].Value = "氩气-5";
+            dgv.Rows[5].Cells[0].Value = "氩气-6";
+
+            dgv.Rows[0].Cells[2].Value = "空气1-1";
+            dgv.Rows[1].Cells[2].Value = "空气1-2";
+            dgv.Rows[2].Cells[2].Value = "空气1-3";
+            dgv.Rows[3].Cells[2].Value = "空气1-4";
+            dgv.Rows[4].Cells[2].Value = "空气1-5";
+            dgv.Rows[5].Cells[2].Value = "空气1-6";
+
+            dgv.Rows[0].Cells[4].Value = "空气2-1";
+            dgv.Rows[1].Cells[4].Value = "空气2-2";
+            dgv.Rows[2].Cells[4].Value = "空气2-3";
+            dgv.Rows[3].Cells[4].Value = "空气2-4";
+            dgv.Rows[4].Cells[4].Value = "空气2-5";
+            dgv.Rows[5].Cells[4].Value = "空气2-6";
+            dgv.ClearSelection();
+        }                                     
 
         private void Instance_OnPressureRecived(ushort value)
         {
@@ -93,8 +166,8 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             else
             {
                 //换算压力
-                double v = (double)((double)value / 10000 )* 20;
-                lbl_Pressure.Text = $"{v:F4}Mpa";
+                double v = (double)((double)value / 10000) * 25;
+                lbl_Pressure.Text = $"{v:F2}Mpa";
             }
         }
 
@@ -131,36 +204,39 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             switch (type)
             {
                 case "A":
-                    lbl_1_A.Text = arr[0].ToString();
+                    dgv.Rows[0].Cells[1].Value = arr[0].ToString();
+                    dgv.Rows[1].Cells[1].Value = arr[0].ToString();
+                    dgv.Rows[2].Cells[1].Value = arr[0].ToString();
+                    dgv.Rows[3].Cells[1].Value = arr[0].ToString();
+                    dgv.Rows[4].Cells[1].Value = arr[0].ToString();
+                    dgv.Rows[5].Cells[1].Value = arr[0].ToString();
+          /*          lbl_1_A.Text = arr[0].ToString();
                     lbl_2_A.Text = arr[1].ToString();
                     lbl_3_A.Text = arr[2].ToString();
                     lbl_4_A.Text = arr[3].ToString();
                     lbl_5_A.Text = arr[4].ToString();
                     lbl_6_A.Text = arr[5].ToString();
 
-                    /*          lbl_2_A.Text = arr[3].ToString();
-                              lbl_2_B.Text = arr[4].ToString();
-                              lbl_2_C.Text = arr[5].ToString();*/
+               */
                     break;
 
                 case "B":
 
-                    lbl_1_B.Text = arr[0].ToString();
-                    lbl_2_B.Text = arr[1].ToString();
-                    lbl_3_B.Text = arr[2].ToString();
-                    lbl_4_B.Text = arr[3].ToString();
-                    lbl_5_B.Text = arr[4].ToString();
-                    lbl_6_B.Text = arr[5].ToString();
+                    dgv.Rows[0].Cells[3].Value = arr[0].ToString();
+                    dgv.Rows[1].Cells[3].Value = arr[0].ToString();
+                    dgv.Rows[2].Cells[3].Value = arr[0].ToString();
+                    dgv.Rows[3].Cells[3].Value = arr[0].ToString();
+                    dgv.Rows[4].Cells[3].Value = arr[0].ToString();
+                    dgv.Rows[5].Cells[3].Value = arr[0].ToString();
                     break;
                 case "C":
-                    lbl_1_C.Text = arr[0].ToString();
-                    lbl_2_C.Text = arr[1].ToString();
-                    lbl_3_C.Text = arr[2].ToString();
-                    lbl_4_C.Text = arr[3].ToString();
-                    lbl_5_C.Text = arr[4].ToString();
-                    lbl_6_C.Text = arr[5].ToString();
+                    dgv.Rows[0].Cells[5].Value = arr[0].ToString();
+                    dgv.Rows[1].Cells[5].Value = arr[0].ToString();
+                    dgv.Rows[2].Cells[5].Value = arr[0].ToString();
+                    dgv.Rows[3].Cells[5].Value = arr[0].ToString();
+                    dgv.Rows[4].Cells[5].Value = arr[0].ToString();
+                    dgv.Rows[5].Cells[5].Value = arr[0].ToString();
                     break;
-
             }
         }
 
@@ -211,6 +287,16 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         }
 
         private void uiLabel11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiLabel8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_1_B_Click(object sender, EventArgs e)
         {
 
         }

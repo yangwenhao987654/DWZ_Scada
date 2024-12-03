@@ -51,6 +51,11 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         public event Action<double, double> OnTemperatureRecived;
 
         /// <summary>
+        /// 焊接开始
+        /// </summary>
+        public event Action OnWeldStart;
+
+        /// <summary>
         /// 氦气瓶压力
         /// </summary>
         public event Action<ushort> OnPressureRecived;
@@ -110,19 +115,26 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     if (modbusTcp02.IsConnect)
                     {
                         //连接成功
-                        modbusTcp02.StationNum=2;
-                        double humidity = ReadHumidity(modbusTcp02);
-                        double temperature =ReadTemperature(modbusTcp02);
-                        //获取到温度和湿度
-
-                        lock (_lock)
+                        try
                         {
-                            CurHumidity = humidity;
-                            CurTemperature = temperature;
-                        }
-                        //实时显示温度和湿度
-                        OnTemperatureRecived?.Invoke(temperature, humidity);
+                            modbusTcp02.StationNum = 2;
+                            double humidity = ReadHumidity(modbusTcp02);
+                            double temperature = ReadTemperature(modbusTcp02);
+                            //获取到温度和湿度
 
+                            lock (_lock)
+                            {
+                                CurHumidity = humidity;
+                                CurTemperature = temperature;
+                            }
+                            //实时显示温度和湿度
+                            OnTemperatureRecived?.Invoke(temperature, humidity);
+                        }
+                        catch (Exception e)
+                        {
+                            LogMgr.Instance.Error($"温湿度读取失败{e.Message}");
+                        }
+                        
                         //实时显示温度和湿度
                         //数值给PLC
                         //OnPressureRecived?.Invoke(pressure);
@@ -439,8 +451,12 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             if (PLC.ReadInt16(OP40Address.WeldingStart, out short isRequest) && isRequest == 1)
             {
                 LogMgr.Instance.Debug("收到[OP40]焊接请求信号");
+
+                OnWeldStart?.Invoke();
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.WeldingStart, 0);
+                PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
+                OnWeldingFinished?.Invoke(sn, 0);
                 /*   PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
                    LogMgr.Instance.Debug("读取出站条码内容:" + sn);
 

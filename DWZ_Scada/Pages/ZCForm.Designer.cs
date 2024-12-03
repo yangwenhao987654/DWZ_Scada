@@ -156,11 +156,13 @@ namespace DWZ_Scada.Pages
             // 
             // uiLight1
             // 
+            uiLight1.CenterColor = System.Drawing.Color.Transparent;
             uiLight1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             uiLight1.Location = new System.Drawing.Point(232, 22);
             uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
             uiLight1.Name = "uiLight1";
             uiLight1.OffColor = System.Drawing.Color.Red;
+            uiLight1.OnCenterColor = System.Drawing.Color.Transparent;
             uiLight1.OnColor = System.Drawing.Color.LightGray;
             uiLight1.Radius = 59;
             uiLight1.Size = new System.Drawing.Size(59, 60);
@@ -666,7 +668,7 @@ namespace DWZ_Scada.Pages
         private Sunny.UI.UILabel uiLabel17;
         private Sunny.UI.UILabel lbl_PLCConn;
         private Sunny.UI.UIPanel uiPanel1;
-        private Sunny.UI.UILight uiLight1;
         private Sunny.UI.UIPanel uiPanel2;
+        private Sunny.UI.UILight uiLight1;
     }
 }
