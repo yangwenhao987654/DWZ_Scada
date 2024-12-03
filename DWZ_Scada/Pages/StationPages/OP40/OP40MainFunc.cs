@@ -101,7 +101,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         {
             if (modbusTcp02!=null)
             {
-                modbusTcp02.ReviceTimeOut=1000;
+                modbusTcp02.ReviceTimeOut=500;
             }
             while (!token.IsCancellationRequested)
             {
@@ -126,11 +126,17 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                         //实时显示温度和湿度
                         //数值给PLC
                         //OnPressureRecived?.Invoke(pressure);
-
-                        modbusTcp02.StationNum = 1;
-                        ushort pressure =modbusTcp02.ReadHoldingRegister(4);
-                        LogMgr.Instance.Debug($"ModbusTCP-读取压力结果:{pressure}");
-                        OnPressureRecived?.Invoke(pressure);
+                        try
+                        {
+                            modbusTcp02.StationNum = 1;
+                            ushort pressure = modbusTcp02.ReadHoldingRegister(4);
+                            //LogMgr.Instance.Debug($"ModbusTCP-读取压力结果:{pressure}");
+                            OnPressureRecived?.Invoke(pressure);
+                        }
+                        catch (Exception e)
+                        {
+                            LogMgr.Instance.Error($"压力读取失败{e.Message}");
+                        }
                     }
                     else
                     {

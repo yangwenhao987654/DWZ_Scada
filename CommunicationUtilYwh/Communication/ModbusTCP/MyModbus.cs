@@ -71,6 +71,9 @@ namespace CommunicationUtilYwh.Communication.ModbusTCP
             if (IsConnect)
             {
                 master.Transport.ReadTimeout = _reviceTimeOut;
+                tcpClient.ReceiveTimeout =_reviceTimeOut;
+                tcpClient.SendTimeout =_reviceTimeOut;
+                master.Transport.WriteTimeout = _reviceTimeOut;
             }
             return tcpClient != null && tcpClient.Connected;
         }
