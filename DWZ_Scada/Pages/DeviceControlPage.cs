@@ -308,9 +308,14 @@ namespace DWZ_Scada.Pages
                 lbx_Alarm.Invoke(reflashList);
                 return;
             }
-           
+
+            if (list.Any())
+            {
+                list.Insert(0,$"{DateTime.Now:yyyy:MM:dd hh:mm:ss}");
+            }
             lbx_Alarm.DataSource = null;
             lbx_Alarm.DataSource = list;
+            lbx_Alarm.ClearSelected();
         }
 
         //初始化

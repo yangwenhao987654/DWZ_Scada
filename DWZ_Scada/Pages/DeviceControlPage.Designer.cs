@@ -97,9 +97,11 @@
             // 
             // lbx_Alarm
             // 
-            lbx_Alarm.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbx_Alarm.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbx_Alarm.ForeColor = System.Drawing.Color.Red;
             lbx_Alarm.HoverColor = System.Drawing.Color.FromArgb(155, 200, 255);
-            lbx_Alarm.ItemSelectForeColor = System.Drawing.Color.White;
+            lbx_Alarm.ItemHeight = 35;
+            lbx_Alarm.ItemSelectForeColor = System.Drawing.Color.Red;
             lbx_Alarm.Location = new System.Drawing.Point(649, 156);
             lbx_Alarm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             lbx_Alarm.MinimumSize = new System.Drawing.Size(1, 1);

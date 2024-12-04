@@ -31,7 +31,7 @@ namespace DWZ_Scada.Pages.PLCAlarm
                         //节点名称 
                         string name = xe.Name;
                         string[] strings = name.Split("-");
-                        if (strings.Length>1)
+                        if (strings.Length > 1)
                         {
                             pLC_DATA_.ID = Convert.ToInt32(strings[1]);
                         }

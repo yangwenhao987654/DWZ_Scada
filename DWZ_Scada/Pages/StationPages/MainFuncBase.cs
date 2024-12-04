@@ -591,13 +591,13 @@ namespace DWZ_Scada.Pages.StationPages
                         else
                         {
                             IsKVServerConnected = false;
-                            //Logger.Error("PLC连接失败:");
+                            Logger.Error("KVServer连接失败");
                         }
-                        IsKVServerConnected = true;
+                        IsKVServerConnected = flag;
                     }
                     else
                     {
-                        IsKVServerConnected = false;
+                        IsKVServerConnected = true;
                     }
                 }
                 catch (Exception ex)
@@ -723,7 +723,8 @@ namespace DWZ_Scada.Pages.StationPages
             if (isActive)
             {
                 Global.IsDeviceAlarm = true;
-                CurAlarmInfoVo.Add($"{alarmEntity.AlarmTime:yyyy:MM:dd hh:mm:ss}:{alarmEntity.AlarmInfo}--{alarmEntity.AlarmType}");
+                //CurAlarmInfoVo.Add($"{alarmEntity.AlarmTime:yyyy:MM:dd hh:mm:ss}");
+                CurAlarmInfoVo.Add($"{alarmEntity.AlarmInfo}");
                 CurrentAlarmList.Add(alarmEntity);
                 if (ActiveAlarms.TryAdd(alarmKey, alarmEntity))
                 {

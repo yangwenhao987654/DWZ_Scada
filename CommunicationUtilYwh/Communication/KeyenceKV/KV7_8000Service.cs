@@ -207,11 +207,28 @@ namespace KeyenceComunicationTest
             KVTCPClicent.SendTimeout = SendTimeout;
             KVTCPClicent.ReceiveTimeout = ReceiveTimeout;
             IAsyncResult asyncResult = KVTCPClicent.BeginConnect(new IPEndPoint(IPAddress.Parse(ip), port), null, null);
-            asyncResult.AsyncWaitHandle.WaitOne(3000, true);
+            IsConnected = false;
+            bool isConnected = asyncResult.AsyncWaitHandle.WaitOne(3000, true);
+            if (!isConnected)
+            {
+                KVTCPClicent.Close();
+                return false;
+            }
             if (!asyncResult.IsCompleted)
             {
                 KVTCPClicent.Close();
-                IsConnected =false;
+                return false;
+            }
+
+            try
+            {
+                // End the asynchronous connection attempt
+                KVTCPClicent.EndConnect(asyncResult);
+            }
+            catch (SocketException ex)
+            {
+                // Connection failed
+                KVTCPClicent.Close();
                 return false;
             }
 
