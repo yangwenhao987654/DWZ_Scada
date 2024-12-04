@@ -3,13 +3,14 @@ using HslCommunication.Profinet.Keyence;
 using LogTool;
 using System;
 using HslCommunication.Core;
+using Newtonsoft.Json.Linq;
 
 namespace CommunicationUtilYwh.Communication.PLC
 {
     /// <summary>
     /// 基恩士PLC的MC协议 TCP
     /// </summary>
-    public class KeyencePLC: MyPlc
+    public class KeyencePLC : MyPlc
     {
         private KeyenceMcNet client;
 
@@ -25,6 +26,7 @@ namespace CommunicationUtilYwh.Communication.PLC
                 {
                     flag = false;
                 }
+
                 if (flag)
                 {
                     LogMgr.Instance.Info("PLC连接成功");
@@ -38,160 +40,419 @@ namespace CommunicationUtilYwh.Communication.PLC
             {
                 flag = false;
             }
+
             return flag;
         }
 
-        public override bool ReadBool(string address,out bool value )
+        #region 读操作
+
+        public override bool ReadBool(string address, out bool value)
         {
-            OperateResult<bool> result = client.ReadBool(address);
-            value = result.Content;
-            if (!result.IsSuccess)
+            value = false;
+            bool flag = true;
+            try
             {
-                LogMgr.Instance.Error($"PLC Read Bool Error,地址:[{address}]  异常信息:{result.Message}");
+                var result = client.ReadBool(address);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Bool] Fail,地址:[{address}] 错误信息:[{result.Message}]");
+                }
             }
-            return result.IsSuccess;
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Bool] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadBool(string address, ushort length, out bool[] value)
+        {
+            bool flag = false;
+            value = new bool[length];
+            try
+            {
+                var result = client.ReadBool(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Bool]数组 Fail,地址:[{address}] 长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Bool]数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
         }
 
         public override bool ReadInt16(string address, out short value)
         {
-            OperateResult<short> result = client.ReadInt16(address);
-            value = result.Content;
-            if (!result.IsSuccess)
+            bool flag = false;
+            value = -1;
+            try
             {
-                LogMgr.Instance.Error($"PLC Read Int16 Error,地址:[{address}]  异常信息:{result.Message}");
+                var result = client.ReadInt16(address);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [int16] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
             }
-            return result.IsSuccess;
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read int16 Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
         }
 
         public override bool ReadInt16(string address, ushort length, out short[] value)
         {
-            var result = client.ReadInt16(address, length);
-            value = result.Content;
-            if (!result.IsSuccess)
+            bool flag = false;
+            value = new short[length];
+            try
             {
-                LogMgr.Instance.Error($"PLC Read Int16 Arr[] Error,地址:[{address}] 长度:[{length}]  异常信息:{result.Message}");
+                var result = client.ReadInt16(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Int16]数组 Fail,地址:[{address}] 长度:[{length}] 错误信息:[{result.Message}]");
+                }
             }
-            return result.IsSuccess;
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Int16]数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadUInt16(string address, out ushort value)
+        {
+            bool flag = true;
+            value = 0;
+            try
+            {
+                var result = client.ReadUInt16(address);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [UInt16]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [UInt16] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadUInt16(string address, ushort length, out ushort[] value)
+        {
+            bool flag = false;
+            value = new ushort[length];
+            try
+            {
+                var result = client.ReadUInt16(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [UInt16]数组 Fail,地址:[{address}] 长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [UInt16]数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadInt32(string address, out int value)
+        {
+            bool flag = true;
+            value = 0;
+            try
+            {
+                var result = client.ReadInt32(address);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Int32]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Int32] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
         }
 
         public override bool ReadInt32(string address, ushort length, out int[] value)
         {
-            var result = client.ReadInt32(address, length);
-            value = result.Content;
-              if (!result.IsSuccess)
-            {
-                LogMgr.Instance.Error($"PLC Read Int32 Arr[] Error,地址:[{address}] 长度:[{length}] 异常信息:{result.Message}");
-            }
-            return result.IsSuccess;
-        }
-
-        public override bool Read(string adr, string type, out string value)
-        {
-            value = "0";
-            bool flag = true;
-            type =type.ToLower();
-            //获取类型和长度 string-10
-            string[] str_Type = type.Split('-');
+            bool flag = false;
+            value = new int[length];
             try
             {
-                switch (str_Type[0])
+                var result = client.ReadInt32(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
                 {
-                    case "int":
-                        {
-                            OperateResult<Int16> operate = client.ReadInt16(adr);
-                            value = operate.Content.ToString();
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "double":
-                        {
-                            OperateResult<double> operate = client.ReadDouble(adr);
-                            value = operate.Content.ToString("f2");
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "float":
-                        {
-                            OperateResult<float> operate = client.ReadFloat(adr);
-                            value = operate.Content.ToString("f2");
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "string":
-                        {
-                            OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
-                            value = operate.Content.ToString();
-                            //字符串反转
-                            value = RemoveAllCharactersAfterBackslashOrNull(value);
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    default:
-
-                        LogMgr.Instance.Error($"Read Fail :Require read dataType [{type}] is not support");
-                        throw new Exception($"Read PLC Error: not support dataType:[{type}]");
-                        break;
+                    LogMgr.Instance.Error($"Read [int32] 数组 Fail,地址:[{address}],长度:[{length}] 错误信息:[{result.Message}]");
                 }
-
             }
             catch (Exception ex)
             {
-                LogMgr.Instance.Error($"PLC读取错误,地址:[{adr}] 类型[{type}] 异常信息:{ex.Message}");
-                flag = false;
+                LogMgr.Instance.Error($"Read [int32] 数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
             }
+
             return flag;
         }
 
-
-        public override bool Write(string adr, string type, object value)
+        public override bool ReadUInt32(string address, out uint value)
         {
             bool flag = true;
-            type = type.ToLower();
+            value = 0;
             try
             {
-                switch (type)
+                var result = client.ReadUInt32(address);
+                flag = result.IsSuccess;
+                if (!flag)
                 {
-                    case "int":
-                        {
-                            OperateResult operate = client.Write(adr, Convert.ToInt16(value));
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "double":
-                        {
-                            OperateResult operate = client.Write(adr, Convert.ToDouble(value));
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "float":
-                        {
-                            float valueF = (float)value;
-                            OperateResult operate = client.Write(adr, valueF);
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "string":
-                        {
-                            OperateResult operate = client.Write(adr, value.ToString());
-                            flag = operate.IsSuccess;
-                            break;
-                        }
-                    case "bool":
-                    {
-                        OperateResult operate = client.Write(adr, Convert.ToBoolean(value));
-                        flag = operate.IsSuccess;
-                        break;
-                    }
-                    default:
-                        LogMgr.Instance.Error($"Read Fail :Require read dataType [{type}] is not support");
-                        throw new Exception($"Read PLC Error: not support dataType:[{type}]");
-                        break;
+                    LogMgr.Instance.Error($"Read [UInt32]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
                 }
             }
             catch (Exception ex)
             {
-                LogMgr.Instance.Error($"PLC写入错误,地址:[{adr}] 类型[{type}] 异常信息:{ex.Message}");
-                flag = false;
+                LogMgr.Instance.Error($"Read [UInt32] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadUInt32(string address, ushort length, out uint[] value)
+        {
+            bool flag = false;
+            value = new uint[length];
+            try
+            {
+                var result = client.ReadUInt32(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error(
+                        $"Read [UInt32] 数组 Fail,地址:[{address}],长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [UInt32] 数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadInt64(string address, out long value)
+        {
+            bool flag = true;
+            value = 0;
+            try
+            {
+                var result = client.ReadInt64(address);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Int64]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Int64] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadInt64(string address, ushort length, out long[] value)
+        {
+            bool flag = false;
+            value = new long[length];
+            try
+            {
+                var result = client.ReadInt64(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Int64] 数组 Fail,地址:[{address}],长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Int64] 数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadUInt64(string address, out ulong value)
+        {
+            bool flag = true;
+            value = 0;
+            try
+            {
+                var result = client.ReadUInt64(address);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [UInt64]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [UInt64] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadUInt64(string address, ushort length, out ulong[] value)
+        {
+            bool flag = false;
+            value = new ulong[length];
+            try
+            {
+                var result = client.ReadUInt64(address, length);
+                value = result.Content;
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error(
+                        $"Read [UInt64] 数组 Fail,地址:[{address}],长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [UInt64] 数组 Err,地址:[{address}],长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadFloat(string address, out float value)
+        {
+            bool flag = true;
+            value = 0;
+            try
+            {
+                var result = client.ReadFloat(address);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Float]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Float] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadDouble(string address, out double value)
+        {
+            bool flag = true;
+            value = 0;
+            try
+            {
+                var result = client.ReadDouble(address);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [Double]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [Double] Err ,地址:[{address}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        public override bool ReadString(string address, ushort length, out string value)
+        {
+            bool flag = true;
+            value = "";
+            try
+            {
+                var result = client.ReadString(address, length);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [String]  Fail ,地址:[{address}] 长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [String] Err ,地址:[{address}] 长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+        #endregion
+
+        #region 写操作
+
+        public override bool WriteInt16(string address, short value)
+        {
+            bool flag = false;
+            try
+            {
+                OperateResult result = client.Write(address, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [int16] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [int16] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        public override bool WriteBool(string adr, bool value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(adr, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [Bool] Fail,地址:[{adr}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [Bool] Err,地址:[{adr}] 异常信息:{ex.Message} ");
             }
 
             return flag;
@@ -199,62 +460,254 @@ namespace CommunicationUtilYwh.Communication.PLC
 
         public override bool WriteFloat(string adr, float value)
         {
-            OperateResult operate = new OperateResult();
             bool flag = true;
             try
             {
-                operate = client.Write(adr, value);
-                flag = operate.IsSuccess;
-            }
-            catch (Exception ex)
-            {
-                LogMgr.Instance.Error($"Write Float Fail :{ex.Message} {operate.Message}");
-            }
-            return flag;
-        }
-        public override bool ReadAlarm(string adr, out bool[] value, int length)
-        {
-            value = new bool[length];
-            bool flag = true;
-            try
-            {
-                OperateResult<bool[]> operate = client.ReadBool(adr, (ushort)length);
-                value = operate.Content;
-                flag = operate.IsSuccess;
+                var result = client.Write(adr, value);
+                flag = result.IsSuccess;
                 if (!flag)
                 {
-                    LogMgr.Instance.Error($"读取报警失败:{operate.Message} 地址:{adr} 长度:{length}");
+                    LogMgr.Instance.Error($"Write [Float] Fail,地址:[{adr}]  错误信息:[{result.Message}]");
                 }
             }
             catch (Exception ex)
             {
-                LogMgr.Instance.Error($"PLC Read错误,地址:[{adr}] 类型[数据-{length}] 异常信息:{ex.Message} 堆栈{ex.StackTrace}");
-                flag = false;
+                LogMgr.Instance.Error($"Write [Float] Err,地址:[{adr}] 异常信息:{ex.Message}");
             }
+
             return flag;
         }
 
+
+        public override bool WriteInt32(string adr, int value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(adr, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [Int32] Fail,地址:[{adr}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [Int32] Err,地址:[{adr}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+
+        public override bool WriteInt64(string address, long value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(address, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [Int64] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [Int64] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        public override bool WriteUInt16(string address, ushort value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(address, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [UInt16] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [UInt16] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        public override bool WriteUInt32(string address, uint value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(address, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [UInt32] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [UInt32] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        public override bool WriteUInt64(string address, ulong value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(address, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [UInt64] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [UInt64] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        public override bool WriteString(string address, string value)
+        {
+            bool flag = true;
+            try
+            {
+                var result = client.Write(address, value);
+                flag = result.IsSuccess;
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Write [String] Fail,地址:[{address}]  错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Write [String] Err,地址:[{address}] 异常信息:{ex.Message}");
+            }
+
+            return flag;
+        }
+
+        #endregion
+
+
+        #region 扩展读写方法
+
+        public override bool Read(string adr, string type, out string value)
+        {
+            value = "0";
+            bool flag = true;
+            //获取类型和长度 string-10
+            string[] str_Type = type.Split('-');
+            try
+            {
+                switch (str_Type[0])
+                {
+                    case "Int":
+                    {
+                        OperateResult<Int16> operate = client.ReadInt16(adr);
+                        value = operate.Content.ToString();
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    case "Double":
+                    {
+                        OperateResult<double> operate = client.ReadDouble(adr);
+                        value = operate.Content.ToString("f2");
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    case "Float":
+                    {
+                        OperateResult<float> operate = client.ReadFloat(adr);
+                        value = operate.Content.ToString();
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    case "String":
+                    {
+                        OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
+                        value = operate.Content.ToString();
+
+                        value = RemoveAllCharactersAfterBackslashOrNull(value);
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
+            }
+            catch (Exception)
+            {
+                flag = false;
+            }
+
+            return flag;
+        }
+
+        public override bool Write(string adr, string type, object value)
+        {
+            bool flag = true;
+            try
+            {
+                switch (type)
+                {
+                    case "Int":
+                    {
+                        OperateResult operate = client.Write(adr, Convert.ToInt16(value));
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    case "Double":
+                    {
+                        OperateResult operate = client.Write(adr, Convert.ToDouble(value));
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    case "Float":
+                    {
+                        float valueF = (float)value;
+                        OperateResult operate = client.Write(adr, valueF);
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    case "String":
+                    {
+                        OperateResult operate = client.Write(adr, value.ToString());
+                        flag = operate.IsSuccess;
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                flag = false;
+            }
+
+            return flag;
+        }
+
+        #endregion
+
+
         public override void Dispose()
         {
-            //Dispose 会调用Close()  =》  client?.ConnectClose();
-
-            LogMgr.Instance.Debug("释放Keyence-PLC连接");
             client?.Dispose();
-        }
-
-       
-        public override bool ReadInt32(string address, out int value)
-        {
-            var result = client.ReadInt32(address);
-            value = result.Content;
-            return result.IsSuccess;
-        }
-
-        public override bool WriteInt16(string address, short value)
-        {
-            OperateResult operate = client.Write(address, Convert.ToInt16(value));
-            bool flag = operate.IsSuccess;
-            return flag; ;
         }
     }
 }

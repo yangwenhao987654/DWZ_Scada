@@ -213,7 +213,7 @@ namespace CommunicationUtilYwh.Communication.PLC
             }
             return flag;
         }
-        public override bool ReadAlarm(string adr, out bool[] value, int length)
+        public override bool ReadBool(string adr, out bool[] value, int length)
         {
             value = new bool[length];
             bool flag = true;

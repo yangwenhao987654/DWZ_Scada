@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using CommonUtilYwh.Communication.ModbusTCP;
+using CommunicationUtilYwh.Communication.PLC;
 using DWZ_Scada.dao;
 using DWZ_Scada.Pages;
 using DWZ_Scada.Pages.StationPages.OP10;
@@ -36,9 +37,10 @@ namespace DWZ_Scada
                 return _instance;
             }
         }
+
+        private MyPlc myplc { get; set; }
         ComboBox ComboBox_2 = new ComboBox();
 
-        public ModbusTCP ModbusTCP = new ModbusTCP();
         AutoResizeForm asc = new AutoResizeForm();
         /// <summary>
         /// PLC地址数据
@@ -94,6 +96,151 @@ namespace DWZ_Scada
             this.Show();
         }
 
+        public string read_(string address, string type ,out bool readResult)
+        {
+            try
+            {
+                readResult = false;//标志是否读取成功
+                var str_out = "ReadErr";
+                type = type.ToLower();
+                ushort length = 1;
+                if (type.StartsWith("string"))
+                {
+                    string[] strings = type.Split("-");
+                    if (strings.Length!=2)
+                    {
+                        throw new Exception($"类型 [{type}] 错误，请指定字符串长度 示例:[string-10]");
+                    }
+                    type = strings[0];
+                    ushort.TryParse(strings[1], out  length);
+                }
+
+                switch (type)
+                {
+                    case "bool":
+                        if (myplc.ReadBool(address, out bool boolValue))
+                        {
+                            str_out = Convert.ToString(boolValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "short":
+                        if (myplc.ReadInt16(address, out short shortValue))
+                        {
+                            str_out = Convert.ToString(shortValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "int":
+                        if (myplc.ReadInt32(address, out int intValue))
+                        {
+                            str_out = Convert.ToString(intValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "long":
+                        if (myplc.ReadInt64(address, out long longValue))
+                        {
+                            str_out = Convert.ToString(longValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "ushort":
+                        if (myplc.ReadUInt16(address, out ushort ushortValue))
+                        {
+                            str_out = Convert.ToString(ushortValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "uint":
+                        if (myplc.ReadUInt32(address, out uint uintValue))
+                        {
+                            str_out = Convert.ToString(uintValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "ulong":
+                        if (myplc.ReadUInt64(address, out ulong unlongValue))
+                        {
+                            str_out = Convert.ToString(unlongValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "double":
+                        if (myplc.ReadDouble(address, out double doubleValue))
+                        {
+                            str_out = Convert.ToString(doubleValue);
+                            readResult = true;
+                        }
+                        break;
+                    case "string":
+                        if (myplc.ReadString(address, length, out string strValue))
+                        {
+                            str_out = strValue;
+                            readResult = true;
+                        }
+                        break;
+                    default:
+                        throw new Exception($"未知数据类型:{type}");
+                }
+                return str_out;
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error("读取错误：" + ex.Message);
+                readResult = false;
+                return "NG";
+            }
+        }
+
+        public string write_(string address, string type, string Data)
+        {
+            try
+            {
+                var str_out = "";
+
+                switch (type)
+                {
+                    case "bool":
+                        myplc.WriteBool(address, bool.Parse(Data));
+                        //  str_out = Convert.ToString(client.Write(address).Content);
+                        break;
+                    case "short":
+                        myplc.WriteInt16(address, short.Parse(Data));
+                        break;
+                    case "int":
+                        myplc.WriteInt32(address, int.Parse(Data));
+                        break;
+                    case "long":
+                        myplc.WriteInt64(address, long.Parse(Data));
+                        break;
+                    case "ushort":
+                        myplc.WriteUInt16(address, ushort.Parse(Data));
+                        break;
+                    case "uint":
+                        myplc.WriteUInt32(address, uint.Parse(Data));
+                        break;
+                    case "ulong":
+                        myplc.WriteUInt64(address, ulong.Parse(Data));
+                        break;
+                    case "double":
+                        myplc.WriteFloat(address, float.Parse(Data));
+                        break;
+                    case "string":
+                        myplc.WriteString(address, Data);
+                        break;
+                }
+
+                return str_out;
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error("写入错误：" + ex.Message);
+                return "NG";
+            }
+        }
+
+
         /// <summary>
         /// 写入信号
         /// </summary>
@@ -105,7 +252,7 @@ namespace DWZ_Scada
             PlcData pLC_DATA = pLC_DATAs.Find(o => o.Name == Name);
             if (pLC_DATA != null)
             {
-                ModbusTCP.write_(pLC_DATA.Address, pLC_DATA.Type, Data);
+                write_(pLC_DATA.Address, pLC_DATA.Type, Data);
             }
         }
 
@@ -116,7 +263,7 @@ namespace DWZ_Scada
                 PlcData pLC_DATA = pLC_DATAs.Find(o => o.Name == Name);
                 if (pLC_DATA != null)
                 {
-                    return ModbusTCP.read_(pLC_DATA.Address, pLC_DATA.Type);
+                    string result = read_(pLC_DATA.Address, pLC_DATA.Type, out bool readResult);
                 }
                 else
                 {
@@ -381,8 +528,17 @@ namespace DWZ_Scada
         {
             try
             {
-                textBox4.Text = ModbusTCP.read_(pLC_DATAs[Row_].Address, pLC_DATAs[Row_].Type);
-                MessageBox.Show("读取完成");
+                string result = read_(pLC_DATAs[Row_].Address, pLC_DATAs[Row_].Type,out bool readResult);
+                textBox4.Text = result;
+                if (readResult)
+                {
+                    MessageBox.Show("读取完成");
+                }
+                else
+                {
+                    MessageBox.Show("读取异常");
+                }
+               
             }
             catch (Exception ex)
             {
@@ -394,7 +550,7 @@ namespace DWZ_Scada
         {
             try
             {
-                ModbusTCP.write_(pLC_DATAs[Row_].Address, pLC_DATAs[Row_].Type, textBox4.Text);
+                write_(pLC_DATAs[Row_].Address, pLC_DATAs[Row_].Type, textBox4.Text);
                 MessageBox.Show("写入完成");
             }
             catch (Exception ex)
