@@ -1,13 +1,8 @@
-﻿using Cap.Dialog;
-using DWZ_Scada.Pages.PLCAlarm;
+﻿using DWZ_Scada.Pages.PLCAlarm;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Windows.Forms;
-using System.Xml;
-using static DWZ_Scada.Page.PLCControl.Page_PLCAlarmConfig;
 
 namespace DWZ_Scada.Page.PLCControl
 {
@@ -87,9 +82,9 @@ namespace DWZ_Scada.Page.PLCControl
                 for (int i = 0; i < AlarmList.Count; i++)
                 {
                     AlarmList[i].Index = (int)dgv.Rows[i].Cells[0].Value;
-                    AlarmList[i].SubAddress = dgv.Rows[i].Cells[1].Value.ToString();
-                    AlarmList[i].Name = dgv.Rows[i].Cells[2].Value.ToString();
-                    AlarmList[i].AlarmType = dgv.Rows[i].Cells[3].Value.ToString();
+                    AlarmList[i].SubAddress = dgv.Rows[i].Cells[1].Value?.ToString();
+                    AlarmList[i].Name = dgv.Rows[i].Cells[2].Value?.ToString();
+                    AlarmList[i].AlarmType = dgv.Rows[i].Cells[3]?.Value.ToString();
                 }
                 Global.PlcAlarmList[Index].AlarmList = AlarmList;
                 bool f = int.TryParse(tbxLength.Text, out var length);

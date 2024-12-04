@@ -52,6 +52,33 @@ namespace DWZ_Scada.Page.PLCControl
         {
             InitTable();
             asc.controllInitializeSize(this);
+            dgv.CurrentCellDirtyStateChanged += Dgv_CurrentCellDirtyStateChanged;
+
+            dgv.CellValueChanged += Dgv_CellValueChanged;
+        }
+
+        private void Dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgv.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
+            {
+                DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                bool isChecked = Convert.ToBoolean(dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                if (!isChecked)
+                {
+                    //dgv.Rows[e.RowIndex].Cells[e.ColumnIndex]. = Enabled;
+                    dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = true;
+                    //dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+                //MessageBox.Show($"Row: {e.RowIndex}, Checked: {isChecked}");
+            }
+        }
+
+        private void Dgv_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgv.CurrentCell is DataGridViewCheckBoxCell)
+            {
+                dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
 
         private void InitTable()
@@ -179,8 +206,11 @@ namespace DWZ_Scada.Page.PLCControl
         {
             dgv.Rows.Add();
             int selectedIndex = dgv.SelectedIndex;
+            PLCAlarmData data = new PLCAlarmData();
+            data.AlarmList = new List<SingleAlarmAddress>();
+            data.IsArray =true;
             //添加到末尾
-            Global.PlcAlarmList.Add(new PLCAlarmData());
+            Global.PlcAlarmList.Add(data);
             reflashTable();
         }
 
@@ -188,6 +218,7 @@ namespace DWZ_Scada.Page.PLCControl
         {
             int Index = e.ColumnIndex;
             bool isArray = (bool)dgv.Rows[e.RowIndex].Cells[4].Value;
+            //点击报警配置列
             if (Index == 5 && isArray)
             {
                 //点击了按钮列
@@ -243,7 +274,10 @@ namespace DWZ_Scada.Page.PLCControl
             {
                 //插入到选中行的下面
                 dgv.Rows.Add();
-                Global.PlcAlarmList.Insert(selectedIndex + 1, new PLCAlarmData());
+                PLCAlarmData data = new PLCAlarmData();
+                data.AlarmList = new List<SingleAlarmAddress>();
+                data.IsArray = true;
+                Global.PlcAlarmList.Insert(selectedIndex + 1, data);
             }
             reflashTable();
         }
