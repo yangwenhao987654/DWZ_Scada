@@ -76,8 +76,6 @@ namespace DWZ_Scada.Pages
             _addAlarmDelegate = new Action<string>(AddAlarm);
             _clearAlarmDelegate = new Action(ClearAlarm);
 
-
-
         }
 
         private void DeviceControlPage_DeviceUpdated(List<DeviceAlarmEntity> list)

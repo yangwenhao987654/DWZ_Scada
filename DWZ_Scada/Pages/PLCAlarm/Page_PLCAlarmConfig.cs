@@ -116,8 +116,8 @@ namespace DWZ_Scada.Page.PLCControl
                 for (int i = 0; i < Global.PlcAlarmList.Count; i++)
                 {
                     Global.PlcAlarmList[i].ID = (int)dgv.Rows[i].Cells[0].Value;
-                    Global.PlcAlarmList[i].Address = dgv.Rows[i].Cells[1].Value.ToString();
-                    Global.PlcAlarmList[i].Name = dgv.Rows[i].Cells[2].Value.ToString();
+                    Global.PlcAlarmList[i].Address = dgv.Rows[i].Cells[1].Value?.ToString();
+                    Global.PlcAlarmList[i].Name = dgv.Rows[i].Cells[2].Value?.ToString();
                     if ((bool)dgv.Rows[i].Cells[4].Value)
                     {
                         Global.PlcAlarmList[i].IsArray = true;
@@ -125,7 +125,7 @@ namespace DWZ_Scada.Page.PLCControl
                     else
                     {
                         Global.PlcAlarmList[i].IsArray = false;
-                        Global.PlcAlarmList[i].AlarmType = dgv.Rows[i].Cells[3].Value.ToString();
+                        Global.PlcAlarmList[i].AlarmType = dgv.Rows[i].Cells[3].Value?.ToString();
                     }
                 }
                 return true;

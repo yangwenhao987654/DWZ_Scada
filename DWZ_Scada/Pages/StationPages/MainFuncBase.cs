@@ -669,6 +669,10 @@ namespace DWZ_Scada.Pages.StationPages
         {
             bool[] alarmArr = new bool[data.Length];
             //这里采用上位链路协议读取
+            if (string.IsNullOrEmpty(data.Address))
+            {
+                return;
+            }
             if (KVServer.ReadAlarm(data.Address, out alarmArr, data.Length))
             {
                 for (int i = 0; i < alarmArr.Length; i++)
@@ -689,6 +693,10 @@ namespace DWZ_Scada.Pages.StationPages
         // 处理单一报警
         private void HandleSingleAlarm(PLCAlarmData data, DateTime dt)
         {
+            if (string.IsNullOrEmpty(data.Address))
+            {
+                return;
+            }
             //这里采用上位链路协议读取
             if (KVServer.ReadBool(data.Address, out bool isAlarmActive))
             {

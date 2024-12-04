@@ -43,7 +43,7 @@ namespace DWZ_Scada.Pages
 
         private void Formula_set_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Page_DeviceAlarmQuery.Instance?.Dispose();
+            Dispose();
         }
 
         private void uiButton4_Click(object sender, EventArgs e)
@@ -95,10 +95,9 @@ namespace DWZ_Scada.Pages
                     }
                     dataGridView1.ResumeLayout();
                 }
-                
             }
 
-            if(radioBtn_Alarmtime.Checked)
+            if (radioBtn_Alarmtime.Checked)
             {
                 // 获取查询结果
                 DateTime StartDt = dp_AlarmStartTime.Value;
@@ -122,7 +121,6 @@ namespace DWZ_Scada.Pages
                 }
                 dataGridView1.ResumeLayout();
             }
-            
         }
 
         private void Page_DeviceAlarmQuery_Load(object sender, EventArgs e)

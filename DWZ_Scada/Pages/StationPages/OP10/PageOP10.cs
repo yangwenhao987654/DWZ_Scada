@@ -73,13 +73,9 @@ namespace DWZ_Scada.Pages.StationPages.OP10
 
             OP10MainFunc.Instance.OnEntryStateChanged += Instance_OnEntryStateChanged;
 
-         
-
             myLogCtrl1.BindingControl = uiPanel1;
             Mylog.Instance.Init(myLogCtrl1);
         }
-
-       
 
         private void Instance_OnEntryStateChanged(string sn, int result, string msg = "")
         {
