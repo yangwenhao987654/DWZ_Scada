@@ -3,17 +3,18 @@ using HslCommunication.Profinet.Keyence;
 using LogTool;
 using System;
 using HslCommunication.Core;
+using KeyenceComunicationTest;
 
 namespace CommunicationUtilYwh.Communication.PLC
 {
     /// <summary>
-    /// 基恩士PLC的MC协议 TCP
+    /// 基恩士PLC的上位链路协议
     /// </summary>
-    public class KeyencePLC: MyPlc
+    public class Keyence_KVService
     {
-        private KeyenceMcNet client;
+        KV7_8000Service Plc = new KV7_8000Service();
 
-        public override bool Connect(string ip, int port)
+       /* public override bool Connect(string ip, int port)
         {
             bool flag = true;
             try
@@ -228,7 +229,7 @@ namespace CommunicationUtilYwh.Communication.PLC
             }
             catch (Exception ex)
             {
-                LogMgr.Instance.Error($"PLC Read错误,地址:[{adr}] 类型[数据-{length}] 异常信息:{ex.Message} 堆栈{ex.StackTrace}");
+                LogMgr.Instance.Error($"PLC Read错误,地址:[{adr}] 类型[数据-{length}] 异常信息:{ex.Message}");
                 flag = false;
             }
             return flag;
@@ -255,6 +256,6 @@ namespace CommunicationUtilYwh.Communication.PLC
             OperateResult operate = client.Write(address, Convert.ToInt16(value));
             bool flag = operate.IsSuccess;
             return flag; ;
-        }
+        }*/
     }
 }

@@ -159,7 +159,7 @@ public class ModbusTCP : MyPlc
             switch (type)
             {
                 case "bool":
-                    client.WriteCoil(address, bool.Parse(Data));
+                    client.Write(address, bool.Parse(Data));
                     //  str_out = Convert.ToString(client.Write(address).Content);
                     break;
                 case "short":
@@ -204,7 +204,7 @@ public class ModbusTCP : MyPlc
             switch (type)
             {
                 case DataType.Bool:
-                    client.WriteCoil(address, bool.Parse(Data));
+                    client.Write(address, bool.Parse(Data));
                     break;
                 case DataType.Int16:
                     client.Write(address, short.Parse(Data));

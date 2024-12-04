@@ -6,6 +6,7 @@ using DWZ_Scada.Pages.StationPages.OP10;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.Services;
+using KeyenceComunicationTest;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
@@ -133,6 +134,12 @@ namespace DWZ_Scada.Pages.StationPages
         /// 设备是否点检模式
         /// </summary>
         public bool IsSpotCheck { get; set; }
+
+        public KV7_8000Service KVServer { get; set; }
+        /// <summary>
+        /// 基恩士上位链路协议连接
+        /// </summary>
+        public bool IsKVServerConnected { get; set; }
 
         private bool isPlc_Connected;
 
@@ -266,6 +273,8 @@ namespace DWZ_Scada.Pages.StationPages
                 //启动PLC监控线程
                 Thread t = new Thread(() => ConnStatusMonitor(_cts.Token));
                 t.Start();
+                Thread t1 = new Thread(() => KVserverMonitor(_cts.Token));
+                t1.Start();
                 Thread.Sleep(300);
 
                 //Thread.Sleep(5200);
@@ -562,7 +571,44 @@ namespace DWZ_Scada.Pages.StationPages
             }
         }
 
-       protected abstract string GetPLCIP();
+
+        protected virtual void KVserverMonitor(CancellationToken token)
+        {
+            KVServer = new KV7_8000Service();
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    if (!KVServer.IsConnected)
+                    {
+                        PLC_PORT = GetPLCPort();
+                        bool flag = KVServer.Connect(PLC_IP);
+                        if (flag)
+                        {
+                            IsKVServerConnected = true;
+                            Logger.Debug("KVServer连接成功");
+                        }
+                        else
+                        {
+                            IsKVServerConnected = false;
+                            //Logger.Error("PLC连接失败:");
+                        }
+                        IsKVServerConnected = true;
+                    }
+                    else
+                    {
+                        IsKVServerConnected = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("PLC_上位链路协议监控线程错误:" + ex.Message);
+                }
+                Thread.Sleep(1000);
+            }
+        }
+
+        protected abstract string GetPLCIP();
        protected abstract int GetPLCPort();
 
         #endregion
@@ -622,7 +668,8 @@ namespace DWZ_Scada.Pages.StationPages
         private void HandleArrayAlarm(PLCAlarmData data, DateTime dt)
         {
             bool[] alarmArr = new bool[data.Length];
-            if (PLC.ReadAlarm(data.Address, out alarmArr, data.Length))
+            //这里采用上位链路协议读取
+            if (KVServer.ReadAlarm(data.Address, out alarmArr, data.Length))
             {
                 for (int i = 0; i < alarmArr.Length; i++)
                 {
@@ -642,7 +689,8 @@ namespace DWZ_Scada.Pages.StationPages
         // 处理单一报警
         private void HandleSingleAlarm(PLCAlarmData data, DateTime dt)
         {
-            if (PLC.ReadBool(data.Address, out bool isAlarmActive))
+            //这里采用上位链路协议读取
+            if (KVServer.ReadBool(data.Address, out bool isAlarmActive))
             {
                 string alarmKey = data.Name;
                 DeviceAlarmEntity alarmEntity = new();
@@ -712,7 +760,7 @@ namespace DWZ_Scada.Pages.StationPages
                 //假如当前有报警 或者是上一次有报警
                 //TODO 上一次有报警 需要清除上一次的报警信息 
                 CurrentAlarmList.Clear();
-                if (state == AlarmState)
+                if (state == AlarmState || IsKVServerConnected)
                 {
                     lock (alarmLock)
                     {

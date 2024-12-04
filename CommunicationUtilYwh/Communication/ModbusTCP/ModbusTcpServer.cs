@@ -17,7 +17,6 @@ namespace CommunicationUtilYwh.Communication.ModbusTCP
             modbusServer.Station = 1;
             modbusServer.DataFormat = DataFormat.ABCD;
             modbusServer.Port = port;
-            modbusServer.OnDataReceived += ModbusServer_OnDataReceived;
             //modbusServer.OnDataSend
             //modbusServer.WriteCustomer()
             //modbusServer.Write();
@@ -37,9 +36,5 @@ namespace CommunicationUtilYwh.Communication.ModbusTCP
             modbusServer.ServerStart();
         }
 
-        private void ModbusServer_OnDataReceived(object sender, byte[] data)
-        {
-            
-        }
     }
 }

@@ -67,7 +67,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new System.Drawing.Size(183, 42);
             uiLabel8.TabIndex = 25;
-            uiLabel8.Text = "视觉1:";
+            uiLabel8.Text = "画像检测1:";
             // 
             // uiLabel11
             // 
@@ -77,7 +77,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             uiLabel11.Name = "uiLabel11";
             uiLabel11.Size = new System.Drawing.Size(159, 42);
             uiLabel11.TabIndex = 26;
-            uiLabel11.Text = "视觉2:";
+            uiLabel11.Text = "画像检测2:";
             // 
             // lbl_EntryResult
             // 

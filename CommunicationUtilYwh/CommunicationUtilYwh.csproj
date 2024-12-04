@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\Scanner\" />
+    <Folder Include="Communication\KeyenceKV\" />
     <Folder Include="Printer\" />
   </ItemGroup>
   <ItemGroup>
