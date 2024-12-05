@@ -17,6 +17,7 @@
     <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj" />
     <ProjectReference Include="..\CommunicationUtilYwh\CommunicationUtilYwh.csproj" />
     <ProjectReference Include="..\LogTool\LogTool.csproj" />
     <ProjectReference Include="..\ScadaBase.DAL\ScadaBase.DAL.csproj" />
@@ -117,6 +118,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Update="Resources\UserLogin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="update\update-info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

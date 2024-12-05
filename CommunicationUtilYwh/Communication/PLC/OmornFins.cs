@@ -717,6 +717,5 @@ namespace ZC_DataAcquisition
         {
             client?.Dispose();
         }
-        
     }
 }

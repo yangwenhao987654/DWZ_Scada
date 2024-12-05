@@ -3,11 +3,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Forms.Design;
 
 namespace DWZ_Scada
 {
@@ -130,6 +132,15 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("B.公司名称"), Category("A.其他配置"), Description("主页公司名称展示")]
         public string CompanyName { get; set; }
+
+        [EditorAttribute(typeof(FileNameEditor), typeof(UITypeEditor))]
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("$$.1.更新信息文件路径"), Category("A.其他配置"), Description("自动更新程序文件路径")]
+        public string UpdateInfoPath { get; set; }
+
+        [Permission(3), ReadOnly(true)]
+        [DisplayName("$$.2.本地版本号"), Category("A.其他配置"), Description("本地程序版本号")]
+        public string LocalVersion { get; set; }
 
 
         [Permission(3), ReadOnly(false)]

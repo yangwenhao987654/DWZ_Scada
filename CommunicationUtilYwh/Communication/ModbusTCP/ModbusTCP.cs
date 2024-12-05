@@ -946,9 +946,6 @@ public class ModbusTCP : MyPlc
 
         return flag;
     }
-
-
-
     #endregion
 
 

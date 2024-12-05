@@ -240,7 +240,6 @@ namespace DWZ_Scada
             }
         }
 
-
         /// <summary>
         /// 写入信号
         /// </summary>

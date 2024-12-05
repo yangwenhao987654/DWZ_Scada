@@ -43,6 +43,6 @@ namespace DWZ_Scada.PLC
     {
         KeynecePLC,
         OmornFins,
-        Siemens_S1200
+        Siemens_S1200,
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoTF;
 using AutoTF.Pages.Query;
+using DWZ_Scada.AutoUpdater;
 using DWZ_Scada.MyHttpPlug;
 using DWZ_Scada.Pages.PLCAlarm;
 using DWZ_Scada.Pages.StationPages.OP10;
@@ -63,23 +64,35 @@ namespace DWZ_Scada.Pages
             {
                 try
                 {
-                    PlcAlarmLoader.Save();
-                    LogMgr.Instance.Info("退出程序");
-                    MyHttpService?.Stop();
-                    MyHttpService?.Dispose();
-                    //释放资源
-                    timer?.Dispose();
-                    foreach (Control ctrl in uiPanel1.Controls)
-                    {
-                        ctrl?.Dispose();
-                    }
-                    e.Cancel = false;
-                    Environment.Exit(0);
+                   AutoClose();
                 }
                 catch (Exception exception)
                 {
 
                 }
+            }
+        }
+
+        public void AutoClose()
+        {
+            try
+            {
+                PlcAlarmLoader.Save();
+                SystemParams.Save();
+                LogMgr.Instance.Info("退出程序");
+                MyHttpService?.Stop();
+                MyHttpService?.Dispose();
+                //释放资源
+                timer?.Dispose();
+                foreach (Control ctrl in uiPanel1.Controls)
+                {
+                    ctrl?.Dispose();
+                }
+                Environment.Exit(0);
+            }
+            catch (Exception exception)
+            {
+
             }
         }
 
@@ -93,23 +106,44 @@ namespace DWZ_Scada.Pages
 
             SetAutoStart();
             //StartServer();
-   
+
 
             lblLoginUserName.Text = Global.LoginUser;
             lblLoginTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             InitializeLogo();
-         /*   if (!string.IsNullOrEmpty(SystemParams.Instance.CompanyName))
-            {
-                lbl_CompanyName.Text = SystemParams.Instance.CompanyName;
-            }*/
+            /*   if (!string.IsNullOrEmpty(SystemParams.Instance.CompanyName))
+               {
+                   lbl_CompanyName.Text = SystemParams.Instance.CompanyName;
+               }*/
 
             lbl_DeviceCompany.Text = SystemParams.Instance.DeviceCompany;
             lbl_DeviceName.Text = SystemParams.Instance.DeviceName;
-           
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Version version = assembly.GetName().Version;
-            lbl_Version.Text = version.ToString();
+
+            string filePath = @"Params\version.txt"; // 文件路径
+
+            string version = "";
+            // 读取整个文件的内容
+            try
+            {
+                version = File.ReadAllText(filePath);
+                LogMgr.Instance.Debug($"读取版本号:{version}");
+            }
+            catch (Exception exception)
+            {
+                LogMgr.Instance.Error($"读取文件 Params\\version.txt 版本号失败 :{exception.Message}");
+            }
+            
+            if (string.IsNullOrEmpty(version))
+            {
+                LogMgr.Instance.Error("读取文件 Params\\version.txt 版本号失败");
+            }
+            else
+            {
+                SystemParams.Instance.LocalVersion =version;
+            }
+
+            lbl_Version.Text = SystemParams.Instance.LocalVersion;
 
             SystemParams.OPChangeEvent += SystemParams_OPChangeEvent;
         }
@@ -376,7 +410,7 @@ namespace DWZ_Scada.Pages
             }
             catch (Exception e)
             {
-               LogMgr.Instance.Error($"加载Logo文件错误:{e.Message}");
+                LogMgr.Instance.Error($"加载Logo文件错误:{e.Message}");
             }
         }
 
@@ -400,7 +434,7 @@ namespace DWZ_Scada.Pages
                     sourcePath = openFileDialog.FileName;
                 }
 
-                if (sourcePath=="")
+                if (sourcePath == "")
                 {
                     return;
                 }
@@ -408,26 +442,31 @@ namespace DWZ_Scada.Pages
                 string destinationPath = Path.Combine(logoDirectory, Path.GetFileName(sourcePath));
 
                 // 复制图片到目标路径
-                if (sourcePath!=destinationPath)
+                if (sourcePath != destinationPath)
                 {
                     //如果路径相同 直接复制会被占用 报错
                     File.Copy(sourcePath, destinationPath, overwrite: true);
                 }
-             
+
 
                 // 保存路径到配置文件
-                SystemParams.Instance.LogoFilePath =Path.GetFileName(sourcePath);
+                SystemParams.Instance.LogoFilePath = Path.GetFileName(sourcePath);
                 // 更新 PictureBox 显示图片
                 pictureBox1.ImageLocation = destinationPath;
                 SystemParams.Save();
                 MessageBox.Show("Logo 已成功更换并保存！", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
+
             }
             catch (Exception exception)
             {
                 UIMessageBox.ShowError($"替换错误:{exception.Message}");
                 LogMgr.Instance.Error($"替换Logo错误,{exception.Message},\n{exception.StackTrace}");
             }
+        }
+
+        private void lbl_Version_Click(object sender, EventArgs e)
+        {
+            LocalUpdater.AutoUpdate();
         }
     }
 }

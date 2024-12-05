@@ -661,7 +661,6 @@ namespace CommunicationUtilYwh.Communication.ModbusRTU
                     case "String":
                     {
                         OperateResult<string> operate = client.ReadString(adr, Convert.ToUInt16(str_Type[1]));
-                        value = operate.Content.ToString();
 
                         value = RemoveAllCharactersAfterBackslashOrNull(value);
                         flag = operate.IsSuccess;

@@ -421,7 +421,6 @@ namespace KeyenceComunicationTest
             return flag;
         }
 
-
         /// <summary>
         /// 读取连续字数据
         /// </summary>

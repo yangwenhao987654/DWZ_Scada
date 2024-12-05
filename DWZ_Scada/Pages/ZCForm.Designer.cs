@@ -365,6 +365,7 @@ namespace DWZ_Scada.Pages
             lbl_Version.Size = new System.Drawing.Size(130, 28);
             lbl_Version.TabIndex = 5;
             lbl_Version.Text = "1.0.0.1";
+            lbl_Version.Click += lbl_Version_Click;
             // 
             // lbl_DeviceName
             // 
