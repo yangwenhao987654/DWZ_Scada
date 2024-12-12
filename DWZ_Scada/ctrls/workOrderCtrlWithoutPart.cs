@@ -86,7 +86,7 @@ namespace DWZ_Scada.ctrls
             }
         }
 
-      
+
 
         /// <summary>
         /// 当前物料编码
@@ -100,7 +100,7 @@ namespace DWZ_Scada.ctrls
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
 
             IsCheckPass = true;
-           
+
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)
@@ -170,7 +170,7 @@ namespace DWZ_Scada.ctrls
 
         private void workOrderCtrl_Load(object sender, EventArgs e)
         {
-           
+
         }
 
 
@@ -208,10 +208,15 @@ namespace DWZ_Scada.ctrls
             }
             catch (Exception exception)
             {
-               UIMessageBox.ShowError($"下发型号错误:{exception.Message },{exception.StackTrace}");
-               LogMgr.Instance.Error($"下发型号错误:{exception.Message}\n{exception.StackTrace}");
+                UIMessageBox.ShowError($"下发型号错误:{exception.Message},{exception.StackTrace}");
+                LogMgr.Instance.Error($"下发型号错误:{exception.Message}\n{exception.StackTrace}");
             }
-        
+
+        }
+
+        private void uiSwitch_Spot_ValueChanged(object sender, bool value)
+        {
+            SpotStateChanged?.Invoke(value);
         }
     }
 }

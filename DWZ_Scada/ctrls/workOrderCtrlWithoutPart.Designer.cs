@@ -226,6 +226,7 @@
             uiSwitch_Spot.Size = new System.Drawing.Size(95, 57);
             uiSwitch_Spot.TabIndex = 37;
             uiSwitch_Spot.Text = "uiSwitch1";
+            uiSwitch_Spot.ValueChanged += uiSwitch_Spot_ValueChanged;
             // 
             // uiPanel1
             // 

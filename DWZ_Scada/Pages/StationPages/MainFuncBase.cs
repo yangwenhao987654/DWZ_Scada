@@ -457,11 +457,13 @@ namespace DWZ_Scada.Pages.StationPages
                 if (value)
                 {
                     //点检地址 DM3030 
+                    LogMgr.Instance.Info($"启动点检模式");
                     PLC.WriteInt16(OP10Address.SpotCheck, 1);
                 }
                 else
                 {
                     PLC.WriteInt16(OP10Address.SpotCheck, 0);
+                    LogMgr.Instance.Info($"关闭点检模式");
                 }
                 IsSpotCheck = value;
             }
@@ -505,10 +507,12 @@ namespace DWZ_Scada.Pages.StationPages
                 if (value)
                 {
                     //点检地址 DM3030 
+                    LogMgr.Instance.Info($"启动点检模式");
                     PLC.WriteInt16(OP10Address.SpotCheck, 1);
                 }
                 else
                 {
+                    LogMgr.Instance.Info($"关闭点检模式");
                     PLC.WriteInt16(OP10Address.SpotCheck, 0);
                 }
                 IsSpotCheck = value;
@@ -557,7 +561,7 @@ namespace DWZ_Scada.Pages.StationPages
                     }
                     else
                     {
-                        bool f = PLC.Write(OP10Address.HeartBeat, "int", 1);
+                        bool f = PLC.WriteInt16(OP10Address.HeartBeat, 1);
                         //Logger.Debug($"写心跳1:[{f}]");
                     }
 
@@ -567,7 +571,7 @@ namespace DWZ_Scada.Pages.StationPages
                 {
                     Logger.Error("PLC监控线程错误:" + ex.Message);
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(800);
             }
         }
 
