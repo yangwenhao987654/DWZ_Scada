@@ -71,6 +71,14 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         public event TestStateChanged OnWeldingFinished;
 
 
+        /// <summary>
+        /// 压力报警
+        /// bool 表示有无报警
+        /// int 1 超过上限 2 低于下限
+        /// </summary>
+        public event Action<bool,int> OnPressureAlarm;
+
+
         private object _lock = new object();
 
 
@@ -145,6 +153,19 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                             //short pressure = modbusTcp02.ReadInt16(4);
                             //LogMgr.Instance.Debug($"ModbusTCP-读取压力结果:{pressure}");
                             OnPressureRecived?.Invoke(pressure);
+                            if (pressure>SystemParams.Instance.OP40_PressureMax)
+                            {
+                                //压力超过上限
+                                OnPressureAlarm.Invoke(true,1);
+                            }else if (pressure<SystemParams.Instance.OP40_PressureMin)
+                            {
+                                //压力低于下限值
+                                OnPressureAlarm.Invoke(true, 2);
+                            }
+                            else
+                            {
+                                OnPressureAlarm.Invoke(false, 0);
+                            }
                         }
                         catch (Exception e)
                         {

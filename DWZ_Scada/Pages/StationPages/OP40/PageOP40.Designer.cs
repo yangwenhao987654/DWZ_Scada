@@ -28,18 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             uiLabel1 = new Sunny.UI.UILabel();
-            userCtrlResult_Vision = new DIPTest.Ctrl.UserCtrlResult();
             uiLabel2 = new Sunny.UI.UILabel();
             uiLabel3 = new Sunny.UI.UILabel();
             uiLabel42 = new Sunny.UI.UILabel();
-            userCtrlResult_Welding = new DIPTest.Ctrl.UserCtrlResult();
-            userCtrlEntry_OP40 = new DIPTest.Ctrl.UserCtrlEntry();
             uiLabel8 = new Sunny.UI.UILabel();
             lbl_humidity = new Sunny.UI.UILabel();
             lbl_temperature = new Sunny.UI.UILabel();
@@ -47,7 +44,6 @@
             uiLabel9 = new Sunny.UI.UILabel();
             lbl_Pressure = new Sunny.UI.UILabel();
             uiLabel11 = new Sunny.UI.UILabel();
-            workOrderCtrlWithoutPart1 = new ctrls.workOrderCtrlWithoutPart();
             dgv = new Sunny.UI.UIDataGridView();
             Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +51,8 @@
             Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            light_Pre = new Sunny.UI.UILight();
+            lbl_PressureMsg = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)dgv).BeginInit();
             SuspendLayout();
             // 
@@ -70,16 +68,6 @@
             uiLabel1.Text = "OP40-TIG电焊工站";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
-            // 
-            // userCtrlResult_Vision
-            // 
-            userCtrlResult_Vision.Location = new System.Drawing.Point(23, 213);
-            userCtrlResult_Vision.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlResult_Vision.Name = "userCtrlResult_Vision";
-            userCtrlResult_Vision.Size = new System.Drawing.Size(312, 204);
-            userCtrlResult_Vision.TabIndex = 16;
-            userCtrlResult_Vision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlResult_Vision.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // uiLabel2
             // 
@@ -110,26 +98,6 @@
             uiLabel42.Size = new System.Drawing.Size(120, 30);
             uiLabel42.TabIndex = 63;
             uiLabel42.Text = "焊接结果:";
-            // 
-            // userCtrlResult_Welding
-            // 
-            userCtrlResult_Welding.Location = new System.Drawing.Point(434, 213);
-            userCtrlResult_Welding.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlResult_Welding.Name = "userCtrlResult_Welding";
-            userCtrlResult_Welding.Size = new System.Drawing.Size(313, 204);
-            userCtrlResult_Welding.TabIndex = 62;
-            userCtrlResult_Welding.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlResult_Welding.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
-            // 
-            // userCtrlEntry_OP40
-            // 
-            userCtrlEntry_OP40.Location = new System.Drawing.Point(846, 213);
-            userCtrlEntry_OP40.Margin = new System.Windows.Forms.Padding(4);
-            userCtrlEntry_OP40.Name = "userCtrlEntry_OP40";
-            userCtrlEntry_OP40.Size = new System.Drawing.Size(345, 204);
-            userCtrlEntry_OP40.TabIndex = 65;
-            userCtrlEntry_OP40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            userCtrlEntry_OP40.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
             // 
             // uiLabel8
             // 
@@ -204,69 +172,54 @@
             uiLabel11.Text = "氩气瓶压   力:";
             uiLabel11.Click += uiLabel11_Click;
             // 
-            // workOrderCtrlWithoutPart1
-            // 
-            workOrderCtrlWithoutPart1.BackColor = System.Drawing.Color.Transparent;
-            workOrderCtrlWithoutPart1.CurPartNo = "";
-            workOrderCtrlWithoutPart1.CurProductCode = "";
-            workOrderCtrlWithoutPart1.CurProductName = "";
-            workOrderCtrlWithoutPart1.CurWorkOrderNo = "";
-            workOrderCtrlWithoutPart1.IsCheckPass = false;
-            workOrderCtrlWithoutPart1.Location = new System.Drawing.Point(18, 62);
-            workOrderCtrlWithoutPart1.Name = "workOrderCtrlWithoutPart1";
-            workOrderCtrlWithoutPart1.Orders = null;
-            workOrderCtrlWithoutPart1.Size = new System.Drawing.Size(1168, 72);
-            workOrderCtrlWithoutPart1.SpotEnable = false;
-            workOrderCtrlWithoutPart1.TabIndex = 73;
-            // 
             // dgv
             // 
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(235, 243, 255);
+            dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dgv.BackgroundColor = System.Drawing.Color.White;
             dgv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgv.ColumnHeadersHeight = 32;
             dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgv.ColumnHeadersVisible = false;
             dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6 });
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            dgv.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dgv.DefaultCellStyle = dataGridViewCellStyle3;
             dgv.Enabled = false;
             dgv.EnableHeadersVisualStyles = false;
             dgv.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dgv.GridColor = System.Drawing.Color.FromArgb(80, 160, 255);
             dgv.Location = new System.Drawing.Point(23, 476);
             dgv.Name = "dgv";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgv.RowHeadersVisible = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            dgv.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            dgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dgv.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dgv.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
             dgv.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(2);
@@ -307,25 +260,44 @@
             Column6.HeaderText = "值";
             Column6.Name = "Column6";
             // 
+            // light_Pre
+            // 
+            light_Pre.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            light_Pre.Location = new System.Drawing.Point(930, 719);
+            light_Pre.MinimumSize = new System.Drawing.Size(1, 1);
+            light_Pre.Name = "light_Pre";
+            light_Pre.OffColor = System.Drawing.Color.Red;
+            light_Pre.Radius = 35;
+            light_Pre.Size = new System.Drawing.Size(35, 35);
+            light_Pre.TabIndex = 76;
+            light_Pre.Text = "uiLight1";
+            // 
+            // lbl_PressureMsg
+            // 
+            lbl_PressureMsg.Font = new System.Drawing.Font("微软雅黑", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_PressureMsg.ForeColor = System.Drawing.Color.Red;
+            lbl_PressureMsg.Location = new System.Drawing.Point(997, 719);
+            lbl_PressureMsg.Name = "lbl_PressureMsg";
+            lbl_PressureMsg.Size = new System.Drawing.Size(198, 45);
+            lbl_PressureMsg.TabIndex = 77;
+            // 
             // PageOP40
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 821);
+            Controls.Add(lbl_PressureMsg);
+            Controls.Add(light_Pre);
             Controls.Add(dgv);
-            Controls.Add(workOrderCtrlWithoutPart1);
             Controls.Add(lbl_Pressure);
             Controls.Add(uiLabel11);
             Controls.Add(lbl_humidity);
             Controls.Add(lbl_temperature);
             Controls.Add(uiLabel4);
             Controls.Add(uiLabel9);
-            Controls.Add(userCtrlEntry_OP40);
             Controls.Add(uiLabel8);
             Controls.Add(uiLabel42);
-            Controls.Add(userCtrlResult_Welding);
             Controls.Add(uiLabel3);
             Controls.Add(uiLabel2);
-            Controls.Add(userCtrlResult_Vision);
             Controls.Add(uiLabel1);
             Font = new System.Drawing.Font("宋体", 8F);
             Name = "PageOP40";
@@ -360,5 +332,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private Sunny.UI.UILight light_Pre;
+        private Sunny.UI.UILabel lbl_PressureMsg;
     }
 }

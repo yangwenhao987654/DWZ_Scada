@@ -1009,6 +1009,16 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("4.ModbusTCP 端口号"), Category("4.OP40工站"), Description("ModbusTCP的端口号")]
         public int OP40_ModbusPort { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("5.氩气瓶压力下限值"), Category("4.OP40工站"), Description("压力下限报警值")]
+        public double OP40_PressureMin { get; set; }
+
+
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("5.氩气瓶压力上限值"), Category("4.OP40工站"), Description("压力上限报警值")]
+        public double OP40_PressureMax { get; set; }
         #endregion
 
 

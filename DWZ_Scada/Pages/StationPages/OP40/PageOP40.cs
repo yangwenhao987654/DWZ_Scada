@@ -72,9 +72,43 @@ namespace DWZ_Scada.Pages.StationPages.OP40
 
             OP40MainFunc.Instance.OnWeldStart += Instance_OnWeldStart;
 
+            OP40MainFunc.Instance.OnPressureAlarm += Instance_OnPressureAlarm;
+
             //OP40DamageStrategy op40DamageStrategy = new OP40DamageStrategy();
             //op40DamageStrategy.OnDamageableEvent += Op40DamageStrategy_OnSelectionEvent;
 
+        }
+
+        private void Instance_OnPressureAlarm(bool isAlarm, int state)
+        {
+            ShowPressureAlarm(isAlarm, state);
+        }
+
+        private void ShowPressureAlarm(bool isAlarm, int state)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<bool,int>(ShowPressureAlarm),isAlarm,state);
+                return;
+            }
+
+            if (isAlarm)
+            {
+                light_Pre.State = UILightState.Blink;
+                if (state==1)
+                {
+                    lbl_PressureMsg.Text = "压力超限！！！";
+                }
+                else
+                {
+                    lbl_PressureMsg.Text = "压力过低！！！";
+                }
+            }
+            else
+            {
+                light_Pre.State = UILightState.On;
+                lbl_PressureMsg.Text = "";
+            }
         }
 
         private void Instance_OnWeldStart()
