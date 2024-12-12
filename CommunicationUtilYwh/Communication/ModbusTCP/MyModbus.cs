@@ -120,10 +120,20 @@ namespace CommunicationUtilYwh.Communication.ModbusTCP
             return bools;
         }
 
-        public ushort ReadHoldingRegister(ushort startAddr)
+        public ushort ReadUInt16(ushort startAddr)
         {
             ushort[] bools = master.ReadHoldingRegisters(StationNum, startAddr,1);
+
+            //short[] arr = master.ReadInputs(StationNum, startAddr, 1);
             return bools[0];
+        }
+
+        public short ReadInt16(ushort startAddr)
+        {
+            ushort[] holdingRegisters = master.ReadHoldingRegisters(StationNum, startAddr, 1);
+
+            short[] values = Array.ConvertAll(holdingRegisters, u => (short)u);
+            return values[0];
         }
 
 

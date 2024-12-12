@@ -58,7 +58,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// <summary>
         /// 氦气瓶压力
         /// </summary>
-        public event Action<ushort> OnPressureRecived;
+        public event Action<double> OnPressureRecived;
 
         /// <summary>
         /// 视觉检测完成
@@ -140,8 +140,9 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                         //OnPressureRecived?.Invoke(pressure);
                         try
                         {
-                            modbusTcp02.StationNum = 1;
-                            ushort pressure = modbusTcp02.ReadHoldingRegister(4);
+                           
+                            double pressure = ReadPressure(modbusTcp02);
+                            //short pressure = modbusTcp02.ReadInt16(4);
                             //LogMgr.Instance.Debug($"ModbusTCP-读取压力结果:{pressure}");
                             OnPressureRecived?.Invoke(pressure);
                         }
@@ -248,7 +249,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         {
             double result = 0;
             ushort startAddress = 1;
-            ushort value = client.ReadHoldingRegister(startAddress);
+            ushort value = client.ReadUInt16(startAddress);
             if (value!=0)
             {
                 result = value * 0.1;
@@ -261,13 +262,26 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         }
 
         /// <summary>
+        /// 读取湿度
+        /// </summary>
+        public double ReadPressure(MyModbus client)
+        {
+            client.StationNum = 1;
+            double result = 0;
+            ushort startAddress = 4;
+            short value = client.ReadInt16(startAddress);
+            result = (double)((double)value / 10000) * 25;
+            return result;
+        }
+
+        /// <summary>
         /// 读取温度
         /// </summary>
         public double ReadTemperature(MyModbus client)
         {
             double result = 0;
             ushort startAddress = 0;
-            ushort value = client.ReadHoldingRegister(startAddress);
+            ushort value = client.ReadUInt16(startAddress);
             if (value >= 10000)
             {
                 result = (-1 * (value - 10000) * 0.1);

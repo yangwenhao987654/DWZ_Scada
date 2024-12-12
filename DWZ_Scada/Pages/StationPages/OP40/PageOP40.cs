@@ -146,28 +146,25 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             dgv.ClearSelection();
         }                                     
 
-        private void Instance_OnPressureRecived(ushort value)
+        private void Instance_OnPressureRecived(double value)
         {
             UpdatePressure(value);
         }
 
-        private void UpdatePressure(ushort value)
+        private void UpdatePressure(double value)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new Action<ushort>(UpdatePressure), value);
+                this.Invoke(new Action<double>(UpdatePressure), value);
                 return;
             }
-
-            if (value <= 0)
+            if (value == 0)
             {
                 lbl_Pressure.Text = $"{value}Mpa";
             }
             else
             {
-                //换算压力
-                double v = (double)((double)value / 10000) * 25;
-                lbl_Pressure.Text = $"{v:F2}Mpa";
+                lbl_Pressure.Text = $"{value:F2}Mpa";
             }
         }
 
