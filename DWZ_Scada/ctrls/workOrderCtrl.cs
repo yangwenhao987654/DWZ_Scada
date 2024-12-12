@@ -71,7 +71,7 @@ namespace DWZ_Scada.ctrls
         public List<ProductBomDTO> ProductBomList { get; set; }
 
 
-  
+        
 
         public bool IsCheckPass
         {
@@ -89,6 +89,15 @@ namespace DWZ_Scada.ctrls
                     Global.IsWorkNoCheckPass = value;
                 }
             }
+        }
+
+        /// <summary>
+        /// 隐藏点检功能
+        /// </summary>
+        public void HideSpot()
+        {
+            uiLabel5.Visible = false;
+            uiSwitch_Spot.Visible =false;
         }
 
         private void ReflashStateColor(bool isOK)
@@ -120,8 +129,7 @@ namespace DWZ_Scada.ctrls
             InitializeComponent();
             SpotEnable = false;
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
-          
-           
+            
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)

@@ -1,9 +1,11 @@
 ﻿using CommonUtilYwh.Communication.ModbusTCP;
+using DWZ_Scada.ctrls;
 using DWZ_Scada.PLC;
 using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.DTO.OP20;
 using DWZ_Scada.Services;
 using LogTool;
+using Newtonsoft.Json.Linq;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -116,10 +118,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         var connection = ModbusConnections[index];
                         //modbusTcp.Open(connection.IP, connection.Port, connection.StationNum);
                         ModbusTcpList.Add(modbusTcp);
-                        //假如绕线机启用了
+                        //假如绕线机禁用了
                         if (!SystemParams.Instance.OP20_WeldingEnableList[index])
                         {
-                            OnWeldingStateChangedAction?.Invoke(index, 99);
+                            OnWeldingStateChangedAction?.Invoke(index, WindingState.Disable);
                         }
 
                         Thread thread = new Thread(() => MonitorWindingMachine(_cts.Token, modbusTcp, index));
@@ -165,6 +167,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             while (!token.IsCancellationRequested)
             {
                 short state = -1;
+                short workState = -1;
                 try
                 {
                     //假如绕线机启用了
@@ -172,7 +175,37 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     {
                         if (modbusTcp.IsConnect)
                         {
-                            modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
+                            //modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
+                            modbusTcp.ReadInt16(CoildAddress.WorkState, out workState);
+                            if (workState != 0)
+                            {
+                                if (workState == 1)
+                                {
+                                    //绕线中
+                                    state = WindingState.Running;
+                                }
+                                else if (workState == 2)
+                                {
+                                    //绕线完成
+                                    state = WindingState.Stop;
+                                }
+                            }
+
+                            bool isAlarm = false;
+                            modbusTcp.ReadInt16(CoildAddress.AlarmState, 3,out var alarmArr);
+                            for (int i = 0; i < alarmArr.Length; i++)
+                            {
+                                if (alarmArr[i]!= 0)
+                                {
+                                    isAlarm = true;
+                                    LogMgr.Instance.Error($"读取报警:[{i + 1}],值:[{alarmArr[i]}]");
+                                }
+                            }
+
+                            if (isAlarm)
+                            {
+                                state = WindingState.Alarm;
+                            }
                             await ReportDeviceState(index + 1, state);
                             /*bool flag = modbusTcp.ReadUInt16("2000", out ushort value);
                             modbusTcp.ReadInt16("2041", out short tension1);*/
@@ -187,15 +220,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                             if (!flag)
                             {
                                 //state = 0;
-                                await ReportDeviceState(index + 1, state);
+                                await ReportDeviceState(index + 1, WindingState.OffLine);
 
                                 LogMgr.Instance.Error($"ThreadId:{Thread.CurrentThread.ManagedThreadId}  Winding machine {index} connection failed: {err}");
                                 LogMgr.Instance.Error($"Winding machine {index} IP:{ModbusConnections[index].IP} Port:{ModbusConnections[index].Port}");
-                            }
-                            else
-                            {
-                                modbusTcp.ReadInt16(CoildAddress.CoilsState, out state);
-                                await ReportDeviceState(index + 1, state);
                             }
                         }
                     }
@@ -204,7 +232,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                         modbusTcp.IsConnect = false;
                         modbusTcp.Close();
                         //Thread.Sleep(1000);
-                        state = 99;
+                        state = WindingState.Disable;
                     }
                 }
                 catch (Exception e)
@@ -225,13 +253,13 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
             switch (state)
             {
-                case 1:
+                case WindingState.Stop:
                     dto.Status = "stop";
                     break;
-                case 0:
+                case WindingState.Alarm:
                     dto.Status = "breakdown";
                     break;
-                case 12:
+                case WindingState.Running:
                     dto.Status = "run";
                     break;
                 default:
@@ -380,6 +408,20 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                                                         break;
                                                     }
+                                                    modbusTcp.ReadUInt16(CoildAddress.WorkState, out ushort workState);
+                                                    if (workState==1)
+                                                    {
+                                                        Logger.Debug("绕线开始中");
+                                                    }
+                                                    else if (workState==2) 
+                                                    {
+                                                        Logger.Debug("绕线结束中");
+                                                    }
+                                                    else
+                                                    {
+                                                        Logger.Debug($"绕线工作状态位:{workState}");
+                                                    }
+
                                                     modbusTcp.ReadUInt16(CoildAddress.CoilsState, out ushort state);
                                                     LogMgr.Instance.Info($"读取到绕线状态位:{state}");
 
@@ -388,6 +430,14 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         //停止
                                                         LogMgr.Instance.Debug("读取到绕线停止..1");
                                                         isFinish = true;
+                                                        if (workState==1)
+                                                        {
+                                                            LogMgr.Instance.Debug("绕线工作完成");
+                                                        }
+                                                        else
+                                                        {
+                                                            LogMgr.Instance.Debug($"绕线工作状态:{workState}");
+                                                        }
 
                                                         CoildDataDto dto = new CoildDataDto();
                                                         dto.BreachNo = Global.BreachNo;
@@ -444,7 +494,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         isStart = true;
                                                         if (!isStart)
                                                         {
-                                                            LogMgr.Instance.Debug("读取到绕线开始..State:12");
+                                                            LogMgr.Instance.Debug("读取到绕线开始..WorkState:12");
                                                             //TODO 一直读取当前绕线张力值
                                                             modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
 

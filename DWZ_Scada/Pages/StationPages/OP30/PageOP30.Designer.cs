@@ -128,7 +128,7 @@
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new System.Drawing.Size(176, 38);
             uiLabel7.TabIndex = 2;
-            uiLabel7.Text = "OP30进站临时码:";
+            uiLabel7.Text = "OP30产品进站:";
             uiLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiLabel6

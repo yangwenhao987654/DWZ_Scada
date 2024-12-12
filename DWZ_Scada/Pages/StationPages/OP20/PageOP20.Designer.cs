@@ -92,9 +92,9 @@
             uiLabel3.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel3.Location = new System.Drawing.Point(16, 349);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new System.Drawing.Size(124, 38);
+            uiLabel3.Size = new System.Drawing.Size(163, 38);
             uiLabel3.TabIndex = 24;
-            uiLabel3.Text = "OP20进站2:";
+            uiLabel3.Text = "OP20产品进站2:";
             uiLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // op20CtrlEntry2
@@ -123,9 +123,9 @@
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new System.Drawing.Point(16, 66);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(124, 38);
+            uiLabel2.Size = new System.Drawing.Size(163, 38);
             uiLabel2.TabIndex = 2;
-            uiLabel2.Text = "OP20进站1:";
+            uiLabel2.Text = "OP20产品进站1:";
             uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // workOrderCtrl1

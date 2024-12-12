@@ -34,6 +34,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// </summary>
         public static readonly string CoilsTimes = "2031";
 
+
+        /// <summary>
+        /// 绕线状态 1开始 2结束
+        /// </summary>
+        public static readonly string WorkState = "2040";
+
         /// <summary>
         /// 张力值01
         /// </summary>
@@ -43,6 +49,13 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// 张力值02
         /// </summary>
         public static readonly string TensionValue02 = "2042";
+
+        /// <summary>
+        /// 读取报警状态 2037急停报警  2038 暂停报警 2039 提示报警
+        /// </summary>
+        public static readonly string AlarmState = "2037";
+
+
         #endregion
     }
 }

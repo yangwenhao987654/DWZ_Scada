@@ -61,23 +61,23 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             // uiLabel8
             // 
-            uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel8.Location = new System.Drawing.Point(452, 229);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new System.Drawing.Size(183, 42);
+            uiLabel8.Size = new System.Drawing.Size(236, 42);
             uiLabel8.TabIndex = 25;
-            uiLabel8.Text = "画像检测1:";
+            uiLabel8.Text = "OP10画像检测1:";
             // 
             // uiLabel11
             // 
-            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel11.Location = new System.Drawing.Point(70, 229);
             uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new System.Drawing.Size(159, 42);
+            uiLabel11.Size = new System.Drawing.Size(243, 42);
             uiLabel11.TabIndex = 26;
-            uiLabel11.Text = "画像检测2:";
+            uiLabel11.Text = "OP10画像检测2:";
             // 
             // lbl_EntryResult
             // 
@@ -149,13 +149,13 @@ namespace DWZ_Scada.Pages.StationPages.OP10
             // 
             // uiLabel2
             // 
-            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new System.Drawing.Point(867, 229);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(131, 30);
+            uiLabel2.Size = new System.Drawing.Size(205, 30);
             uiLabel2.TabIndex = 38;
-            uiLabel2.Text = "产品进站:";
+            uiLabel2.Text = "OP10产品进站:";
             // 
             // workOrderCtrl1
             // 

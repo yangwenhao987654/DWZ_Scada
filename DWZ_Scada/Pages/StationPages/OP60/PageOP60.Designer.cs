@@ -94,31 +94,31 @@
             // 
             // uiLabel11
             // 
-            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel11.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel11.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel11.Location = new System.Drawing.Point(648, 427);
             uiLabel11.Margin = new System.Windows.Forms.Padding(0);
             uiLabel11.Name = "uiLabel11";
-            uiLabel11.Size = new System.Drawing.Size(130, 36);
+            uiLabel11.Size = new System.Drawing.Size(142, 36);
             uiLabel11.TabIndex = 42;
             uiLabel11.Text = "安规测试2:";
             uiLabel11.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // uiLabel6
             // 
-            uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel6.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel6.Location = new System.Drawing.Point(981, 426);
             uiLabel6.Margin = new System.Windows.Forms.Padding(0);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new System.Drawing.Size(130, 36);
+            uiLabel6.Size = new System.Drawing.Size(149, 36);
             uiLabel6.TabIndex = 41;
             uiLabel6.Text = "安规测试1:";
             uiLabel6.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // uiLabel7
             // 
-            uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel7.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel7.Location = new System.Drawing.Point(24, 430);
             uiLabel7.Margin = new System.Windows.Forms.Padding(0);
@@ -130,7 +130,7 @@
             // 
             // uiLabel9
             // 
-            uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel9.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel9.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel9.Location = new System.Drawing.Point(336, 430);
             uiLabel9.Margin = new System.Windows.Forms.Padding(0);
@@ -241,14 +241,14 @@
             // 
             // uiLabel2
             // 
-            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
             uiLabel2.Location = new System.Drawing.Point(944, 179);
             uiLabel2.Margin = new System.Windows.Forms.Padding(0);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(133, 36);
+            uiLabel2.Size = new System.Drawing.Size(197, 36);
             uiLabel2.TabIndex = 69;
-            uiLabel2.Text = "产品进站:";
+            uiLabel2.Text = "OP60产品进站:";
             // 
             // workOrderCtrlWithoutPart1
             // 

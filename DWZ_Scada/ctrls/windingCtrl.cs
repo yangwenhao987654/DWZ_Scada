@@ -50,10 +50,6 @@ namespace DWZ_Scada.ctrls
 
         public int CurState { get; set; } = -100;
 
-        /// <summary>
-        /// 运行中状态
-        /// </summary>
-        public int RunningState { get; set; } = 12;
 
         /*   [Browsable(true)]
            [DisplayName("绕线机名称"), Category("AAA自定义_绕线"), Description("请输入绕线机的名称")]*/
@@ -94,37 +90,25 @@ namespace DWZ_Scada.ctrls
             CurState = state;
             switch (state)
             {
-                case 1:
-                    //uiLight1.OnColor = Color.DarkGray;
+                case WindingState.Stop:
                     Wait();
                     break;
-                case 0:
-                    //uiLight1.OnColor = Color.Red;
+                case WindingState.Alarm:
                     Err();
                     break;
-                case 12:
-                    //uiLight1.OnColor = Color.Green;
+                case WindingState.Running:
                     Running();
                     break;
-                case -1:
-                    //uiLight1.OnColor = Color.Green;
+                case WindingState.OffLine:
                     OffLine();
                     break;
-                case 99:
-                    //uiLight1.OnColor = Color.Green;
+                case WindingState.Disable:
                     SetDisable();
                     break;
                 default:
-                    //uiLight1.OnColor = Color.Gray;
                     break;
             }
-            //TODO 假如不是运行中 停止绕线时间监控显示
-            /*  if (state!=12)
-              {
-                  sw.Stop();
-                  timer.Stop();
-              }*/
-            if (state != RunningState)
+            if (state != WindingState.Running)
             {
                 sw.Stop();
                 timer.Stop();
@@ -146,7 +130,7 @@ namespace DWZ_Scada.ctrls
                 return;
             }
             updateBackColor(color);
-            uiLabel2.Text = "测试中";
+            uiLabel2.Text = "运行中";
             timer.ReStart();
             sw.Reset();
             sw.Start();
@@ -185,7 +169,7 @@ namespace DWZ_Scada.ctrls
                 return;
             }
             updateBackColor(color);
-            uiLabel2.Text = "停止";
+            uiLabel2.Text = "等待中";
         }
 
         public void OffLine()
@@ -247,7 +231,7 @@ namespace DWZ_Scada.ctrls
             }
             IsEnable = false;
             SystemParams.Instance.OP20_WeldingEnableList[Index] = false;
-            UpdateState(99);
+            UpdateState(WindingState.Disable);
         }
 
         private void 启用ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -258,7 +242,29 @@ namespace DWZ_Scada.ctrls
             }
             IsEnable = true;
             SystemParams.Instance.OP20_WeldingEnableList[Index] = true;
-            UpdateState(-1);
+            UpdateState(WindingState.OffLine);
         }
+    }
+
+    public class WindingState
+    {
+
+        /// <summary>
+        /// 未连接状态
+        /// </summary>
+        public const int OffLine = -1;
+
+
+        public const int Running = 12;
+
+
+        public const int Stop = 1;
+
+        public const int Alarm = 2;
+
+        /// <summary>
+        /// 禁用状态
+        /// </summary>
+        public const int Disable = 99;
     }
 }

@@ -25,6 +25,9 @@ namespace DWZ_Scada.MyHttpPlug
         public async Task OnHttpRequest(IHttpSocketClient client, HttpContextEventArgs e)
         {
             LogMgr.Instance.Debug("接收请求:" + e.Context.Request.URL);
+            string aaa = e.Context.Request.GetBody();
+            IHttpHeader h = e.Context.Request.Headers;
+            IHttpParams r = e.Context.Request.Params;
             if (URLConstants.SelectModel.Equals(e.Context.Request.RelativeURL))
             {
                 SelectionResultDTO resultDto = new SelectionResultDTO()

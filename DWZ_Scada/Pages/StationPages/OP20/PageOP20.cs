@@ -53,6 +53,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             op20Strategy.OnSelectionEvent += OP20SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
             //OP10工站 PLC配置
+            workOrderCtrl1.HideSpot();
+
 
 
             #region 界面加载
