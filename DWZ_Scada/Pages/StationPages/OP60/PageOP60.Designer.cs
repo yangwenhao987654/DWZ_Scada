@@ -249,6 +249,7 @@
             uiLabel2.Size = new System.Drawing.Size(197, 36);
             uiLabel2.TabIndex = 69;
             uiLabel2.Text = "OP60产品进站:";
+            uiLabel2.Click += uiLabel2_Click;
             // 
             // workOrderCtrlWithoutPart1
             // 

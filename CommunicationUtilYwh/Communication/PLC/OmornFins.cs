@@ -175,6 +175,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadUInt16(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -215,6 +216,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadInt32(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -255,6 +257,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadUInt32(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -296,6 +299,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadInt64(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -337,6 +341,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadUInt64(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -378,6 +383,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadFloat(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -398,6 +404,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadDouble(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -418,6 +425,7 @@ namespace ZC_DataAcquisition
             try
             {
                 var result = client.ReadString(address,length);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {

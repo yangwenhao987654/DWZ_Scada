@@ -152,6 +152,7 @@ namespace CommunicationUtilYwh.Communication
             {
                 var result = client.ReadUInt16(address);
                 flag = result.IsSuccess;
+                value = result.Content;
                 if (!flag)
                 {
                     LogMgr.Instance.Error($"Read [UInt16]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
@@ -195,6 +196,7 @@ namespace CommunicationUtilYwh.Communication
             {
                 var result = client.ReadInt32(address);
                 flag = result.IsSuccess;
+                value = result.Content;
                 if (!flag)
                 {
                     LogMgr.Instance.Error($"Read [Int32]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
@@ -238,6 +240,7 @@ namespace CommunicationUtilYwh.Communication
             {
                 var result = client.ReadUInt32(address);
                 flag = result.IsSuccess;
+                value = result.Content;
                 if (!flag)
                 {
                     LogMgr.Instance.Error($"Read [UInt32]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
@@ -282,6 +285,7 @@ namespace CommunicationUtilYwh.Communication
             {
                 var result = client.ReadInt64(address);
                 flag = result.IsSuccess;
+                value = result.Content;
                 if (!flag)
                 {
                     LogMgr.Instance.Error($"Read [Int64]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
@@ -325,6 +329,7 @@ namespace CommunicationUtilYwh.Communication
             {
                 var result = client.ReadUInt64(address);
                 flag = result.IsSuccess;
+                value = result.Content;
                 if (!flag)
                 {
                     LogMgr.Instance.Error($"Read [UInt64]  Fail ,地址:[{address}]  错误信息:[{result.Message}]");
@@ -368,6 +373,7 @@ namespace CommunicationUtilYwh.Communication
             try
             {
                 var result = client.ReadFloat(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -389,6 +395,7 @@ namespace CommunicationUtilYwh.Communication
             try
             {
                 var result = client.ReadDouble(address);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {
@@ -410,6 +417,7 @@ namespace CommunicationUtilYwh.Communication
             try
             {
                 var result = client.ReadString(address, length);
+                value = result.Content;
                 flag = result.IsSuccess;
                 if (!flag)
                 {

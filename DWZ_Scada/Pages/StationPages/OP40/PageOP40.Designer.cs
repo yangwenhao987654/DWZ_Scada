@@ -53,6 +53,10 @@
             Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             light_Pre = new Sunny.UI.UILight();
             lbl_PressureMsg = new Sunny.UI.UILabel();
+            workOrderCtrlWithoutPart2 = new ctrls.workOrderCtrlWithoutPart();
+            userCtrlEntry_OP40 = new DIPTest.Ctrl.UserCtrlEntry();
+            userCtrlResult_Welding = new DIPTest.Ctrl.UserCtrlResult();
+            userCtrlResult_Vision = new DIPTest.Ctrl.UserCtrlResult();
             ((System.ComponentModel.ISupportInitialize)dgv).BeginInit();
             SuspendLayout();
             // 
@@ -93,7 +97,7 @@
             // 
             uiLabel42.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel42.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel42.Location = new System.Drawing.Point(434, 171);
+            uiLabel42.Location = new System.Drawing.Point(469, 171);
             uiLabel42.Name = "uiLabel42";
             uiLabel42.Size = new System.Drawing.Size(120, 30);
             uiLabel42.TabIndex = 63;
@@ -103,7 +107,7 @@
             // 
             uiLabel8.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel8.Location = new System.Drawing.Point(846, 171);
+            uiLabel8.Location = new System.Drawing.Point(902, 171);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new System.Drawing.Size(199, 38);
             uiLabel8.TabIndex = 64;
@@ -226,7 +230,7 @@
             dgv.RowTemplate.Height = 50;
             dgv.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             dgv.SelectedIndex = -1;
-            dgv.Size = new System.Drawing.Size(874, 302);
+            dgv.Size = new System.Drawing.Size(858, 302);
             dgv.StripeOddColor = System.Drawing.Color.FromArgb(235, 243, 255);
             dgv.TabIndex = 75;
             // 
@@ -281,10 +285,59 @@
             lbl_PressureMsg.Size = new System.Drawing.Size(198, 45);
             lbl_PressureMsg.TabIndex = 77;
             // 
+            // workOrderCtrlWithoutPart2
+            // 
+            workOrderCtrlWithoutPart2.BackColor = System.Drawing.Color.Transparent;
+            workOrderCtrlWithoutPart2.CurPartNo = "";
+            workOrderCtrlWithoutPart2.CurProductCode = "";
+            workOrderCtrlWithoutPart2.CurProductName = "";
+            workOrderCtrlWithoutPart2.CurWorkOrderNo = "";
+            workOrderCtrlWithoutPart2.IsCheckPass = true;
+            workOrderCtrlWithoutPart2.Location = new System.Drawing.Point(0, 62);
+            workOrderCtrlWithoutPart2.Name = "workOrderCtrlWithoutPart2";
+            workOrderCtrlWithoutPart2.Orders = null;
+            workOrderCtrlWithoutPart2.Size = new System.Drawing.Size(1195, 75);
+            workOrderCtrlWithoutPart2.SpotEnable = false;
+            workOrderCtrlWithoutPart2.TabIndex = 78;
+            // 
+            // userCtrlEntry_OP40
+            // 
+            userCtrlEntry_OP40.Location = new System.Drawing.Point(902, 226);
+            userCtrlEntry_OP40.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlEntry_OP40.Name = "userCtrlEntry_OP40";
+            userCtrlEntry_OP40.Size = new System.Drawing.Size(313, 168);
+            userCtrlEntry_OP40.TabIndex = 79;
+            userCtrlEntry_OP40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlEntry_OP40.TextFont = new System.Drawing.Font("微软雅黑", 50F);
+            // 
+            // userCtrlResult_Welding
+            // 
+            userCtrlResult_Welding.Location = new System.Drawing.Point(469, 226);
+            userCtrlResult_Welding.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlResult_Welding.Name = "userCtrlResult_Welding";
+            userCtrlResult_Welding.Size = new System.Drawing.Size(313, 168);
+            userCtrlResult_Welding.TabIndex = 80;
+            userCtrlResult_Welding.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlResult_Welding.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            // 
+            // userCtrlResult_Vision
+            // 
+            userCtrlResult_Vision.Location = new System.Drawing.Point(23, 226);
+            userCtrlResult_Vision.Margin = new System.Windows.Forms.Padding(4);
+            userCtrlResult_Vision.Name = "userCtrlResult_Vision";
+            userCtrlResult_Vision.Size = new System.Drawing.Size(313, 168);
+            userCtrlResult_Vision.TabIndex = 81;
+            userCtrlResult_Vision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            userCtrlResult_Vision.TextFont = new System.Drawing.Font("幼圆", 40F, System.Drawing.FontStyle.Bold);
+            // 
             // PageOP40
             // 
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             ClientSize = new System.Drawing.Size(1223, 821);
+            Controls.Add(userCtrlResult_Vision);
+            Controls.Add(userCtrlResult_Welding);
+            Controls.Add(userCtrlEntry_OP40);
+            Controls.Add(workOrderCtrlWithoutPart2);
             Controls.Add(lbl_PressureMsg);
             Controls.Add(light_Pre);
             Controls.Add(dgv);
@@ -311,12 +364,9 @@
 
         #endregion
         private Sunny.UI.UILabel uiLabel1;
-        private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Vision;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel3;
         private Sunny.UI.UILabel uiLabel42;
-        private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Welding;
-        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP40;
         private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UILabel lbl_humidity;
         private Sunny.UI.UILabel lbl_temperature;
@@ -324,7 +374,6 @@
         private Sunny.UI.UILabel uiLabel9;
         private Sunny.UI.UILabel lbl_Pressure;
         private Sunny.UI.UILabel uiLabel11;
-        private ctrls.workOrderCtrlWithoutPart workOrderCtrlWithoutPart1;
         private Sunny.UI.UIDataGridView dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -334,5 +383,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private Sunny.UI.UILight light_Pre;
         private Sunny.UI.UILabel lbl_PressureMsg;
+        private ctrls.workOrderCtrlWithoutPart workOrderCtrlWithoutPart2;
+        private DIPTest.Ctrl.UserCtrlEntry userCtrlEntry_OP40;
+        private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Welding;
+        private DIPTest.Ctrl.UserCtrlResult userCtrlResult_Vision;
     }
 }

@@ -120,7 +120,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 LogMgr.Instance.Debug("收到[OP70]视觉开始信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP70Address.VisionStart, 0);
-                PLC.Read(OP70Address.EntrySn, "string-8", out string sn);
+                PLC.ReadString(OP70Address.EntrySn, 8, out string sn);
                 OnVision1Finished?.Invoke(sn, 0);
             }
 
@@ -129,7 +129,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 LogMgr.Instance.Debug("收到[OP70]画像检测完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP70Address.VisionFinish, 0);
-                PLC.Read(OP70Address.EntrySn, "string-8", out string sn);
+                PLC.ReadString(OP70Address.EntrySn, 8, out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP70Address.VisionResult, out short result);
                 OnVision1Finished?.Invoke(sn, result);
@@ -166,14 +166,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 LogMgr.Instance.Debug("收到[OP70]最终码打印完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP70Address.FinalCodeFinish,  0);
-                PLC.Read(OP70Address.FinalCodeInfo, "string-30", out string finalCode);
+                PLC.ReadString(OP70Address.FinalCodeInfo, 30, out string finalCode);
                 LogMgr.Instance.Debug("读取最终码内容:" + finalCode);
-                //最终码内容
-                //PLC.Read(OP70Address.FinalCodeInfo, "string-20",out string finalCode);
-                //最终码等级
-                //解析最终码等级：
-                //PLC.Read(OP70Address.FinalCodeType, "string-1", out string finalCodeType);
-                //显示最终码和等级 结果
                 string finalCodeType = AnalizeFinalType(finalCode);
                 bool finalResult = CheckFinalCodeType(finalCodeType);
                 OP70FinalCodeFinished?.Invoke(finalCode, finalCodeType,finalResult);
@@ -247,7 +241,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
             if (PLC.ReadInt16(OP70Address.EntrySignal, out short isEntry) && isEntry==1)
             {
                 PLC.WriteInt16(OP70Address.EntrySignal, 0);
-                PLC.Read(OP70Address.EntrySn, "string-8", out string sn);
+                PLC.ReadString(OP70Address.EntrySn, 8, out string sn);
                 OP70EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {

@@ -130,7 +130,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 LogMgr.Instance.Debug("收到视觉1开始信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP30Address.Vision1Start, 0);
-                PLC.Read(OP30Address.VisionSn, "string-8", out string sn);
+                PLC.ReadString(OP30Address.VisionSn, 8, out string sn);
                 //界面更新
                 OP30VisionFinished?.Invoke(sn, 0);
             }
@@ -140,7 +140,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 LogMgr.Instance.Debug("收到[OP30]视觉完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP30Address.VisionFinish,  0);
-                PLC.Read(OP30Address.VisionSn, "string-8", out string sn);
+                PLC.ReadString(OP30Address.VisionSn, 8, out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP30Address.VisionResult, out short result);
 
@@ -179,7 +179,7 @@ namespace DWZ_Scada.Pages.StationPages.OP30
                 if (PLC.ReadInt16(OP30Address.EntrySignal, out short isEntry) && isEntry == 1)
                 {
                     PLC.WriteInt16(OP30Address.EntrySignal, 0);
-                    PLC.Read(OP30Address.EntrySn, "string-8", out string sn);
+                    PLC.ReadString(OP30Address.EntrySn, 8, out string sn);
                     Logger.Debug($"读取进站二维码:[{sn}]");
                     OP30EntryStateChanged?.Invoke(sn, 0,"");
                     EntryRequestDTO requestDto = new()

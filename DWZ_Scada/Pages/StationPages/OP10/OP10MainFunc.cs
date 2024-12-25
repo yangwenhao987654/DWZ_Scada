@@ -166,7 +166,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 LogMgr.Instance.Debug("收到视觉1开始信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP10Address.Vision1Start, 0);
-                PLC.Read(OP10Address.Vision1_Sn, "string-8", out string sn);
+                PLC.ReadString(OP10Address.Vision1_Sn, 8, out string sn);
 
                 //界面更新
                 OnVision1Finished?.Invoke(sn, 0);
@@ -176,7 +176,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 LogMgr.Instance.Debug("收到视觉1完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP10Address.Vision1Finish, 0);
-                PLC.Read(OP10Address.Vision1_Sn, "string-8", out string sn);
+                PLC.ReadString(OP10Address.Vision1_Sn, 8, out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP10Address.Vision1Result, out short v1Result);
 
@@ -214,7 +214,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 LogMgr.Instance.Debug("收到视觉2开始信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP10Address.Vision2Start, 0);
-                PLC.Read(OP10Address.Vision2_Sn, "string-8", out string sn);
+                PLC.ReadString(OP10Address.Vision2_Sn, 8, out string sn);
 
                 //界面更新
                 OnVision2Finished?.Invoke(sn, 0);
@@ -225,7 +225,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 //复位视觉2完成
                 PLC.WriteInt16(OP10Address.Vision2Finish, 0);
 
-                PLC.Read(OP10Address.Vision2_Sn, "string-8", out string sn);
+                PLC.ReadString(OP10Address.Vision2_Sn, 8, out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP10Address.Vision2Result, out short v2Result);
 
@@ -265,7 +265,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 PLC.WriteInt16(OP10Address.EntrySignal, 0);
 
                 LogMgr.Instance.Debug("收到进站请求信号");
-                PLC.Read(OP10Address.EntrySn, "string-8", out string sn);
+                PLC.ReadString(OP10Address.EntrySn, 8, out string sn);
                 LogMgr.Instance.Debug("读取进站条码内容:" + sn);
 
                 if (!CheckWorkOrderState(OnEntryStateChanged, sn))

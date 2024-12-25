@@ -107,156 +107,9 @@ public class ModbusTCP : MyPlc
         }
     }
 
-    public string read_(string address, string type)
-    {
-        try
-        {
-            var str_out = "";
-            switch (type)
-            {
-                case "bool":
-                    str_out = Convert.ToString(client.ReadCoil(address).Content);
-                    break;
-                case "short":
-                    str_out = Convert.ToString(client.ReadInt16(address).Content);
-                    break;
-                case "int":
-                    str_out = Convert.ToString(client.ReadInt32(address).Content);
-                    break;
-                case "long":
-                    str_out = Convert.ToString(client.ReadInt64(address).Content);
-                    break;
-                case "ushort":
-                    str_out = Convert.ToString(client.ReadUInt16(address).Content);
-                    break;
-                case "uint":
-                    str_out = Convert.ToString(client.ReadUInt32(address).Content);
-                    break;
-                case "ulong":
-                    str_out = Convert.ToString(client.ReadUInt64(address).Content);
-                    break;
-                case "double":
-                    str_out = Convert.ToString(client.ReadDouble(address).Content);
-                    break;
-                case "string":
-                    str_out = Convert.ToString(client.ReadString(address, 20).Content);
-                    break;
-            }
+    
 
-            return str_out;
-        }
-        catch (Exception ex)
-        {
-            LogMgr.Instance.Error("读取错误：" + ex.Message);
-            return "NG";
-        }
-    }
-
-    public string write_(string address, string type, string Data)
-    {
-        try
-        {
-            var str_out = "";
-
-            switch (type)
-            {
-                case "bool":
-                    client.Write(address, bool.Parse(Data));
-                    //  str_out = Convert.ToString(client.Write(address).Content);
-                    break;
-                case "short":
-                    client.Write(address, short.Parse(Data));
-                    break;
-                case "int":
-                    client.Write(address, int.Parse(Data));
-                    break;
-                case "long":
-                    client.Write(address, long.Parse(Data));
-                    break;
-                case "ushort":
-                    client.Write(address, ushort.Parse(Data));
-                    break;
-                case "uint":
-                    client.Write(address, uint.Parse(Data));
-                    break;
-                case "ulong":
-                    client.Write(address, ulong.Parse(Data));
-                    break;
-                case "double":
-                    client.Write(address, double.Parse(Data));
-                    break;
-                case "string":
-                    client.Write(address, Data);
-                    break;
-            }
-
-            return str_out;
-        }
-        catch (Exception ex)
-        {
-            LogMgr.Instance.Error("写入错误：" + ex.Message);
-            return "NG";
-        }
-    }
-
-    public bool write_(string address, DataType type, string Data)
-    {
-        try
-        {
-            switch (type)
-            {
-                case DataType.Bool:
-                    client.Write(address, bool.Parse(Data));
-                    break;
-                case DataType.Int16:
-                    client.Write(address, short.Parse(Data));
-                    break;
-                case DataType.Int32:
-                    client.Write(address, int.Parse(Data));
-                    break;
-                case DataType.Int64:
-                    client.Write(address, long.Parse(Data));
-                    break;
-                case DataType.Uint16:
-                    client.Write(address, ushort.Parse(Data));
-                    break;
-                case DataType.Uint32:
-                    client.Write(address, uint.Parse(Data));
-                    break;
-                case DataType.Uint64:
-                    client.Write(address, ulong.Parse(Data));
-                    break;
-                case DataType.Float:
-                    client.Write(address, float.Parse(Data));
-                    break;
-                case DataType.Double:
-                    client.Write(address, double.Parse(Data));
-                    break;
-                case DataType.String:
-                    client.Write(address, Data);
-                    break;
-            }
-
-            return true;
-        }
-        catch (Exception ex)
-        {
-            LogMgr.Instance.Error("写入错误：" + ex.Message);
-            return false;
-        }
-    }
-
-    public int read_int(string address)
-    {
-        try
-        {
-            return client.ReadInt32(address).Content;
-        }
-        catch (Exception)
-        {
-            return 0;
-        }
-    }
+   
 
     public override bool Connect(string ip, int port)
     {
@@ -388,6 +241,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadUInt16(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -431,6 +285,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadInt32(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -474,6 +329,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadUInt32(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -517,6 +373,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadInt64(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -560,6 +417,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadUInt64(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -603,6 +461,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadFloat(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -624,6 +483,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadDouble(address);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {
@@ -645,6 +505,7 @@ public class ModbusTCP : MyPlc
         try
         {
             var result = client.ReadString(address, length);
+            value = result.Content;
             flag = result.IsSuccess;
             if (!flag)
             {

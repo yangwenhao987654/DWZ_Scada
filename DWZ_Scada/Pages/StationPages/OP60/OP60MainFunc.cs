@@ -239,7 +239,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             if (PLC.ReadInt16(OP60Address.EntrySignal, out short isEntry) && isEntry == 1)
             {
                 PLC.WriteInt16(OP60Address.EntrySignal, 0);
-                PLC.Read(OP60Address.EntrySn, "string-8", out string sn);
+                PLC.ReadString(OP60Address.EntrySn, 8, out string sn);
+                LogMgr.Instance.Debug($"读取进站临时码内容:{sn}");
                 OP60EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {
@@ -383,7 +384,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PLC.WriteInt16(OP60Address.SafetyStartSignal, 0);
                 Mylog.Instance.Debug("安规测试1开始..");
                 //工位1 安规测试
-                PLC.Read(OP60Address.SafetyTestSN1, "string-8", out string sn1);
+                PLC.ReadString(OP60Address.SafetyTestSN1, 8, out string sn1);
                 PageOP60.Instance.StartTestUI(1, sn1);
                 Task task1 = Task.Run(async () =>
                 {
@@ -428,7 +429,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PLC.WriteInt16(OP60Address.SafetyStartSignal2, 0);
                 Mylog.Instance.Debug("安规测试2开始..");
                 //工位2 安规测试
-                PLC.Read(OP60Address.SafetyTestSN2, "string-8", out string sn2);
+                PLC.ReadString(OP60Address.SafetyTestSN2, 8, out string sn2);
                 PageOP60.Instance.StartTestUI(2, sn2);
                 Task task2 = Task.Run(async () =>
                 {
@@ -520,7 +521,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     PLC.WriteInt16(OP60Address.AtlBrxStartSignal, 0);
                     Mylog.Instance.Debug("电性能测试1开始..");
                     //工位2 安规测试
-                    PLC.Read(OP60Address.AtlBrxTestSN1, "string-8", out string sn1);
+                    PLC.ReadString(OP60Address.AtlBrxTestSN1, 8, out string sn1);
                     PageOP60.Instance.StartTestUI(3, sn1);
                     Task task1 = Task.Run(async () =>
                     {
@@ -571,7 +572,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 PLC.WriteInt16(OP60Address.AtlBrxStartSignal2, 0);
                 Mylog.Instance.Debug("电性能测试2开始..");
-                PLC.Read(OP60Address.AtlBrxTestSN2, "string-8", out string sn2);
+                PLC.ReadString(OP60Address.AtlBrxTestSN2, 8, out string sn2);
                 PageOP60.Instance.StartTestUI(4, sn2);
                 Task task2 = Task.Run(async () =>
                 {

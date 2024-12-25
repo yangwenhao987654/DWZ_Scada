@@ -24,7 +24,7 @@ namespace DWZ_Scada
         {
             public int DeviceId { get; }
             public bool isConnect { get; }
-             
+
             public DeviceStateEventArgs(int id, bool isConnect)
             {
                 DeviceId = id;
@@ -34,7 +34,7 @@ namespace DWZ_Scada
         public event EventHandler<DeviceStateEventArgs> OnDeviceStateChangedEvent;
 
         // 定义一个字典，将ID映射到对应的UI控件
-        private Dictionary<int, UILight> lightMap= new Dictionary<int, UILight>();
+        private Dictionary<int, UILight> lightMap = new Dictionary<int, UILight>();
 
 
         // 定义一个字典，将ID映射到对应的UI控件
@@ -69,7 +69,7 @@ namespace DWZ_Scada
             lightMap.Add(3, uiLight3);
             lightMap.Add(4, uiLight4);
 
-            ctrlResultMap.Add(1,userCtrlResult1);
+            ctrlResultMap.Add(1, userCtrlResult1);
             ctrlResultMap.Add(2, userCtrlResult2);
             ctrlResultMap.Add(3, userCtrlResult3);
             ctrlResultMap.Add(4, userCtrlResult4);
@@ -78,7 +78,7 @@ namespace DWZ_Scada
         private void Page_Load(object sender, EventArgs e)
         {
             //LogMgr.Instance.SetCtrl(listViewEx_Log1);
-        
+
             ISelectionStrategyEvent op60SelectionStrategy = new OP60SelectionStrategy();
             op60SelectionStrategy.OnSelectionEvent += OP60SelectionStrategy_OnSelectionEvent;
             PlcAlarmLoader.Load();
@@ -98,13 +98,13 @@ namespace DWZ_Scada
 
         private void Instance_OP60EntryStateChanged(string sn, int result, string msg = "")
         {
-            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry1,sn,result,msg);
+            MyUIControler.UpdateEntryStateCtrl(userCtrlEntry1, sn, result, msg);
         }
 
         // 方法用于触发事件
-        public void TriggerDeviceStateChanged(int id,bool isConnect)
+        public void TriggerDeviceStateChanged(int id, bool isConnect)
         {
-            OnDeviceStateChangedEvent?.Invoke(this, new DeviceStateEventArgs(id,isConnect));
+            OnDeviceStateChangedEvent?.Invoke(this, new DeviceStateEventArgs(id, isConnect));
         }
 
 
@@ -149,7 +149,7 @@ namespace DWZ_Scada
                 LogMgr.Instance.Info($"关闭{OP60MainFunc.Instance.StationCode}-HttpServer");
                 OP60MainFunc.Instance?.Dispose();
             }
-            _instance =null;
+            _instance = null;
         }
 
         /// <summary>
@@ -168,15 +168,15 @@ namespace DWZ_Scada
 
         }
 
-        public void StartTestUI(int pos ,string sn)
+        public void StartTestUI(int pos, string sn)
         {
-            if(ctrlResultMap.TryGetValue(pos, out  var ctrl))
+            if (ctrlResultMap.TryGetValue(pos, out var ctrl))
             {
                 ctrl.Start(sn);
             }
         }
 
-        public void TestPassUI(int pos,string sn)
+        public void TestPassUI(int pos, string sn)
         {
             if (ctrlResultMap.TryGetValue(pos, out var ctrl))
             {
@@ -184,12 +184,19 @@ namespace DWZ_Scada
             }
         }
 
-        public void TestFailUI(int pos,string sn,string err="")
+        public void TestFailUI(int pos, string sn, string err = "")
         {
             if (ctrlResultMap.TryGetValue(pos, out var ctrl))
             {
                 ctrl.Fail(sn, err);
             }
+        }
+
+        private void uiLabel2_Click(object sender, EventArgs e)
+        {
+            OP60MainFunc.Instance.PLC.ReadString(OP60Address.EntrySn, 8, out var str);
+            //LogMgr.Instance.Debug($"测试读取进站内容:{str}");
+            Mylog.Instance.Debug($"测试读取进站内容:{str}");
         }
     }
 }

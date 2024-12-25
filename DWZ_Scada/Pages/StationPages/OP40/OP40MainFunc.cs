@@ -490,14 +490,9 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 OnWeldStart?.Invoke();
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.WeldingStart, 0);
-                PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
+                PLC.ReadString(OP40Address.WeldingSn, 8, out string sn);
                 OnWeldingFinished?.Invoke(sn, 0);
-                /*   PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
-                   LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-
-                   //界面更新 焊接开始
-                   OnWeldingFinished?.Invoke(sn, 0);*/
-                //if()
+              
                 if (GlobalOP40.IsAllow)
                 {
                     PLC.WriteInt16(OP40Address.WeldingConfirm, 1);
@@ -509,17 +504,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                     LogMgr.Instance.Debug("上位机禁止焊接");
                 }
             }
-      /*      if (PLC.ReadInt16(OP40Address.WeldingStart, out short isStart) && isStart == 1)
-            {
-                LogMgr.Instance.Debug("收到[OP40]焊接开始信号");
-                //复位视觉完成
-                PLC.WriteInt16(OP40Address.WeldingStart, 0);
-                PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
-                LogMgr.Instance.Debug("读取出站条码内容:" + sn);
-
-                //界面更新 焊接开始
-                OnWeldingFinished?.Invoke(sn, 0);
-            }*/
+    
             if (PLC.ReadInt16(OP40Address.WeldingFinish, out short isFinish) && isFinish == 1)
             {
                 //TODO 焊接一次记录一次
@@ -528,7 +513,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 LogMgr.Instance.Debug("收到[OP40]焊接完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.WeldingFinish, 0);
-                PLC.Read(OP40Address.WeldingSn, "string-8", out string sn);
+                PLC.ReadString(OP40Address.WeldingSn, 8, out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
 
                 //TODO 读取焊接数据
@@ -618,7 +603,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 LogMgr.Instance.Debug("收到[OP40]视觉开始信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.VisionStart, 0);
-                PLC.Read(OP40Address.VisionSn, "string-8", out string sn);
+                PLC.ReadString(OP40Address.VisionSn, 8, out string sn);
                 OnVision1Finished?.Invoke(sn, 0);
             }
 
@@ -627,7 +612,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 LogMgr.Instance.Debug("收到[OP40]视觉完成信号");
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.VisionFinish, 0);
-                PLC.Read(OP40Address.VisionSn, "string-8", out string sn);
+                PLC.ReadString(OP40Address.VisionSn, 8, out string sn);
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP40Address.VisionResult, out short result);
 
@@ -666,7 +651,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             if (PLC.ReadInt16(OP40Address.EntrySignal, out short isEntry) && isEntry == 1)
             {
                 PLC.WriteInt16(OP40Address.EntrySignal, 0);
-                PLC.Read(OP40Address.EntrySn, "string-8", out string sn);
+                PLC.ReadString(OP40Address.EntrySn, 8, out string sn);
 
                 OP40EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()

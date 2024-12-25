@@ -378,8 +378,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                             {
                                                 //TODO 读取两次绕线的SN码
                                                
-                                                PLC.Read(OP20Address.SNAddrList[index * 2], "string-8", out string sn1);
-                                                PLC.Read(OP20Address.SNAddrList[(index * 2) + 1], "string-8", out string sn2);
+                                                PLC.ReadString(OP20Address.SNAddrList[index * 2], 8, out string sn1);
+                                                PLC.ReadString(OP20Address.SNAddrList[(index * 2) + 1], 8, out string sn2);
 
                                                 Logger.Debug($"读取SN1:[{sn1}]");
                                                 Logger.Debug($"读取SN2:[{sn2}]");
@@ -665,7 +665,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             if (PLC.ReadInt16(OP20Address.EntrySignal01, out short isEntry) && isEntry == 1)
             {
                 PLC.WriteInt16(OP20Address.EntrySignal01, 0);
-                PLC.Read(OP20Address.EntrySn01, "string-8", out string sn);
+                PLC.ReadString(OP20Address.EntrySn01, 8, out string sn);
                 if (!CheckWorkOrderState(OnEntryStateChanged01, sn))
                 {
                     LogMgr.Instance.Error($"OP20-01物料匹配失败，阻止进站 SN:[{sn}]");
@@ -700,7 +700,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             if (PLC.ReadInt16(OP20Address.EntrySignal02, out short isEntry) && isEntry == 1)
             {
                 PLC.WriteInt16(OP20Address.EntrySignal02, 0);
-                PLC.Read(OP20Address.EntrySn02, "string-8", out string sn);
+                PLC.ReadString(OP20Address.EntrySn02, 8, out string sn);
                 if (!CheckWorkOrderState(OnEntryStateChanged02, sn))
                 {
                     LogMgr.Instance.Error($"OP20-02物料匹配失败，阻止进站 SN:[{sn}]");
