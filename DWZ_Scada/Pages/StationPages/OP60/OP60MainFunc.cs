@@ -330,7 +330,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             return result;
         }
 
-
         private async Task<short> HandleAtlBrxTestAndResult(TcpDevice1 device, string sn)
         {
             int state = await TriggerDeviceTest(device, sn, SystemParams.Instance.OP60_AtlBrx_TimeOut * 1000);

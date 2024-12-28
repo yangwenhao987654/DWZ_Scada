@@ -121,6 +121,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 //复位视觉完成
                 PLC.WriteInt16(OP70Address.VisionStart, 0);
                 PLC.ReadString(OP70Address.EntrySn, 8, out string sn);
+                string[] strings = sn.Split(":");
+                sn = strings[0];
                 OnVision1Finished?.Invoke(sn, 0);
             }
 
@@ -130,6 +132,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 //复位视觉完成
                 PLC.WriteInt16(OP70Address.VisionFinish, 0);
                 PLC.ReadString(OP70Address.EntrySn, 8, out string sn);
+                string[] strings = sn.Split(":");
+                sn = strings[0];
                 LogMgr.Instance.Debug("读取出站条码内容:" + sn);
                 PLC.ReadInt16(OP70Address.VisionResult, out short result);
                 OnVision1Finished?.Invoke(sn, result);
@@ -201,7 +205,6 @@ namespace DWZ_Scada.Pages.StationPages.OP70
         /// 解析最终码等级
         /// </summary>
         /// <param name="finalCode"></param>
-        /// <exception cref="NotImplementedException"></exception>
         private string AnalizeFinalType(string finalCode)
         {
             string[] strings = finalCode.Split(":");
@@ -242,6 +245,8 @@ namespace DWZ_Scada.Pages.StationPages.OP70
             {
                 PLC.WriteInt16(OP70Address.EntrySignal, 0);
                 PLC.ReadString(OP70Address.EntrySn, 8, out string sn);
+                string[] strings = sn.Split(":");
+                sn = strings[0];
                 OP70EntryStateChanged?.Invoke(sn, 0);
                 EntryRequestDTO requestDto = new()
                 {

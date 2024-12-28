@@ -32,8 +32,29 @@ namespace DWZ_Scada.ProcessControl.DTO.OP20
         public string BreachNo { get; set; }
 
         /// <summary>
-        /// 当前绕线圈数
+        /// 绕线开始时间
         /// </summary>
+        public DateTime WindingStartDt { get; set; }
+
+
+        /// <summary>
+        /// 绕线完成时间
+        /// </summary>
+        public DateTime WindingEndDt { get; set; }
+
+
+
+        /// <summary>
+        /// 绕线机编号(名称)
+        /// </summary>
+        public string WindingMechineName { get; set; }
+
+
+        /// <summary>
+        /// 绕线机工位
+        /// </summary>
+        public string WindingStation { get; set; }
+
         public   double CoilsCurNum { get; set; }
 
         /// <summary>
