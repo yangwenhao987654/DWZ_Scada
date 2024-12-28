@@ -10,7 +10,6 @@ namespace DWZ_Scada.ProcessControl.DTO.OP20
     {
         public CoildDataDto(CoildDataDto dto)
         {
-
             CoilsCurNum = dto.CoilsCurNum;
             CoilsTargetNum = dto.CoilsTargetNum;
             //CoilsSpeed = dto.CoilsSpeed;

@@ -202,7 +202,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 {
                     Mylog.Instance.Alarm("上传过站数据错误:" + msg);
                 }
-                LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
+                LogMgr.Instance.Debug($"视觉1测试结果:{result}:{(result ? "OK" : "NG")}");
                 PLC.WriteInt16(OP10Address.Vision1_Out, v1Result);
             }
         }
@@ -250,7 +250,7 @@ namespace DWZ_Scada.Pages.StationPages.OP10
                 {
                     Mylog.Instance.Alarm("上传视觉2数据错误:" + msg);
                 }
-                LogMgr.Instance.Debug($"视觉测试结果:{result}:{(result ? "OK" : "NG")}");
+                LogMgr.Instance.Debug($"视觉2测试结果:{result}:{(result ? "OK" : "NG")}");
                 PLC.WriteInt16(OP10Address.Vision2_Out, v2Result);
             }
         }

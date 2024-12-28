@@ -101,7 +101,7 @@
             uiLabel42.Name = "uiLabel42";
             uiLabel42.Size = new System.Drawing.Size(120, 30);
             uiLabel42.TabIndex = 63;
-            uiLabel42.Text = "焊接结果:";
+            uiLabel42.Text = "TIG焊接:";
             // 
             // uiLabel8
             // 

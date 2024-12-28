@@ -192,10 +192,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                             }
 
                             bool isAlarm = false;
-                            modbusTcp.ReadInt16(CoildAddress.AlarmState, 3,out var alarmArr);
+                            modbusTcp.ReadInt16(CoildAddress.AlarmState, 3, out var alarmArr);
                             for (int i = 0; i < alarmArr.Length; i++)
                             {
-                                if (alarmArr[i]!= 0)
+                                if (alarmArr[i] != 0)
                                 {
                                     isAlarm = true;
                                     LogMgr.Instance.Error($"读取报警:[{i + 1}],值:[{alarmArr[i]}]");
@@ -362,7 +362,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     if (startArr[i] == 1)
                     {
                         //绕线机开始
-                        LogMgr.Instance.Info($"收到绕线[{i+1}]开始...");
+                        LogMgr.Instance.Info($"收到绕线[{i + 1}]开始...");
 
                         if (ModbusTcpList[i] == null)
                         {
@@ -377,7 +377,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                             try
                                             {
                                                 //TODO 读取两次绕线的SN码
-                                               
+
                                                 PLC.ReadString(OP20Address.SNAddrList[index * 2], 8, out string sn1);
                                                 PLC.ReadString(OP20Address.SNAddrList[(index * 2) + 1], 8, out string sn2);
 
@@ -409,11 +409,11 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         break;
                                                     }
                                                     modbusTcp.ReadUInt16(CoildAddress.WorkState, out ushort workState);
-                                                    if (workState==1)
+                                                    if (workState == 1)
                                                     {
                                                         Logger.Debug("绕线开始中");
                                                     }
-                                                    else if (workState==2) 
+                                                    else if (workState == 2)
                                                     {
                                                         Logger.Debug("绕线结束中");
                                                     }
@@ -430,7 +430,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         //停止
                                                         LogMgr.Instance.Debug("读取到绕线停止..1");
                                                         isFinish = true;
-                                                        if (workState==1)
+                                                        if (workState == 1)
                                                         {
                                                             LogMgr.Instance.Debug("绕线工作完成");
                                                         }
@@ -452,7 +452,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                                                         modbusTcp.ReadUInt32(CoildAddress.CoilsTimes, out uint times);
                                                         dto.CoilsTimes = times / 100;
-
+                                                        dto.Good = true;
                                                         //采集张力值 TODO 需要区分是A/B哪个工位
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
                                                         //dto.TensionValueList=new List<double> { tension01/100 };
@@ -466,6 +466,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         dto.TensionValue = tensionStr_A;
                                                         string tensionStr_B = string.Join(',', tensionList_B);
                                                         dto02.TensionValue = tensionStr_B;
+                                                        dto02.Good = true;
                                                         //dto02.TensionValueList = new List<double> { tension02/100 };
                                                         PassStationDTO passStationDto01 = new PassStationDTO()
                                                         {
@@ -526,11 +527,12 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                                                             modbusTcp.ReadUInt32(CoildAddress.CoilsTimes, out uint times);
                                                             dto.CoilsTimes = times / 100;
-
+                                                            dto.Good = true;
                                                             //采集张力值 TODO 需要区分是A/B哪个工位
                                                             modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
                                                             //dto.TensionValueList=new List<double> { tension01/100 };
                                                             CoildDataDto dto02 = new CoildDataDto(dto);
+                                                            dto02.Good = true;
                                                             //dto.TensionValue
                                                             tensionList_A.Add(tension01);
                                                             modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);

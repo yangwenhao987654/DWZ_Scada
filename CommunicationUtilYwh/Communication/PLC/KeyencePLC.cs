@@ -409,6 +409,7 @@ namespace CommunicationUtilYwh.Communication.PLC
                 var result = client.ReadString(address, length);
                 flag = result.IsSuccess;
                 value = result.Content;
+                value = RemoveAllCharactersAfterBackslashOrNull(value);
                 if (!flag)
                 {
                     LogMgr.Instance.Error($"Read [String]  Fail ,地址:[{address}] 长度:[{length}] 错误信息:[{result.Message}]");

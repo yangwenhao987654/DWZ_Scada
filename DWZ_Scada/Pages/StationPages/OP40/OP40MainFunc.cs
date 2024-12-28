@@ -327,14 +327,13 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         public double CurHumidity { get; set; }
         protected override DeviceStateDTO WrapDeviceStateInner(DeviceStateDTO dto)
         {
-       /*     if (dto.Status == "run")
+            /*  if (dto.Status == "run")
             {
                 //运行状态下 读取大电流放电的使用次数
                 OP40StateData data = new OP40StateData();
                 PLC.ReadInt32(OP40Address.DisChargeCount, out int count);
                 data.DisChargeCount = count;
                 dto.Data = data;
-
             }*/
             OP10TempData tempData = new OP10TempData() { Humidity = CurHumidity, Temperature = CurTemperature, };
             lock (_lock)
@@ -343,7 +342,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 tempData.Temperature = CurTemperature;
             }
             dto.Data = tempData;
-            return dto;
             return dto;
         }
 
