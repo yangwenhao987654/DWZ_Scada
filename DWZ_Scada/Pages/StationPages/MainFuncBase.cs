@@ -123,6 +123,8 @@ namespace DWZ_Scada.Pages.StationPages
         /// <param name="result"></param>
         public delegate void TestStateChanged(string sn, int result);
 
+        public delegate void TestStateChangedAndMsg(string sn, int result,string msg="");
+
         /// <summary>
         /// 进站请求处理状态
         /// </summary>

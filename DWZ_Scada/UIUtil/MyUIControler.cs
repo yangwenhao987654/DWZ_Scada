@@ -11,17 +11,21 @@ namespace DWZ_Scada.UIUtil
     public class MyUIControler
     {
      
-        public static void UpdateTestStateCtrl(UserCtrlResult ctrl, string sn, int result,string err="")
+        public static void UpdateTestStateCtrl(UserCtrlResult ctrl, string sn, int result,string msg="")
         {
             if (ctrl.InvokeRequired)
             {
-                ctrl.Invoke(new Action<UserCtrlResult, string, int,string>(UpdateTestStateCtrl), ctrl, sn, result,err);
+                ctrl.Invoke(new Action<UserCtrlResult, string, int,string>(UpdateTestStateCtrl), ctrl, sn, result,msg);
                 return;
             }
 
             if (result == 0)
             {
                 ctrl.Start(sn);
+                if (msg!="")
+                {
+                    ctrl.UpdateMsg(msg);
+                }
             }
             else if (result == 1)
             {
@@ -29,7 +33,7 @@ namespace DWZ_Scada.UIUtil
             }
             else if (result == 2)
             {
-                ctrl.Fail(sn, err);
+                ctrl.Fail(sn, msg);
             }
             else
             {

@@ -52,6 +52,17 @@ namespace DIPTest.Ctrl
             uiLabel4.BackColor = Color.Gray;
             lbl_Input.Text = "";
         }
+
+        public void UpdateMsg(string msg)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => UpdateMsg(msg)));
+                return;
+            }
+            uiLabel4.Text = msg;
+        }
+
         /// <summary>
         /// 调用UI线程 更新控件
         /// </summary>

@@ -271,9 +271,9 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             }
         }
 
-        private void Instance_OnWeldingFinished(string sn, int result)
+        private void Instance_OnWeldingFinished(string sn, int result,string msg="")
         {
-            MyUIControler.UpdateTestStateCtrl(userCtrlResult_Welding, sn, result);
+            MyUIControler.UpdateTestStateCtrl(userCtrlResult_Welding, sn, result,msg);
         }
 
         private void Instance_OnVision1Finished(string sn, int result)

@@ -68,7 +68,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         /// <summary>
         /// 焊接完成
         /// </summary>
-        public event TestStateChanged OnWeldingFinished;
+        public event TestStateChangedAndMsg OnWeldingFinished;
 
 
         /// <summary>
@@ -489,7 +489,7 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 //复位视觉完成
                 PLC.WriteInt16(OP40Address.WeldingStart, 0);
                 PLC.ReadString(OP40Address.WeldingSn, 8, out string sn);
-                OnWeldingFinished?.Invoke(sn, 0);
+                OnWeldingFinished?.Invoke(sn, 0,"焊接中");
               
                 if (GlobalOP40.IsAllow)
                 {
