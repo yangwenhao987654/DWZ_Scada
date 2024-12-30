@@ -157,7 +157,7 @@ namespace AutoStation
             WindowsPrincipal principal = new WindowsPrincipal(identity);
             bool isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
             if (isAdmin) return;
-            CustomMessageBox.ShowDialog("请以管理员权限重新打开程序！");
+            WuLiaoDialog.ShowDialog("请以管理员权限重新打开程序！");
             this.Close();
         }
 

@@ -34,10 +34,10 @@
             启用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
             lblSN2 = new Sunny.UI.UILabel();
-            uiLabel1 = new Sunny.UI.UILabel();
             lblSN1 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
             lbl_time = new Sunny.UI.UILabel();
+            uiLabel1 = new Sunny.UI.UILabel();
             uiPanel1.SuspendLayout();
             uiContextMenuStrip1.SuspendLayout();
             uiTableLayoutPanel1.SuspendLayout();
@@ -97,15 +97,17 @@
             uiTableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             uiTableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             uiTableLayoutPanel1.Name = "uiTableLayoutPanel1";
-            uiTableLayoutPanel1.RowCount = 5;
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.5F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.5F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            uiTableLayoutPanel1.RowCount = 3;
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.16402F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.5185184F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.5185184F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.9259262F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.8730164F));
+            uiTableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             uiTableLayoutPanel1.Size = new System.Drawing.Size(214, 160);
             uiTableLayoutPanel1.TabIndex = 4;
             uiTableLayoutPanel1.TagString = null;
+            uiTableLayoutPanel1.Paint += uiTableLayoutPanel1_Paint;
             // 
             // lblSN2
             // 
@@ -113,13 +115,51 @@
             lblSN2.Dock = System.Windows.Forms.DockStyle.Fill;
             lblSN2.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
             lblSN2.ForeColor = System.Drawing.Color.Black;
-            lblSN2.Location = new System.Drawing.Point(0, 60);
+            lblSN2.Location = new System.Drawing.Point(0, 62);
             lblSN2.Margin = new System.Windows.Forms.Padding(0);
             lblSN2.Name = "lblSN2";
-            lblSN2.Size = new System.Drawing.Size(214, 28);
+            lblSN2.Size = new System.Drawing.Size(214, 29);
             lblSN2.TabIndex = 6;
             lblSN2.Text = "SN2";
             lblSN2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblSN1
+            // 
+            lblSN1.BackColor = System.Drawing.Color.Aqua;
+            lblSN1.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblSN1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
+            lblSN1.ForeColor = System.Drawing.Color.Black;
+            lblSN1.Location = new System.Drawing.Point(0, 33);
+            lblSN1.Margin = new System.Windows.Forms.Padding(0);
+            lblSN1.Name = "lblSN1";
+            lblSN1.Size = new System.Drawing.Size(214, 29);
+            lblSN1.TabIndex = 5;
+            lblSN1.Text = "SN1";
+            lblSN1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiLabel2
+            // 
+            uiLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            uiLabel2.Location = new System.Drawing.Point(3, 91);
+            uiLabel2.Name = "uiLabel2";
+            uiLabel2.Size = new System.Drawing.Size(208, 41);
+            uiLabel2.TabIndex = 4;
+            uiLabel2.Text = "未连接";
+            uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_time
+            // 
+            lbl_time.Dock = System.Windows.Forms.DockStyle.Fill;
+            lbl_time.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
+            lbl_time.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            lbl_time.Location = new System.Drawing.Point(3, 132);
+            lbl_time.Name = "lbl_time";
+            lbl_time.Size = new System.Drawing.Size(208, 28);
+            lbl_time.TabIndex = 4;
+            lbl_time.Text = "00:00";
+            lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiLabel1
             // 
@@ -130,49 +170,11 @@
             uiLabel1.Location = new System.Drawing.Point(0, 0);
             uiLabel1.Margin = new System.Windows.Forms.Padding(0);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new System.Drawing.Size(214, 32);
+            uiLabel1.Size = new System.Drawing.Size(214, 33);
             uiLabel1.TabIndex = 1;
             uiLabel1.Text = "绕线机01";
             uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             uiLabel1.Click += uiLabel1_Click;
-            // 
-            // lblSN1
-            // 
-            lblSN1.BackColor = System.Drawing.Color.Aqua;
-            lblSN1.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblSN1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 134);
-            lblSN1.ForeColor = System.Drawing.Color.Black;
-            lblSN1.Location = new System.Drawing.Point(0, 32);
-            lblSN1.Margin = new System.Windows.Forms.Padding(0);
-            lblSN1.Name = "lblSN1";
-            lblSN1.Size = new System.Drawing.Size(214, 28);
-            lblSN1.TabIndex = 5;
-            lblSN1.Text = "SN1";
-            lblSN1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel2
-            // 
-            uiLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            uiLabel2.Font = new System.Drawing.Font("微软雅黑", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            uiLabel2.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new System.Drawing.Point(3, 88);
-            uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new System.Drawing.Size(208, 48);
-            uiLabel2.TabIndex = 3;
-            uiLabel2.Text = "未连接";
-            uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_time
-            // 
-            lbl_time.Dock = System.Windows.Forms.DockStyle.Fill;
-            lbl_time.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 134);
-            lbl_time.ForeColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            lbl_time.Location = new System.Drawing.Point(3, 136);
-            lbl_time.Name = "lbl_time";
-            lbl_time.Size = new System.Drawing.Size(208, 24);
-            lbl_time.TabIndex = 4;
-            lbl_time.Text = "00:00";
-            lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // windingCtrl
             // 
@@ -183,6 +185,7 @@
             Name = "windingCtrl";
             Size = new System.Drawing.Size(214, 160);
             Load += windingCtrl_Load;
+            Click += windingCtrl_Click;
             uiPanel1.ResumeLayout(false);
             uiContextMenuStrip1.ResumeLayout(false);
             uiTableLayoutPanel1.ResumeLayout(false);
@@ -191,7 +194,6 @@
 
         #endregion
         private Sunny.UI.UIPanel uiPanel1;
-        private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
         private Sunny.UI.UILabel lbl_time;
@@ -200,5 +202,6 @@
         private System.Windows.Forms.ToolStripMenuItem 启用ToolStripMenuItem;
         private Sunny.UI.UILabel lblSN1;
         private Sunny.UI.UILabel lblSN2;
+        private Sunny.UI.UILabel uiLabel1;
     }
 }

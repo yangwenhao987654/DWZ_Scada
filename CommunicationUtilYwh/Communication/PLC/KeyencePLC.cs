@@ -2,6 +2,7 @@
 using HslCommunication.Profinet.Keyence;
 using LogTool;
 using System;
+using System.Text;
 using HslCommunication.Core;
 using Newtonsoft.Json.Linq;
 
@@ -406,7 +407,31 @@ namespace CommunicationUtilYwh.Communication.PLC
             value = "";
             try
             {
-                var result = client.ReadString(address, length);
+                var result = client.ReadString(address, length,Encoding.ASCII);
+                flag = result.IsSuccess;
+                value = result.Content;
+                value = RemoveAllCharactersAfterBackslashOrNull(value);
+                if (!flag)
+                {
+                    LogMgr.Instance.Error($"Read [String]  Fail ,地址:[{address}] 长度:[{length}] 错误信息:[{result.Message}]");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMgr.Instance.Error($"Read [String] Err ,地址:[{address}] 长度:[{length}] 异常信息:{ex.Message} ");
+            }
+
+            return flag;
+        }
+
+
+        public  bool ReadStringOrigin(string address, ushort length, out string value)
+        {
+            bool flag = true;
+            value = "";
+            try
+            {
+                var result = client.ReadString(address, length, Encoding.ASCII);
                 flag = result.IsSuccess;
                 value = result.Content;
                 value = RemoveAllCharactersAfterBackslashOrNull(value);

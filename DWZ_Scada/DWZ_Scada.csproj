@@ -36,6 +36,9 @@
     <PackageReference Include="SunnyUI" Version="3.7.2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ctrls\WuLiaoDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ctrls\ETestBCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>

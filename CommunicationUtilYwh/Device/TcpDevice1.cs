@@ -174,10 +174,10 @@ namespace CommunicationUtilYwh.Device
         {
             cmd += "\r\n";
             bool f = Write(cmd);
-            LogMgr.Instance.Debug("发送命令:"+cmd);
+            //LogMgr.Instance.Debug("发送命令:"+cmd);
             Thread.Sleep(500);
             string result = Read();
-            LogMgr.Instance.Debug("读取结果:" + result);
+            //LogMgr.Instance.Debug("读取结果:" + result);
             return result;
 
         }

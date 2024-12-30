@@ -37,7 +37,7 @@ namespace DIPTest
                 }
                 else
                 {
-                    CustomMessageBox.ShowDialog("窗体无法显示");
+                    WuLiaoDialog.ShowDialog("窗体无法显示");
                     this.Close();
                     return;
                 }

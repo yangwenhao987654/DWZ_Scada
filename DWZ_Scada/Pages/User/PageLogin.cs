@@ -63,7 +63,7 @@ namespace AutoTF
             catch (Exception e)
             {
                 LogMgr.Instance.Error("数据库连接失败:" + e.Message);
-                CustomMessageBox.ShowDialog("警告", "初始化用户失败,请检查数据库连接," + e.Message);
+                WuLiaoDialog.ShowDialog("警告", "初始化用户失败,请检查数据库连接," + e.Message);
                 //this.Close();
                 return;
             }

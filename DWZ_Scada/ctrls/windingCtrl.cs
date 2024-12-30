@@ -1,4 +1,6 @@
-﻿using Sunny.UI;
+﻿using Cap.Dialog;
+using LogTool;
+using Sunny.UI;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -137,13 +139,13 @@ namespace DWZ_Scada.ctrls
         }
 
 
-        public void SetSN(string sn1,string sn2)
+        public void SetSN(string sn1, string sn2)
         {
             //这里已经保证切换到UI线程了
 
             if (InvokeRequired)
             {
-                BeginInvoke(SetSN, sn1,sn2);
+                BeginInvoke(SetSN, sn1, sn2);
                 return;
             }
             lblSN1.Text = sn1;
@@ -220,7 +222,21 @@ namespace DWZ_Scada.ctrls
 
         private void uiLabel1_Click(object sender, EventArgs e)
         {
+            CustomMessageBox dialog = new CustomMessageBox(SystemParams.Instance.OP20_WuliaoList1[Index], SystemParams.Instance.OP20_WuliaoList2[Index]);
+            dialog.ShowDialog();
+            if (dialog.DialogResult==DialogResult.Cancel)
+            {
+                return;
+            }
 
+            Wuliao1 = dialog.Input1;
+            Wuliao2 = dialog.Input2;
+            LogMgr.Instance.Info($"{WeldingTitle} 录入物料工位1:{Wuliao1}");
+            LogMgr.Instance.Info($"{WeldingTitle} 录入物料工位2:{Wuliao2}");
+            //物料持久化
+            SystemParams.Instance.OP20_WuliaoList1[Index]= Wuliao1;
+            //物料持久化
+            SystemParams.Instance.OP20_WuliaoList2[Index] = Wuliao2;
         }
 
         private void 禁用ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -244,6 +260,26 @@ namespace DWZ_Scada.ctrls
             SystemParams.Instance.OP20_WeldingEnableList[Index] = true;
             UpdateState(WindingState.OffLine);
         }
+
+        private void windingCtrl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void uiTableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 输入的物料
+        /// </summary>
+        public string Wuliao1 { get; set; }
+
+        public string Wuliao2 { get; set; }
+
+        public bool IsWuliaoInput { get; set; }
     }
 
     public class WindingState

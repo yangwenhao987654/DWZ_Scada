@@ -9,6 +9,13 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         /// </summary>
         public static readonly string EntrySignal01 = "D3100";
 
+
+        /// <summary>
+        /// 请求放入的绕线机
+        /// </summary>
+
+        public static readonly string PutPos = "D3103";
+
         /// <summary>
         /// 进站SN码
         /// </summary>

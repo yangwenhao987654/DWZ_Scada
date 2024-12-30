@@ -466,7 +466,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<int> TriggerDeviceTest(TcpDevice1 device, string sn, int timeout)
         {
-            Mylog.Instance.Debug($"清除上一次数据");
+            Mylog.Instance.Debug($"[{device.Name}]清除上一次数据");
             device.ClearData();
             //Thread.Sleep(200);
             Mylog.Instance.Debug($"更新产品ID");
@@ -476,8 +476,6 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 sn = "1111";
             }
             device.UpdateProduct(sn);
-            //Thread.Sleep(200);
-            Mylog.Instance.Debug($"触发测试命令");
             device.TriggerWork();
             //Thread.Sleep(100);
             Logger.Debug($"[{device.Name}]触发测试");

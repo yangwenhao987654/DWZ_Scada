@@ -201,6 +201,17 @@ namespace DWZ_Scada
         [DisplayName("2.PLC 端口号"), Category("2.OP20工站"), Description("PLC的端口号")]
         public int OP20_PlcPort { get; set; }
 
+        [Browsable(false)]
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机1工位物料list"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public List<string> OP20_WuliaoList1 { get; set; }
+
+
+        [Browsable(false)]
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("3.绕线机2工位物料list"), Category("2.OP20工站"), Description("PLC的IP地址")]
+        public List<string> OP20_WuliaoList2 { get; set; }
+
 
         [field: NonSerialized]
         private string _op20_Winding1_IP;
@@ -226,7 +237,6 @@ namespace DWZ_Scada
 
         [field: NonSerialized]
         private int _op20_Winding1_Port;
-
 
 
         [Permission(3), ReadOnly(false)]

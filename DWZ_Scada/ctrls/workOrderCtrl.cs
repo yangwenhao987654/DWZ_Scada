@@ -71,7 +71,7 @@ namespace DWZ_Scada.ctrls
         public List<ProductBomDTO> ProductBomList { get; set; }
 
 
-        
+
 
         public bool IsCheckPass
         {
@@ -97,7 +97,7 @@ namespace DWZ_Scada.ctrls
         public void HideSpot()
         {
             uiLabel5.Visible = false;
-            uiSwitch_Spot.Visible =false;
+            uiSwitch_Spot.Visible = false;
         }
 
         private void ReflashStateColor(bool isOK)
@@ -129,7 +129,7 @@ namespace DWZ_Scada.ctrls
             InitializeComponent();
             SpotEnable = false;
             MainFuncBase.PlcStateChanged += MainFuncBase_PlcStateChanged;
-            
+
         }
 
         private void MainFuncBase_PlcStateChanged(bool flag)
@@ -202,6 +202,7 @@ namespace DWZ_Scada.ctrls
         private void workOrderCtrl_Load(object sender, EventArgs e)
         {
             userCtrlScanInput2.InputFinishEvent += UserCtrlScanInput1_InputFinishEvent;
+            GetWorkOrders();
         }
 
         private void UserCtrlScanInput1_InputFinishEvent(string msg)
@@ -229,6 +230,7 @@ namespace DWZ_Scada.ctrls
         {
             return msg;
         }
+
 
         private bool CheckBomMatch(string itemCode)
         {
@@ -316,11 +318,11 @@ namespace DWZ_Scada.ctrls
             {
                 //TODO 下发给PLC型号
                 //1. 获取到当前的型号Code
-                if (CurProductCode=="")
+                if (CurProductCode == "")
                 {
                     UIMessageBox.ShowError("当前型号为空");
                     return;
-                } 
+                }
                 IProductFormulaDAL _productFormulaDAL = Global.ServiceProvider.GetRequiredService<IProductFormulaDAL>();
                 ProductFormulaEntity row = _productFormulaDAL.SelectSingleByProdCode(CurProductCode);
                 if (row != null)
@@ -339,6 +341,16 @@ namespace DWZ_Scada.ctrls
             {
                 UIMessageBox.ShowError("物料匹配失败 ，禁止切换型号");
             }
+        }
+
+        private void uiTableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void uiSwitch1_ValueChanged(object sender, bool value)
+        {
+            IsCheckPass = !value;
         }
     }
 }

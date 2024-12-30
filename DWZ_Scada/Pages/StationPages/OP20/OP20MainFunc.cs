@@ -5,6 +5,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using DWZ_Scada.ProcessControl.DTO.OP20;
 using DWZ_Scada.Services;
 using LogTool;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json.Linq;
 using Sunny.UI;
 using System;
@@ -89,6 +90,30 @@ namespace DWZ_Scada.Pages.StationPages.OP20
         public override void StartAsync()
         {
             base.StartAsync();
+            List<string> w1 =new List<string>();
+            List<string> w2 = new List<string>();
+            for (int i = 0; i < 12; i++)
+            {
+                w1.Add(i.ToString());
+                w2.Add(i.ToString());
+            }
+
+            if (SystemParams.Instance.OP20_WuliaoList1==null)
+            {
+                SystemParams.Instance.OP20_WuliaoList1 = new List<string>();
+                SystemParams.Instance.OP20_WuliaoList1.AddRange(w1);
+            }
+            if (SystemParams.Instance.OP20_WuliaoList2 == null)
+            {
+                SystemParams.Instance.OP20_WuliaoList2 = new List<string>();
+                SystemParams.Instance.OP20_WuliaoList2.AddRange(w2);
+            }
+
+            for (int i = 0; i < SystemParams.Instance.OP20_WuliaoList1.Count; i++)
+            {
+                PageOP20.Instance.WindingCtrlList[i].Wuliao1 = SystemParams.Instance.OP20_WuliaoList1[i];
+                PageOP20.Instance.WindingCtrlList[i].Wuliao2 = SystemParams.Instance.OP20_WuliaoList2[i];
+            }
             //TODO 增加Modbus TCP 的连接
             Task.Run(() =>
             {
@@ -198,7 +223,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                 if (alarmArr[i] != 0)
                                 {
                                     isAlarm = true;
-                                    LogMgr.Instance.Error($"读取报警:[{i + 1}],值:[{alarmArr[i]}]");
+                                    LogMgr.Instance.Debug($"读取报警:[{i + 1}],值:[{alarmArr[i]}]");
                                 }
                             }
 
@@ -442,7 +467,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         }
 
                                                         CoildDataDto dto = new CoildDataDto();
-                                                        dto.BreachNo = Global.BreachNo;
+                                                        dto.BreachNo= PageOP20.Instance.WindingCtrlList[i].Wuliao1;
+                                                        //dto.BreachNo = Global.BreachNo;
                                                         //运行中
                                                         modbusTcp.ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
                                                         dto.CoilsCurNum = coilsCurNum / 100;
@@ -451,9 +477,9 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         DateTime endDt = DateTime.Now;
                                                         dto.WindingStartDt = startDt;
                                                         dto.WindingEndDt = endDt;
-                                                        dto.WindingStation = "工位A";
+                                                        dto.WindingStation = "工位1";
                                                         dto.WindingMechineName = $"绕线机{index + 1}";
-
+                                                        
                                                         /*  ModbusTcpList[0].ReadUInt32(CoildAddress.CoilsSpeed, out uint coilsSpeed);
                                                           dto.CoilsSpeed = coilsSpeed / 100;*/
 
@@ -464,6 +490,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
                                                         //dto.TensionValueList=new List<double> { tension01/100 };
                                                         CoildDataDto dto02 = new CoildDataDto(dto);
+                                                        dto02.BreachNo = PageOP20.Instance.WindingCtrlList[i].Wuliao2;
                                                         //dto.TensionValue
                                                         tensionList_A.Add(tension01);
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
@@ -476,7 +503,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         dto02.Good = true;
                                                         dto02.WindingStartDt = startDt;
                                                         dto02.WindingEndDt = endDt;
-                                                        dto02.WindingStation = "工位B";
+                                                        dto02.WindingStation = "工位2";
                                                         dto02.WindingMechineName = $"绕线机{index + 1}";
                                                         //dto02.TensionValueList = new List<double> { tension02/100 };
                                                         PassStationDTO passStationDto01 = new PassStationDTO()
@@ -539,6 +566,11 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                             modbusTcp.ReadUInt32(CoildAddress.CoilsTimes, out uint times);
                                                             dto.CoilsTimes = times / 100;
                                                             dto.Good = true;
+                                                            DateTime endDt = DateTime.Now;
+                                                            dto.WindingStartDt = startDt;
+                                                            dto.WindingEndDt = endDt;
+                                                            dto.WindingStation = "工位1";
+                                                            dto.WindingMechineName = $"绕线机{index + 1}";
                                                             //采集张力值 TODO 需要区分是A/B哪个工位
                                                             modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
                                                             //dto.TensionValueList=new List<double> { tension01/100 };
@@ -553,6 +585,10 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                             dto.TensionValue = tensionStr_A;
                                                             string tensionStr_B = string.Join(',', tensionList_B);
                                                             dto02.TensionValue = tensionStr_B;
+                                                            dto02.WindingStartDt = startDt;
+                                                            dto02.WindingEndDt = endDt;
+                                                            dto02.WindingStation = "工位2";
+                                                            dto02.WindingMechineName = $"绕线机{index + 1}";
                                                             //dto02.TensionValueList = new List<double> { tension02/100 };
                                                             PassStationDTO passStationDto01 = new PassStationDTO()
                                                             {
@@ -601,11 +637,37 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 PLC.ReadString(OP20Address.EntrySn01, 8, out string sn);
                 if (!CheckWorkOrderState(OnEntryStateChanged01, sn))
                 {
-                    LogMgr.Instance.Error($"OP20-01物料匹配失败，阻止进站 SN:[{sn}]");
+                    LogMgr.Instance.Error($"OP20物料匹配失败，阻止进站 SN:[{sn}]");
                     PLC.WriteInt16(OP20Address.EntryResult01, 2);
                     OnEntryStateChanged01?.Invoke(sn, 2, "物料不匹配");
                     return;
                 }
+
+                bool flag = false;
+                //读取当前需要放入的位置
+                PLC.ReadInt16(OP20Address.PutPos, out short pos);
+
+                try
+                {
+                    string wuliaoA = PageOP20.Instance.WindingCtrlList[pos - 1].Wuliao1;
+                    bool f = checkWuliao(wuliaoA);
+                    if (!f)
+                    {
+                        LogMgr.Instance.Error($"OP20-【绕线机{pos}】[工位1]物料匹配失败，阻止进站 SN:[{sn}]");
+                        PLC.WriteInt16(OP20Address.EntryResult01, 2);
+                        OnEntryStateChanged01?.Invoke(sn, 2, $"【绕线机{pos}】[工位1]物料不匹配");
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error($"错误:{e.Message}");
+                    LogMgr.Instance.Error($"OP20-【绕线机{pos}】[工位1]物料匹配失败，阻止进站 SN:[{sn}]");
+                    PLC.WriteInt16(OP20Address.EntryResult01, 2);
+                    OnEntryStateChanged01?.Invoke(sn, 2, $"【绕线机{pos}】[工位1]物料不匹配");
+                    return;
+                }
+
 
                 EntryRequestDTO requestDto = new()
                 {
@@ -614,7 +676,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                     WorkOrder = Global.WorkOrder
                 };
 
-                (bool flag, string msg) = await EntryRequest(requestDto);
+                ( flag, string msg) = await EntryRequest(requestDto);
                 //
                 LogMgr.Instance.Debug($"写进站结果{flag} :\n{msg}");
                 short result = 2;
@@ -625,6 +687,16 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 OnEntryStateChanged01?.Invoke(sn, result, msg);
                 PLC.WriteInt16(OP20Address.EntryResult01, result);
             }
+        }
+
+        private bool checkWuliao(string str)
+        {
+            if (str.IsNullOrEmpty())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // 处理进站信号
@@ -638,6 +710,28 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                 {
                     LogMgr.Instance.Error($"OP20-02物料匹配失败，阻止进站 SN:[{sn}]");
                     PLC.WriteInt16(OP20Address.EntryResult02, 2);
+                    return;
+                }
+                PLC.ReadInt16(OP20Address.PutPos, out short pos);
+
+                try
+                {
+                    string wuliaoA = PageOP20.Instance.WindingCtrlList[pos - 1].Wuliao1;
+                    bool f = checkWuliao(wuliaoA);
+                    if (!f)
+                    {
+                        LogMgr.Instance.Error($"OP20-【绕线机{pos}】[工位2]物料匹配失败，阻止进站 SN:[{sn}]");
+                        PLC.WriteInt16(OP20Address.EntryResult01, 2);
+                        OnEntryStateChanged02?.Invoke(sn, 2, $"【绕线机{pos}】[工位2]物料不匹配");
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogMgr.Instance.Error($"错误:{e.Message}");
+                    LogMgr.Instance.Error($"OP20-【绕线机{pos}】[工位2]物料匹配失败，阻止进站 SN:[{sn}]");
+                    PLC.WriteInt16(OP20Address.EntryResult01, 2);
+                    OnEntryStateChanged02?.Invoke(sn, 2, $"【绕线机{pos}】[工位2]物料不匹配");
                     return;
                 }
                 EntryRequestDTO requestDto = new()

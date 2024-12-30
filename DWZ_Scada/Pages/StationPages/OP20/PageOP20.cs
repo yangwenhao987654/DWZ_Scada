@@ -6,12 +6,10 @@ using DWZ_Scada.ProcessControl.RequestSelectModel;
 using DWZ_Scada.UIUtil;
 using DWZ_Scada.VO;
 using LogTool;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
 
 namespace DWZ_Scada.Pages.StationPages.OP20
 {
@@ -96,6 +94,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
             OP20MainFunc.Instance.OnEntryStateChanged02 += Instance_OnEntryStateChanged02;
 
             OP20MainFunc.Instance.OnWeldingStart += Instance_OnWeldingStart;
+            workOrderCtrl1.IsCheckPass=true;
         }
 
         private void Instance_OnWeldingStart(int index, string sn1, string sn2)
