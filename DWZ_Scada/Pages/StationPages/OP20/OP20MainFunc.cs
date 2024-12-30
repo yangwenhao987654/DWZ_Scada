@@ -467,7 +467,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         }
 
                                                         CoildDataDto dto = new CoildDataDto();
-                                                        dto.BreachNo= PageOP20.Instance.WindingCtrlList[i].Wuliao1;
+                                                        dto.BreachNo= PageOP20.Instance.WindingCtrlList[index].Wuliao1;
                                                         //dto.BreachNo = Global.BreachNo;
                                                         //运行中
                                                         modbusTcp.ReadUInt32(CoildAddress.CoilsCurNum, out uint coilsCurNum);
@@ -490,7 +490,7 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue01, out short tension01);
                                                         //dto.TensionValueList=new List<double> { tension01/100 };
                                                         CoildDataDto dto02 = new CoildDataDto(dto);
-                                                        dto02.BreachNo = PageOP20.Instance.WindingCtrlList[i].Wuliao2;
+                                                        dto02.BreachNo = PageOP20.Instance.WindingCtrlList[index].Wuliao2;
                                                         //dto.TensionValue
                                                         tensionList_A.Add(tension01);
                                                         modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
@@ -579,7 +579,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
                                                             //dto.TensionValue
                                                             tensionList_A.Add(tension01);
                                                             modbusTcp.ReadInt16(CoildAddress.TensionValue02, out short tension02);
-
+                                                            dto02.BreachNo = PageOP20.Instance.WindingCtrlList[index].Wuliao2;
+                                                            dto.BreachNo = PageOP20.Instance.WindingCtrlList[index].Wuliao1;
                                                             tensionList_B.Add(tension02);
                                                             string tensionStr_A = string.Join(',', tensionList_A);
                                                             dto.TensionValue = tensionStr_A;
@@ -649,7 +650,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                 try
                 {
-                    string wuliaoA = PageOP20.Instance.WindingCtrlList[pos - 1].Wuliao1;
+                    string wuliaoA  =SystemParams.Instance.OP20_WuliaoList1[pos - 1];
+                    //string wuliaoA = PageOP20.Instance.WindingCtrlList[pos - 1].Wuliao1;
                     bool f = checkWuliao(wuliaoA);
                     if (!f)
                     {
@@ -716,7 +718,8 @@ namespace DWZ_Scada.Pages.StationPages.OP20
 
                 try
                 {
-                    string wuliaoA = PageOP20.Instance.WindingCtrlList[pos - 1].Wuliao1;
+                    string wuliaoA = SystemParams.Instance.OP20_WuliaoList2[pos - 1];
+                   // string wuliaoA = PageOP20.Instance.WindingCtrlList[pos - 1].Wuliao1;
                     bool f = checkWuliao(wuliaoA);
                     if (!f)
                     {
