@@ -57,6 +57,7 @@ namespace CommunicationUtilYwh.Device
             {
                 while (!IsTimeOut)
                 {
+                    //Thread.Sleep(1000);
                     LogMgr.Instance.Debug($"[{device.Name}]:GetTestState->:QueryTestStatus()");
                     string testStatusStr = device.QueryTestStatus();
                     if (string.IsNullOrEmpty(testStatusStr))
@@ -69,6 +70,7 @@ namespace CommunicationUtilYwh.Device
                     {
                         //2. 解析测试状态
                         state = device.ParseTestState(testStatusStr);
+                        LogMgr.Instance.Debug($"[{Device.Name}]测试状态：[{state}]");
                         if (state == 2)
                         {
                             //测试结束有结果
@@ -84,6 +86,7 @@ namespace CommunicationUtilYwh.Device
                         if (state == 0)
                         {
                             //未测试
+                            Thread.Sleep(1000);
                             continue;
                         }
 
@@ -93,7 +96,7 @@ namespace CommunicationUtilYwh.Device
                             Thread.Sleep(1000);
                             continue;
                         }
-                        LogMgr.Instance.Debug($"[{Device.Name}]测试状态：[{state}]");
+                       
                     }
                     catch (Exception e)
                     {

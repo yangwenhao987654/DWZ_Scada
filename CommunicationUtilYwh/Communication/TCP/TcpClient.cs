@@ -77,6 +77,7 @@ namespace CommunicationUtilYwh.Communication.TCP
             {
                 string error = "判断客户端是否连接出现错误，信息为" + ex.Message;
                 //  MessageManager.gOnly.Alarm(error);
+                LogMgr.Instance.Error($"客户端连接异常:{ex.Message}");
                 return false;
             }
         }

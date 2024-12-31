@@ -282,9 +282,9 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<short> HandleSafetyTestAndResult(TcpDevice1 device, string sn)
         {
-            Mylog.Instance.Debug($"准备触发测试");
+            Mylog.Instance.Debug($"[{device.Name}]准备触发测试");
             int state = await TriggerDeviceTest(device, sn, SystemParams.Instance.OP60_Safety_TimeOut * 1000);
-            Logger.Debug($"获取测试状态:[{state}]");
+            Logger.Debug($"[{device.Name}]获取测试状态:[{state}]");
             SafetyTestDto dto = new SafetyTestDto();
             short result = 2; //结果2 表示NG
             if (state == 2)
@@ -296,6 +296,11 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 {
                     //表示测试OK
                     result = 1;
+                    LogMgr.Instance.Info($"[{device.Name}]测试OK!");
+                }
+                else
+                {
+                    LogMgr.Instance.Error($"[{device.Name}]测试NG!");
                 }
             }
             else if (state == 0)
@@ -305,6 +310,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             else if (state == 10)
             {
                 //返回10 表示超时
+                LogMgr.Instance.Error($"[{device.Name}]测试超时!");
                 result = 10;
             }
 
@@ -344,7 +350,12 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 if (dto.AtlBrxTestResult == "Y")
                 {
                     //表示测试OK
+                    LogMgr.Instance.Info($"[{device.Name}]测试OK!");
                     result = 1;
+                }
+                else
+                {
+                    LogMgr.Instance.Error($"[{device.Name}]测试NG!");
                 }
             }
             else if (state == 0)
@@ -352,7 +363,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 LogMgr.Instance.Error($"[{device.Name}]未进行测试!");
             }
             else if( state == 10) {
-            
+                LogMgr.Instance.Error($"[{device.Name}]测试超时!");
                 result = 10;
             }
             if (string.IsNullOrEmpty(sn))
@@ -386,7 +397,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 //工位1 安规测试
                 PLC.ReadString(OP60Address.SafetyTestSN1, 8, out string sn1);
                 PageOP60.Instance.StartTestUI(1, sn1);
-                Task task1 = Task.Run(async () =>
+                await Task.Run(async () =>
                 {
                     try
                     {
@@ -431,7 +442,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 //工位2 安规测试
                 PLC.ReadString(OP60Address.SafetyTestSN2, 8, out string sn2);
                 PageOP60.Instance.StartTestUI(2, sn2);
-                Task task2 = Task.Run(async () =>
+                 await Task.Run(async () =>
                 {
 
                     try
@@ -467,13 +478,13 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         private async Task<int> TriggerDeviceTest(TcpDevice1 device, string sn, int timeout)
         {
-           /* Mylog.Instance.Debug($"[{device.Name}]清除上一次数据");
-            device.ClearData();*/
+            /* Mylog.Instance.Debug($"[{device.Name}]清除上一次数据");
+             device.ClearData();*/
             //Thread.Sleep(200);
-            Mylog.Instance.Debug($"更新产品ID");
+            Logger.Debug($"更新产品ID");
             if (string.IsNullOrEmpty(sn))
             {
-                Mylog.Instance.Debug($"sn为空，强制更新为1111");
+                Logger.Debug($"sn为空，强制更新为1111");
                 sn = "1111";
             }
             device.UpdateProduct(sn);
@@ -496,7 +507,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 Logger.Error($"Device:[{device.Name}]GetTestState超时");
             }
-            Mylog.Instance.Debug($"获取到测试结果:{result}");
+            Logger.Debug($"Device:[{device.Name}]获取到测试结果:{result}");
             //3. 请求测试结果明细
 
             //4.封装结果返回 给Mes
@@ -521,7 +532,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                     //工位2 安规测试
                     PLC.ReadString(OP60Address.AtlBrxTestSN1, 8, out string sn1);
                     PageOP60.Instance.StartTestUI(3, sn1);
-                    Task task1 = Task.Run(async () =>
+                   await Task.Run(async () =>
                     {
                         try
                         {
@@ -572,7 +583,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 Mylog.Instance.Debug("电性能测试2开始..");
                 PLC.ReadString(OP60Address.AtlBrxTestSN2, 8, out string sn2);
                 PageOP60.Instance.StartTestUI(4, sn2);
-                Task task2 = Task.Run(async () =>
+                await Task.Run(async () =>
                 {
                     try
                     {
