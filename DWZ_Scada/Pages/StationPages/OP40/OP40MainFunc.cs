@@ -217,53 +217,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
         }
 
         /// <summary>
-        /// 读取温度
-        /// </summary>
-        public double ReadTemperature(ModbusTCP client)
-        {
-            double result = 0;
-            string address = "0";
-            bool f = client.ReadInt16(address, out short value);
-            if (f)
-            {
-                if (value >= 10000)
-                {
-                    //假如大于10000  表示温度是负
-                    result = (-1 * (value - 10000) * 0.1);
-                }
-                else
-                {
-                    result = value * 0.1;
-                }
-            }
-            else
-            {
-                LogMgr.Instance.Error("读取温度失败");
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// 读取湿度
-        /// </summary>
-        public double ReadHumidity(ModbusTCP client)
-        {
-            double result = 0;
-            string address = "1";
-            bool f = client.ReadInt16(address, out short value);
-            if (f)
-            {
-                result = value * 0.1;
-            }
-            else
-            {
-                LogMgr.Instance.Error("读取湿度失败");
-            }
-            return result;
-        }
-
-        /// <summary>
         /// 读取湿度
         /// </summary>
         public double ReadHumidity(MyModbus client)
@@ -356,8 +309,6 @@ namespace DWZ_Scada.Pages.StationPages.OP40
             Thread t3 = new Thread(() => TemperatureMonitor(token));
             t3.Start();
 
-            Thread t4 = new Thread(() => PressureMonitor(token));
-            t4.Start();
             while (!token.IsCancellationRequested)
             {
                 try

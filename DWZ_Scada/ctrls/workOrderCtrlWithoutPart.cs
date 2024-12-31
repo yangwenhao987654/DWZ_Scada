@@ -170,7 +170,10 @@ namespace DWZ_Scada.ctrls
 
         private void workOrderCtrl_Load(object sender, EventArgs e)
         {
-            GetWorkOrders();
+            if (!DesignMode)
+            {
+                GetWorkOrders();
+            }
         }
 
 

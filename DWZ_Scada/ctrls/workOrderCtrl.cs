@@ -202,7 +202,11 @@ namespace DWZ_Scada.ctrls
         private void workOrderCtrl_Load(object sender, EventArgs e)
         {
             userCtrlScanInput2.InputFinishEvent += UserCtrlScanInput1_InputFinishEvent;
-            GetWorkOrders();
+            if (!DesignMode)
+            {
+                GetWorkOrders();
+            }
+          
         }
 
         private void UserCtrlScanInput1_InputFinishEvent(string msg)

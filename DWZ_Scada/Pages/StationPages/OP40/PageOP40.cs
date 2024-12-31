@@ -230,45 +230,54 @@ namespace DWZ_Scada.Pages.StationPages.OP40
                 Invoke(new Action(() => UpdateWeldingData(arr, type)));
                 return;
             }
-            string values = string.Join(",", arr);
-            LogMgr.Instance.Debug($"气体[{type}]:{values}");
-            switch (type)
+
+            try
             {
-                case "A":
-                    dgv.Rows[0].Cells[1].Value = arr[0].ToString();
-                    dgv.Rows[1].Cells[1].Value = arr[0].ToString();
-                    dgv.Rows[2].Cells[1].Value = arr[0].ToString();
-                    dgv.Rows[3].Cells[1].Value = arr[0].ToString();
-                    dgv.Rows[4].Cells[1].Value = arr[0].ToString();
-                    dgv.Rows[5].Cells[1].Value = arr[0].ToString();
-          /*          lbl_1_A.Text = arr[0].ToString();
-                    lbl_2_A.Text = arr[1].ToString();
-                    lbl_3_A.Text = arr[2].ToString();
-                    lbl_4_A.Text = arr[3].ToString();
-                    lbl_5_A.Text = arr[4].ToString();
-                    lbl_6_A.Text = arr[5].ToString();
+                string values = string.Join(",", arr);
+                LogMgr.Instance.Debug($"气体[{type}]:{values}");
+                switch (type)
+                {
+                    case "A":
+                        dgv.Rows[0].Cells[1].Value = arr[0].ToString();
+                        dgv.Rows[1].Cells[1].Value = arr[1].ToString();
+                        dgv.Rows[2].Cells[1].Value = arr[2].ToString();
+                        dgv.Rows[3].Cells[1].Value = arr[3].ToString();
+                        dgv.Rows[4].Cells[1].Value = arr[4].ToString();
+                        dgv.Rows[5].Cells[1].Value = arr[5].ToString();
+                        /*          lbl_1_A.Text = arr[0].ToString();
+                                  lbl_2_A.Text = arr[1].ToString();
+                                  lbl_3_A.Text = arr[2].ToString();
+                                  lbl_4_A.Text = arr[3].ToString();
+                                  lbl_5_A.Text = arr[4].ToString();
+                                  lbl_6_A.Text = arr[5].ToString();
 
-               */
-                    break;
+                             */
+                        break;
 
-                case "B":
+                    case "B":
 
-                    dgv.Rows[0].Cells[3].Value = arr[0].ToString();
-                    dgv.Rows[1].Cells[3].Value = arr[0].ToString();
-                    dgv.Rows[2].Cells[3].Value = arr[0].ToString();
-                    dgv.Rows[3].Cells[3].Value = arr[0].ToString();
-                    dgv.Rows[4].Cells[3].Value = arr[0].ToString();
-                    dgv.Rows[5].Cells[3].Value = arr[0].ToString();
-                    break;
-                case "C":
-                    dgv.Rows[0].Cells[5].Value = arr[0].ToString();
-                    dgv.Rows[1].Cells[5].Value = arr[0].ToString();
-                    dgv.Rows[2].Cells[5].Value = arr[0].ToString();
-                    dgv.Rows[3].Cells[5].Value = arr[0].ToString();
-                    dgv.Rows[4].Cells[5].Value = arr[0].ToString();
-                    dgv.Rows[5].Cells[5].Value = arr[0].ToString();
-                    break;
+                        dgv.Rows[0].Cells[3].Value = arr[0].ToString();
+                        dgv.Rows[1].Cells[3].Value = arr[1].ToString();
+                        dgv.Rows[2].Cells[3].Value = arr[2].ToString();
+                        dgv.Rows[3].Cells[3].Value = arr[3].ToString();
+                        dgv.Rows[4].Cells[3].Value = arr[4].ToString();
+                        dgv.Rows[5].Cells[3].Value = arr[5].ToString();
+                        break;
+                    case "C":
+                        dgv.Rows[0].Cells[5].Value = arr[0].ToString();
+                        dgv.Rows[1].Cells[5].Value = arr[1].ToString();
+                        dgv.Rows[2].Cells[5].Value = arr[2].ToString();
+                        dgv.Rows[3].Cells[5].Value = arr[3].ToString();
+                        dgv.Rows[4].Cells[5].Value = arr[4].ToString();
+                        dgv.Rows[5].Cells[5].Value = arr[5].ToString();
+                        break;
+                }
             }
+            catch (Exception e)
+            {
+               LogMgr.Instance.Error($"显示气体值错误:{e.Message} 错误堆栈:{e.StackTrace}");
+            }
+         
         }
 
         private void Instance_OnWeldingFinished(string sn, int result,string msg="")
