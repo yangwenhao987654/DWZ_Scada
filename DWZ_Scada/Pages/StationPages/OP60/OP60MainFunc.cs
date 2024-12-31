@@ -320,7 +320,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PassStationData = dto,
                 isLastStep = false,
             };
-           (bool flag, string msg) = await UploadStationData(requestDto);
+            (bool flag, string msg) = await UploadData(requestDto);
+           //(bool flag, string msg) = await UploadStationData(requestDto);
             //string msg = "屏蔽mes";
             LogMgr.Instance.Debug($"Device:[{device.Name}]传Mes安规测试结果:{result} :\n{msg}");
             /*if (flag)
@@ -366,7 +367,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 PassStationData = dto,
                 isLastStep = true,
             };
-            (bool flag, string msg) = await UploadStationData(requestDto);
+            (bool flag, string msg) = await UploadData(requestDto);
             LogMgr.Instance.Debug($"Device:[{device.Name}]写电性能测试结果:{result} :\n{msg}");
             /*if (flag)
             {
