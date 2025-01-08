@@ -191,6 +191,12 @@ namespace DWZ_Scada.ctrls
                     UIMessageBox.ShowError("获取工单信息为空");
                     return;
                 }
+
+                if (string.IsNullOrEmpty(orderVo.ProductCode))
+                {
+                    UIMessageBox.ShowError("产品编号为空");
+                    return;
+                }
                 lbl_ProdModel.Text = orderVo.ProductCode;
                 CurProductCode = orderVo.ProductCode;
                 GetBomList(orderVo.ProductCode);
@@ -258,25 +264,39 @@ namespace DWZ_Scada.ctrls
 
         private async void GetBomList(string itemCode)
         {
-            BomList = new List<string>();
-            ProductBomService ProductBomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
-            (bool flag, string err, ProductDetailDto dto) = await ProductBomService.GetBomList(itemCode);
-            if (flag)
+            try
             {
-                if (dto != null)
+                BomList = new List<string>();
+                ProductBomService ProductBomService = Global.ServiceProvider.GetRequiredService<ProductBomService>();
+                (bool flag, string err, ProductDetailDto dto) = await ProductBomService.GetBomList(itemCode);
+                if (flag)
                 {
-                    ProductBomList = dto.ProductBomList;
-                    foreach (ProductBomDTO bomDto in dto.ProductBomList)
+                    if (dto != null)
                     {
-                        BomList.Add(bomDto.BomItemCode);
+                        if (dto.ProductBomList==null)
+                        {
+                            UIMessageBox.ShowError("查询产品Bom为空");
+                            return;
+                        }
+                        ProductBomList = dto.ProductBomList;
+                        foreach (ProductBomDTO bomDto in dto.ProductBomList)
+                        {
+                            BomList.Add(bomDto.BomItemCode);
+                        }
                     }
                 }
+                else
+                {
+                    UIMessageBox.ShowError("查询产品Bom错误:" + err);
+                    LogMgr.Instance.Error("查询产品Bom错误:" + err);
+                }
             }
-            else
+            catch (Exception e)
             {
-                UIMessageBox.ShowError("查询产品Bom错误:" + err);
-                LogMgr.Instance.Error("查询产品Bom错误:" + err);
+                UIMessageBox.ShowError($"获取Bom异常:{e.Message} 异常堆栈:{e.StackTrace}");
+                LogMgr.Instance.Error($"获取Bom异常:{e.Message} 异常堆栈:{e.StackTrace}");
             }
+           
         }
 
         private bool CheckBomSN(string inputSN, string bomItemCode)
