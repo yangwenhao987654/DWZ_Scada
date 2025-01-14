@@ -197,6 +197,10 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 }
                 LogMgr.Instance.Debug($"最终码等级:{finalCodeType} 结果:{finalResult}:");
                 short result = (short)(finalResult ? 1 : 2);
+                if (msg== "重复sn")
+                {
+                    result = 3;
+                }
                 PLC.WriteInt16(OP70Address.FinalCodeResult, result);
             }
         }
