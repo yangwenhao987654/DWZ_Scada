@@ -7,6 +7,7 @@ using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms.Design;
@@ -19,6 +20,16 @@ namespace DWZ_Scada
         工程师 = 2,
         管理员 = 3,
     }
+    public enum CodeType
+    {
+        A,
+        B,
+        C,
+        D,
+        E,
+        F
+    }
+
 
     #region 自定义特性
 
@@ -1085,6 +1096,12 @@ namespace DWZ_Scada
         [Permission(3), ReadOnly(false)]
         [DisplayName("2.PLC 端口号"), Category("7.OP70工站"), Description("PLC的端口号")]
         public int OP70_PlcPort { get; set; }
+
+
+        [EditorAttribute(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        [Permission(3), ReadOnly(false)]
+        [DisplayName("1.条码OK最低等级"), Category("7.条码配置"), Description("条码等级配置，大于等于该等级表示OK")]
+        public CodeType MinCodeType { get; set; }
         #endregion
 
 

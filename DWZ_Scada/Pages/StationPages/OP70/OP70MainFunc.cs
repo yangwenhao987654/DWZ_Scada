@@ -7,6 +7,7 @@ using DWZ_Scada.ProcessControl.DTO;
 using LogTool;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection.Emit;
 using System.Threading;
 using System.Threading.Tasks;
 using TouchSocket.Core;
@@ -39,7 +40,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
             }
         }
 
-        public event Action<string,string,bool> OP70FinalCodeFinished;
+        public event Action<string,string,int> OP70FinalCodeFinished;
 
         public event EntryStateChanged OP70EntryStateChanged;
 
@@ -174,7 +175,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 LogMgr.Instance.Debug("读取最终码内容:" + finalCode);
                 string finalCodeType = AnalizeFinalType(finalCode);
                 bool finalResult = CheckFinalCodeType(finalCodeType);
-                OP70FinalCodeFinished?.Invoke(finalCode, finalCodeType,finalResult);
+      
                 //string snTest = "QWER123456";
                 //上传Mes测试数据
                 PassStationDTO dto = new PassStationDTO()
@@ -201,6 +202,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 {
                     result = 3;
                 }
+                OP70FinalCodeFinished?.Invoke(finalCode, finalCodeType, result);
                 PLC.WriteInt16(OP70Address.FinalCodeResult, result);
             }
         }
@@ -225,20 +227,23 @@ namespace DWZ_Scada.Pages.StationPages.OP70
         private bool CheckFinalCodeType(string finalCodeType)
         {
             bool result = false;
-            switch (finalCodeType)
+            if (string.IsNullOrEmpty(finalCodeType))
             {
-                case "A":
-                    result =true; 
-                    break;
-                case "B":
-                    result =true; 
-                    break;
-                case "C":
-                    result =false; 
-                    break;
-                default:
-                    break;
+                LogMgr.Instance.Info("获取的码等级为空");
+                return false;
             }
+
+            if (string.IsNullOrEmpty(SystemParams.Instance.MinCodeType.ToString()))
+            {
+                LogMgr.Instance.Info("配置的码等级为空");
+                return false;
+            }
+            if (string.Compare(finalCodeType, SystemParams.Instance.MinCodeType.ToString()) <= 0)
+            {
+                return true;
+            }
+
+            return false;
             return result;
         }
 

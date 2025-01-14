@@ -71,27 +71,32 @@ namespace DWZ_Scada
             OP70MainFunc.Instance.OP70FinalCodeFinished += Instance_OP70FinalCodeFinished;
         }
 
-        private void Instance_OP70FinalCodeFinished(string finalcode, string codeType, bool result)
+        private void Instance_OP70FinalCodeFinished(string finalcode, string codeType, int result)
         {
             UpdateFinalcodeUI(finalcode, codeType, result);
         }
 
-        private void UpdateFinalcodeUI(string finalcode, string codeType, bool result)
+        private void UpdateFinalcodeUI(string finalcode, string codeType, int result)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new Action<string, string, bool>(UpdateFinalcodeUI),
+                this.Invoke(new Action<string, string, int>(UpdateFinalcodeUI),
                     finalcode, codeType, result);
                 return;
             }
-            if (result)
+            if (result==1)
             {
                 lbl_CodeResult.Text = "OK";
                 lbl_CodeResult.ForeColor = Color.Green;
             }
-            else
-            {
+            else if (result==2) {
+            
                 lbl_CodeResult.Text = "NG";
+                lbl_CodeResult.ForeColor = Color.Red;
+            }
+            else if (result == 3)
+            {
+                lbl_CodeResult.Text = "重码";
                 lbl_CodeResult.ForeColor = Color.Red;
             }
             lbl_FinalCode.Text = finalcode;
