@@ -291,6 +291,8 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 //表示正常测试完成 可以读取结果
                 string output = device.QueryDetailsWorkResult();
+
+                LogMgr.Instance.Debug($"[{device.Name}]测试结果:" + result);
                 dto = SafetyTestDto.ParseDto(output);
                 if (dto.SafetyTestResult == "Y")
                 {
@@ -346,6 +348,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 //表示正常测试完成 可以读取结果
                 string output = device.QueryDetailsWorkResult();
+                LogMgr.Instance.Debug($"[{device.Name}]测试结果:" + result);
                 dto = AtlBrxTestDto.ParseDto(output);
                 if (dto.AtlBrxTestResult == "Y")
                 {
