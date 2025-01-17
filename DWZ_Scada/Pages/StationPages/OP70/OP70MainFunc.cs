@@ -168,6 +168,7 @@ namespace DWZ_Scada.Pages.StationPages.OP70
                 PLC.ReadString(OP70Address.FinalCodeInfo, 30, out string finalCode);
                 LogMgr.Instance.Debug("读取最终码内容:" + finalCode);
                 string finalCodeType = AnalizeFinalType(finalCode);
+                finalCode =finalCode.Split(":")[0];
                 bool finalResult = CheckFinalCodeType(finalCodeType);
       
                 //string snTest = "QWER123456";
