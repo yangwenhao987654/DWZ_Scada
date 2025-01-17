@@ -426,7 +426,7 @@ namespace NUnitTest
         {
             UploadPassStationService UploadPassStationService = Global.ServiceProvider.GetRequiredService<UploadPassStationService>();
             string stationCode = "OP60";
-            string sn = "24110201";
+            string sn = "001";
             string workOrder = "MO202411020002";
             SafetyTestDto safetyTestDto =  SafetyTestDto.ParseDto(SafetyTestDto.OKStr);
             safetyTestDto.Good = true;
@@ -439,6 +439,8 @@ namespace NUnitTest
                 isLastStep = false
             };
             (bool, string) value = await UploadPassStationService.SendPassStationData(dto);
+            Assert.Pass($"{value.Item1}:{value.Item2}");
+            int a = 1;
         }
 
         [Test]

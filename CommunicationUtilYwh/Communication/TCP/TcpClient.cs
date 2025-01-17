@@ -144,6 +144,41 @@ namespace CommunicationUtilYwh.Communication.TCP
             }
         }
 
+
+        /// <summary>
+        /// 接收数据
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public string Read(Encoding encode)
+        {
+            lock (ob)
+            {
+                string datastr = string.Empty;
+                try
+                {
+                    if (IsConnected() && tcpclient.Available > 0)
+                    {
+                        WaitReadAll(Timeout);
+                        byte[] data = new byte[tcpclient.Available];
+                        tcpclient.Receive(data);
+                        datastr = encode.GetString(data);
+
+                        //TODO 把末尾\n后面的都去掉
+                        if (datastr != "")
+                        {
+                            datastr = RemoveCR(datastr);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string error = "读数据错误:" + ex.Message;
+                    //  MessageManager.gOnly.Alarm(error);
+                }
+                return datastr;
+            }
+        }
         private string RemoveCR(string str)
         {
             string[] strings = str.Split("\r");

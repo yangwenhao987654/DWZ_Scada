@@ -112,7 +112,7 @@ namespace DWZ_Scada.HttpRequest
                 else
                 {
                     LogMgr.Instance.AddMesError("请求错误");
-                    msg = "请求错误";
+                    msg = $"请求错误:{response.Content}";
                 }
             }
             catch (Exception e)

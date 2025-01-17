@@ -97,7 +97,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
 
         public override async void PLCMainWork(CancellationToken token)
         {
-
+            LogMgr.Instance.Info($"entry op60...");
             Thread t0 = new Thread(() => TestDeviceMonitor(token));
             t0.Start();
 
@@ -292,17 +292,17 @@ namespace DWZ_Scada.Pages.StationPages.OP60
                 //表示正常测试完成 可以读取结果
                 string output = device.QueryDetailsWorkResult();
 
-                LogMgr.Instance.Debug($"[{device.Name}]测试结果:" + result);
+                LogMgr.Instance.Info($"[{device.Name}]测试结果:" + output);
                 dto = SafetyTestDto.ParseDto(output);
                 if (dto.SafetyTestResult == "Y")
                 {
                     //表示测试OK
                     result = 1;
-                    LogMgr.Instance.Info($"[{device.Name}]测试OK!");
+                    LogMgr.Instance.Info($"[{device.Name}]测试OK!!!");
                 }
                 else
                 {
-                    LogMgr.Instance.Error($"[{device.Name}]测试NG!");
+                    LogMgr.Instance.Error($"[{device.Name}]测试NG!!!");
                 }
             }
             else if (state == 0)
@@ -348,7 +348,7 @@ namespace DWZ_Scada.Pages.StationPages.OP60
             {
                 //表示正常测试完成 可以读取结果
                 string output = device.QueryDetailsWorkResult();
-                LogMgr.Instance.Debug($"[{device.Name}]测试结果:" + result);
+                LogMgr.Instance.Info($"[{device.Name}]测试结果:" + output);
                 dto = AtlBrxTestDto.ParseDto(output);
                 if (dto.AtlBrxTestResult == "Y")
                 {

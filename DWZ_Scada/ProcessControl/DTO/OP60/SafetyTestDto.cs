@@ -74,9 +74,31 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
 
         public string DCRSinTemperature { get; set; }
 
+        public string IRCosSinResult { get; set; }
+        public string IRCosSinVoltage { get; set; }
+        public string IRCosSinResistance { get; set; }
+        public string IREsCosSinResult { get; set; }
+        public string IREsCosSinVoltage { get; set; }
+        public string IREsCosSinResistance { get; set; }
+        public string IWEsResult { get; set; }
+        public string IWEsAreaComparison { get; set; }
+        public string IWEsAreaDifferenceComparison { get; set; }
+        public string IWEsCoronaComparison { get; set; }
+        public string IWEsPhaseComparison { get; set; }
+        public string IWCosResult { get; set; }
+        public string IWCosAreaComparison { get; set; }
+        public string IWCosAreaDifferenceComparison { get; set; }
+        public string IWCosCoronaComparison { get; set; }
+        public string IWCosPhaseComparison { get; set; }
+        public string IWSinResult { get; set; }
+        public string IWSinAreaComparison { get; set; }
+        public string IWSinAreaDifferenceComparison { get; set; }
+        public string IWSinCoronaComparison { get; set; }
+        public string IWSinPhaseComparison { get; set; }
 
 
-        public static string OKStr = "Func=QueryDetailsWorkResult,Result=Success,ErrTxt=,TestResult=Y,ProductModel=1,ProductId=SN010WER,Tester=MAC,TestTime=2024-10-24 13:36:35,AC_EsCosSin_Gnd_Result=Y,AC_EsCosSin_Gnd_Voltage=499.9V,AC_EsCosSin_Gnd_Current=0.026178mA,AC_EsCosSin_Gnd_Arc=0%,AC_Cos_Sin_Result=Y,AC_Cos_Sin_Voltage=499.9V,AC_Cos_Sin_Current=0.303mA,AC_Cos_Sin_Arc=0%,AC_Es_CosSin_Result=Y,AC_Es_CosSin_Voltage=499.9V,AC_Es_CosSin_Current=0.30026mA,AC_Es_CosSin_Arc=0%,IR_EsCosSin_Gnd_Result=Y,IR_EsCosSin_Gnd_Voltage=499.9V,IR_EsCosSin_Gnd_Resistance=50G\\A6\\B8,IR_Es_Cos_Result=Y,IR_Es_Cos_Voltage=500V,IR_Es_Cos_Resistance=4.375G\\A6\\B8,IR_Es_Sin_Result=Y,IR_Es_Sin_Voltage=499.9V,IR_Es_Sin_Resistance=3.18G\\A6\\B8,DCR_Es_Result=Y,DCR_Es_Resistance=25.225\\A6\\B8,DCR_Es_Temperature=0\\A1\\E6,DCR_Cos_Result=Y,DCR_Cos_Resistance=39.792\\A6\\B8,DCR_Cos_Temperature=0\\A1\\E6,DCR_Sin_Result=Y,DCR_Sin_Resistance=36.9\\A6\\B8,DCR_Sin_Temperature=0\\A1\\E6\\0D\\0A";
+
+        public static string OKStr = "Func=QueryDetailsWorkResult,Result=Success,ErrTxt=,TestResult=Y,ProductModel=TSY1020N5303E102,ProductId=1111,Tester=MAC,TestTime=2025-01-15 09:38:41,AC_EsCosSin_Gnd_Result=Y,AC_EsCosSin_Gnd_Voltage=600V,AC_EsCosSin_Gnd_Current=0.049257mA,AC_EsCosSin_Gnd_Arc=0%,AC_Cos_Sin_Result=Y,AC_Cos_Sin_Voltage=599.7V,AC_Cos_Sin_Current=0.27453mA,AC_Cos_Sin_Arc=6%,AC_Es_CosSin_Result=Y,AC_Es_CosSin_Voltage=599.8V,AC_Es_CosSin_Current=0.30948mA,AC_Es_CosSin_Arc=3%,IR_EsCosSin_Gnd_Result=Y,IR_EsCosSin_Gnd_Voltage=499.8V,IR_EsCosSin_Gnd_Resistance=50G\\A6\\B8,IR_Cos_Sin_Result=Y,IR_Cos_Sin_Voltage=500V,IR_Cos_Sin_Resistance=49.689G\\A6\\B8,IR_Es_CosSin_Result=Y,IR_Es_CosSin_Voltage=499.9V,IR_Es_CosSin_Resistance=41.679G\\A6\\B8,DCR_Es_Result=Y,DCR_Es_Resistance=24.192\\A6\\B8,DCR_Es_Temperature=21.3\\A1\\E6,DCR_Cos_Result=Y,DCR_Cos_Resistance=38.196\\A6\\B8,DCR_Cos_Temperature=21.4\\A1\\E6,DCR_Sin_Result=Y,DCR_Sin_Resistance=35.583\\A6\\B8,DCR_Sin_Temperature=21.5\\A1\\E6,IW_Es_Result=Y,IW_Es_AreaComparison=0.6%,IW_Es_AreaDifferenceComparison=1.6,IW_Es_CoronaComparison=2,IW_Es_PhaseComparison=0.5%,IW_Cos_Result=Y,IW_Cos_AreaComparison=0%,IW_Cos_AreaDifferenceComparison=0.5,IW_Cos_CoronaComparison=2,IW_Cos_PhaseComparison=1.2%,IW_Sin_Result=Y,IW_Sin_AreaComparison=0.4%,IW_Sin_AreaDifferenceComparison=1,IW_Sin_CoronaComparison=2,IW_Sin_PhaseComparison=0%\\0D\\0A";
         public static SafetyTestDto ParseDto(string input)
         {
             SafetyTestDto result = new SafetyTestDto();
@@ -201,6 +223,69 @@ namespace DWZ_Scada.ProcessControl.DTO.OP60
                             break;
                         case "DCR_Sin_Temperature":
                             result.DCRSinTemperature = value;
+                            break;
+                        case "IR_Cos_Sin_Result":
+                            result.IRCosSinResult = value;
+                            break;
+                        case "IR_Cos_Sin_Voltage":
+                            result.IRCosSinVoltage = value;
+                            break;
+                        case "IR_Cos_Sin_Resistance":
+                            result.IRCosSinResistance = value;
+                            break;
+                        case "IR_Es_CosSin_Result":
+                            result.IREsCosSinResult = value;
+                            break;
+                        case "IR_Es_CosSin_Voltage":
+                            result.IREsCosSinVoltage = value;
+                            break;
+                        case "IR_Es_CosSin_Resistance":
+                            result.IREsCosSinResistance = value;
+                            break;
+                        case "IW_Es_Result":
+                            result.IWEsResult = value;
+                            break;
+                        case "IW_Es_AreaComparison":
+                            result.IWEsAreaComparison = value;
+                            break;
+                        case "IW_Es_AreaDifferenceComparison":
+                            result.IWEsAreaDifferenceComparison = value;
+                            break;
+                        case "IW_Es_CoronaComparison":
+                            result.IWEsCoronaComparison = value;
+                            break;
+                        case "IW_Es_PhaseComparison":
+                            result.IWEsPhaseComparison = value;
+                            break;
+                        case "IW_Cos_Result":
+                            result.IWCosResult = value;
+                            break;
+                        case "IW_Cos_AreaComparison":
+                            result.IWCosAreaComparison = value;
+                            break;
+                        case "IW_Cos_AreaDifferenceComparison":
+                            result.IWCosAreaDifferenceComparison = value;
+                            break;
+                        case "IW_Cos_CoronaComparison":
+                            result.IWCosCoronaComparison = value;
+                            break;
+                        case "IW_Cos_PhaseComparison":
+                            result.IWCosPhaseComparison = value;
+                            break;
+                        case "IW_Sin_Result":
+                            result.IWSinResult = value;
+                            break;
+                        case "IW_Sin_AreaComparison":
+                            result.IWSinAreaComparison = value;
+                            break;
+                        case "IW_Sin_AreaDifferenceComparison":
+                            result.IWSinAreaDifferenceComparison = value;
+                            break;
+                        case "IW_Sin_CoronaComparison":
+                            result.IWSinCoronaComparison = value;
+                            break;
+                        case "IW_Sin_PhaseComparison":
+                            result.IWSinPhaseComparison = value;
                             break;
                         default:
                             break;

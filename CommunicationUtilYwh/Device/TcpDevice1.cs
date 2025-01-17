@@ -1,6 +1,7 @@
 ﻿using CommunicationUtilYwh.Communication.TCP;
 using LogTool;
 using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -180,6 +181,43 @@ namespace CommunicationUtilYwh.Device
             //LogMgr.Instance.Debug("读取结果:" + result);
             return result;
 
+        }
+
+        /// <summary>
+        /// 发送指令触发扫码
+        /// </summary>
+        /// <returns></returns>
+        private string Send(string cmd,Encoding encode)
+        {
+            cmd += "\r\n";
+            bool f = Write(cmd);
+            //LogMgr.Instance.Debug("发送命令:"+cmd);
+            Thread.Sleep(500);
+            string result = Read(encode);
+            //LogMgr.Instance.Debug("读取结果:" + result);
+            return result;
+
+        }
+
+        public string Read(Encoding encode)
+        {
+            string res = null;
+            int times = 0;
+            while (true)
+            {
+                times++;
+                res = tcpclient.Read(encode);
+                if (!string.IsNullOrEmpty(res))
+                {
+                    break;
+                }
+                if (times > 5)
+                {
+                    break;
+                }
+                Thread.Sleep(50);
+            }
+            return res;
         }
 
         public string Read()
